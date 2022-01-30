@@ -19,7 +19,6 @@ public class LoginUser : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
     }
 
     public void Login(){
