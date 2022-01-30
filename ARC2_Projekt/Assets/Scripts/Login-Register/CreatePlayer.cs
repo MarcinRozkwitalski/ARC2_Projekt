@@ -18,7 +18,7 @@ public class CreatePlayer : MonoBehaviour
         RegisterButton.interactable = false;
         if (usernameInput.text.Length < 5)
         {
-            ErrorMessage("Username is to short!");
+            ErrorMessage("Username is too short!");
         }
         else if (emailInput.text.Length < 5)
         {
@@ -26,7 +26,7 @@ public class CreatePlayer : MonoBehaviour
         }
         else if (passwordInput.text.Length < 5)
         {
-            ErrorMessage("Password is to short!");
+            ErrorMessage("Password is too short!");
         }
         else
         {
@@ -78,17 +78,29 @@ public class CreatePlayer : MonoBehaviour
         {
             Debug.Log(CreatePostRequest.downloadHandler.text);
             string response = CreatePostRequest.downloadHandler.text;
-            if (response == "1" || response == "2" || response == "4" || response == "6")
+            if (response == "1")
             {
-                ErrorMessage("Server Error");
+                ErrorMessage("Database connection Error");
+            }
+            else if (response == "2")
+            {
+                ErrorMessage("Usernamecheck Error");
             }
             else if (response == "3")
             {
                 ErrorMessage("Username Already Exists");
             }
+            else if (response == "4")
+            {
+                ErrorMessage("Emailcheck Query Failed");
+            }
             else if (response == "5")
             {
-                ErrorMessage("Eamil Already Exists");
+                ErrorMessage("Email Already Exists");
+            }
+            else if (response == "6")
+            {
+                ErrorMessage("Error User to Query");
             }
             else
             {

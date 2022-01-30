@@ -16,14 +16,13 @@ public class LoginUser : MonoBehaviour
     public void Login(){
         loginButton.interactable = false;
         if(usernameInput.text.Length < 3){
-            ErrorOnLoginMessage("Check username");
+            ErrorOnLoginMessage("Check Username");
         }
         else if (passwordInput.text.Length < 3){
-            ErrorOnLoginMessage("Check password");
+            ErrorOnLoginMessage("Check Password");
         } 
         else {
-            Debug.Log("Good to go.");
-            var currentPlayer = Instantiate(currentPlayerObject, new Vector3(0, 0, 0), Quaternion.identity);
+            StartCoroutine(SendLoginForm());
         }
     }
 
@@ -40,4 +39,19 @@ public class LoginUser : MonoBehaviour
         loginButton.interactable = true;
     }
 
+    IEnumerator SendLoginForm(){
+        WWWForm LoginInfo = new WWWForm();
+        LoginInfo.AddField("apppassword", "thisisfromtheapp!");
+        LoginInfo.AddField("username", usernameInput.text);
+        LoginInfo.AddField("password", passwordInput.text);
+        UnityWebRequest loginRequest = UnityWebRequest.Post("http://localhost/arcCruds/loginuser.php", LoginInfo);
+        yield return loginRequest.SendWebRequest();
+        if(loginRequest.error == null){
+            Debug.Log("Form sent");
+            Debug.Log(loginRequest.downloadHandler.text);
+            var currentPlayer = Instantiate(currentPlayerObject, new Vector3(0, 0, 0), Quaternion.identity);
+        } else{
+            Debug.Log(loginRequest.error);
+        }
+    }
 }
