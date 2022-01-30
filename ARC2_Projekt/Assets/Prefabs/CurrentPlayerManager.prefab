@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2562417776171719018}
   m_Layer: 0
   m_Name: CurrentPlayerManager
-  m_TagString: Untagged
+  m_TagString: CurrentPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,3 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75bb878373f26e040a7fc8f6a0f6d1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Username: 
+  Email: 
+  Money: 0
+  Life: 0
+  Level: 0

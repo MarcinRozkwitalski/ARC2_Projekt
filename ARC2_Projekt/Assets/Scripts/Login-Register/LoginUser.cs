@@ -13,6 +13,15 @@ public class LoginUser : MonoBehaviour
 
     public GameObject currentPlayerObject;
 
+    private void Awake() {
+        var players = FindObjectsOfType<CurrentPlayer>();
+        if(players.Length > 1)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void Login(){
         loginButton.interactable = false;
         loginButtonText.text = "Sending...";
