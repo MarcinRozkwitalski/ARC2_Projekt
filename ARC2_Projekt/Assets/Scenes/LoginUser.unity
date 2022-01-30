@@ -671,7 +671,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1244733658}
         m_TargetAssemblyTypeName: LoginUser, Assembly-CSharp
         m_MethodName: ResetLoginButton
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1008,6 +1008,8 @@ MonoBehaviour:
   passwordInput: {fileID: 970219246}
   loginButton: {fileID: 644430182}
   loginButtonText: {fileID: 1901818690}
+  currentPlayerObject: {fileID: 2562417776171719019, guid: 5c62b54c86cb7324fa252317528b1627,
+    type: 3}
 --- !u!4 &1244733659
 Transform:
   m_ObjectHideFlags: 0
@@ -1413,7 +1415,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1244733658}
         m_TargetAssemblyTypeName: LoginUser, Assembly-CSharp
         m_MethodName: ResetLoginButton
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

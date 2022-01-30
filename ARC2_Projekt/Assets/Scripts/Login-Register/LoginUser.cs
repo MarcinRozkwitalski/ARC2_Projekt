@@ -11,6 +11,8 @@ public class LoginUser : MonoBehaviour
     public Button loginButton;
     public Text loginButtonText;
 
+    public GameObject currentPlayerObject;
+
     public void Login(){
         loginButton.interactable = false;
         if(usernameInput.text.Length < 3){
@@ -21,6 +23,7 @@ public class LoginUser : MonoBehaviour
         } 
         else {
             Debug.Log("Good to go.");
+            var currentPlayer = Instantiate(currentPlayerObject, new Vector3(0, 0, 0), Quaternion.identity);
         }
     }
 
