@@ -78,32 +78,13 @@ public class CreatePlayer : MonoBehaviour
         {
             Debug.Log(CreatePostRequest.downloadHandler.text);
             string response = CreatePostRequest.downloadHandler.text;
-            if (response == "1")
-            {
-                ErrorMessage("Database connection Error");
-            }
-            else if (response == "2")
-            {
-                ErrorMessage("Usernamecheck Error");
-            }
-            else if (response == "3")
-            {
-                ErrorMessage("Username Already Exists");
-            }
-            else if (response == "4")
-            {
-                ErrorMessage("Emailcheck Query Failed");
-            }
-            else if (response == "5")
-            {
-                ErrorMessage("Email Already Exists");
-            }
-            else if (response == "6")
-            {
-                ErrorMessage("Error User to Query");
-            }
-            else
-            {
+            if (response == "1" || response == "2" || response == "4" || response == "6"){
+                ErrorMessage("Server Error");
+            } else if (response == "3"){
+                ErrorMessage("Username already exists");
+            } else if (response == "5"){
+                ErrorMessage("Email already exists");
+            } else {
                 SetButtonToSuccess();
             }
         }

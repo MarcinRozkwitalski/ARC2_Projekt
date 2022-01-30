@@ -15,6 +15,7 @@ public class LoginUser : MonoBehaviour
 
     public void Login(){
         loginButton.interactable = false;
+        loginButtonText.text = "Sending...";
         if(usernameInput.text.Length < 3){
             ErrorOnLoginMessage("Check Username");
         }
@@ -47,10 +48,19 @@ public class LoginUser : MonoBehaviour
         UnityWebRequest loginRequest = UnityWebRequest.Post("http://localhost/arcCruds/loginuser.php", LoginInfo);
         yield return loginRequest.SendWebRequest();
         if(loginRequest.error == null){
-            Debug.Log("Form sent");
-            Debug.Log(loginRequest.downloadHandler.text);
-            var currentPlayer = Instantiate(currentPlayerObject, new Vector3(0, 0, 0), Quaternion.identity);
-        } else{
+            string result = loginRequest.downloadHandler.text;
+            if (result == "1" || result == "2" || result == "5"){
+                ErrorOnLoginMessage("Server Error");
+            } else if (result == "3"){
+                ErrorOnLoginMessage("Check Username");
+            } else if (result == "4"){
+                ErrorOnLoginMessage("Check Password");
+            } else {
+                var currentPlayer = Instantiate(currentPlayerObject, new Vector3(0, 0, 0), Quaternion.identity);
+                loginButton.GetComponent<Image>().color = Color.green;
+                loginButtonText.text= "Logged in!";
+            }
+        } else {
             Debug.Log(loginRequest.error);
         }
     }
