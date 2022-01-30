@@ -57,8 +57,14 @@ public class LoginUser : MonoBehaviour
                 ErrorOnLoginMessage("Check Password");
             } else {
                 var currentPlayer = Instantiate(currentPlayerObject, new Vector3(0, 0, 0), Quaternion.identity);
+                currentPlayer.GetComponent<CurrentPlayer>().Username = result.Split(':')[0];
+                // currentPlayer.GetComponent<CurrentPlayer>().Score = int.Parse(result.Split(':')[1]);
+                currentPlayer.GetComponent<CurrentPlayer>().Money = int.Parse(result.Split(':')[1]);
+                currentPlayer.GetComponent<CurrentPlayer>().Life = int.Parse(result.Split(':')[2]);
+                currentPlayer.GetComponent<CurrentPlayer>().Level = int.Parse(result.Split(':')[3]);
                 loginButton.GetComponent<Image>().color = Color.green;
                 loginButtonText.text= "Logged in!";
+                FindObjectOfType<SceneSwitcher>().LoadPlayerWelcomeScene();
             }
         } else {
             Debug.Log(loginRequest.error);

@@ -17,4 +17,8 @@ public class SceneSwitcher : MonoBehaviour
     public void LoadLoginScene(){
         SceneManager.LoadScene(2);
     }
+
+    public void LoadPlayerWelcomeScene(){
+        SceneManager.LoadScene(3);
+    }
 }
