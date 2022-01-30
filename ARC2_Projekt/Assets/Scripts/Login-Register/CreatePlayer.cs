@@ -69,13 +69,13 @@ public class CreatePlayer : MonoBehaviour
 
         WWWForm newPlayerInfo = new WWWForm();
         newPlayerInfo.AddField("username", usernameInput.text);
-        newPlayerInfo.AddField("email", usernameInput.text);
-        newPlayerInfo.AddField("password", usernameInput.text);
-        UnityWebRequest CreatePostRequest = UnityWebRequest.Post("http://localhost/cruds/newplayer", newPlayerInfo);
+        newPlayerInfo.AddField("email", emailInput.text);
+        newPlayerInfo.AddField("password", passwordInput.text);
+        UnityWebRequest CreatePostRequest = UnityWebRequest.Post("http://localhost/arcCruds/newplayer.php", newPlayerInfo);
         yield return CreatePostRequest.SendWebRequest();
         if (CreatePostRequest.error == null)
         {
-            Debug.Log("Register successfull!");
+            Debug.Log(CreatePostRequest.downloadHandler.text);
             SetButtonToSuccess();
         }
         else
