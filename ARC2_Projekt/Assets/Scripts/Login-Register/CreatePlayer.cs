@@ -68,6 +68,7 @@ public class CreatePlayer : MonoBehaviour
     {
 
         WWWForm newPlayerInfo = new WWWForm();
+        newPlayerInfo.AddField("apppassword","thisisfromtheapp!");
         newPlayerInfo.AddField("username", usernameInput.text);
         newPlayerInfo.AddField("email", emailInput.text);
         newPlayerInfo.AddField("password", passwordInput.text);
@@ -76,7 +77,23 @@ public class CreatePlayer : MonoBehaviour
         if (CreatePostRequest.error == null)
         {
             Debug.Log(CreatePostRequest.downloadHandler.text);
-            SetButtonToSuccess();
+            string response = CreatePostRequest.downloadHandler.text;
+            if (response == "1" || response == "2" || response == "4" || response == "6")
+            {
+                ErrorMessage("Server Error");
+            }
+            else if (response == "3")
+            {
+                ErrorMessage("Username Already Exists");
+            }
+            else if (response == "5")
+            {
+                ErrorMessage("Eamil Already Exists");
+            }
+            else
+            {
+                SetButtonToSuccess();
+            }
         }
         else
         {
