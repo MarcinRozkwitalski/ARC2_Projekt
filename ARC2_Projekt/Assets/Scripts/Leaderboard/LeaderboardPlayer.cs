@@ -7,7 +7,7 @@ public class LeaderboardPlayer : MonoBehaviour
 {
     public Text Username;
     public Text Score;
-    public Text Rank;
+    public GameObject Rank;
 
 
     public string username;
@@ -15,9 +15,16 @@ public class LeaderboardPlayer : MonoBehaviour
     public int rank;
     public void AssignInfo()
     {
+        Rank.SetActive(true);
         Username.text = username;
         Score.text = score.ToString();
-        Rank.text = rank.ToString() + ".";
+        Rank.GetComponent<Text>().text = rank.ToString() + ".";
     }
-    
+
+    public void AssignSearchInfo()
+    {
+        Rank.SetActive(false);
+        Username.text = username;
+        Score.text = score.ToString();
+    }
 }

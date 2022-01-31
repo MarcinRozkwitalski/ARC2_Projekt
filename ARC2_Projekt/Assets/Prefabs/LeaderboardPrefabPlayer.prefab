@@ -331,7 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Username: {fileID: 158899456671349164}
   Score: {fileID: 158899455864876281}
-  Rank: {fileID: 5472488185069435468}
+  Rank: {fileID: 9187687590234240381}
   username: 
   score: 0
   rank: 0

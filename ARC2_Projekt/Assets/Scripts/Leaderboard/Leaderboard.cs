@@ -54,19 +54,36 @@ public class Leaderboard : MonoBehaviour
     {
         DestroyAllLeaderboardPlayers();
         DisableSearchButton();
-        StartCoroutine(SearchForPlayer());
+        if(searchInput.text == "")
+        {
+            StartCoroutine(GetAllPlayers());
+            ResetSearchButton();
+        } 
+        else 
+        {
+            StartCoroutine(SearchForPlayer());
+        }
     }
 
     IEnumerator SearchForPlayer()
     {
         WWWForm searchForm = new WWWForm();
-        searchForm.AddField("search", searchInput.text);
         searchForm.AddField("apppassword", "thisisfromtheapp!");
+        searchForm.AddField("search", searchInput.text);
         UnityWebRequest searchForPlayerRequest = UnityWebRequest.Post("http://localhost/leaderboard/search.php", searchForm);
         yield return searchForPlayerRequest.SendWebRequest();
         if (searchForPlayerRequest.error == null)
         {
-            Debug.Log("searching...");
+            Debug.Log(searchForPlayerRequest.downloadHandler.text);
+            JSONNode allPlayers = JSON.Parse(searchForPlayerRequest.downloadHandler.text);
+            foreach (JSONNode player in allPlayers)
+            {
+                var leaderboardPlayer = Instantiate(leaderPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                leaderboardPlayer.transform.SetParent(panel.transform);
+                leaderboardPlayer.GetComponent<LeaderboardPlayer>().username = player[0];
+                leaderboardPlayer.GetComponent<LeaderboardPlayer>().score = int.Parse(player[1]);
+                leaderboardPlayer.GetComponent<LeaderboardPlayer>().AssignSearchInfo();
+            }
         }
         else
         {
@@ -84,7 +101,7 @@ public class Leaderboard : MonoBehaviour
 
     public void ResetSearchButton()
     {
-        searchButtonText.text = "Searching...";
+        searchButtonText.text = "Search";
         searchButton.GetComponent<Image>().color = Color.white;
         searchButton.interactable = true;
     }
