@@ -25,10 +25,15 @@ public class PlayerGameScript : MonoBehaviour
         FindObjectOfType<SceneSwitcher>().LoadGame();
     }
 
+    public void LoadLeaderboard()
+    {
+        FindObjectOfType<SceneSwitcher>().LoadLeaderboardScene();
+    }
+
     public void SignOut()
     {
         var CurrentPlayers = GameObject.FindGameObjectsWithTag("CurrentPlayer");
-        foreach(var item in CurrentPlayers)
+        foreach (var item in CurrentPlayers)
         {
             Destroy(item);
         }

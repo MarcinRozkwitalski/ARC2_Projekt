@@ -25,4 +25,8 @@ public class SceneSwitcher : MonoBehaviour
     public void LoadGame(){
         SceneManager.LoadScene(4);
     }
+
+    public void LoadLeaderboardScene(){
+        SceneManager.LoadScene(5);
+    }
 }
