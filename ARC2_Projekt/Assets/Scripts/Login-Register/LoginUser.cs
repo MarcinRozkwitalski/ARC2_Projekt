@@ -21,6 +21,10 @@ public class LoginUser : MonoBehaviour
         }
     }
 
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Return))Login();
+    }
+
     public void Login(){
         loginButton.interactable = false;
         loginButtonText.text = "Sending...";

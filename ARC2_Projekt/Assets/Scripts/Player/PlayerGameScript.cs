@@ -17,7 +17,8 @@ public class PlayerGameScript : MonoBehaviour
         int CurrentPlayerLife = CurrentPlayer.GetComponent<CurrentPlayer>().Life;
         int CurrentPlayerLevel = CurrentPlayer.GetComponent<CurrentPlayer>().Level;
 
-        UserInfoText.text = "User: " + CurrentPlayerUsername + " | Money: " + CurrentPlayerMoney + " | Life: " + CurrentPlayerLife + " | Level: " + CurrentPlayerLevel;
+        // UserInfoText.text = "User: " + CurrentPlayerUsername + " | Money: " + CurrentPlayerMoney + " | Life: " + CurrentPlayerLife + " | Level: " + CurrentPlayerLevel;
+        UserInfoText.text = CurrentPlayerUsername + ": lvl " + CurrentPlayerLevel + "\nLife: " + CurrentPlayerLife + "\nMoney: " + CurrentPlayerMoney;
     }
 
     public void StartGame()
