@@ -10,23 +10,33 @@ public class SceneSwitcher : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void LoadNewUserScene(){
+    public void LoadNewUserScene()
+    {
         SceneManager.LoadScene(1);
     }
 
-    public void LoadLoginScene(){
+    public void LoadLoginScene()
+    {
         SceneManager.LoadScene(2);
     }
 
-    public void LoadPlayerWelcomeScene(){
+    public void LoadPlayerWelcomeScene()
+    {
         SceneManager.LoadScene(3);
     }
 
-    public void LoadGame(){
+    public void LoadGame()
+    {
         SceneManager.LoadScene(4);
     }
 
-    public void LoadLeaderboardScene(){
+    public void LoadLeaderboardScene()
+    {
         SceneManager.LoadScene(5);
+    }
+
+    public void LoadPlayer()
+    {
+        SceneManager.LoadScene(6);
     }
 }

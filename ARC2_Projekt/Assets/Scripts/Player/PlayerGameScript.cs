@@ -31,6 +31,11 @@ public class PlayerGameScript : MonoBehaviour
         FindObjectOfType<SceneSwitcher>().LoadLeaderboardScene();
     }
 
+    public void LoadPlayer()
+    {
+        FindObjectOfType<SceneSwitcher>().LoadPlayer();
+    }
+
     public void SignOut()
     {
         var CurrentPlayers = GameObject.FindGameObjectsWithTag("CurrentPlayer");
