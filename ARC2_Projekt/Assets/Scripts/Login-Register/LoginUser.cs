@@ -74,6 +74,7 @@ public class LoginUser : MonoBehaviour
                 currentPlayer.GetComponent<CurrentPlayer>().Money = int.Parse(result.Split(':')[1]);
                 currentPlayer.GetComponent<CurrentPlayer>().Life = int.Parse(result.Split(':')[2]);
                 currentPlayer.GetComponent<CurrentPlayer>().Level = int.Parse(result.Split(':')[3]);
+                currentPlayer.GetComponent<CurrentPlayer>().Id = int.Parse(result.Split(':')[4]);
                 loginButton.GetComponent<Image>().color = Color.green;
                 loginButtonText.text= "Logged in!";
                 FindObjectOfType<SceneSwitcher>().LoadPlayerWelcomeScene();

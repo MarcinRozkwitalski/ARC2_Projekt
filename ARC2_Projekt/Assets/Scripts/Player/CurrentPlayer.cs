@@ -9,6 +9,7 @@ public class CurrentPlayer : MonoBehaviour
     public int Money;
     public int Life;
     public int Level;
+    public int Id;
 
     private void Awake()
     {

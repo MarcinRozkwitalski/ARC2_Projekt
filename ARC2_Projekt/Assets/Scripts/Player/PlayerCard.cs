@@ -17,7 +17,7 @@ public class PlayerCard : MonoBehaviour
     public int price;
     public int points;
 
-    void Start()
+    public void AssignInfo()
     {
         CardName.text = cardname;
         Type.text = type;
