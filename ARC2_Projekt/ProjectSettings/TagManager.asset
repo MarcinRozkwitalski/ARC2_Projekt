@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CurrentPlayer
   - LeaderboardPlayer
+  - PlayerCard
   layers:
   - Default
   - TransparentFX
