@@ -43,6 +43,24 @@ public class Player : MonoBehaviour
         StartCoroutine(GetAllDefenceCards());
     }
 
+    public void AllDeckCards()
+    {
+        DestroyAllPlayerDeckCards();
+        StartCoroutine(GetAllPlayerDeckCards());
+    }
+
+    public void AttackDeckCards()
+    {
+        DestroyAllPlayerDeckCards();
+        StartCoroutine(GetAllAttackPlayerDeckCards());
+    }
+
+    public void DefenceDeckCards()
+    {
+        DestroyAllPlayerDeckCards();
+        StartCoroutine(GetAllDefencePlayerDeckCards());
+    }
+
     IEnumerator GetAllPlayerCards()
     {
         WWWForm getAllPlayerCardsForm = new WWWForm();
@@ -148,6 +166,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void DestroyAllPlayerDeckCards()
+    {
+        var playerCards = GameObject.FindGameObjectsWithTag("PlayerCard");
+        foreach (var card in playerCards)
+        {
+            if (card.GetComponent<PlayerCard>().IsCardEquipped()) Destroy(card);
+        }
+    }
+
     // continue
     IEnumerator GetAllPlayerDeckCards()
     {
@@ -155,6 +182,70 @@ public class Player : MonoBehaviour
         getAllPlayerDeckCardsForm.AddField("apppassword", "thisisfromtheapp!");
         getAllPlayerDeckCardsForm.AddField("Id", CurrentPlayerId);
         UnityWebRequest getAllPlayerDeckCardsRequest = UnityWebRequest.Post("http://localhost/playercards/getalldeckcards.php", getAllPlayerDeckCardsForm);
+        yield return getAllPlayerDeckCardsRequest.SendWebRequest();
+        if (getAllPlayerDeckCardsRequest.error == null)
+        {
+            JSONNode allPlayerDeckCards = JSON.Parse(getAllPlayerDeckCardsRequest.downloadHandler.text);
+            foreach (JSONNode player_cards in allPlayerDeckCards)
+            {
+                var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                playerCard.transform.SetParent(deckPanel.transform);
+                playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
+                playerCard.GetComponent<PlayerCard>().type = player_cards[1];
+                playerCard.GetComponent<PlayerCard>().description = player_cards[2];
+                playerCard.GetComponent<PlayerCard>().price = int.Parse(player_cards[3]);
+                playerCard.GetComponent<PlayerCard>().points = int.Parse(player_cards[4]);
+                playerCard.GetComponent<PlayerCard>().healthPoints = int.Parse(player_cards[5]);
+                playerCard.GetComponent<PlayerCard>().id = int.Parse(player_cards[6]);
+                if (player_cards[7] == "0") playerCard.GetComponent<PlayerCard>().is_equipped = false;
+                else playerCard.GetComponent<PlayerCard>().is_equipped = true;
+                playerCard.GetComponent<PlayerCard>().AssignInfo();
+            }
+        }
+        else
+        {
+            Debug.Log(getAllPlayerDeckCardsRequest.error);
+        }
+    }
+
+    IEnumerator GetAllAttackPlayerDeckCards()
+    {
+        WWWForm getAllPlayerDeckCardsForm = new WWWForm();
+        getAllPlayerDeckCardsForm.AddField("apppassword", "thisisfromtheapp!");
+        getAllPlayerDeckCardsForm.AddField("Id", CurrentPlayerId);
+        UnityWebRequest getAllPlayerDeckCardsRequest = UnityWebRequest.Post("http://localhost/playercards/getallattackdeckcards.php", getAllPlayerDeckCardsForm);
+        yield return getAllPlayerDeckCardsRequest.SendWebRequest();
+        if (getAllPlayerDeckCardsRequest.error == null)
+        {
+            JSONNode allPlayerDeckCards = JSON.Parse(getAllPlayerDeckCardsRequest.downloadHandler.text);
+            foreach (JSONNode player_cards in allPlayerDeckCards)
+            {
+                var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                playerCard.transform.SetParent(deckPanel.transform);
+                playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
+                playerCard.GetComponent<PlayerCard>().type = player_cards[1];
+                playerCard.GetComponent<PlayerCard>().description = player_cards[2];
+                playerCard.GetComponent<PlayerCard>().price = int.Parse(player_cards[3]);
+                playerCard.GetComponent<PlayerCard>().points = int.Parse(player_cards[4]);
+                playerCard.GetComponent<PlayerCard>().healthPoints = int.Parse(player_cards[5]);
+                playerCard.GetComponent<PlayerCard>().id = int.Parse(player_cards[6]);
+                if (player_cards[7] == "0") playerCard.GetComponent<PlayerCard>().is_equipped = false;
+                else playerCard.GetComponent<PlayerCard>().is_equipped = true;
+                playerCard.GetComponent<PlayerCard>().AssignInfo();
+            }
+        }
+        else
+        {
+            Debug.Log(getAllPlayerDeckCardsRequest.error);
+        }
+    }
+
+    IEnumerator GetAllDefencePlayerDeckCards()
+    {
+        WWWForm getAllPlayerDeckCardsForm = new WWWForm();
+        getAllPlayerDeckCardsForm.AddField("apppassword", "thisisfromtheapp!");
+        getAllPlayerDeckCardsForm.AddField("Id", CurrentPlayerId);
+        UnityWebRequest getAllPlayerDeckCardsRequest = UnityWebRequest.Post("http://localhost/playercards/getalldefencedeckcards.php", getAllPlayerDeckCardsForm);
         yield return getAllPlayerDeckCardsRequest.SendWebRequest();
         if (getAllPlayerDeckCardsRequest.error == null)
         {
@@ -194,7 +285,4 @@ public class Player : MonoBehaviour
         UnityWebRequest getAllDefenceCardsRequest = UnityWebRequest.Post("http://localhost/playercards/getalldefence.php", getAllDefenceCardsForm);
         yield return getAllDefenceCardsRequest.SendWebRequest();
     }
-
-
-
 }
