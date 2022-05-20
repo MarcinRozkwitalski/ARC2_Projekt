@@ -71,21 +71,23 @@ public class Player : MonoBehaviour
         if (getAllPlayerCardsRequest.error == null)
         {
             JSONNode allPlayerCards = JSON.Parse(getAllPlayerCardsRequest.downloadHandler.text);
-            foreach (JSONNode player_cards in allPlayerCards)
-            {
-                var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                playerCard.transform.SetParent(panel.transform);
-                playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
-                playerCard.GetComponent<PlayerCard>().type = player_cards[1];
-                playerCard.GetComponent<PlayerCard>().description = player_cards[2];
-                playerCard.GetComponent<PlayerCard>().price = int.Parse(player_cards[3]);
-                playerCard.GetComponent<PlayerCard>().points = int.Parse(player_cards[4]);
-                playerCard.GetComponent<PlayerCard>().healthPoints = int.Parse(player_cards[5]);
-                playerCard.GetComponent<PlayerCard>().id = int.Parse(player_cards[6]);
-                if (player_cards[7] == "0") playerCard.GetComponent<PlayerCard>().is_equipped = false;
-                else playerCard.GetComponent<PlayerCard>().is_equipped = true;
-                playerCard.GetComponent<PlayerCard>().AssignInfo();
-            }
+            if (allPlayerCards != null)
+                foreach (JSONNode player_cards in allPlayerCards)
+                {
+                    var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    playerCard.transform.SetParent(panel.transform);
+                    playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
+                    playerCard.GetComponent<PlayerCard>().type = player_cards[1];
+                    playerCard.GetComponent<PlayerCard>().description = player_cards[2];
+                    playerCard.GetComponent<PlayerCard>().price = int.Parse(player_cards[3]);
+                    playerCard.GetComponent<PlayerCard>().points = int.Parse(player_cards[4]);
+                    playerCard.GetComponent<PlayerCard>().healthPoints = int.Parse(player_cards[5]);
+                    playerCard.GetComponent<PlayerCard>().id = int.Parse(player_cards[6]);
+                    if (player_cards[7] == "0") playerCard.GetComponent<PlayerCard>().is_equipped = false;
+                    else playerCard.GetComponent<PlayerCard>().is_equipped = true;
+                    playerCard.GetComponent<PlayerCard>().AssignInfo();
+                }
+            ;
         }
         else
         {
@@ -103,21 +105,23 @@ public class Player : MonoBehaviour
         if (getAllAttackCardsRequest.error == null)
         {
             JSONNode allPlayerCards = JSON.Parse(getAllAttackCardsRequest.downloadHandler.text);
-            foreach (JSONNode player_cards in allPlayerCards)
-            {
-                var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                playerCard.transform.SetParent(panel.transform);
-                playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
-                playerCard.GetComponent<PlayerCard>().type = player_cards[1];
-                playerCard.GetComponent<PlayerCard>().description = player_cards[2];
-                playerCard.GetComponent<PlayerCard>().price = int.Parse(player_cards[3]);
-                playerCard.GetComponent<PlayerCard>().points = int.Parse(player_cards[4]);
-                playerCard.GetComponent<PlayerCard>().healthPoints = int.Parse(player_cards[5]);
-                playerCard.GetComponent<PlayerCard>().id = int.Parse(player_cards[6]);
-                if (player_cards[7] == "0") playerCard.GetComponent<PlayerCard>().is_equipped = false;
-                else playerCard.GetComponent<PlayerCard>().is_equipped = true;
-                playerCard.GetComponent<PlayerCard>().AssignInfo();
-            }
+            if (allPlayerCards != null)
+                foreach (JSONNode player_cards in allPlayerCards)
+                {
+                    var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    playerCard.transform.SetParent(panel.transform);
+                    playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
+                    playerCard.GetComponent<PlayerCard>().type = player_cards[1];
+                    playerCard.GetComponent<PlayerCard>().description = player_cards[2];
+                    playerCard.GetComponent<PlayerCard>().price = int.Parse(player_cards[3]);
+                    playerCard.GetComponent<PlayerCard>().points = int.Parse(player_cards[4]);
+                    playerCard.GetComponent<PlayerCard>().healthPoints = int.Parse(player_cards[5]);
+                    playerCard.GetComponent<PlayerCard>().id = int.Parse(player_cards[6]);
+                    if (player_cards[7] == "0") playerCard.GetComponent<PlayerCard>().is_equipped = false;
+                    else playerCard.GetComponent<PlayerCard>().is_equipped = true;
+                    playerCard.GetComponent<PlayerCard>().AssignInfo();
+                }
+            ;
         }
         else
         {
@@ -135,21 +139,23 @@ public class Player : MonoBehaviour
         if (getAllDefenceCardsRequest.error == null)
         {
             JSONNode allPlayerCards = JSON.Parse(getAllDefenceCardsRequest.downloadHandler.text);
-            foreach (JSONNode player_cards in allPlayerCards)
-            {
-                var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                playerCard.transform.SetParent(panel.transform);
-                playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
-                playerCard.GetComponent<PlayerCard>().type = player_cards[1];
-                playerCard.GetComponent<PlayerCard>().description = player_cards[2];
-                playerCard.GetComponent<PlayerCard>().price = int.Parse(player_cards[3]);
-                playerCard.GetComponent<PlayerCard>().points = int.Parse(player_cards[4]);
-                playerCard.GetComponent<PlayerCard>().healthPoints = int.Parse(player_cards[5]);
-                playerCard.GetComponent<PlayerCard>().id = int.Parse(player_cards[6]);
-                if (player_cards[7] == "0") playerCard.GetComponent<PlayerCard>().is_equipped = false;
-                else playerCard.GetComponent<PlayerCard>().is_equipped = true;
-                playerCard.GetComponent<PlayerCard>().AssignInfo();
-            }
+            if (allPlayerCards != null)
+                foreach (JSONNode player_cards in allPlayerCards)
+                {
+                    var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    playerCard.transform.SetParent(panel.transform);
+                    playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
+                    playerCard.GetComponent<PlayerCard>().type = player_cards[1];
+                    playerCard.GetComponent<PlayerCard>().description = player_cards[2];
+                    playerCard.GetComponent<PlayerCard>().price = int.Parse(player_cards[3]);
+                    playerCard.GetComponent<PlayerCard>().points = int.Parse(player_cards[4]);
+                    playerCard.GetComponent<PlayerCard>().healthPoints = int.Parse(player_cards[5]);
+                    playerCard.GetComponent<PlayerCard>().id = int.Parse(player_cards[6]);
+                    if (player_cards[7] == "0") playerCard.GetComponent<PlayerCard>().is_equipped = false;
+                    else playerCard.GetComponent<PlayerCard>().is_equipped = true;
+                    playerCard.GetComponent<PlayerCard>().AssignInfo();
+                }
+            ;
         }
         else
         {
@@ -186,21 +192,23 @@ public class Player : MonoBehaviour
         if (getAllPlayerDeckCardsRequest.error == null)
         {
             JSONNode allPlayerDeckCards = JSON.Parse(getAllPlayerDeckCardsRequest.downloadHandler.text);
-            foreach (JSONNode player_cards in allPlayerDeckCards)
-            {
-                var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                playerCard.transform.SetParent(deckPanel.transform);
-                playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
-                playerCard.GetComponent<PlayerCard>().type = player_cards[1];
-                playerCard.GetComponent<PlayerCard>().description = player_cards[2];
-                playerCard.GetComponent<PlayerCard>().price = int.Parse(player_cards[3]);
-                playerCard.GetComponent<PlayerCard>().points = int.Parse(player_cards[4]);
-                playerCard.GetComponent<PlayerCard>().healthPoints = int.Parse(player_cards[5]);
-                playerCard.GetComponent<PlayerCard>().id = int.Parse(player_cards[6]);
-                if (player_cards[7] == "0") playerCard.GetComponent<PlayerCard>().is_equipped = false;
-                else playerCard.GetComponent<PlayerCard>().is_equipped = true;
-                playerCard.GetComponent<PlayerCard>().AssignInfo();
-            }
+            if (allPlayerDeckCards != null)
+                foreach (JSONNode player_cards in allPlayerDeckCards)
+                {
+                    var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    playerCard.transform.SetParent(deckPanel.transform);
+                    playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
+                    playerCard.GetComponent<PlayerCard>().type = player_cards[1];
+                    playerCard.GetComponent<PlayerCard>().description = player_cards[2];
+                    playerCard.GetComponent<PlayerCard>().price = int.Parse(player_cards[3]);
+                    playerCard.GetComponent<PlayerCard>().points = int.Parse(player_cards[4]);
+                    playerCard.GetComponent<PlayerCard>().healthPoints = int.Parse(player_cards[5]);
+                    playerCard.GetComponent<PlayerCard>().id = int.Parse(player_cards[6]);
+                    if (player_cards[7] == "0") playerCard.GetComponent<PlayerCard>().is_equipped = false;
+                    else playerCard.GetComponent<PlayerCard>().is_equipped = true;
+                    playerCard.GetComponent<PlayerCard>().AssignInfo();
+                }
+            ;
         }
         else
         {
@@ -218,21 +226,23 @@ public class Player : MonoBehaviour
         if (getAllPlayerDeckCardsRequest.error == null)
         {
             JSONNode allPlayerDeckCards = JSON.Parse(getAllPlayerDeckCardsRequest.downloadHandler.text);
-            foreach (JSONNode player_cards in allPlayerDeckCards)
-            {
-                var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                playerCard.transform.SetParent(deckPanel.transform);
-                playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
-                playerCard.GetComponent<PlayerCard>().type = player_cards[1];
-                playerCard.GetComponent<PlayerCard>().description = player_cards[2];
-                playerCard.GetComponent<PlayerCard>().price = int.Parse(player_cards[3]);
-                playerCard.GetComponent<PlayerCard>().points = int.Parse(player_cards[4]);
-                playerCard.GetComponent<PlayerCard>().healthPoints = int.Parse(player_cards[5]);
-                playerCard.GetComponent<PlayerCard>().id = int.Parse(player_cards[6]);
-                if (player_cards[7] == "0") playerCard.GetComponent<PlayerCard>().is_equipped = false;
-                else playerCard.GetComponent<PlayerCard>().is_equipped = true;
-                playerCard.GetComponent<PlayerCard>().AssignInfo();
-            }
+            if (allPlayerDeckCards != null)
+                foreach (JSONNode player_cards in allPlayerDeckCards)
+                {
+                    var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    playerCard.transform.SetParent(deckPanel.transform);
+                    playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
+                    playerCard.GetComponent<PlayerCard>().type = player_cards[1];
+                    playerCard.GetComponent<PlayerCard>().description = player_cards[2];
+                    playerCard.GetComponent<PlayerCard>().price = int.Parse(player_cards[3]);
+                    playerCard.GetComponent<PlayerCard>().points = int.Parse(player_cards[4]);
+                    playerCard.GetComponent<PlayerCard>().healthPoints = int.Parse(player_cards[5]);
+                    playerCard.GetComponent<PlayerCard>().id = int.Parse(player_cards[6]);
+                    if (player_cards[7] == "0") playerCard.GetComponent<PlayerCard>().is_equipped = false;
+                    else playerCard.GetComponent<PlayerCard>().is_equipped = true;
+                    playerCard.GetComponent<PlayerCard>().AssignInfo();
+                }
+            ;
         }
         else
         {
@@ -250,21 +260,23 @@ public class Player : MonoBehaviour
         if (getAllPlayerDeckCardsRequest.error == null)
         {
             JSONNode allPlayerDeckCards = JSON.Parse(getAllPlayerDeckCardsRequest.downloadHandler.text);
-            foreach (JSONNode player_cards in allPlayerDeckCards)
-            {
-                var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                playerCard.transform.SetParent(deckPanel.transform);
-                playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
-                playerCard.GetComponent<PlayerCard>().type = player_cards[1];
-                playerCard.GetComponent<PlayerCard>().description = player_cards[2];
-                playerCard.GetComponent<PlayerCard>().price = int.Parse(player_cards[3]);
-                playerCard.GetComponent<PlayerCard>().points = int.Parse(player_cards[4]);
-                playerCard.GetComponent<PlayerCard>().healthPoints = int.Parse(player_cards[5]);
-                playerCard.GetComponent<PlayerCard>().id = int.Parse(player_cards[6]);
-                if (player_cards[7] == "0") playerCard.GetComponent<PlayerCard>().is_equipped = false;
-                else playerCard.GetComponent<PlayerCard>().is_equipped = true;
-                playerCard.GetComponent<PlayerCard>().AssignInfo();
-            }
+            if (allPlayerDeckCards != null)
+                foreach (JSONNode player_cards in allPlayerDeckCards)
+                {
+                    var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    playerCard.transform.SetParent(deckPanel.transform);
+                    playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
+                    playerCard.GetComponent<PlayerCard>().type = player_cards[1];
+                    playerCard.GetComponent<PlayerCard>().description = player_cards[2];
+                    playerCard.GetComponent<PlayerCard>().price = int.Parse(player_cards[3]);
+                    playerCard.GetComponent<PlayerCard>().points = int.Parse(player_cards[4]);
+                    playerCard.GetComponent<PlayerCard>().healthPoints = int.Parse(player_cards[5]);
+                    playerCard.GetComponent<PlayerCard>().id = int.Parse(player_cards[6]);
+                    if (player_cards[7] == "0") playerCard.GetComponent<PlayerCard>().is_equipped = false;
+                    else playerCard.GetComponent<PlayerCard>().is_equipped = true;
+                    playerCard.GetComponent<PlayerCard>().AssignInfo();
+                }
+            ;
         }
         else
         {
@@ -272,17 +284,46 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void AddCard()
+    public void AddCard(int id, bool is_equipped, string type)
     {
-        StartCoroutine(AddCardToDeck());
+        StartCoroutine(AddCardToDeck(id, is_equipped, type));
     }
 
-    IEnumerator AddCardToDeck()
+    IEnumerator AddCardToDeck(int id, bool is_equipped, string type)
     {
-        WWWForm getAllDefenceCardsForm = new WWWForm();
-        getAllDefenceCardsForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllDefenceCardsForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllDefenceCardsRequest = UnityWebRequest.Post("http://localhost/playercards/getalldefence.php", getAllDefenceCardsForm);
-        yield return getAllDefenceCardsRequest.SendWebRequest();
+        WWWForm updateDeckForm = new WWWForm();
+        updateDeckForm.AddField("apppassword", "thisisfromtheapp!");
+        updateDeckForm.AddField("Id", CurrentPlayerId);
+        updateDeckForm.AddField("Card_Id", id);
+        if (is_equipped == false)
+        {
+            UnityWebRequest updateDeckRequest = UnityWebRequest.Post("http://localhost/playercards/addtodeck.php", updateDeckForm);
+            yield return updateDeckRequest.SendWebRequest();
+        }
+        else
+        {
+            UnityWebRequest updateDeckRequest = UnityWebRequest.Post("http://localhost/playercards/removefromdeck.php", updateDeckForm);
+            yield return updateDeckRequest.SendWebRequest();
+        }
+        UpdateCards(type);
+    }
+
+    public void UpdateCards(string type)
+    {
+        if (type == "Atak")
+        {
+            DestroyAllPlayerCards();
+            StartCoroutine(GetAllAttackCards());
+            DestroyAllPlayerDeckCards();
+            StartCoroutine(GetAllAttackPlayerDeckCards());
+
+        }
+        else if (type == "Obrona")
+        {
+            DestroyAllPlayerCards();
+            StartCoroutine(GetAllDefenceCards());
+            DestroyAllPlayerDeckCards();
+            StartCoroutine(GetAllDefencePlayerDeckCards());
+        }
     }
 }

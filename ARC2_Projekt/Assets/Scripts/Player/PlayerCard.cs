@@ -32,12 +32,13 @@ public class PlayerCard : MonoBehaviour
         HealthPoints.text = healthPoints.ToString();
     }
 
-    public bool IsCardEquipped(){
+    public bool IsCardEquipped()
+    {
         return is_equipped;
     }
     public void Swap()
     {
         Debug.Log("name - " + cardname + "\n id - " + id + "\n is_equipped - " + is_equipped);
-        // FindObjectOfType<Player>().AddCard();
+        FindObjectOfType<Player>().AddCard(id, is_equipped, type);
     }
 }
