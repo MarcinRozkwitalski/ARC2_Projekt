@@ -1952,11 +1952,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f02b9265f3bf44a9c1e8cdf574f8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CardsNumber: {fileID: 988776832}
   CurrentPlayerId: 0
   playerCardPrefab: {fileID: 1873421098875919593, guid: bf59154b49b1b79468e3d5982419fdf0,
     type: 3}
   panel: {fileID: 363504119}
   deckPanel: {fileID: 1093421998}
+  cardsNumber: 0
 --- !u!1 &1144472701
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,10 +7,12 @@ using SimpleJSON;
 
 public class Player : MonoBehaviour
 {
+    public Text CardsNumber;
     public int CurrentPlayerId;
     public GameObject playerCardPrefab;
     public GameObject panel;
     public GameObject deckPanel;
+    public int cardsNumber;
     void Start()
     {
         var CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
@@ -192,9 +194,11 @@ public class Player : MonoBehaviour
         if (getAllPlayerDeckCardsRequest.error == null)
         {
             JSONNode allPlayerDeckCards = JSON.Parse(getAllPlayerDeckCardsRequest.downloadHandler.text);
+            cardsNumber = 0;
             if (allPlayerDeckCards != null)
                 foreach (JSONNode player_cards in allPlayerDeckCards)
                 {
+                    cardsNumber++;
                     var playerCard = Instantiate(playerCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                     playerCard.transform.SetParent(deckPanel.transform);
                     playerCard.GetComponent<PlayerCard>().cardname = player_cards[0];
@@ -209,6 +213,7 @@ public class Player : MonoBehaviour
                     playerCard.GetComponent<PlayerCard>().AssignInfo();
                 }
             ;
+            CardsNumber.text = cardsNumber + "/10 cards ";
         }
         else
         {
@@ -298,11 +303,15 @@ public class Player : MonoBehaviour
         if (is_equipped == false)
         {
             UnityWebRequest updateDeckRequest = UnityWebRequest.Post("http://localhost/playercards/addtodeck.php", updateDeckForm);
+            cardsNumber++;
+            CardsNumber.text = cardsNumber + "/10 cards ";
             yield return updateDeckRequest.SendWebRequest();
         }
         else
         {
             UnityWebRequest updateDeckRequest = UnityWebRequest.Post("http://localhost/playercards/removefromdeck.php", updateDeckForm);
+            cardsNumber--;
+            CardsNumber.text = cardsNumber + "/10 cards ";
             yield return updateDeckRequest.SendWebRequest();
         }
         UpdateCards(type);
