@@ -300,14 +300,14 @@ public class Player : MonoBehaviour
         updateDeckForm.AddField("apppassword", "thisisfromtheapp!");
         updateDeckForm.AddField("Id", CurrentPlayerId);
         updateDeckForm.AddField("Card_Id", id);
-        if (is_equipped == false)
+        if (is_equipped == false && cardsNumber < 10)
         {
             UnityWebRequest updateDeckRequest = UnityWebRequest.Post("http://localhost/playercards/addtodeck.php", updateDeckForm);
             cardsNumber++;
             CardsNumber.text = cardsNumber + "/10 cards ";
             yield return updateDeckRequest.SendWebRequest();
         }
-        else
+        else if (is_equipped == true)
         {
             UnityWebRequest updateDeckRequest = UnityWebRequest.Post("http://localhost/playercards/removefromdeck.php", updateDeckForm);
             cardsNumber--;
