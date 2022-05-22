@@ -48,4 +48,9 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadScene(8);
     }
+
+    public void LoadShopScene()
+    {
+        SceneManager.LoadScene(9);
+    }
 }

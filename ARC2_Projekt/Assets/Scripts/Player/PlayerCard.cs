@@ -39,6 +39,7 @@ public class PlayerCard : MonoBehaviour
     public void Swap()
     {
         Debug.Log("name - " + cardname + "\n id - " + id + "\n is_equipped - " + is_equipped);
-        FindObjectOfType<Player>().AddCard(id, is_equipped, type);
+        FindObjectOfType<Player>().ShowCard(cardname, type, description, price, points, healthPoints,id,is_equipped);
+        // FindObjectOfType<Player>().AddCard(id, is_equipped, type);
     }
 }

@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     public Text CardsNumber;
     public int CurrentPlayerId;
     public GameObject playerCardPrefab;
+    public GameObject showCardPrefab;
+    public GameObject mainpanel;
     public GameObject panel;
     public GameObject deckPanel;
     public int cardsNumber;
@@ -334,5 +336,25 @@ public class Player : MonoBehaviour
             DestroyAllPlayerDeckCards();
             StartCoroutine(GetAllDefencePlayerDeckCards());
         }
+    }
+
+    public void ShowCard(string Cardname, string Type, string Description, int Price, int Points, int HealthPoints, int Id, bool Is_equipped)
+    {
+        var showCard = Instantiate(showCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        showCard.transform.SetParent(mainpanel.transform);
+        RectTransform rt = showCard.GetComponent<RectTransform>();
+        rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 21, rt.rect.width);
+        rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 489, rt.rect.height);
+        Debug.Log("width = " + rt.rect.width + ", height = " + rt.rect.height);
+        GameObject playerCard = showCard.transform.GetChild(0).gameObject;
+        playerCard.GetComponent<PlayerCard>().cardname = Cardname;
+        playerCard.GetComponent<PlayerCard>().type = Type;
+        playerCard.GetComponent<PlayerCard>().description = Description;
+        playerCard.GetComponent<PlayerCard>().price = Price;
+        playerCard.GetComponent<PlayerCard>().points = Points;
+        playerCard.GetComponent<PlayerCard>().healthPoints = HealthPoints;
+        playerCard.GetComponent<PlayerCard>().id = Id;
+        playerCard.GetComponent<PlayerCard>().is_equipped = Is_equipped;
+        playerCard.GetComponent<PlayerCard>().AssignInfo();
     }
 }
