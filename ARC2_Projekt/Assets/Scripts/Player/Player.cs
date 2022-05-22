@@ -185,6 +185,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void DestroyShowCard()
+    {
+        var playerCards = GameObject.FindGameObjectsWithTag("ShowCard");
+        foreach (var card in playerCards)
+        {
+            Destroy(card);
+        }
+    }
+
     // continue
     IEnumerator GetAllPlayerDeckCards()
     {
@@ -291,7 +300,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void AddCard(int id, bool is_equipped, string type)
+    public void MoveCard(int id, bool is_equipped, string type)
     {
         StartCoroutine(AddCardToDeck(id, is_equipped, type));
     }
@@ -342,19 +351,21 @@ public class Player : MonoBehaviour
     {
         var showCard = Instantiate(showCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         showCard.transform.SetParent(mainpanel.transform);
-        RectTransform rt = showCard.GetComponent<RectTransform>();
-        rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 21, rt.rect.width);
-        rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 489, rt.rect.height);
-        Debug.Log("width = " + rt.rect.width + ", height = " + rt.rect.height);
-        GameObject playerCard = showCard.transform.GetChild(0).gameObject;
-        playerCard.GetComponent<PlayerCard>().cardname = Cardname;
-        playerCard.GetComponent<PlayerCard>().type = Type;
-        playerCard.GetComponent<PlayerCard>().description = Description;
-        playerCard.GetComponent<PlayerCard>().price = Price;
-        playerCard.GetComponent<PlayerCard>().points = Points;
-        playerCard.GetComponent<PlayerCard>().healthPoints = HealthPoints;
-        playerCard.GetComponent<PlayerCard>().id = Id;
-        playerCard.GetComponent<PlayerCard>().is_equipped = Is_equipped;
-        playerCard.GetComponent<PlayerCard>().AssignInfo();
+        showCard.transform.position = new Vector3(960, 540, 0);
+        CheckAddRemoveButton(Is_equipped,showCard);
+        showCard.GetComponent<PlayerCard>().cardname = Cardname;
+        showCard.GetComponent<PlayerCard>().type = Type;
+        showCard.GetComponent<PlayerCard>().description = Description;
+        showCard.GetComponent<PlayerCard>().price = Price;
+        showCard.GetComponent<PlayerCard>().points = Points;
+        showCard.GetComponent<PlayerCard>().healthPoints = HealthPoints;
+        showCard.GetComponent<PlayerCard>().id = Id;
+        showCard.GetComponent<PlayerCard>().is_equipped = Is_equipped;
+        showCard.GetComponent<PlayerCard>().AssignInfo();
+    }
+
+    public void CheckAddRemoveButton(bool is_equipped,GameObject showCard){
+        if(is_equipped == true)showCard.transform.Find("AddToDeck").gameObject.SetActive(false);
+        else showCard.transform.Find("RemoveFromDeck").gameObject.SetActive(false);
     }
 }

@@ -36,10 +36,19 @@ public class PlayerCard : MonoBehaviour
     {
         return is_equipped;
     }
-    public void Swap()
+    public void ShowCard()
     {
         Debug.Log("name - " + cardname + "\n id - " + id + "\n is_equipped - " + is_equipped);
-        FindObjectOfType<Player>().ShowCard(cardname, type, description, price, points, healthPoints,id,is_equipped);
-        // FindObjectOfType<Player>().AddCard(id, is_equipped, type);
+        FindObjectOfType<Player>().ShowCard(cardname, type, description, price, points, healthPoints, id, is_equipped);
+
+    }
+    public void CloseShowCard()
+    {
+        FindObjectOfType<Player>().DestroyShowCard();
+    }
+    public void MoveCard()
+    {
+        FindObjectOfType<Player>().MoveCard(id, is_equipped, type);
+        CloseShowCard();
     }
 }

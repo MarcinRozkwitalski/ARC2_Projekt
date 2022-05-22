@@ -370,7 +370,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1873421098875919598}
         m_TargetAssemblyTypeName: PlayerCard, Assembly-CSharp
-        m_MethodName: Swap
+        m_MethodName: ShowCard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -404,6 +404,8 @@ MonoBehaviour:
   price: 0
   points: 0
   healthPoints: 0
+  id: 0
+  is_equipped: 0
 --- !u!1 &1873421099147762087
 GameObject:
   m_ObjectHideFlags: 0

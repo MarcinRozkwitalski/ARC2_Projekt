@@ -7,6 +7,7 @@ TagManager:
   - CurrentPlayer
   - LeaderboardPlayer
   - PlayerCard
+  - ShowCard
   layers:
   - Default
   - TransparentFX
