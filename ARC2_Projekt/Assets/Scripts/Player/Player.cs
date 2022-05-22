@@ -14,10 +14,11 @@ public class Player : MonoBehaviour
     public GameObject mainpanel;
     public GameObject panel;
     public GameObject deckPanel;
+    public GameObject CurrentPlayer;
     public int cardsNumber;
     void Start()
     {
-        var CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
+        CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
         CurrentPlayerId = CurrentPlayer.GetComponent<CurrentPlayer>().Id;
         StartCoroutine(GetAllPlayerCards());
         StartCoroutine(GetAllPlayerDeckCards());
@@ -302,10 +303,10 @@ public class Player : MonoBehaviour
 
     public void MoveCard(int id, bool is_equipped, string type)
     {
-        StartCoroutine(AddCardToDeck(id, is_equipped, type));
+        StartCoroutine(AddRemoveCard(id, is_equipped, type));
     }
 
-    IEnumerator AddCardToDeck(int id, bool is_equipped, string type)
+    IEnumerator AddRemoveCard(int id, bool is_equipped, string type)
     {
         WWWForm updateDeckForm = new WWWForm();
         updateDeckForm.AddField("apppassword", "thisisfromtheapp!");
@@ -352,20 +353,66 @@ public class Player : MonoBehaviour
         var showCard = Instantiate(showCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         showCard.transform.SetParent(mainpanel.transform);
         showCard.transform.position = new Vector3(960, 540, 0);
-        CheckAddRemoveButton(Is_equipped,showCard);
+        CheckAddRemoveButton(Is_equipped, showCard);
+        StartCoroutine(CheckBuySellButton(Id, showCard));
         showCard.GetComponent<PlayerCard>().cardname = Cardname;
         showCard.GetComponent<PlayerCard>().type = Type;
         showCard.GetComponent<PlayerCard>().description = Description;
-        showCard.GetComponent<PlayerCard>().price = Price;
+        showCard.GetComponent<PlayerCard>().price = Price / 2;
         showCard.GetComponent<PlayerCard>().points = Points;
         showCard.GetComponent<PlayerCard>().healthPoints = HealthPoints;
         showCard.GetComponent<PlayerCard>().id = Id;
         showCard.GetComponent<PlayerCard>().is_equipped = Is_equipped;
         showCard.GetComponent<PlayerCard>().AssignInfo();
     }
+    public void SellCardFromInventory(int id, int price, string type, bool is_equipped)
+    {
+        StartCoroutine(SellCard(id, price, type, is_equipped));
+    }
 
-    public void CheckAddRemoveButton(bool is_equipped,GameObject showCard){
-        if(is_equipped == true)showCard.transform.Find("AddToDeck").gameObject.SetActive(false);
+    IEnumerator SellCard(int id, int price, string type, bool is_equipped)
+    {
+        WWWForm sellCardForm = new WWWForm();
+        sellCardForm.AddField("apppassword", "thisisfromtheapp!");
+        sellCardForm.AddField("Id", CurrentPlayerId);
+        sellCardForm.AddField("Card_Id", id);
+        sellCardForm.AddField("Price", price + CurrentPlayer.GetComponent<CurrentPlayer>().Money);
+        UnityWebRequest sellCardRequest = UnityWebRequest.Post("http://localhost/playercards/sellcard.php", sellCardForm);
+        if (sellCardRequest.error == null)
+        {
+            if (is_equipped == true)
+            {
+                cardsNumber--;
+                CardsNumber.text = cardsNumber + "/10 cards ";
+            }
+            yield return sellCardRequest.SendWebRequest();
+
+            CurrentPlayer.GetComponent<CurrentPlayer>().Money += price;
+            UpdateCards(type);
+        }
+    }
+
+    public void CheckAddRemoveButton(bool is_equipped, GameObject showCard)
+    {
+        if (is_equipped == true) showCard.transform.Find("AddToDeck").gameObject.SetActive(false);
         else showCard.transform.Find("RemoveFromDeck").gameObject.SetActive(false);
+    }
+ 
+    IEnumerator CheckBuySellButton(int card_id, GameObject showCard)
+    {
+        WWWForm sellCardForm = new WWWForm();
+        sellCardForm.AddField("apppassword", "thisisfromtheapp!");
+        sellCardForm.AddField("Id", CurrentPlayerId);
+        sellCardForm.AddField("Card_Id", card_id);
+        UnityWebRequest sellCardRequest = UnityWebRequest.Post("http://localhost/playercards/ownercard.php", sellCardForm);
+        if (sellCardRequest.error == null)
+        {
+            yield return sellCardRequest.SendWebRequest();
+            showCard.transform.Find("Buy").gameObject.SetActive(false);
+        }
+        else
+        {
+            showCard.transform.Find("Sell").gameObject.SetActive(false);
+        }
     }
 }

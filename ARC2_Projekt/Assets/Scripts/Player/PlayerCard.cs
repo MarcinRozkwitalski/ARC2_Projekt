@@ -51,4 +51,9 @@ public class PlayerCard : MonoBehaviour
         FindObjectOfType<Player>().MoveCard(id, is_equipped, type);
         CloseShowCard();
     }
+
+    public void SellCard(){
+        FindObjectOfType<Player>().SellCardFromInventory(id,price,type,is_equipped);
+        CloseShowCard();
+    }
 }
