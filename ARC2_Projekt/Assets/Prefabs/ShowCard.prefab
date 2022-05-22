@@ -437,8 +437,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2448109662591987278}
-        m_TargetAssemblyTypeName: PlayerCard, Assembly-CSharp
+      - m_Target: {fileID: 5158345246918513309}
+        m_TargetAssemblyTypeName: CardsInfo, Assembly-CSharp
         m_MethodName: MoveCard
         m_Mode: 1
         m_Arguments:
@@ -649,9 +649,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2448109662591987278}
-        m_TargetAssemblyTypeName: PlayerCard, Assembly-CSharp
-        m_MethodName: SellCard
+      - m_Target: {fileID: 5158345246918513309}
+        m_TargetAssemblyTypeName: CardsInfo, Assembly-CSharp
+        m_MethodName: BuyCard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 4512464503485478289}
   - component: {fileID: 8947650746377217747}
   - component: {fileID: 4412626385595372890}
-  - component: {fileID: 2448109662591987278}
+  - component: {fileID: 5158345246918513309}
   m_Layer: 5
   m_Name: ShowCard
   m_TagString: ShowCard
@@ -753,7 +753,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2448109662591987278
+--- !u!114 &5158345246918513309
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -762,7 +762,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1600111122787388375}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17f046b37626c194e8cbc5a9d7597744, type: 3}
+  m_Script: {fileID: 11500000, guid: 54716274aca403e43b799cd939e22f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CardName: {fileID: 933249868529236156}
@@ -1528,8 +1528,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2448109662591987278}
-        m_TargetAssemblyTypeName: PlayerCard, Assembly-CSharp
+      - m_Target: {fileID: 5158345246918513309}
+        m_TargetAssemblyTypeName: CardsInfo, Assembly-CSharp
         m_MethodName: SellCard
         m_Mode: 1
         m_Arguments:
@@ -1661,8 +1661,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2448109662591987278}
-        m_TargetAssemblyTypeName: PlayerCard, Assembly-CSharp
+      - m_Target: {fileID: 5158345246918513309}
+        m_TargetAssemblyTypeName: CardsInfo, Assembly-CSharp
         m_MethodName: CloseShowCard
         m_Mode: 1
         m_Arguments:
@@ -1794,8 +1794,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2448109662591987278}
-        m_TargetAssemblyTypeName: PlayerCard, Assembly-CSharp
+      - m_Target: {fileID: 5158345246918513309}
+        m_TargetAssemblyTypeName: CardsInfo, Assembly-CSharp
         m_MethodName: MoveCard
         m_Mode: 1
         m_Arguments:

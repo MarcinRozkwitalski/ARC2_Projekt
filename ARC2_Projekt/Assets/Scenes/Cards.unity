@@ -407,7 +407,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1142826339}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_TargetAssemblyTypeName: Cards, Assembly-CSharp
         m_MethodName: AllDeckCards
         m_Mode: 1
         m_Arguments:
@@ -1147,7 +1147,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1142826339}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_TargetAssemblyTypeName: Cards, Assembly-CSharp
         m_MethodName: DefenceDeckCards
         m_Mode: 1
         m_Arguments:
@@ -1280,7 +1280,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1142826339}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_TargetAssemblyTypeName: Cards, Assembly-CSharp
         m_MethodName: AttackCards
         m_Mode: 1
         m_Arguments:
@@ -1492,7 +1492,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1142826339}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_TargetAssemblyTypeName: Cards, Assembly-CSharp
         m_MethodName: AllCards
         m_Mode: 1
         m_Arguments:
@@ -1804,7 +1804,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1142826339}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_TargetAssemblyTypeName: Cards, Assembly-CSharp
         m_MethodName: DefenceCards
         m_Mode: 1
         m_Arguments:
@@ -1977,18 +1977,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1142826337}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0f02b9265f3bf44a9c1e8cdf574f8ae, type: 3}
+  m_Script: {fileID: 11500000, guid: c01cac50523e356428297ff193394ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CardsNumber: {fileID: 988776832}
   CurrentPlayerId: 0
-  playerCardPrefab: {fileID: 1873421098875919593, guid: bf59154b49b1b79468e3d5982419fdf0,
+  CardsInfoPrefab: {fileID: 1873421098875919593, guid: bf59154b49b1b79468e3d5982419fdf0,
     type: 3}
   showCardPrefab: {fileID: 1600111122787388375, guid: a37867ac01db8744e89f2cb82f04572e,
     type: 3}
   mainpanel: {fileID: 1625420008}
   panel: {fileID: 363504119}
   deckPanel: {fileID: 1093421998}
+  CurrentPlayer: {fileID: 2562417776171719019, guid: 5c62b54c86cb7324fa252317528b1627,
+    type: 3}
   cardsNumber: 0
 --- !u!1 &1144472701
 GameObject:
@@ -2073,8 +2075,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1142826339}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+      - m_Target: {fileID: 2037760333}
+        m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
         m_MethodName: LoadPlayerWelcomeScene
         m_Mode: 1
         m_Arguments:
@@ -2440,7 +2442,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1142826339}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_TargetAssemblyTypeName: Cards, Assembly-CSharp
         m_MethodName: AttackDeckCards
         m_Mode: 1
         m_Arguments:

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerCard : MonoBehaviour
+public class CardsInfo : MonoBehaviour
 {
     public Text CardName;
     public Text Type;
@@ -39,21 +39,26 @@ public class PlayerCard : MonoBehaviour
     public void ShowCard()
     {
         Debug.Log("name - " + cardname + "\n id - " + id + "\n is_equipped - " + is_equipped);
-        FindObjectOfType<Player>().ShowCard(cardname, type, description, price, points, healthPoints, id, is_equipped);
+        FindObjectOfType<Cards>().ShowCard(cardname, type, description, price, points, healthPoints, id, is_equipped);
 
     }
     public void CloseShowCard()
     {
-        FindObjectOfType<Player>().DestroyShowCard();
+        FindObjectOfType<Cards>().DestroyShowCard();
     }
     public void MoveCard()
     {
-        FindObjectOfType<Player>().MoveCard(id, is_equipped, type);
+        FindObjectOfType<Cards>().MoveCard(id, is_equipped, type);
         CloseShowCard();
     }
 
     public void SellCard(){
-        FindObjectOfType<Player>().SellCardFromInventory(id,price,type,is_equipped);
+        FindObjectOfType<Cards>().SellCardFromInventory(id,price,type,is_equipped);
+        CloseShowCard();
+    }
+
+     public void BuyCard(){
+        FindObjectOfType<Cards>().BuyCardFromInventory(id,price);
         CloseShowCard();
     }
 }
