@@ -19,12 +19,13 @@ public class Cards : MonoBehaviour
     public GameObject deckPanel;
     public GameObject CurrentPlayer;
     public int cardsNumber;
+    public string sceneName;
     void Start()
     {
         CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
         CurrentPlayerId = CurrentPlayer.GetComponent<CurrentPlayer>().Id;
         Scene currentScene = SceneManager.GetActiveScene();
-        string sceneName = currentScene.name;
+        sceneName = currentScene.name;
         if (sceneName == "Cards")
         {
             StartCoroutine(GetAllCardsInfos());
@@ -386,7 +387,8 @@ public class Cards : MonoBehaviour
         showCard.GetComponent<CardsInfo>().cardname = Cardname;
         showCard.GetComponent<CardsInfo>().type = Type;
         showCard.GetComponent<CardsInfo>().description = Description;
-        showCard.GetComponent<CardsInfo>().price = Price;
+        if (sceneName == "Shop") showCard.GetComponent<CardsInfo>().price = Price;
+        else if (sceneName == "Cards") showCard.GetComponent<CardsInfo>().price = Price/2;
         showCard.GetComponent<CardsInfo>().points = Points;
         showCard.GetComponent<CardsInfo>().healthPoints = HealthPoints;
         showCard.GetComponent<CardsInfo>().id = Id;
@@ -474,7 +476,7 @@ public class Cards : MonoBehaviour
         }
 
     }
-   
+
     IEnumerator GetAllShopCards()
     {
         WWWForm getAllShopCardsForm = new WWWForm();
