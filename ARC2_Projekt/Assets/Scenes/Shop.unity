@@ -206,9 +206,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: AttackCards
+      - m_Target: {fileID: 91330908}
+        m_TargetAssemblyTypeName: Cards, Assembly-CSharp
+        m_MethodName: AllShopAttackCards
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -379,6 +379,7 @@ MonoBehaviour:
   CurrentPlayer: {fileID: 2562417776171719019, guid: 5c62b54c86cb7324fa252317528b1627,
     type: 3}
   cardsNumber: 0
+  sceneName: 
 --- !u!1 &151877307
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,9 +926,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: DefenceCards
+      - m_Target: {fileID: 91330908}
+        m_TargetAssemblyTypeName: Cards, Assembly-CSharp
+        m_MethodName: AllShopDefenceCards
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1341,9 +1342,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: AllCards
+      - m_Target: {fileID: 91330908}
+        m_TargetAssemblyTypeName: Cards, Assembly-CSharp
+        m_MethodName: AllShopCards
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
