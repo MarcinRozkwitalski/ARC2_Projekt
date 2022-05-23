@@ -53,4 +53,13 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadScene(9);
     }
+
+    public void LoadCasinoScene()
+    {
+        SceneManager.LoadScene(10);
+    }
+    public void LoadBlackJackScene()
+    {
+        SceneManager.LoadScene(11);
+    }
 }

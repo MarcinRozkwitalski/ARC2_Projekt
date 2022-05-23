@@ -236,7 +236,6 @@ public class Cards : MonoBehaviour
         }
     }
 
-    // continue
     IEnumerator GetAllPlayerDeckCards()
     {
         WWWForm getAllPlayerDeckCardsForm = new WWWForm();
