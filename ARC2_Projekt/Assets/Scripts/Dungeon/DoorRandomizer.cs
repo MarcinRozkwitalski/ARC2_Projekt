@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DoorRandomizer : MonoBehaviour
 {
-    GameObject Door_01, Door_02, Door_03;
-
     bool flag;
 
     public string[] doors = {
@@ -23,13 +21,6 @@ public class DoorRandomizer : MonoBehaviour
         "smutek",
         "usmiech"
     };
-    
-    void Start()
-    {
-        Door_01 = GameObject.Find("Door_01");
-        Door_02 = GameObject.Find("Door_02");
-        Door_03 = GameObject.Find("Door_03");
-    }
 
     public void RandomizeDoors()
     {

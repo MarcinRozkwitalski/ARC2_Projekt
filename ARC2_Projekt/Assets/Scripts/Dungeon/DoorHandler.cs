@@ -35,15 +35,27 @@ public class DoorHandler : MonoBehaviour
 
         switch (DoorValue)
         {
-            case "1":
-                Debug.Log("jeden");
+            case "skarb":
+                Debug.Log("skarb");
                 break;
-            case "2":
-                Debug.Log("dwa");
+            case "czaszka":
+                Debug.Log("czaszka");
                 break;
-            case "3":
-                Debug.Log("trzy");
+            case "plomien":
+                Debug.Log("plomien");
                 break;
+            case "glowaDiabla":
+                Debug.Log("glowaDiabla");
+                break;
+            case "krzyz":
+                Debug.Log("krzyz");
+                break;
+            case "smutek":
+                Debug.Log("smutek");
+                break;
+            case "usmiech":
+                Debug.Log("usmiech");
+                break;    
             default:
                 break;
         }
