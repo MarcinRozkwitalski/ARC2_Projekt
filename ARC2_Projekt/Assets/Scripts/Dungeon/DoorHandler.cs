@@ -5,16 +5,17 @@ using UnityEngine;
 
 public class DoorHandler : MonoBehaviour
 {
-    public Text DoorCounterText; 
-    public int DoorCounter;
+    public DoorCounter doorCounter;
+    Text DoorCounterText; 
     public string DoorValue;
 
     //skarb, czaszka, plomien, glowa_diabla, krzyz, usmiech, smutek//
 
     void Start()
     {
-        DoorCounter = 0; //need to put that in one object so three objects wont have seperate counters
-        DoorCounterText.text = "0";
+        doorCounter = GameObject.Find("DoorCounterHandler").GetComponent<DoorCounter>();
+        DoorCounterText = GameObject.Find("DoorCounterText").GetComponent<Text>();
+        DoorCounterText.text = "Door counter:\n" + doorCounter.DoorCounterNumber.ToString();
     }
 
     public void CheckDoor()
@@ -45,11 +46,10 @@ public class DoorHandler : MonoBehaviour
 
     public void UpdateDoorCounter()
     {
-        DoorCounter++;
-        DoorCounterText.text = DoorCounter.ToString();
+        doorCounter.DoorCounterNumber++;
+        DoorCounterText.text = "Door counter:\n" + doorCounter.DoorCounterNumber.ToString();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
