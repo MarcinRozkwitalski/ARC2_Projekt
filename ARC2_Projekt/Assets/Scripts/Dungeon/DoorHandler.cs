@@ -5,17 +5,22 @@ using UnityEngine;
 
 public class DoorHandler : MonoBehaviour
 {
+    GameObject Door_01, Door_02, Door_03;
     public DoorCounter doorCounter;
+    public DoorRandomizer doorRandomizer;
     Text DoorCounterText; 
     public string DoorValue;
 
-    //skarb, czaszka, plomien, glowa_diabla, krzyz, usmiech, smutek//
-
     void Start()
     {
-        doorCounter = GameObject.Find("DoorCounterHandler").GetComponent<DoorCounter>();
+        Door_01 = GameObject.Find("Door_01");
+        Door_02 = GameObject.Find("Door_02");
+        Door_03 = GameObject.Find("Door_03");
+        doorCounter = GameObject.Find("DoorHandler").GetComponent<DoorCounter>();
+        doorRandomizer = GameObject.Find("DoorHandler").GetComponent<DoorRandomizer>();
         DoorCounterText = GameObject.Find("DoorCounterText").GetComponent<Text>();
         DoorCounterText.text = "Door counter:\n" + doorCounter.DoorCounterNumber.ToString();
+        Randomize();
     }
 
     public void CheckDoor()
@@ -50,8 +55,11 @@ public class DoorHandler : MonoBehaviour
         DoorCounterText.text = "Door counter:\n" + doorCounter.DoorCounterNumber.ToString();
     }
 
-    void Update()
+    public void Randomize()
     {
-        
+        doorRandomizer.RandomizeDoors();
+        Door_01.transform.GetChild(0).GetComponent<Text>().text = doorRandomizer.doors[0];
+        Door_02.transform.GetChild(0).GetComponent<Text>().text = doorRandomizer.doors[1];
+        Door_03.transform.GetChild(0).GetComponent<Text>().text = doorRandomizer.doors[2];
     }
 }

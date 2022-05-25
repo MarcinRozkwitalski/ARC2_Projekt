@@ -220,6 +220,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 149861835}
+        m_TargetAssemblyTypeName: DoorHandler, Assembly-CSharp
+        m_MethodName: Randomize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &149861833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,7 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorCounter: {fileID: 0}
-  DoorCounterText: {fileID: 1705978152}
+  doorRandomizer: {fileID: 0}
   DoorValue: 
 --- !u!1 &160882926
 GameObject:
@@ -369,6 +381,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 160882931}
+        m_TargetAssemblyTypeName: DoorHandler, Assembly-CSharp
+        m_MethodName: Randomize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &160882929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,7 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorCounter: {fileID: 0}
-  DoorCounterText: {fileID: 1705978152}
+  doorRandomizer: {fileID: 0}
   DoorValue: 
 --- !u!1 &284014128
 GameObject:
@@ -1352,6 +1376,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1932158413}
+        m_TargetAssemblyTypeName: DoorHandler, Assembly-CSharp
+        m_MethodName: Randomize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1932158411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1403,7 +1439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorCounter: {fileID: 0}
-  DoorCounterText: {fileID: 1705978152}
+  doorRandomizer: {fileID: 0}
   DoorValue: 
 --- !u!1 &2051189393
 GameObject:
@@ -1416,8 +1452,9 @@ GameObject:
   - component: {fileID: 2051189394}
   - component: {fileID: 2051189395}
   - component: {fileID: 2051189396}
+  - component: {fileID: 2051189397}
   m_Layer: 0
-  m_Name: DoorCounterHandler
+  m_Name: DoorHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1450,7 +1487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorCounter: {fileID: 0}
-  DoorCounterText: {fileID: 1705978152}
+  doorRandomizer: {fileID: 0}
   DoorValue: 
 --- !u!114 &2051189396
 MonoBehaviour:
@@ -1464,8 +1501,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ffe96988eb67e142a3485acf7a28369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DoorCounterText: {fileID: 1705978152}
   DoorCounterNumber: 0
+--- !u!114 &2051189397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051189393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6badd769c42eca149a0f0fb5f28ad79f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2069464475
 GameObject:
   m_ObjectHideFlags: 0
