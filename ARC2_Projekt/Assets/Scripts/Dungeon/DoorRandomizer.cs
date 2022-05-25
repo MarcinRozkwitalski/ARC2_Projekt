@@ -6,6 +6,8 @@ public class DoorRandomizer : MonoBehaviour
 {
     GameObject Door_01, Door_02, Door_03;
 
+    bool flag;
+
     public string[] doors = {
         "",
         "",
@@ -18,8 +20,8 @@ public class DoorRandomizer : MonoBehaviour
         "plomien",
         "glowaDiabla",
         "krzyz",
-        "usmiech",
-        "smutek"
+        "smutek",
+        "usmiech"
     };
     
     void Start()
@@ -31,9 +33,14 @@ public class DoorRandomizer : MonoBehaviour
 
     public void RandomizeDoors()
     {
+        flag = false;
+
         for (int i = 0; i < 3; i++)
         {
-            doors[i] = doorValues[Random.Range(0,(doorValues.Length))];
+            if (flag == false)  doors[i] = doorValues[Random.Range(0, (doorValues.Length - 1))];
+            else                doors[i] = doorValues[Random.Range(0, (doorValues.Length - 2))];
+
+            if(doors[i] == "usmiech") flag = true;
         }
     }
 }
