@@ -28,8 +28,8 @@ public class DoorRandomizer : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            if (flag == false)  doors[i] = doorValues[Random.Range(0, (doorValues.Length - 1))];
-            else                doors[i] = doorValues[Random.Range(0, (doorValues.Length - 2))];
+            if (flag == false)  doors[i] = doorValues[Random.Range(0, (doorValues.Length))];
+            else                doors[i] = doorValues[Random.Range(0, (doorValues.Length - 1))];
 
             if(doors[i] == "usmiech") flag = true;
         }

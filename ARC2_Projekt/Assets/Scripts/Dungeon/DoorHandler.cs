@@ -8,6 +8,9 @@ public class DoorHandler : MonoBehaviour
     GameObject Door_01, Door_02, Door_03;
     public DoorCounter doorCounter;
     public DoorRandomizer doorRandomizer;
+    public SceneSwitcher sceneSwitcher;
+    public ShowPlayerInfo showPlayerInfo;
+    public ButtonActions buttonActions;
     Text DoorCounterText; 
     public string DoorValue;
 
@@ -18,6 +21,10 @@ public class DoorHandler : MonoBehaviour
         Door_03 = GameObject.Find("Door_03");
         doorCounter = GameObject.Find("DoorHandler").GetComponent<DoorCounter>();
         doorRandomizer = GameObject.Find("DoorHandler").GetComponent<DoorRandomizer>();
+        sceneSwitcher = GameObject.Find("SceneManager").GetComponent<SceneSwitcher>();
+        showPlayerInfo = GameObject.Find("NetworkManager").GetComponent<ShowPlayerInfo>();
+        buttonActions = GameObject.Find("DoorHandler").GetComponent<ButtonActions>();
+
         DoorCounterText = GameObject.Find("DoorCounterText").GetComponent<Text>();
         DoorCounterText.text = "Door counter:\n" + doorCounter.DoorCounterNumber.ToString();
         Randomize();
@@ -27,6 +34,7 @@ public class DoorHandler : MonoBehaviour
     {
         CheckText();
         UpdateDoorCounter();
+        UpdatePlayerInfo();
     }
 
     public void CheckText()
@@ -36,25 +44,27 @@ public class DoorHandler : MonoBehaviour
         switch (DoorValue)
         {
             case "skarb":
-                Debug.Log("skarb");
+                buttonActions.TreasureAddMoney();
                 break;
             case "czaszka":
-                Debug.Log("czaszka");
+                sceneSwitcher.LoadDungeonBattleScene();
                 break;
             case "plomien":
-                Debug.Log("plomien");
+                buttonActions.FlameGiveCard();
                 break;
             case "glowaDiabla":
-                Debug.Log("glowaDiabla");
+                sceneSwitcher.LoadDungeonBattleScene();
                 break;
             case "krzyz":
-                Debug.Log("krzyz");
+                buttonActions.CrossHeal();
                 break;
             case "smutek":
-                Debug.Log("smutek");
+                buttonActions.SadnessLoseMoney();
                 break;
             case "usmiech":
-                Debug.Log("usmiech");
+                sceneSwitcher.LoadDungeonResultsScene();
+                doorCounter.DoorCounterNumber = -1;
+                //here should be php post with updating life and money
                 break;    
             default:
                 break;
@@ -65,6 +75,18 @@ public class DoorHandler : MonoBehaviour
     {
         doorCounter.DoorCounterNumber++;
         DoorCounterText.text = "Door counter:\n" + doorCounter.DoorCounterNumber.ToString();
+    }
+
+    public void UpdatePlayerInfo()
+    {
+        var CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
+        string CurrentPlayerUsername = CurrentPlayer.GetComponent<CurrentPlayer>().Username;
+        Text UserInfoText = GameObject.Find("UserInfoText").GetComponent<Text>();
+        
+        UserInfoText.text = 
+        "Player: " + CurrentPlayerUsername +
+        "\nLife: " + buttonActions.CurrentPlayerLife + 
+        "\nMoney: " + buttonActions.CurrentPlayerMoney;
     }
 
     public void Randomize()

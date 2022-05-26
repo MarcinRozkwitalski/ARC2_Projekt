@@ -14,7 +14,8 @@ public class ShowPlayerInfo : MonoBehaviour
         int CurrentPlayerMoney = CurrentPlayer.GetComponent<CurrentPlayer>().Money;
         int CurrentPlayerLife = CurrentPlayer.GetComponent<CurrentPlayer>().Life;
 
-        UserInfoText.text = "Player: " + CurrentPlayerUsername +
+        UserInfoText.text = 
+        "Player: " + CurrentPlayerUsername +
         "\nLife: " + CurrentPlayerLife + 
         "\nMoney: " + CurrentPlayerMoney;
     }

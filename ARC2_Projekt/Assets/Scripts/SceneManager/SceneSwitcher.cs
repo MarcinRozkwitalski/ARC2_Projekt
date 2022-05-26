@@ -44,6 +44,7 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadScene(7);
     }
+
     public void LoadDungeonScene()
     {
         SceneManager.LoadScene(8);
@@ -58,8 +59,19 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadScene(10);
     }
+
     public void LoadBlackJackScene()
     {
         SceneManager.LoadScene(11);
+    }
+
+    public void LoadDungeonBattleScene()
+    {
+        SceneManager.LoadScene(12);
+    }
+
+    public void LoadDungeonResultsScene()
+    {
+        SceneManager.LoadScene(13);
     }
 }
