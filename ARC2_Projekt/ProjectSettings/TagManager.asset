@@ -8,6 +8,7 @@ TagManager:
   - LeaderboardPlayer
   - PlayerCard
   - ShowCard
+  - CasinoCard
   layers:
   - Default
   - TransparentFX
