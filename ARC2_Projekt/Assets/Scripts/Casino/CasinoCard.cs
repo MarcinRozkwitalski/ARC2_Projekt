@@ -11,14 +11,14 @@ public class CasinoCard : MonoBehaviour
 
     public Text Symbol;
 
-    public int cardValue;
+    public string cardValue;
 
     public char cardSymbol;
 
     public void AssignInfo()
     {
-        TopValue.text = cardValue.ToString();
-        BottomValue.text = cardValue.ToString();
+        TopValue.text = cardValue;
+        BottomValue.text = cardValue;
         Symbol.text = cardSymbol.ToString();
     }
 }

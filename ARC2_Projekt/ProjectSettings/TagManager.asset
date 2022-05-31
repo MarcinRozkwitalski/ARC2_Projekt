@@ -9,6 +9,7 @@ TagManager:
   - PlayerCard
   - ShowCard
   - CasinoCard
+  - Hand1Value
   layers:
   - Default
   - TransparentFX

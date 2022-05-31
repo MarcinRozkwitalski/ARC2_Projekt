@@ -63,10 +63,10 @@ public class Deck : MonoBehaviour
                 DeckSuit.Add (suit);
             }
         }
-        for (int i = 0; i < 52; i++)
-        {
-            Debug.Log(DeckFace[i] + " - " + (char) DeckSuit[i]);
-        }
+        // for (int i = 0; i < 52; i++)
+        // {
+        //     Debug.Log(DeckFace[i] + " - " + (char) DeckSuit[i]);
+        // }
     }
 
     public void AddCardFromDeckToPlayer()
@@ -76,6 +76,8 @@ public class Deck : MonoBehaviour
         PlayerDeck1Suit.Add(DeckSuit[cardNumber]);
         DeckFace.Remove(DeckFace[cardNumber]);
         DeckSuit.Remove(DeckSuit[cardNumber]);
+        GetComponent<BlackJack>()
+            .PutCardsInPlayerCardsPanel(PlayerDeck1Face.Count - 1);
     }
 
     public void GetPlayerCard()
@@ -88,20 +90,32 @@ public class Deck : MonoBehaviour
         {
             Debug.Log(" [" + entry + "] = " + (char) entry);
         }
-        for (int i = 0; i < DeckFace.Count; i++)
+        // for (int i = 0; i < DeckFace.Count; i++)
+        // {
+        //     Debug.Log(DeckFace[i] + " - " + (char) DeckSuit[i]);
+        // }
+    }
+
+    public int GetValueA1()
+    {
+        value = 0;
+        foreach (Face entry in PlayerDeck1Face)
         {
-            Debug.Log(DeckFace[i] + " - " + (char) DeckSuit[i]);
+            if ((int) entry > 10)
+                value += 10;
+            else
+                value += (int) entry;
         }
+        return value;
     }
 
-    public void GetPlayerDeckFaceDebug(int a)
-    {
-       Debug.Log((int) PlayerDeck1Face[a]);
-    }
-
-    public void GetPlayerDeckSuitDebug(int a)
-    {
-        Debug.Log((int)PlayerDeck1Suit[a]);
+    public bool GetAs(){
+        //  foreach (Face entry in PlayerDeck1Face)
+        // {
+        //     if(entry == Face.Ace)return true;
+        // }
+        // return false;
+        return PlayerDeck1Face.Contains(Face.Ace);
     }
 
     public int GetPlayerDeckFace(int a)

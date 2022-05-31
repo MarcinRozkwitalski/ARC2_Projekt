@@ -21,6 +21,8 @@ public class BlackJack : MonoBehaviour
 
     public string PlayerBetString;
 
+    public GameObject HandValue1Panel;
+
     public GameObject CroupierCardsPanel;
 
     public GameObject PlayerCardsPanel;
@@ -30,6 +32,8 @@ public class BlackJack : MonoBehaviour
     public GameObject Double2Panel;
 
     public GameObject CasinoCardPrefab;
+
+    public GameObject Hand1Value;
 
     void Start()
     {
@@ -89,27 +93,52 @@ public class BlackJack : MonoBehaviour
         GetComponent<Deck>().GetDeck();
         GetComponent<Deck>().AddCardFromDeckToPlayer();
         GetComponent<Deck>().AddCardFromDeckToPlayer();
-        PutCardsInPlayerCardsPanel(0);
-        PutCardsInPlayerCardsPanel(1);
+        ShowValueOnHand1();
     }
 
     public void PutCardsInPlayerCardsPanel(int a)
     {
-        // for(i = 0; i < players.Count; i){
-        // }
-        //  foreach (Face player_cards in PlayerDeck1Face)
-        //         {
         var CasinoCard =
             Instantiate(CasinoCardPrefab,
             new Vector3(0, 0, 0),
             Quaternion.identity);
         CasinoCard.transform.SetParent(PlayerCardsPanel.transform);
-        CasinoCard.GetComponent<CasinoCard>().cardValue =
-            GetComponent<Deck>().GetPlayerDeckFace(a);
+        if (GetComponent<Deck>().GetPlayerDeckFace(a) == 11)
+            CasinoCard.GetComponent<CasinoCard>().cardValue = "J";
+        else if (GetComponent<Deck>().GetPlayerDeckFace(a) == 12)
+            CasinoCard.GetComponent<CasinoCard>().cardValue = "Q";
+        else if (GetComponent<Deck>().GetPlayerDeckFace(a) == 13)
+            CasinoCard.GetComponent<CasinoCard>().cardValue = "K";
+        else if (GetComponent<Deck>().GetPlayerDeckFace(a) == 1)
+            CasinoCard.GetComponent<CasinoCard>().cardValue = "A";
+        else
+            CasinoCard.GetComponent<CasinoCard>().cardValue =
+                GetComponent<Deck>().GetPlayerDeckFace(a).ToString();
         CasinoCard.GetComponent<CasinoCard>().cardSymbol =
             GetComponent<Deck>().GetPlayerDeckSuit(a);
         CasinoCard.GetComponent<CasinoCard>().AssignInfo();
-        //         }
+    }
+
+    public void ShowValueOnHand1()
+    {
+        DestroyHand1Text();
+        var HandValue =
+            Instantiate(Hand1Value, new Vector3(0, 0, 0), Quaternion.identity);
+        HandValue.transform.SetParent(HandValue1Panel.transform);
+        HandValue.transform.position = new Vector3(960, 540, 0);
+        if (GetComponent<Deck>().GetAs())
+        {
+            HandValue.GetComponent<HandValue>().value =
+                GetComponent<Deck>().GetValueA1();
+            HandValue.GetComponent<HandValue>().AssignInfoAs();
+        }
+        else
+        {
+            HandValue.GetComponent<HandValue>().value =
+                GetComponent<Deck>().GetValueA1();
+            HandValue.GetComponent<HandValue>().AssignInfo();
+        }
+        GetComponent<Deck>().GetPlayerCard();
     }
 
     public void DestroyAllCasinoCards()
@@ -118,6 +147,15 @@ public class BlackJack : MonoBehaviour
         foreach (var card in CasinoCards)
         {
             Destroy (card);
+        }
+    }
+
+    public void DestroyHand1Text()
+    {
+        var HandValueText = GameObject.FindGameObjectsWithTag("Hand1Value");
+        foreach (var value in HandValueText)
+        {
+            Destroy (value);
         }
     }
 }
