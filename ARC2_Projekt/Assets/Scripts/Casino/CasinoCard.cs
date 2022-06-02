@@ -21,4 +21,20 @@ public class CasinoCard : MonoBehaviour
         BottomValue.text = cardValue;
         Symbol.text = cardSymbol.ToString();
     }
+
+    public void SetCardColor(char symbol)
+    {
+        if (symbol == '♦' || symbol == '♥')
+        {
+            TopValue.color = Color.red;
+            BottomValue.color = Color.red;
+            Symbol.color = Color.red;
+        }
+        if (symbol == '♣' || symbol == '♠')
+        {
+            TopValue.color = Color.black;
+            BottomValue.color = Color.black;
+            Symbol.color = Color.black;
+        }
+    }
 }

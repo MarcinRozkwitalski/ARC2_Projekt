@@ -37,6 +37,10 @@ public class Deck : MonoBehaviour
 
     List<Suit> PlayerDeck1Suit = new List<Suit>();
 
+    List<Face> CroupierDeckFace = new List<Face>();
+
+    List<Suit> CroupierDeckSuit = new List<Suit>();
+
     Suit suit;
 
     Face face;
@@ -63,10 +67,17 @@ public class Deck : MonoBehaviour
                 DeckSuit.Add (suit);
             }
         }
-        // for (int i = 0; i < 52; i++)
-        // {
-        //     Debug.Log(DeckFace[i] + " - " + (char) DeckSuit[i]);
-        // }
+    }
+
+    public void AddCardFromDeckToCroupier()
+    {
+        int cardNumber = Random.Range(1, DeckFace.Count);
+        CroupierDeckFace.Add(DeckFace[cardNumber]);
+        CroupierDeckSuit.Add(DeckSuit[cardNumber]);
+        DeckFace.Remove(DeckFace[cardNumber]);
+        DeckSuit.Remove(DeckSuit[cardNumber]);
+        GetComponent<BlackJack>()
+            .PutCardsInCroupierCardsPanel(CroupierDeckFace.Count - 1);
     }
 
     public void AddCardFromDeckToPlayer()
@@ -90,10 +101,6 @@ public class Deck : MonoBehaviour
         {
             Debug.Log(" [" + entry + "] = " + (char) entry);
         }
-        // for (int i = 0; i < DeckFace.Count; i++)
-        // {
-        //     Debug.Log(DeckFace[i] + " - " + (char) DeckSuit[i]);
-        // }
     }
 
     public int GetValueA1()
@@ -109,12 +116,21 @@ public class Deck : MonoBehaviour
         return value;
     }
 
-    public bool GetAs(){
-        //  foreach (Face entry in PlayerDeck1Face)
-        // {
-        //     if(entry == Face.Ace)return true;
-        // }
-        // return false;
+     public int GetCroupierValueA1()
+    {
+        value = 0;
+        foreach (Face entry in CroupierDeckFace)
+        {
+            if ((int) entry > 10)
+                value += 10;
+            else
+                value += (int) entry;
+        }
+        return value;
+    }
+
+    public bool GetAs()
+    {
         return PlayerDeck1Face.Contains(Face.Ace);
     }
 
@@ -126,6 +142,16 @@ public class Deck : MonoBehaviour
     public char GetPlayerDeckSuit(int a)
     {
         return (char) PlayerDeck1Suit[a];
+    }
+
+    public int GetCroupierDeckFace(int a)
+    {
+        return (int) CroupierDeckFace[a];
+    }
+
+     public char GetCroupierDeckSuit(int a)
+    {
+        return (char) CroupierDeckSuit[a];
     }
 
     public void Cardsymbol(int i, int j)

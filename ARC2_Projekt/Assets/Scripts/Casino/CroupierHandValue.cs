@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HandValue : MonoBehaviour
+public class CroupierHandValue : MonoBehaviour
 {
     public Text Value;
 

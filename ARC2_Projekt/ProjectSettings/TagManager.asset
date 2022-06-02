@@ -10,6 +10,7 @@ TagManager:
   - ShowCard
   - CasinoCard
   - Hand1Value
+  - BlackJackButton
   layers:
   - Default
   - TransparentFX
