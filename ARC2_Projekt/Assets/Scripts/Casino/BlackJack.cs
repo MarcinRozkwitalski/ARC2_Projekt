@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class BlackJack : MonoBehaviour
@@ -60,10 +61,7 @@ public class BlackJack : MonoBehaviour
     void Start()
     {
         CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
-        PlayerMoney.text =
-            "Player Money: " +
-            CurrentPlayer.GetComponent<CurrentPlayer>().Money +
-            "$";
+        UpdatePlayerMoneyText();
     }
 
     // Betting
@@ -92,6 +90,7 @@ public class BlackJack : MonoBehaviour
                 )
                 {
                     Alert.text = "Correct bet";
+                    StartCoroutine(GetMoneyFromPlayer());
                     StartGame();
                 } // Game start
                 else
@@ -117,7 +116,6 @@ public class BlackJack : MonoBehaviour
         GetComponent<Deck>().AddCardFromDeckToPlayer();
         GetComponent<Deck>().AddCardFromDeckToPlayer();
         GetComponent<Deck>().AddCardFromDeckToCroupier();
-        ShowButtons();
     }
 
     // Croupier Get Cards
@@ -174,6 +172,7 @@ public class BlackJack : MonoBehaviour
             .SetCardColor(GetComponent<Deck>().GetPlayerDeckSuit(a));
         CasinoCard.GetComponent<CasinoCard>().AssignInfo();
         ShowValueOnHand1();
+        if (GetComponent<Deck>().PlayerHasTwoCards()) ShowButtons();
     }
 
     // Cards Value Show on screen
@@ -231,12 +230,41 @@ public class BlackJack : MonoBehaviour
         var StandButton =
             Instantiate(Stand, new Vector3(0, 0, 0), Quaternion.identity);
         StandButton.transform.SetParent(ButtonsPanel1.transform);
-        var DoubleButton =
-            Instantiate(Double, new Vector3(0, 0, 0), Quaternion.identity);
-        DoubleButton.transform.SetParent(ButtonsPanel1.transform);
-        var SplitButton =
-            Instantiate(Split, new Vector3(0, 0, 0), Quaternion.identity);
-        SplitButton.transform.SetParent(ButtonsPanel1.transform);
+        if (GetComponent<Deck>().DoubleButton())
+        {
+            var DoubleButton =
+                Instantiate(Double, new Vector3(0, 0, 0), Quaternion.identity);
+            DoubleButton.transform.SetParent(ButtonsPanel1.transform);
+        }
+        if (GetComponent<Deck>().SplitButton())
+        {
+            var SplitButton =
+                Instantiate(Split, new Vector3(0, 0, 0), Quaternion.identity);
+            SplitButton.transform.SetParent(ButtonsPanel1.transform);
+        }
+    }
+
+    // Take money from Player
+    IEnumerator GetMoneyFromPlayer()
+    {
+        WWWForm betMoneyForm = new WWWForm();
+        betMoneyForm.AddField("apppassword", "thisisfromtheapp!");
+        betMoneyForm
+            .AddField("Id", CurrentPlayer.GetComponent<CurrentPlayer>().Id);
+        betMoneyForm
+            .AddField("Price",
+            CurrentPlayer.GetComponent<CurrentPlayer>().Money -
+            int.Parse(PlayerBet.text));
+        UnityWebRequest betMoneyRequest =
+            UnityWebRequest
+                .Post("http://localhost/BlackJack/betmoney.php", betMoneyForm);
+        if (betMoneyRequest.error == null)
+        {
+            yield return betMoneyRequest.SendWebRequest();
+            CurrentPlayer.GetComponent<CurrentPlayer>().Money -=
+                int.Parse(PlayerBet.text);
+            UpdatePlayerMoneyText();
+        }
     }
 
     // Destroy all cards at the end of the game
@@ -263,7 +291,7 @@ public class BlackJack : MonoBehaviour
     public void DestroyButtons()
     {
         var BlackJackButtons =
-            GameObject.FindGameObjectsWithTag("BlackJackButtons");
+            GameObject.FindGameObjectsWithTag("BlackJackButton");
         foreach (var button in BlackJackButtons)
         {
             Destroy (button);
@@ -277,5 +305,13 @@ public class BlackJack : MonoBehaviour
         less.enabled = false;
         more.enabled = false;
         back.enabled = false;
+    }
+
+    public void UpdatePlayerMoneyText()
+    {
+        PlayerMoney.text =
+            "Player Money: " +
+            CurrentPlayer.GetComponent<CurrentPlayer>().Money +
+            "$";
     }
 }

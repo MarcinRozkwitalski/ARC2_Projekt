@@ -7,7 +7,6 @@ public class BlackJackButtons : MonoBehaviour
     public void Hit()
     {
         FindObjectOfType<Deck>().AddCardFromDeckToPlayer();
-        FindObjectOfType<BlackJack>().ShowValueOnHand1();
     }
 
     public void Stand()
@@ -18,7 +17,6 @@ public class BlackJackButtons : MonoBehaviour
     public void Double()
     {
         FindObjectOfType<Deck>().AddCardFromDeckToPlayer();
-        FindObjectOfType<BlackJack>().ShowValueOnHand1();
     }
 
     public void Split()

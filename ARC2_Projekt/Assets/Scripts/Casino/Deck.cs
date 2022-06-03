@@ -159,6 +159,20 @@ public class Deck : MonoBehaviour
         return (char) CroupierDeckSuit[a];
     }
 
+    public bool SplitButton(){
+        if((int)PlayerDeck1Face[0] == (int)PlayerDeck1Suit[1]) return true;
+        else return false;
+    }
+
+    public bool DoubleButton(){
+        if(PlayerDeck1Face.Count == 2) return true;
+        else return false;
+    }
+
+    public bool PlayerHasTwoCards(){
+        if(PlayerDeck1Face.Count >= 2) return true;
+        else return false;
+    }
     public void Cardsymbol(int i, int j)
     {
         Symbol (j);
