@@ -118,8 +118,6 @@ public class BlackJack : MonoBehaviour
         GetComponent<Deck>().AddCardFromDeckToPlayer();
         GetComponent<Deck>().AddCardFromDeckToCroupier();
         ShowButtons();
-        ShowValueOnHand1();
-        ShowValueOnCroupierHand();
     }
 
     // Croupier Get Cards
@@ -147,6 +145,7 @@ public class BlackJack : MonoBehaviour
             .GetComponent<CasinoCard>()
             .SetCardColor(GetComponent<Deck>().GetCroupierDeckSuit(a));
         CasinoCard.GetComponent<CasinoCard>().AssignInfo();
+        ShowValueOnCroupierHand();
     }
 
     // HIT
@@ -174,6 +173,7 @@ public class BlackJack : MonoBehaviour
             .GetComponent<CasinoCard>()
             .SetCardColor(GetComponent<Deck>().GetPlayerDeckSuit(a));
         CasinoCard.GetComponent<CasinoCard>().AssignInfo();
+        ShowValueOnHand1();
     }
 
     // Cards Value Show on screen
@@ -196,7 +196,7 @@ public class BlackJack : MonoBehaviour
                 GetComponent<Deck>().GetValueA1();
             HandValue.GetComponent<HandValue>().AssignInfo();
         }
-        GetComponent<Deck>().GetPlayerCard();
+        // GetComponent<Deck>().GetPlayerCard();
     }
 
     public void ShowValueOnCroupierHand()
@@ -207,7 +207,7 @@ public class BlackJack : MonoBehaviour
             Quaternion.identity);
         HandValue.transform.SetParent(CroupierHandValuePanel.transform);
         HandValue.transform.position = new Vector3(960, 540, 0);
-        if (GetComponent<Deck>().GetAs())
+        if (GetComponent<Deck>().GetAsCroupier())
         {
             HandValue.GetComponent<CroupierHandValue>().value =
                 GetComponent<Deck>().GetCroupierValueA1();
@@ -224,7 +224,7 @@ public class BlackJack : MonoBehaviour
     // Show buttons for decision
     public void ShowButtons()
     {
-        DestroyHand1Text();
+        DestroyButtons();
         var HitButton =
             Instantiate(Hit, new Vector3(0, 0, 0), Quaternion.identity);
         HitButton.transform.SetParent(ButtonsPanel1.transform);

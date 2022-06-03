@@ -134,6 +134,11 @@ public class Deck : MonoBehaviour
         return PlayerDeck1Face.Contains(Face.Ace);
     }
 
+    public bool GetAsCroupier()
+    {
+        return CroupierDeckFace.Contains(Face.Ace);
+    }
+
     public int GetPlayerDeckFace(int a)
     {
         return (int) PlayerDeck1Face[a];
