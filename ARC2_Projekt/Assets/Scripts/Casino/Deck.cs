@@ -57,6 +57,8 @@ public class Deck : MonoBehaviour
         DeckSuit.Clear();
         PlayerDeck1Face.Clear();
         PlayerDeck1Suit.Clear();
+        CroupierDeckFace.Clear();
+        CroupierDeckSuit.Clear();
 
         for (int i = 1; i < 14; i++)
         {
@@ -173,6 +175,12 @@ public class Deck : MonoBehaviour
         if(PlayerDeck1Face.Count >= 2) return true;
         else return false;
     }
+
+    public bool BustedHand1(){
+        if(GetValueA1() > 21) return true;
+        else return false;
+    }
+
     public void Cardsymbol(int i, int j)
     {
         Symbol (j);

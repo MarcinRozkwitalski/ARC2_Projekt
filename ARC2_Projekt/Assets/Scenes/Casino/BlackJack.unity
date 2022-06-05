@@ -1936,6 +1936,7 @@ MonoBehaviour:
   MaxBet: {fileID: 1131325273}
   Alert: {fileID: 494596351}
   PlayerBetString: 
+  MainPanel: {fileID: 933403505}
   HandValue1Panel: {fileID: 1370250586}
   CroupierHandValuePanel: {fileID: 1545195728}
   CroupierCardsPanel: {fileID: 1947387991}
@@ -1954,6 +1955,8 @@ MonoBehaviour:
   less: {fileID: 635264079}
   more: {fileID: 1504469554}
   back: {fileID: 2053927651}
+  gameEnded: {fileID: 1070528803043112480, guid: 63565066a23ce044991560811d7a3476,
+    type: 3}
   Hit: {fileID: 3973023658626037948, guid: b7482992b2c666544b081a2f741cdc9f, type: 3}
   Split: {fileID: 6185043744894376441, guid: 9d1c9807edced3b43b5a0f3b7a93e825, type: 3}
   Stand: {fileID: 4385489089729709365, guid: 0baee67c61f049243b0d1942d3ee5226, type: 3}

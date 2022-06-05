@@ -11,6 +11,7 @@ TagManager:
   - CasinoCard
   - Hand1Value
   - BlackJackButton
+  - GameEnded
   layers:
   - Default
   - TransparentFX

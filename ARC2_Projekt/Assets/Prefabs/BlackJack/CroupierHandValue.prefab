@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4437907353140419604}
   m_Layer: 5
   m_Name: CroupierHandValue
-  m_TagString: Untagged
+  m_TagString: CroupierHandValue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
