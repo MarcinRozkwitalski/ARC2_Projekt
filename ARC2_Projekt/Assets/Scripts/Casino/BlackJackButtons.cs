@@ -11,8 +11,9 @@ public class BlackJackButtons : MonoBehaviour
 
     public void Stand()
     {
-        FindObjectOfType<BlackJack>().ShowValueOnHand1();
-        FindObjectOfType<BlackJack>().UpdatePlayerMoneyText();
+        // FindObjectOfType<BlackJack>().ShowValueOnHand1();
+        // FindObjectOfType<BlackJack>().UpdatePlayerMoneyText();
+        FindObjectOfType<BlackJack>().StandAndGetPLayerValue();
     }
 
     public void Double()

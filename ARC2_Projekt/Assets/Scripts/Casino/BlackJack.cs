@@ -194,6 +194,17 @@ public class BlackJack : MonoBehaviour
         else if (GetComponent<Deck>().PlayerHasTwoCards()) ShowButtons();
     }
 
+    // Stand
+    public void StandAndGetPLayerValue()
+    {
+        if (FindObjectOfType<HandValue>().valueAs <= 21)
+            GetComponent<Deck>()
+                .CroupierVsOneHand(FindObjectOfType<HandValue>().valueAs);
+        else
+            GetComponent<Deck>()
+                .CroupierVsOneHand(FindObjectOfType<HandValue>().value);
+    }
+
     // Cards Value Show in hand 1
     public void ShowValueOnHand1()
     {
@@ -201,6 +212,7 @@ public class BlackJack : MonoBehaviour
         var HandValue =
             Instantiate(Hand1Value, new Vector3(0, 0, 0), Quaternion.identity);
         HandValue.transform.SetParent(HandValue1Panel.transform);
+
         // HandValue.transform.position = new Vector3(960, 540, 0);
         if (GetComponent<Deck>().GetAs())
         {
@@ -212,6 +224,8 @@ public class BlackJack : MonoBehaviour
         {
             HandValue.GetComponent<HandValue>().value =
                 GetComponent<Deck>().GetValueA1();
+            HandValue.GetComponent<HandValue>().valueAs =
+                GetComponent<Deck>().GetValueA1();
             HandValue.GetComponent<HandValue>().AssignInfo();
         }
         // GetComponent<Deck>().GetPlayerCard();
@@ -220,11 +234,13 @@ public class BlackJack : MonoBehaviour
     // Cards Value Show in croupier hand
     public void ShowValueOnCroupierHand()
     {
+        DestroyCroupierHandText();
         var HandValue =
             Instantiate(CroupierHandValue,
             new Vector3(0, 0, 0),
             Quaternion.identity);
         HandValue.transform.SetParent(CroupierHandValuePanel.transform);
+
         // HandValue.transform.position = new Vector3(960, 540, 0);
         if (GetComponent<Deck>().GetAsCroupier())
         {
@@ -235,6 +251,8 @@ public class BlackJack : MonoBehaviour
         else
         {
             HandValue.GetComponent<CroupierHandValue>().value =
+                GetComponent<Deck>().GetCroupierValueA1();
+            HandValue.GetComponent<CroupierHandValue>().valueAs =
                 GetComponent<Deck>().GetCroupierValueA1();
             HandValue.GetComponent<CroupierHandValue>().AssignInfo();
         }
@@ -360,7 +378,8 @@ public class BlackJack : MonoBehaviour
     // Destroy cards value when: add a card or end game
     public void DestroyCroupierHandText()
     {
-        var HandValueText = GameObject.FindGameObjectsWithTag("CroupierHandValue");
+        var HandValueText =
+            GameObject.FindGameObjectsWithTag("CroupierHandValue");
         foreach (var value in HandValueText)
         {
             Destroy (value);

@@ -105,6 +105,48 @@ public class Deck : MonoBehaviour
         }
     }
 
+    public void CroupierVsOneHand(int playerHand)
+    {
+        do
+        {
+            AddCardFromDeckToCroupier();
+            if (FindObjectOfType<CroupierHandValue>().valueAs > 16)
+            {
+                if (FindObjectOfType<CroupierHandValue>().valueAs <= 21)
+                {
+                    if (
+                        FindObjectOfType<CroupierHandValue>().valueAs >
+                        playerHand
+                    )
+                    {
+                        FindObjectOfType<BlackJack>().GameEnded("Lost");
+                    }
+
+                    if (
+                        FindObjectOfType<CroupierHandValue>().valueAs ==
+                        playerHand
+                    )
+                    {
+                        FindObjectOfType<BlackJack>().GameEnded("Push");
+                    }
+
+                    if (
+                        FindObjectOfType<CroupierHandValue>().valueAs <
+                        playerHand
+                    )
+                    {
+                        FindObjectOfType<BlackJack>().GameEnded("Win");
+                    }
+                }
+                else
+                {
+                    FindObjectOfType<BlackJack>().GameEnded("Win");
+                }
+            }
+        }
+        while (FindObjectOfType<CroupierHandValue>().valueAs <= 16);
+    }
+
     public int GetValueA1()
     {
         value = 0;
@@ -118,7 +160,7 @@ public class Deck : MonoBehaviour
         return value;
     }
 
-     public int GetCroupierValueA1()
+    public int GetCroupierValueA1()
     {
         value = 0;
         foreach (Face entry in CroupierDeckFace)
@@ -156,29 +198,41 @@ public class Deck : MonoBehaviour
         return (int) CroupierDeckFace[a];
     }
 
-     public char GetCroupierDeckSuit(int a)
+    public char GetCroupierDeckSuit(int a)
     {
         return (char) CroupierDeckSuit[a];
     }
 
-    public bool SplitButton(){
-        if((int)PlayerDeck1Face[0] == (int)PlayerDeck1Suit[1]) return true;
-        else return false;
+    public bool SplitButton()
+    {
+        if ((int) PlayerDeck1Face[0] == (int) PlayerDeck1Suit[1])
+            return true;
+        else
+            return false;
     }
 
-    public bool DoubleButton(){
-        if(PlayerDeck1Face.Count == 2) return true;
-        else return false;
+    public bool DoubleButton()
+    {
+        if (PlayerDeck1Face.Count == 2)
+            return true;
+        else
+            return false;
     }
 
-    public bool PlayerHasTwoCards(){
-        if(PlayerDeck1Face.Count >= 2) return true;
-        else return false;
+    public bool PlayerHasTwoCards()
+    {
+        if (PlayerDeck1Face.Count >= 2)
+            return true;
+        else
+            return false;
     }
 
-    public bool BustedHand1(){
-        if(GetValueA1() > 21) return true;
-        else return false;
+    public bool BustedHand1()
+    {
+        if (GetValueA1() > 21)
+            return true;
+        else
+            return false;
     }
 
     public void Cardsymbol(int i, int j)

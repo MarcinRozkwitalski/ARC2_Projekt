@@ -12,6 +12,7 @@ TagManager:
   - Hand1Value
   - BlackJackButton
   - GameEnded
+  - CroupierHandValue
   layers:
   - Default
   - TransparentFX
