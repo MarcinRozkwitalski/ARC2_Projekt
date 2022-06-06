@@ -121,26 +121,26 @@ public class Deck : MonoBehaviour
                 {
                     if (croupierHand > playerHand)
                     {
-                        FindObjectOfType<BlackJack>().GameEnded("Lost");
+                        StartCoroutine(FindObjectOfType<BlackJack>().GameEnded("Lost"));
                     }
 
                     if (croupierHand == playerHand)
                     {
-                        FindObjectOfType<BlackJack>().GameEnded("Push");
+                        StartCoroutine(FindObjectOfType<BlackJack>().GameEnded("Push"));
                         StartCoroutine(FindObjectOfType<BlackJack>()
                             .UpdatePlayerMoney(false));
                     }
 
                     if (croupierHand < playerHand)
                     {
-                        FindObjectOfType<BlackJack>().GameEnded("Win");
+                        StartCoroutine(FindObjectOfType<BlackJack>().GameEnded("Win"));
                         StartCoroutine(FindObjectOfType<BlackJack>()
                             .UpdatePlayerMoney(true));
                     }
                 }
                 else
                 {
-                    FindObjectOfType<BlackJack>().GameEnded("Win");
+                    StartCoroutine(FindObjectOfType<BlackJack>().GameEnded("Win"));
                     StartCoroutine(FindObjectOfType<BlackJack>()
                         .UpdatePlayerMoney(true));
                 }

@@ -190,7 +190,7 @@ public class BlackJack : MonoBehaviour
         ShowValueOnHand1();
         if (GetComponent<Deck>().BustedHand1())
         {
-            GameEnded("Busted");
+            StartCoroutine(GameEnded("Busted"));
         }
         else if (GetComponent<Deck>().PlayerHasTwoCards()) ShowButtons();
     }
@@ -289,8 +289,9 @@ public class BlackJack : MonoBehaviour
     }
 
     // GameEnded
-    public void GameEnded(string title)
+    public IEnumerator GameEnded(string title)
     {
+        yield return new WaitForSeconds(1F);
         DestroyButtons();
         var EndButton =
             Instantiate(gameEnded, new Vector3(0, 0, 0), Quaternion.identity);
