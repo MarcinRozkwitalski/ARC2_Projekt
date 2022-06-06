@@ -278,7 +278,10 @@ public class BlackJack : MonoBehaviour
             var DoubleButton =
                 Instantiate(Double, new Vector3(0, 0, 0), Quaternion.identity);
             DoubleButton.transform.SetParent(ButtonsPanel1.transform);
-            Debug.Log( CurrentPlayer.GetComponent<CurrentPlayer>().Money + ">=" + int.Parse(PlayerBet.text));
+            Debug
+                .Log(CurrentPlayer.GetComponent<CurrentPlayer>().Money +
+                ">=" +
+                int.Parse(PlayerBet.text));
         }
         if (GetComponent<Deck>().SplitButton())
         {
@@ -291,12 +294,16 @@ public class BlackJack : MonoBehaviour
     // GameEnded
     public IEnumerator GameEnded(string title)
     {
-        yield return new WaitForSeconds(1F);
         DestroyButtons();
+        yield return new WaitForSeconds(1F);
         var EndButton =
             Instantiate(gameEnded, new Vector3(0, 0, 0), Quaternion.identity);
         EndButton.transform.SetParent(MainPanel.transform);
         EndButton.transform.position = new Vector3(960, 640, 0);
+        if (title == "Lost") EndButton.GetComponent<Image>().color = Color.red;
+        if (title == "Win") EndButton.GetComponent<Image>().color = Color.green;
+        if (title == "Push")
+            EndButton.GetComponent<Image>().color = Color.yellow;
         EndButton.GetComponentInChildren<Text>().text = title;
     }
 
@@ -363,17 +370,25 @@ public class BlackJack : MonoBehaviour
         yield return new WaitForSeconds(1F);
         WWWForm betMoneyForm = new WWWForm();
         betMoneyForm.AddField("apppassword", "thisisfromtheapp!");
-        betMoneyForm.AddField("Id", CurrentPlayer.GetComponent<CurrentPlayer>().Id);
+        betMoneyForm
+            .AddField("Id", CurrentPlayer.GetComponent<CurrentPlayer>().Id);
         int money = 0;
-        if(win) money = CurrentPlayer.GetComponent<CurrentPlayer>().Money + 2 * int.Parse(PlayerBet.text);
-        else money = CurrentPlayer.GetComponent<CurrentPlayer>().Money + int.Parse(PlayerBet.text);
-        betMoneyForm.AddField("Price",money);
-        UnityWebRequest betMoneyRequest =UnityWebRequest.Post("http://localhost/BlackJack/betmoney.php", betMoneyForm);
+        if (win)
+            money =
+                CurrentPlayer.GetComponent<CurrentPlayer>().Money +
+                2 * int.Parse(PlayerBet.text);
+        else
+            money =
+                CurrentPlayer.GetComponent<CurrentPlayer>().Money +
+                int.Parse(PlayerBet.text);
+        betMoneyForm.AddField("Price", money);
+        UnityWebRequest betMoneyRequest =
+            UnityWebRequest
+                .Post("http://localhost/BlackJack/betmoney.php", betMoneyForm);
         if (betMoneyRequest.error == null)
         {
             yield return betMoneyRequest.SendWebRequest();
-            CurrentPlayer.GetComponent<CurrentPlayer>().Money =
-                money;
+            CurrentPlayer.GetComponent<CurrentPlayer>().Money = money;
             UpdatePlayerMoneyText();
         }
         else
