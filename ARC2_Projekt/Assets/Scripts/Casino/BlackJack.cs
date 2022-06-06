@@ -106,7 +106,7 @@ public class BlackJack : MonoBehaviour
                 {
                     Alert.text = "Correct bet";
                     StartCoroutine(GetMoneyFromPlayer());
-                    StartGame();
+                    StartCoroutine(StartGame());
                 } // Game start
                 else
                     Alert.text = "Not enough money";
@@ -124,8 +124,9 @@ public class BlackJack : MonoBehaviour
     }
 
     // Game start
-    public void StartGame()
+    public IEnumerator StartGame()
     {
+        yield return new WaitForSeconds(1f); // dzięki temu nie pojawia się button double bo program ma czas na update playermoney
         DisableBetButtons();
         GetComponent<Deck>().GetDeck();
         GetComponent<Deck>().AddCardFromDeckToPlayer();
@@ -277,6 +278,7 @@ public class BlackJack : MonoBehaviour
             var DoubleButton =
                 Instantiate(Double, new Vector3(0, 0, 0), Quaternion.identity);
             DoubleButton.transform.SetParent(ButtonsPanel1.transform);
+            Debug.Log( CurrentPlayer.GetComponent<CurrentPlayer>().Money + ">=" + int.Parse(PlayerBet.text));
         }
         if (GetComponent<Deck>().SplitButton())
         {
@@ -293,7 +295,7 @@ public class BlackJack : MonoBehaviour
         var EndButton =
             Instantiate(gameEnded, new Vector3(0, 0, 0), Quaternion.identity);
         EndButton.transform.SetParent(MainPanel.transform);
-        EndButton.transform.position = new Vector3(960, 540, 0);
+        EndButton.transform.position = new Vector3(960, 640, 0);
         EndButton.GetComponentInChildren<Text>().text = title;
     }
 
@@ -338,7 +340,6 @@ public class BlackJack : MonoBehaviour
         UnityWebRequest betMoneyRequest =
             UnityWebRequest
                 .Post("http://localhost/BlackJack/betmoney.php", betMoneyForm);
-        Debug.Log("Money halo");
         if (betMoneyRequest.error == null)
         {
             yield return betMoneyRequest.SendWebRequest();
@@ -350,6 +351,29 @@ public class BlackJack : MonoBehaviour
             PlayerBet.text = PlayerBetInput.text;
             UpdatePlayerMoneyText();
             Debug.Log("Money bet = " + int.Parse(PlayerBet.text));
+        }
+        else
+            Debug.Log("oj");
+    }
+
+    // update moany after game
+    public IEnumerator UpdatePlayerMoney(bool win)
+    {
+        yield return new WaitForSeconds(1F);
+        WWWForm betMoneyForm = new WWWForm();
+        betMoneyForm.AddField("apppassword", "thisisfromtheapp!");
+        betMoneyForm.AddField("Id", CurrentPlayer.GetComponent<CurrentPlayer>().Id);
+        int money = 0;
+        if(win) money = CurrentPlayer.GetComponent<CurrentPlayer>().Money + 2 * int.Parse(PlayerBet.text);
+        else money = CurrentPlayer.GetComponent<CurrentPlayer>().Money + int.Parse(PlayerBet.text);
+        betMoneyForm.AddField("Price",money);
+        UnityWebRequest betMoneyRequest =UnityWebRequest.Post("http://localhost/BlackJack/betmoney.php", betMoneyForm);
+        if (betMoneyRequest.error == null)
+        {
+            yield return betMoneyRequest.SendWebRequest();
+            CurrentPlayer.GetComponent<CurrentPlayer>().Money =
+                money;
+            UpdatePlayerMoneyText();
         }
         else
             Debug.Log("oj");

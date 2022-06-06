@@ -107,44 +107,46 @@ public class Deck : MonoBehaviour
 
     public void CroupierVsOneHand(int playerHand)
     {
+        int croupierHand = 0;
         do
         {
             AddCardFromDeckToCroupier();
-            if (FindObjectOfType<CroupierHandValue>().valueAs > 16)
+            if (FindObjectOfType<CroupierHandValue>().valueAs <= 21)
+                croupierHand = FindObjectOfType<CroupierHandValue>().valueAs;
+            else
+                croupierHand = FindObjectOfType<CroupierHandValue>().value;
+            if (croupierHand > 16)
             {
-                if (FindObjectOfType<CroupierHandValue>().valueAs <= 21)
+                if (croupierHand <= 21)
                 {
-                    if (
-                        FindObjectOfType<CroupierHandValue>().valueAs >
-                        playerHand
-                    )
+                    if (croupierHand > playerHand)
                     {
                         FindObjectOfType<BlackJack>().GameEnded("Lost");
                     }
 
-                    if (
-                        FindObjectOfType<CroupierHandValue>().valueAs ==
-                        playerHand
-                    )
+                    if (croupierHand == playerHand)
                     {
                         FindObjectOfType<BlackJack>().GameEnded("Push");
+                        StartCoroutine(FindObjectOfType<BlackJack>()
+                            .UpdatePlayerMoney(false));
                     }
 
-                    if (
-                        FindObjectOfType<CroupierHandValue>().valueAs <
-                        playerHand
-                    )
+                    if (croupierHand < playerHand)
                     {
                         FindObjectOfType<BlackJack>().GameEnded("Win");
+                        StartCoroutine(FindObjectOfType<BlackJack>()
+                            .UpdatePlayerMoney(true));
                     }
                 }
                 else
                 {
                     FindObjectOfType<BlackJack>().GameEnded("Win");
+                    StartCoroutine(FindObjectOfType<BlackJack>()
+                        .UpdatePlayerMoney(true));
                 }
             }
         }
-        while (FindObjectOfType<CroupierHandValue>().valueAs <= 16);
+        while (croupierHand <= 16);
     }
 
     public int GetValueA1()
