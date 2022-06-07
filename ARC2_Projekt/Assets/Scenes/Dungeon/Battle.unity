@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 770073662}
   - component: {fileID: 770073661}
   - component: {fileID: 770073664}
+  - component: {fileID: 770073665}
   m_Layer: 5
   m_Name: BackToDungeonButton
   m_TagString: Untagged
@@ -302,6 +303,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 770073665}
+        m_TargetAssemblyTypeName: AddEnemyToTCP, Assembly-CSharp
+        m_MethodName: HandleAddingEnemy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &770073662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,6 +365,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5c2074060c1ba43a7397948d6b6989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &770073665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770073659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c36f8161966aad48a3e3f503fa35000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tempCurrentPlayer: {fileID: 0}
+  doorHandler: {fileID: 0}
 --- !u!1 &778898612
 GameObject:
   m_ObjectHideFlags: 0

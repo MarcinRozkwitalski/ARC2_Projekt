@@ -42,6 +42,7 @@ public class DoorHandler : MonoBehaviour
     public void CheckText()
     {
         DoorValue = this.transform.GetChild(0).GetComponent<Text>().text;
+        tempCurrentPlayer.LastDoorValue = DoorValue;
 
         switch (DoorValue)
         {
