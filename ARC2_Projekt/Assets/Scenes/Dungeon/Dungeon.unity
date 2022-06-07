@@ -287,6 +287,7 @@ MonoBehaviour:
   sceneSwitcher: {fileID: 0}
   showPlayerInfo: {fileID: 0}
   buttonActions: {fileID: 0}
+  tempCurrentPlayer: {fileID: 0}
   DoorValue: 
 --- !u!1 &160882926
 GameObject:
@@ -451,6 +452,7 @@ MonoBehaviour:
   sceneSwitcher: {fileID: 0}
   showPlayerInfo: {fileID: 0}
   buttonActions: {fileID: 0}
+  tempCurrentPlayer: {fileID: 0}
   DoorValue: 
 --- !u!1 &284014128
 GameObject:
@@ -465,6 +467,7 @@ GameObject:
   - component: {fileID: 284014131}
   - component: {fileID: 284014130}
   - component: {fileID: 284014133}
+  - component: {fileID: 284014134}
   m_Layer: 5
   m_Name: ExitTest
   m_TagString: Untagged
@@ -548,6 +551,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 284014134}
+        m_TargetAssemblyTypeName: RemoveTempCurrentPlayer, Assembly-CSharp
+        m_MethodName: DestroyTempCurrentPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &284014131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,6 +611,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a5c2074060c1ba43a7397948d6b6989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &284014134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284014128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1854720ed5428d94cbacea8df895d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &558456625
@@ -900,6 +927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UserInfoText: {fileID: 1461089122}
+  tempCurrentPlayer: {fileID: 0}
 --- !u!1 &1312893089
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,6 +1520,7 @@ MonoBehaviour:
   sceneSwitcher: {fileID: 0}
   showPlayerInfo: {fileID: 0}
   buttonActions: {fileID: 0}
+  tempCurrentPlayer: {fileID: 0}
   DoorValue: 
 --- !u!1 &2051189393
 GameObject:
@@ -1545,6 +1574,7 @@ MonoBehaviour:
   sceneSwitcher: {fileID: 0}
   showPlayerInfo: {fileID: 0}
   buttonActions: {fileID: 0}
+  tempCurrentPlayer: {fileID: 0}
   DoorValue: 
 --- !u!114 &2051189396
 MonoBehaviour:
@@ -1595,8 +1625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7298a2be75960c4f9468d93d0fba49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentPlayerMoney: 0
-  CurrentPlayerLife: 0
+  tempCurrentPlayer: {fileID: 0}
 --- !u!114 &2051189399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1610,6 +1639,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UserInfoText: {fileID: 1461089122}
+  TempPlayerMoney: 0
+  TempPlayerLife: 0
 --- !u!1 &2069464475
 GameObject:
   m_ObjectHideFlags: 0

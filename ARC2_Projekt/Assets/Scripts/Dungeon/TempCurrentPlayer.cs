@@ -7,8 +7,8 @@ public class TempCurrentPlayer : MonoBehaviour
 {
     public Text UserInfoText;
 
-    public int TempPlayerMoney;
-    public int TempPlayerLife;
+    public int TempPlayerMoney = 0;
+    public int TempPlayerLife = 0;
 
     private void Awake() {
 
