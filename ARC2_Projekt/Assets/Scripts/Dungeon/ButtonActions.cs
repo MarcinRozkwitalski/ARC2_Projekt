@@ -5,19 +5,20 @@ using UnityEngine;
 
 public class ButtonActions : MonoBehaviour
 {
-    public int CurrentPlayerMoney;
-    public int CurrentPlayerLife;
+    public TempCurrentPlayer tempCurrentPlayer;
 
     void Start()
     {
+        tempCurrentPlayer = GameObject.Find("DoorHandler").GetComponent<TempCurrentPlayer>();
+
         var CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
-        CurrentPlayerMoney = CurrentPlayer.GetComponent<CurrentPlayer>().Money;
-        CurrentPlayerLife = CurrentPlayer.GetComponent<CurrentPlayer>().Life;
+        tempCurrentPlayer.TempPlayerMoney = CurrentPlayer.GetComponent<CurrentPlayer>().Money;
+        tempCurrentPlayer.TempPlayerLife = CurrentPlayer.GetComponent<CurrentPlayer>().Life;
     }
     
     public void TreasureAddMoney()
     {
-        CurrentPlayerMoney += Random.Range(10, 50);
+        tempCurrentPlayer.TempPlayerMoney += Random.Range(10, 50);
     }
 
     public void FlameGiveCard()
@@ -27,12 +28,12 @@ public class ButtonActions : MonoBehaviour
 
     public void CrossHeal()
     {
-        CurrentPlayerLife += Random.Range(5, 20);
-        if (CurrentPlayerLife > 100) CurrentPlayerLife = 100;
+        tempCurrentPlayer.TempPlayerLife += Random.Range(5, 20);
+        if (tempCurrentPlayer.TempPlayerLife > 100) tempCurrentPlayer.TempPlayerLife = 100;
     }
 
     public void SadnessLoseMoney()
     {
-        CurrentPlayerMoney -= Random.Range(10, 25);
+        tempCurrentPlayer.TempPlayerMoney -= Random.Range(10, 25);
     }
 }

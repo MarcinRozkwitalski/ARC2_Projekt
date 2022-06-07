@@ -11,6 +11,7 @@ public class DoorHandler : MonoBehaviour
     public SceneSwitcher sceneSwitcher;
     public ShowPlayerInfo showPlayerInfo;
     public ButtonActions buttonActions;
+    public TempCurrentPlayer tempCurrentPlayer;
     Text DoorCounterText; 
     public string DoorValue;
 
@@ -19,6 +20,7 @@ public class DoorHandler : MonoBehaviour
         Door_01 = GameObject.Find("Door_01");
         Door_02 = GameObject.Find("Door_02");
         Door_03 = GameObject.Find("Door_03");
+        tempCurrentPlayer = GameObject.Find("DoorHandler").GetComponent<TempCurrentPlayer>();
         doorCounter = GameObject.Find("DoorHandler").GetComponent<DoorCounter>();
         doorRandomizer = GameObject.Find("DoorHandler").GetComponent<DoorRandomizer>();
         sceneSwitcher = GameObject.Find("SceneManager").GetComponent<SceneSwitcher>();
@@ -85,8 +87,8 @@ public class DoorHandler : MonoBehaviour
         
         UserInfoText.text = 
         "Player: " + CurrentPlayerUsername +
-        "\nLife: " + buttonActions.CurrentPlayerLife + 
-        "\nMoney: " + buttonActions.CurrentPlayerMoney;
+        "\nLife: " + tempCurrentPlayer.TempPlayerLife + 
+        "\nMoney: " + tempCurrentPlayer.TempPlayerMoney;
     }
 
     public void Randomize()

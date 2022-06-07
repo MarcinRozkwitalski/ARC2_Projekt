@@ -1506,6 +1506,7 @@ GameObject:
   - component: {fileID: 2051189396}
   - component: {fileID: 2051189397}
   - component: {fileID: 2051189398}
+  - component: {fileID: 2051189399}
   m_Layer: 0
   m_Name: DoorHandler
   m_TagString: Untagged
@@ -1596,6 +1597,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentPlayerMoney: 0
   CurrentPlayerLife: 0
+--- !u!114 &2051189399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051189393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af2d42990445304786c5741bf113a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UserInfoText: {fileID: 1461089122}
 --- !u!1 &2069464475
 GameObject:
   m_ObjectHideFlags: 0
