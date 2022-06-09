@@ -18,7 +18,9 @@ public class ButtonActions : MonoBehaviour
     
     public void TreasureAddMoney()
     {
-        tempCurrentPlayer.TempPlayerMoney += Random.Range(10, 50);
+        int ValueToAdd = Random.Range(10, 50);
+        tempCurrentPlayer.TempPlayerMoney += ValueToAdd;
+        tempCurrentPlayer.TempPlayerMoneyResults += ValueToAdd;
     }
 
     public void FlameGiveCard()
@@ -34,6 +36,8 @@ public class ButtonActions : MonoBehaviour
 
     public void SadnessLoseMoney()
     {
-        tempCurrentPlayer.TempPlayerMoney -= Random.Range(10, 25);
+        int ValueToAdd = Random.Range(10, 20);
+        tempCurrentPlayer.TempPlayerMoney -= ValueToAdd;
+        tempCurrentPlayer.TempPlayerMoneyResults -= ValueToAdd;
     }
 }

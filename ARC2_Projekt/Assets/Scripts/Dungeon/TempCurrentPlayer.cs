@@ -9,11 +9,13 @@ public class TempCurrentPlayer : MonoBehaviour
 
     public int TempPlayerMoney = 0;
     public int TempPlayerLife = 0;
+    public int TempPlayerMoneyResults = 0;
     public int BeatenNormalEnemies = 0;
     public int BeatenPowerfulEnemies = 0;
     public string LastDoorValue;
 
-    private void Awake() {
+    private void Awake() 
+    {
 
         var tempCurrentPlayers = FindObjectsOfType<TempCurrentPlayer>();
         if(tempCurrentPlayers.Length > 1)
