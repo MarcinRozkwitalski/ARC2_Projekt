@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using SimpleJSON;
+using UnityEngine.SceneManagement;
+
 using UnityEngine;
 
 public class DoorHandler : MonoBehaviour
 {
     GameObject Door_01, Door_02, Door_03;
+    public int CurrentPlayerId;
+    public GameObject CurrentPlayer;
     public DoorCounter doorCounter;
     public DoorRandomizer doorRandomizer;
     public SceneSwitcher sceneSwitcher;
@@ -17,6 +23,9 @@ public class DoorHandler : MonoBehaviour
 
     void Start()
     {
+        CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
+        CurrentPlayerId = CurrentPlayer.GetComponent<CurrentPlayer>().Id;
+
         Door_01 = GameObject.Find("Door_01");
         Door_02 = GameObject.Find("Door_02");
         Door_03 = GameObject.Find("Door_03");
@@ -65,8 +74,8 @@ public class DoorHandler : MonoBehaviour
                 buttonActions.SadnessLoseMoney();
                 break;
             case "usmiech":
+                StartCoroutine(UpdatePlayerLifeMoney(tempCurrentPlayer.TempPlayerLife, tempCurrentPlayer.TempPlayerMoney));
                 sceneSwitcher.LoadDungeonResultsScene();
-                doorCounter.DoorCounterNumber = -1;
                 //here should be php post with updating life and money
                 break;    
             default:
@@ -98,5 +107,21 @@ public class DoorHandler : MonoBehaviour
         Door_01.transform.GetChild(0).GetComponent<Text>().text = doorRandomizer.doors[0];
         Door_02.transform.GetChild(0).GetComponent<Text>().text = doorRandomizer.doors[1];
         Door_03.transform.GetChild(0).GetComponent<Text>().text = doorRandomizer.doors[2];
+    }
+
+    IEnumerator UpdatePlayerLifeMoney(int life, int player_money)
+    {
+        WWWForm updatePlayerLifeMoneyForm = new WWWForm();
+        updatePlayerLifeMoneyForm.AddField("apppassword", "thisisfromtheapp!");
+        updatePlayerLifeMoneyForm.AddField("Id", CurrentPlayerId);
+        updatePlayerLifeMoneyForm.AddField("Life", life);
+        updatePlayerLifeMoneyForm.AddField("Money", player_money);
+
+        UnityWebRequest updatePlayerLifeMoneyRequest = UnityWebRequest.Post("http://localhost/arcCruds/dungeon/updateplayerlifemoney.php", updatePlayerLifeMoneyForm);
+
+        yield return updatePlayerLifeMoneyRequest.SendWebRequest();
+
+        CurrentPlayer.GetComponent<CurrentPlayer>().Life = life;
+        CurrentPlayer.GetComponent<CurrentPlayer>().Money = player_money;
     }
 }

@@ -8,6 +8,7 @@ public class DungeonResults : MonoBehaviour
 {
     public Text ResultsText;
     public string MoneyText;
+    public string BeatenText = "Beaten:\n";
     public string NormalEnemiesText = "";
     public string PowerfulEnemiesText = "";
     public TempCurrentPlayer tempCurrentPlayer;
@@ -21,7 +22,8 @@ public class DungeonResults : MonoBehaviour
         CheckEnemies();
 
         ResultsText.text = "You've passed dungeon, " + CurrentPlayer.GetComponent<CurrentPlayer>().Username + "!\n\n" +
-        "You've " + MoneyText + NormalEnemiesText + PowerfulEnemiesText;
+        "You've " + MoneyText + "Total money: " + CurrentPlayer.GetComponent<CurrentPlayer>().Money + "\n\n" + 
+        BeatenText + NormalEnemiesText + PowerfulEnemiesText;
     }
 
     void CheckMoney()
@@ -48,6 +50,7 @@ public class DungeonResults : MonoBehaviour
 
     void CheckEnemies()
     {
+        if(tempCurrentPlayer.BeatenNormalEnemies == 0 && tempCurrentPlayer.BeatenPowerfulEnemies == 0) BeatenText = "";
         if(tempCurrentPlayer.BeatenNormalEnemies > 0) CheckNormalEnemies();
         if(tempCurrentPlayer.BeatenPowerfulEnemies > 0) CheckPowerfulEnemies();
     }
@@ -55,16 +58,16 @@ public class DungeonResults : MonoBehaviour
     void CheckNormalEnemies()
     {
         if(tempCurrentPlayer.BeatenNormalEnemies == 1)
-        NormalEnemiesText = "Beaten " + tempCurrentPlayer.BeatenNormalEnemies + " normal enemy.\n";
+        NormalEnemiesText = tempCurrentPlayer.BeatenNormalEnemies + " normal enemy.\n";
         else
-        NormalEnemiesText = "Beaten " + tempCurrentPlayer.BeatenNormalEnemies + " normal enemies.\n";
+        NormalEnemiesText = tempCurrentPlayer.BeatenNormalEnemies + " normal enemies.\n";
     }
 
     void CheckPowerfulEnemies()
     {
         if(tempCurrentPlayer.BeatenPowerfulEnemies == 1)
-        PowerfulEnemiesText = "Beaten " + tempCurrentPlayer.BeatenPowerfulEnemies + " powerful enemy.\n";
+        PowerfulEnemiesText = tempCurrentPlayer.BeatenPowerfulEnemies + " powerful enemy.\n";
         else
-        PowerfulEnemiesText = "Beaten " + tempCurrentPlayer.BeatenPowerfulEnemies + " powerful enemies.\n";
+        PowerfulEnemiesText = tempCurrentPlayer.BeatenPowerfulEnemies + " powerful enemies.\n";
     }
 }
