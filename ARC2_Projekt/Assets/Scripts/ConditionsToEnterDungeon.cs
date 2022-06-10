@@ -16,7 +16,8 @@ public class ConditionsToEnterDungeon : MonoBehaviour
     public int cardsNumber;
     public bool isAttackCardPresent;
 
-    void Awake() {
+    void Awake()
+    {
         CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
         CurrentPlayerId = CurrentPlayer.GetComponent<CurrentPlayer>().Id;
         InformationPanel = GameObject.Find("InformationPanel");

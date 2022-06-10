@@ -76,7 +76,6 @@ public class DoorHandler : MonoBehaviour
             case "usmiech":
                 StartCoroutine(UpdatePlayerLifeMoney(tempCurrentPlayer.TempPlayerLife, tempCurrentPlayer.TempPlayerMoney));
                 sceneSwitcher.LoadDungeonResultsScene();
-                //here should be php post with updating life and money
                 break;    
             default:
                 break;
@@ -119,9 +118,8 @@ public class DoorHandler : MonoBehaviour
 
         UnityWebRequest updatePlayerLifeMoneyRequest = UnityWebRequest.Post("http://localhost/arcCruds/dungeon/updateplayerlifemoney.php", updatePlayerLifeMoneyForm);
 
-        yield return updatePlayerLifeMoneyRequest.SendWebRequest();
-
         CurrentPlayer.GetComponent<CurrentPlayer>().Life = life;
         CurrentPlayer.GetComponent<CurrentPlayer>().Money = player_money;
+        yield return updatePlayerLifeMoneyRequest.SendWebRequest();
     }
 }

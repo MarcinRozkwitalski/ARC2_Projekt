@@ -22,7 +22,7 @@ public class DungeonResults : MonoBehaviour
         CheckEnemies();
 
         ResultsText.text = "You've passed dungeon, " + CurrentPlayer.GetComponent<CurrentPlayer>().Username + "!\n\n" +
-        "You've " + MoneyText + "Total money: " + CurrentPlayer.GetComponent<CurrentPlayer>().Money + "\n\n" + 
+        "You've " + MoneyText + "Total money: " + tempCurrentPlayer.TempPlayerMoney + "\n\n" + 
         BeatenText + NormalEnemiesText + PowerfulEnemiesText;
     }
 
