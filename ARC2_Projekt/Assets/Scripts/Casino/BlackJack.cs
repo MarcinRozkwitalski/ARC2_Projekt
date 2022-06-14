@@ -10,9 +10,13 @@ public class BlackJack : MonoBehaviour
 
     public Text PlayerMoney;
 
+    public Text PlayerWonMoney;
+
     public InputField PlayerBetInput;
 
     public Text PlayerBet;
+
+    public int PlayerWonMoneyInt = 0;
 
     public int PlayerBetInt = 0;
 
@@ -300,8 +304,18 @@ public class BlackJack : MonoBehaviour
             Instantiate(gameEnded, new Vector3(0, 0, 0), Quaternion.identity);
         EndButton.transform.SetParent(MainPanel.transform);
         EndButton.transform.position = new Vector3(960, 640, 0);
-        if (title == "Lost") EndButton.GetComponent<Image>().color = Color.red;
-        if (title == "Win") EndButton.GetComponent<Image>().color = Color.green;
+        if (title == "Lost" || title == "Busted")
+        {
+            EndButton.GetComponent<Image>().color = Color.red;
+            PlayerWonMoneyInt -= int.Parse(PlayerBet.text);
+            UpdatePlayerWonMoneyText();
+        }
+        if (title == "Win")
+        {
+            EndButton.GetComponent<Image>().color = Color.green;
+            PlayerWonMoneyInt += int.Parse(PlayerBet.text);
+            UpdatePlayerWonMoneyText();
+        }
         if (title == "Push")
             EndButton.GetComponent<Image>().color = Color.yellow;
         EndButton.GetComponentInChildren<Text>().text = title;
@@ -475,5 +489,10 @@ public class BlackJack : MonoBehaviour
             "Player Money: " +
             CurrentPlayer.GetComponent<CurrentPlayer>().Money +
             "$";
+    }
+
+    public void UpdatePlayerWonMoneyText()
+    {
+        PlayerWonMoney.text = "Money Won: " + PlayerWonMoneyInt + "$";
     }
 }

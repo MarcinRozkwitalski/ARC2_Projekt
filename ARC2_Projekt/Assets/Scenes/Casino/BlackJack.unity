@@ -1930,8 +1930,10 @@ MonoBehaviour:
   CurrentPlayer: {fileID: 2562417776171719019, guid: 5c62b54c86cb7324fa252317528b1627,
     type: 3}
   PlayerMoney: {fileID: 1644472368}
+  PlayerWonMoney: {fileID: 810926328}
   PlayerBetInput: {fileID: 1740548769}
   PlayerBet: {fileID: 1553755012}
+  PlayerWonMoneyInt: 0
   PlayerBetInt: 0
   MaxBet: {fileID: 1131325273}
   Alert: {fileID: 494596351}
