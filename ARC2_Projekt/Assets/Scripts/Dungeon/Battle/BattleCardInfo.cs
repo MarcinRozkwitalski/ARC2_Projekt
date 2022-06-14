@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BattleCardInfo : MonoBehaviour
 {
     public BattleHandler battleHandler;
+    public BattleCardHandler battleCardHandler;
 
     public Text CardName;
     public Text Type;
@@ -23,6 +24,7 @@ public class BattleCardInfo : MonoBehaviour
     
     private void Start() {
         battleHandler = GameObject.Find("BattleHandler").GetComponent<BattleHandler>();
+        battleCardHandler = GameObject.Find("NetworkManager").GetComponent<BattleCardHandler>();
     }
 
     public void AssignInfo()
@@ -50,6 +52,54 @@ public class BattleCardInfo : MonoBehaviour
                 battleHandler.currentEnemyHealth -= points;
                 battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
                 battleHandler.remainingMoves--;
+                if(battleHandler.currentEnemyHealth <= 0)
+                {
+                    battleHandler.currentEnemyHealth = 0;
+                    battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
+                    HideAllBattleCards();
+                    ShowGoBackToDungeonButton();
+                }
+                else if(battleHandler.remainingMoves == 0)
+                {
+                    HideAllBattleCards();
+                    battleHandler.whosTurn = "enemy";
+                }
+            }
+            else if (battleHandler.currentEnemyDefence < points)
+            {
+                int remainingPoints = battleHandler.currentEnemyDefence - points;
+                battleHandler.currentPlayerHealth -= healthPoints;
+                battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
+                battleHandler.currentEnemyDefence = 0;
+                battleHandler.enemyDefenceText.text = "Shield: " + battleHandler.currentEnemyDefence.ToString();
+                battleHandler.currentEnemyHealth -= remainingPoints;
+                battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
+                battleHandler.remainingMoves--;
+                if(battleHandler.currentEnemyHealth <= 0)
+                {
+                    battleHandler.currentEnemyHealth = 0;
+                    battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
+                    HideAllBattleCards();
+                    ShowGoBackToDungeonButton();
+                }
+                else if(battleHandler.remainingMoves == 0)
+                {
+                    HideAllBattleCards();
+                    battleHandler.whosTurn = "enemy";
+                }
+            }
+            else if (battleHandler.currentEnemyDefence == points)
+            {
+                battleHandler.currentPlayerHealth -= healthPoints;
+                battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
+                battleHandler.currentEnemyDefence = 0;
+                battleHandler.enemyDefenceText.text = "Shield: " + battleHandler.currentEnemyDefence.ToString();
+                battleHandler.remainingMoves--;
+                if(battleHandler.remainingMoves == 0)
+                {
+                    HideAllBattleCards();
+                    battleHandler.whosTurn = "enemy";
+                }
             }
         }
         else if(this.type == "Obrona")
@@ -59,11 +109,32 @@ public class BattleCardInfo : MonoBehaviour
             battleHandler.currentPlayerDefence += points;
             battleHandler.playerDefenceText.text = "Shield: " + battleHandler.currentPlayerDefence.ToString();
             battleHandler.remainingMoves--;
+            if(battleHandler.remainingMoves == 0)
+            {
+                HideAllBattleCards();
+                battleHandler.whosTurn = "enemy";
+            }
         }
     }
 
     public void HideBattleCard()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void HideAllBattleCards()
+    {
+        int howManyCards = battleCardHandler.playerCardsPanel.transform.childCount;
+
+        for (int i = 0; i < howManyCards; i++)
+        {
+            battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
+
+    public void ShowGoBackToDungeonButton()
+    {
+        battleHandler.informationText.text = "You have beaten " + battleHandler.currentEnemyName + "!";
+        battleHandler.backToDungeonButton.gameObject.SetActive(true);
     }
 }

@@ -9,6 +9,9 @@ public class BattleHandler : MonoBehaviour
     public NormalEnemiesList normalEnemiesList;
     public PowerfulEnemiesList powerfulEnemiesList;
 
+    public Text informationText;
+    public GameObject backToDungeonButton;
+
     public Text playerNameText;
     public Text playerHealthText;
     public int currentPlayerHealth;
@@ -29,15 +32,10 @@ public class BattleHandler : MonoBehaviour
     public int currentEnemyHealth;
     public int currentEnemyDefence;
 
-    //na samym początku zczytać jakie gracz ma karty w ekwipunku z bazy danych
-    //wsadzić je wszystkie do obecnej "ręki" stack lub heap, wyświetlać tylko pierwsze pięć
+    //wsadzić karty wszystkie do obecnej "ręki" stack lub heap, wyświetlać tylko pierwsze pięć
     //gdy gracz PO swoim ruchu zostanie tylko z jedną kartą niech dobierze cztery karty "na rękę"
     //zużyte karty będące na odłożonej talii powinny się losowo poustawiać gdy zabraknie kart u gracza
 
-    //nadać licznik "int pozostałeRuchy = 2"
-    //przy użyciu jakiejś karty wykonać metodę "pozostałeRuchy--" oraz 
-    //wykonanie akcji z karty (atak lub obrona oraz wartość atakująca i odejmująca życie) oraz 
-    //pozbycie się karty do "odłożonej talii"
     //gdy gracz pojedzie dwa razy wtedy dwie tury należą do potwora
     //ruchy potwora nie powinny dziać się dosłownie przez chwilę, niech gracz widzi co potwór robi przez WaitForSeconds
     //przy każdym ruchu czy to gracza czy potwora powinny być sprawdzane warunki czy któryś z nich ma obecnie życie równe 0 po ataku
@@ -59,6 +57,10 @@ public class BattleHandler : MonoBehaviour
         enemyNameText = GameObject.Find("EnemyNameText").GetComponent<Text>();
         enemyHealthText = GameObject.Find("EnemyHealthText").GetComponent<Text>();
         enemyDefenceText = GameObject.Find("EnemyDefenceText").GetComponent<Text>();
+        informationText = GameObject.Find("InformationText").GetComponent<Text>();
+
+        backToDungeonButton = GameObject.Find("BackToDungeonButton");
+        backToDungeonButton.gameObject.SetActive(false);
 
         GetEnemyTypeByLastDoorValue();
         GetRandomEnemy();

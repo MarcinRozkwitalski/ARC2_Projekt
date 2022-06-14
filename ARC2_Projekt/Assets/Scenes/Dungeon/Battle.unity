@@ -331,6 +331,18 @@ MonoBehaviour:
   tempCurrentPlayer: {fileID: 0}
   normalEnemiesList: {fileID: 0}
   powerfulEnemiesList: {fileID: 0}
+  informationText: {fileID: 0}
+  backToDungeonButton: {fileID: 0}
+  playerNameText: {fileID: 0}
+  playerHealthText: {fileID: 0}
+  currentPlayerHealth: 0
+  playerMaxHealth: 100
+  playerDefenceText: {fileID: 0}
+  currentPlayerDefence: 0
+  enemyNameText: {fileID: 0}
+  enemyHealthText: {fileID: 0}
+  enemyDefenceText: {fileID: 0}
+  currentEnemyMaxHealth: 0
   remainingMoves: 0
   whosTurn: 
   currentEnemyId: 0
@@ -772,7 +784,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: EPIC BATTLE HERE
+  m_Text: 
 --- !u!222 &778898615
 CanvasRenderer:
   m_ObjectHideFlags: 0
