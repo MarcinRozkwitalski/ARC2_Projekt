@@ -9,12 +9,16 @@ public class BattleHandler : MonoBehaviour
     public NormalEnemiesList normalEnemiesList;
     public PowerfulEnemiesList powerfulEnemiesList;
 
-    Text playerNameText;
-    Text playerHealthText;
-    int playerMaxHealth = 100;
-    Text enemyNameText;
-    Text enemyHealthText;
-    int currentEnemyMaxHealth;
+    public Text playerNameText;
+    public Text playerHealthText;
+    public int currentPlayerHealth;
+    public int playerMaxHealth = 100;
+    public Text playerDefenceText;
+    public int currentPlayerDefence;
+    public Text enemyNameText;
+    public Text enemyHealthText;
+    public Text enemyDefenceText;
+    public int currentEnemyMaxHealth;
 
     public int remainingMoves;
     public string whosTurn;
@@ -23,6 +27,7 @@ public class BattleHandler : MonoBehaviour
     public int currentEnemyId;
     public string currentEnemyName;
     public int currentEnemyHealth;
+    public int currentEnemyDefence;
 
     //na samym początku zczytać jakie gracz ma karty w ekwipunku z bazy danych
     //wsadzić je wszystkie do obecnej "ręki" stack lub heap, wyświetlać tylko pierwsze pięć
@@ -50,16 +55,23 @@ public class BattleHandler : MonoBehaviour
         powerfulEnemiesList = GameObject.Find("BattleHandler").GetComponent<PowerfulEnemiesList>();
         playerNameText = GameObject.Find("PlayerNameText").GetComponent<Text>();
         playerHealthText = GameObject.Find("PlayerHealthText").GetComponent<Text>();
+        playerDefenceText = GameObject.Find("PlayerDefenceText").GetComponent<Text>();
         enemyNameText = GameObject.Find("EnemyNameText").GetComponent<Text>();
         enemyHealthText = GameObject.Find("EnemyHealthText").GetComponent<Text>();
+        enemyDefenceText = GameObject.Find("EnemyDefenceText").GetComponent<Text>();
 
         GetEnemyTypeByLastDoorValue();
         GetRandomEnemy();
 
         playerNameText.text = CurrentPlayerUsername;
-        playerHealthText.text = tempCurrentPlayer.TempPlayerLife.ToString() + "/" + playerMaxHealth;
+        currentPlayerHealth = tempCurrentPlayer.TempPlayerLife;
+        playerHealthText.text = currentPlayerHealth.ToString() + "/" + playerMaxHealth;
+        currentPlayerDefence = 0;
+        playerDefenceText.text = "Shield: " + currentPlayerDefence.ToString();
         enemyNameText.text = currentEnemyName;
         enemyHealthText.text = currentEnemyHealth.ToString() + "/" + currentEnemyMaxHealth;
+        currentEnemyDefence = 0;
+        enemyDefenceText.text = "Shield: " + currentEnemyDefence.ToString();
 
         remainingMoves = 2;
         whosTurn = "player";

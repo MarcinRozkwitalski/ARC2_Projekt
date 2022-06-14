@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class BattleCardInfo : MonoBehaviour
 {
+    public BattleHandler battleHandler;
+
     public Text CardName;
     public Text Type;
     public Text Description;
@@ -18,7 +20,10 @@ public class BattleCardInfo : MonoBehaviour
     public int healthPoints;
     public int id;
     public bool is_equipped = false;
-
+    
+    private void Start() {
+        battleHandler = GameObject.Find("BattleHandler").GetComponent<BattleHandler>();
+    }
 
     public void AssignInfo()
     {
@@ -32,6 +37,29 @@ public class BattleCardInfo : MonoBehaviour
     public bool IsCardEquipped()
     {
         return is_equipped;
+    }
+
+    public void HandleCardAction()
+    {
+        if(this.type == "Atak")
+        {
+            if(battleHandler.currentEnemyDefence <= 0)
+            {
+                battleHandler.currentPlayerHealth -= healthPoints;
+                battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
+                battleHandler.currentEnemyHealth -= points;
+                battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
+                battleHandler.remainingMoves--;
+            }
+        }
+        else if(this.type == "Obrona")
+        {
+            battleHandler.currentPlayerHealth -= healthPoints;
+            battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
+            battleHandler.currentPlayerDefence += points;
+            battleHandler.playerDefenceText.text = "Shield: " + battleHandler.currentPlayerDefence.ToString();
+            battleHandler.remainingMoves--;
+        }
     }
 
     public void HideBattleCard()
