@@ -21,16 +21,26 @@ public class DungeonResults : MonoBehaviour
         CheckMoney();
         CheckEnemies();
 
-        ResultsText.text = "You've passed dungeon, " + CurrentPlayer.GetComponent<CurrentPlayer>().Username + "!\n\n" +
-        "You've " + MoneyText + "Total money: " + tempCurrentPlayer.TempPlayerMoney + "\n\n" + 
-        BeatenText + NormalEnemiesText + PowerfulEnemiesText;
+        if(tempCurrentPlayer.whoWon == "player") 
+        {
+            ResultsText.text = "You've passed dungeon, " + CurrentPlayer.GetComponent<CurrentPlayer>().Username + "!\n\n" +
+            "You've " + MoneyText + "Total money: " + tempCurrentPlayer.TempPlayerMoney + "\n\n" + 
+            BeatenText + NormalEnemiesText + PowerfulEnemiesText;
+        }
+        else if(tempCurrentPlayer.whoWon == "enemy")
+        {
+            ResultsText.text = "You didn't pass dungeon, " + CurrentPlayer.GetComponent<CurrentPlayer>().Username + "!\n\n" +
+            "You've " + MoneyText + "Total money: " + tempCurrentPlayer.TempPlayerMoney + "\n\n" + 
+            BeatenText + NormalEnemiesText + PowerfulEnemiesText;
+        }
     }
 
     void CheckMoney()
     {
-        if(tempCurrentPlayer.TempPlayerMoneyResults > 0)        GainedMoney();
-        else if(tempCurrentPlayer.TempPlayerMoneyResults == 0)  NoMoney();
-        else                                                    LostMoney();
+        if(tempCurrentPlayer.TempPlayerMoneyResults > 0 && tempCurrentPlayer.whoWon == "player")        GainedMoney();
+        else if(tempCurrentPlayer.TempPlayerMoneyResults < 0 && tempCurrentPlayer.whoWon == "player")   LostMoney();
+        else if(tempCurrentPlayer.TempPlayerMoneyResults == 0 && tempCurrentPlayer.whoWon == "player")  NoMoney();
+        else                                                                                            LostGainedMoney();
     }
 
     void GainedMoney()
@@ -46,6 +56,11 @@ public class DungeonResults : MonoBehaviour
     void LostMoney()
     {
         MoneyText = "lost " + Math.Abs(tempCurrentPlayer.TempPlayerMoneyResults) + " money.\n";
+    }
+
+    void LostGainedMoney()
+    {
+        MoneyText = "lost gained money from dungeon!\n";
     }
 
     void CheckEnemies()

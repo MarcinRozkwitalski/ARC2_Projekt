@@ -12,6 +12,7 @@ public class TempCurrentPlayer : MonoBehaviour
     public int TempPlayerMoneyResults = 0;
     public int BeatenNormalEnemies = 0;
     public int BeatenPowerfulEnemies = 0;
+    public string whoWon = "player";
     public string LastDoorValue;
 
     private void Awake() 

@@ -54,8 +54,8 @@ public class NormalEnemiesList : MonoBehaviour
         normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(1, "Unik",  "Imp uzywa uniku!",     "Obrona",   1, 3));
 
         normalEnemiesList.Add(new NormalEnemiesList.NormalEnemies(2, "Zombie", 20));
-        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(2, "Ugryzienie", "Zombie uzywa ugryzienia!", "Atak", 5, 5));
-        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(2, "Ugryzienie", "Zombie uzywa ugryzienia!", "Atak", 4, 3));
+        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(2, "Ugryzienie", "Zombie uzywa poteznego ugryzienia!", "Atak", 5, 5));
+        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(2, "Ugryzienie", "Zombie uzywa ugryzienia!", "Atak", 3, 3));
 
         normalEnemiesList.Add(new NormalEnemiesList.NormalEnemies(3, "Szczur", 15));
         normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(3, "Ugryzienie",    "Szczur uzywa ugryzienia!", "Atak",     2, 4));

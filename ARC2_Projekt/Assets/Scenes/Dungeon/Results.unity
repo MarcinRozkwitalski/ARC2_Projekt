@@ -317,6 +317,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ResultsText: {fileID: 795575109}
+  MoneyText: 
+  BeatenText: 'Beaten:
+
+'
+  NormalEnemiesText: 
+  PowerfulEnemiesText: 
   tempCurrentPlayer: {fileID: 0}
 --- !u!1 &904264839
 GameObject:
@@ -562,6 +568,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1178445378}
         m_TargetAssemblyTypeName: RemoveTempCurrentPlayer, Assembly-CSharp
+        m_MethodName: LostDungeon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1178445378}
+        m_TargetAssemblyTypeName: RemoveTempCurrentPlayer, Assembly-CSharp
         m_MethodName: DestroyTempCurrentPlayer
         m_Mode: 1
         m_Arguments:
@@ -622,6 +640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5c2074060c1ba43a7397948d6b6989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleHandler: {fileID: 0}
 --- !u!114 &1178445378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,6 +653,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1854720ed5428d94cbacea8df895d6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorHandler: {fileID: 0}
+  tempCurrentPlayer: {fileID: 0}
 --- !u!1 &1251439713
 GameObject:
   m_ObjectHideFlags: 0

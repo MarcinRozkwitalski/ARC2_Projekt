@@ -108,7 +108,7 @@ public class DoorHandler : MonoBehaviour
         Door_03.transform.GetChild(0).GetComponent<Text>().text = doorRandomizer.doors[2];
     }
 
-    IEnumerator UpdatePlayerLifeMoney(int life, int player_money)
+    public IEnumerator UpdatePlayerLifeMoney(int life, int player_money)
     {
         WWWForm updatePlayerLifeMoneyForm = new WWWForm();
         updatePlayerLifeMoneyForm.AddField("apppassword", "thisisfromtheapp!");

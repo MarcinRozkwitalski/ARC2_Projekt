@@ -47,21 +47,14 @@ public class BattleCardInfo : MonoBehaviour
     {
         if(this.type == "Atak")
         {
-            if(battleHandler.currentEnemyDefence <= 0)
+            if(battleHandler.currentEnemyDefence > points)
             {
                 battleHandler.currentPlayerHealth -= healthPoints;
                 battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                battleHandler.currentEnemyHealth -= points;
-                battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
+                battleHandler.currentEnemyDefence -= points;
+                battleHandler.enemyDefenceText.text = "Shield: " + battleHandler.currentEnemyDefence.ToString();
                 battleHandler.remainingMoves--;
-                if(battleHandler.currentEnemyHealth <= 0)
-                {
-                    battleHandler.currentEnemyHealth = 0;
-                    battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
-                    HideAllBattleCards();
-                    ShowGoBackToDungeonButton();
-                }
-                else if(battleHandler.remainingMoves == 0)
+                if(battleHandler.remainingMoves == 0)
                 {
                     HideAllBattleCards();
                     battleHandler.whosTurn = "enemy";
@@ -72,11 +65,13 @@ public class BattleCardInfo : MonoBehaviour
             else if (battleHandler.currentEnemyDefence < points)
             {
                 int remainingPoints = battleHandler.currentEnemyDefence - points;
+                if(battleHandler.currentEnemyDefence == 0) battleHandler.currentEnemyHealth -= points;
+                else battleHandler.currentEnemyHealth += remainingPoints;
+                
                 battleHandler.currentPlayerHealth -= healthPoints;
                 battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                 battleHandler.currentEnemyDefence = 0;
                 battleHandler.enemyDefenceText.text = "Shield: " + battleHandler.currentEnemyDefence.ToString();
-                battleHandler.currentEnemyHealth -= remainingPoints;
                 battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
                 battleHandler.remainingMoves--;
                 if(battleHandler.currentEnemyHealth <= 0)
