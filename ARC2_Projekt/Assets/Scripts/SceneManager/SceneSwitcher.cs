@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
+    public BattleHandler battleHandler;
+
     public void LoadWelcomeScene()
     {
         SceneManager.LoadScene(0);
@@ -48,6 +50,12 @@ public class SceneSwitcher : MonoBehaviour
     public void LoadDungeonScene()
     {
         SceneManager.LoadScene(8);
+    }
+
+    public void LoadProperDungeonScene()
+    {
+        if(battleHandler.whoWon == "player")        SceneManager.LoadScene(8);
+        else if(battleHandler.whoWon == "enemy")    SceneManager.LoadScene(13);
     }
 
     public void LoadShopScene()

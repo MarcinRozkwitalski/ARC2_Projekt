@@ -7,6 +7,7 @@ public class BattleCardInfo : MonoBehaviour
 {
     public BattleHandler battleHandler;
     public BattleCardHandler battleCardHandler;
+    public EnemyFightingLogic enemyFightingLogic;
 
     public Text CardName;
     public Text Type;
@@ -25,6 +26,7 @@ public class BattleCardInfo : MonoBehaviour
     private void Start() {
         battleHandler = GameObject.Find("BattleHandler").GetComponent<BattleHandler>();
         battleCardHandler = GameObject.Find("NetworkManager").GetComponent<BattleCardHandler>();
+        enemyFightingLogic = GameObject.Find("BattleHandler").GetComponent<EnemyFightingLogic>();
     }
 
     public void AssignInfo()
@@ -63,6 +65,8 @@ public class BattleCardInfo : MonoBehaviour
                 {
                     HideAllBattleCards();
                     battleHandler.whosTurn = "enemy";
+                    battleHandler.remainingMoves = 2;
+                    enemyFightingLogic.StartEnemyTurn();
                 }
             }
             else if (battleHandler.currentEnemyDefence < points)
@@ -86,6 +90,8 @@ public class BattleCardInfo : MonoBehaviour
                 {
                     HideAllBattleCards();
                     battleHandler.whosTurn = "enemy";
+                    battleHandler.remainingMoves = 2;
+                    enemyFightingLogic.StartEnemyTurn();
                 }
             }
             else if (battleHandler.currentEnemyDefence == points)
@@ -99,6 +105,8 @@ public class BattleCardInfo : MonoBehaviour
                 {
                     HideAllBattleCards();
                     battleHandler.whosTurn = "enemy";
+                    battleHandler.remainingMoves = 2;
+                    enemyFightingLogic.StartEnemyTurn();
                 }
             }
         }
@@ -113,6 +121,8 @@ public class BattleCardInfo : MonoBehaviour
             {
                 HideAllBattleCards();
                 battleHandler.whosTurn = "enemy";
+                battleHandler.remainingMoves = 2;
+                enemyFightingLogic.StartEnemyTurn();
             }
         }
     }
@@ -134,7 +144,8 @@ public class BattleCardInfo : MonoBehaviour
 
     public void ShowGoBackToDungeonButton()
     {
-        battleHandler.informationText.text = "You have beaten " + battleHandler.currentEnemyName + "!";
+        battleHandler.informationText.text = "Pokonales " + battleHandler.currentEnemyName + "!";
+        battleHandler.whoWon = "player";
         battleHandler.backToDungeonButton.gameObject.SetActive(true);
     }
 }

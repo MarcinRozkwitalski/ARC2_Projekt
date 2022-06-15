@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BattleHandler : MonoBehaviour
 {
-    public TempCurrentPlayer tempCurrentPlayer; 
+    public TempCurrentPlayer tempCurrentPlayer;
     public NormalEnemiesList normalEnemiesList;
     public PowerfulEnemiesList powerfulEnemiesList;
 
@@ -25,7 +25,8 @@ public class BattleHandler : MonoBehaviour
 
     public int remainingMoves;
     public string whosTurn;
-    string enemyType;
+    public string whoWon;
+    public string enemyType;
     
     public int currentEnemyId;
     public string currentEnemyName;
