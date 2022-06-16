@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
 
 public class PlayerGameScript : MonoBehaviour
 {
-    public Text UserInfoText;
+    public TMP_Text UserInfoText;
 
     private void Start()
     {
