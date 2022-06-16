@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1248722028843199466}
   - component: {fileID: 1248722028843199464}
   - component: {fileID: 1248722028843199465}
+  - component: {fileID: 2625899416193127688}
   m_Layer: 5
   m_Name: CardName
   m_TagString: Untagged
@@ -58,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.06459638, g: 0.012949424, b: 0.9150943, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -79,6 +80,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Name
+--- !u!114 &2625899416193127688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248722028843199467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1248722028893420846
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +418,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310e724dff686ff4eb481c7ee9601182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleHandler: {fileID: 0}
+  battleCardHandler: {fileID: 0}
+  enemyFightingLogic: {fileID: 0}
   CardName: {fileID: 1248722028843199465}
   Type: {fileID: 1248722029158580227}
   Description: {fileID: 1248722029668468092}

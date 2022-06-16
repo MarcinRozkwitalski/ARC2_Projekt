@@ -1696,7 +1696,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -1981,6 +1981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardsNumber: {fileID: 988776832}
+  PlayerMoney: {fileID: 0}
   CurrentPlayerId: 0
   CardsInfoPrefab: {fileID: 1873421098875919593, guid: bf59154b49b1b79468e3d5982419fdf0,
     type: 3}
@@ -1988,10 +1989,12 @@ MonoBehaviour:
     type: 3}
   mainpanel: {fileID: 1625420008}
   panel: {fileID: 363504119}
+  shoppanel: {fileID: 0}
   deckPanel: {fileID: 1093421998}
   CurrentPlayer: {fileID: 2562417776171719019, guid: 5c62b54c86cb7324fa252317528b1627,
     type: 3}
   cardsNumber: 0
+  sceneName: 
 --- !u!1 &1144472701
 GameObject:
   m_ObjectHideFlags: 0
@@ -2824,6 +2827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5c2074060c1ba43a7397948d6b6989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleHandler: {fileID: 0}
 --- !u!4 &2037760334
 Transform:
   m_ObjectHideFlags: 0

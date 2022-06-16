@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CardsInfo : MonoBehaviour
 {
-    public Text CardName;
+    public TMP_Text CardName;
     public Text Type;
     public Text Description;
     public Text Price;
