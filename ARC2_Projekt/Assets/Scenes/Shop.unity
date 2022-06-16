@@ -488,6 +488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5c2074060c1ba43a7397948d6b6989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleHandler: {fileID: 0}
 --- !u!4 &166293808
 Transform:
   m_ObjectHideFlags: 0
@@ -826,13 +827,13 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 12
-    m_Bottom: 0
+    m_Top: 40
+    m_Bottom: 80
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 300, y: 500}
-  m_Spacing: {x: 30, y: 10}
+  m_CellSize: {x: 330, y: 500}
+  m_Spacing: {x: 30, y: 74}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!222 &478445773
