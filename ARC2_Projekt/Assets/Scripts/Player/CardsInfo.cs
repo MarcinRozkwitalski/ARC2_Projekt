@@ -7,11 +7,11 @@ using TMPro;
 public class CardsInfo : MonoBehaviour
 {
     public TMP_Text CardName;
-    public Text Type;
-    public Text Description;
-    public Text Price;
-    public Text Points;
-    public Text HealthPoints;
+    public TMP_Text Type;
+    public TMP_Text Description;
+    public TMP_Text Price;
+    public TMP_Text Points;
+    public TMP_Text HealthPoints;
 
     public string cardname;
     public string type;
