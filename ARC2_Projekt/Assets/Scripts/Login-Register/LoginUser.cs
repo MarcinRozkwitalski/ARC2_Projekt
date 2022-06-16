@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
@@ -9,7 +10,7 @@ public class LoginUser : MonoBehaviour
     public InputField usernameInput;
     public InputField passwordInput;
     public Button loginButton;
-    public Text loginButtonText;
+    public TMP_Text loginButtonText;
 
     public GameObject currentPlayerObject;
 
