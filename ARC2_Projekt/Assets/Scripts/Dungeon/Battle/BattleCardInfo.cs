@@ -47,7 +47,8 @@ public class BattleCardInfo : MonoBehaviour
     {
         string cardType = this.type;
 
-        switch (cardType){
+        switch (cardType)
+        {
             case "Atak":
                 if(battleHandler.currentEnemyDefence > points)
                 {
@@ -122,28 +123,48 @@ public class BattleCardInfo : MonoBehaviour
                     enemyFightingLogic.StartEnemyTurn();
                 }
                 break;
-            case "Wytrwalosc":
+            case "Wytrwalosc": //flaga na przytrzymanie obrony
                 break;
 
-            case "Pospiech":
+            case "Pospiech": //dodatkowy ruch -> remainingMoves++; //bez wczesnego -> remainingMoves--;
                 break;
 
-            case "Ogluszenie":
+            case "Ogluszenie": //flaga na ogłuszenie, przed wejściem w pętle for wroga sprawdzić czy flaga "stun" jest włączona
                 break;
 
-            case "Oslabienie":
+            case "Oslabienie": 
                 break;
 
-            case "Leczenie":
+            case "Leczenie": 
                 break;
 
-            case "Wzmocnienie":
+            case "Wzmocnienie": //bez remainingMoves--;
                 break;
 
-            case "Ulepszenie":
+            case "Ulepszenie": //bez remainingMoves--; //co w przypadkach użycia na wszystkich specjalnych kartach?
                 break;
 
             case "Niestabilnosc":
+                int randomAction = Random.Range(1, 4);
+                switch (randomAction)
+                {
+                    case 1:
+                        break;
+                        //atak
+                    case 2:
+                        break;
+                        //obrona
+                    case 3:
+                        break;
+                        //leczenie
+                    default:
+                        Debug.Log("Number out of range!");
+                        break;
+                }
+                break;
+
+            default:
+                Debug.Log("Non-existing card OR failure with naming");
                 break;
         }
     }
