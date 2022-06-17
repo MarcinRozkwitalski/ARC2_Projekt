@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class Cards : MonoBehaviour
 {
-    public Text CardsNumber;
+    public TMP_Text CardsNumber;
 
     public TMP_Text PlayerMoney;
 
