@@ -144,7 +144,7 @@ public class BattleCardInfo : MonoBehaviour
             case "Ulepszenie": //bez remainingMoves--; //co w przypadkach użycia na wszystkich specjalnych kartach?
                 break;
 
-            case "Niestabilnosc":
+            case "Tecza":
                 int randomAction = Random.Range(1, 4);
                 switch (randomAction)
                 {

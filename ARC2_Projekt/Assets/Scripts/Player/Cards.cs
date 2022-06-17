@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -10,7 +11,7 @@ public class Cards : MonoBehaviour
 {
     public Text CardsNumber;
 
-    public Text PlayerMoney;
+    public TMP_Text PlayerMoney;
 
     public int CurrentPlayerId;
 
