@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using SimpleJSON;
@@ -12,7 +13,7 @@ public class Leaderboard : MonoBehaviour
 
     public InputField searchInput;
     public Button searchButton;
-    public Text searchButtonText;
+    public TMP_Text searchButtonText;
     void Start()
     {
         StartCoroutine(GetAllPlayers());
