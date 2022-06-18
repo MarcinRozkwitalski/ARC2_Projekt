@@ -35,6 +35,7 @@ public class BattleCardHandler : MonoBehaviour
                 {
                     var BattleCardsInfo = Instantiate(BattleCardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                     BattleCardsInfo.transform.SetParent(playerCardsPanel.transform);
+                    CheckSubtype(BattleCardsInfo, player_cards[1]);
                     BattleCardsInfo.GetComponent<BattleCardInfo>().cardname = player_cards[0];
                     BattleCardsInfo.GetComponent<BattleCardInfo>().type = player_cards[1];
                     BattleCardsInfo.GetComponent<BattleCardInfo>().description = player_cards[2];
@@ -50,6 +51,133 @@ public class BattleCardHandler : MonoBehaviour
         else
         {
             Debug.Log(getAllPlayerDeckCardsRequest.error);
+        }
+    }
+
+    public void CheckSubtype(GameObject cardInfo, string subtype)
+    {
+        switch (subtype)
+        {
+            case "Atak":
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("SpecialType").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+                break;
+            case "Obrona":
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("SpecialType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                break;
+            case "Ogluszenie":
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                break;
+            case "Leczenie":
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                break;
+            case "Oslabienie":
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                break;
+            case "Pospiech":
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                break;
+            case "Wzmocnienie":
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                break;
+            case "Wytrwalosc":
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                break;
+            case "Tecza":
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                break;
+            case "Ulepszenie":
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                break;
         }
     }
 }

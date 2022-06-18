@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class BattleCardInfo : MonoBehaviour
@@ -9,15 +10,17 @@ public class BattleCardInfo : MonoBehaviour
     public BattleCardHandler battleCardHandler;
     public EnemyFightingLogic enemyFightingLogic;
 
-    public Text CardName;
-    public Text Type;
-    public Text Description;
-    public Text Points;
-    public Text HealthPoints;
+    public TMP_Text CardName;
+    public TMP_Text Type;
+    public TMP_Text Description;
+    public TMP_Text Price;
+    public TMP_Text Points;
+    public TMP_Text HealthPoints;
 
     public string cardname;
     public string type;
     public string description;
+    public int price;
     public int points;
     public int healthPoints;
     public int id;
@@ -136,6 +139,17 @@ public class BattleCardInfo : MonoBehaviour
                 break;
 
             case "Leczenie": 
+                battleHandler.currentPlayerHealth += points;
+                battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
+                battleHandler.remainingMoves--;
+                if(battleHandler.remainingMoves == 0)
+                {
+                    HideAllBattleCards();
+                    battleHandler.whosTurn = "enemy";
+                    battleHandler.remainingMoves = 2;
+                    enemyFightingLogic.StartEnemyTurn();
+                }
+
                 break;
 
             case "Wzmocnienie": //bez remainingMoves--;
