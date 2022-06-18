@@ -261,7 +261,8 @@ public class BattleCardInfo : MonoBehaviour
 
     public void HideBattleCard()
     {
-        this.gameObject.SetActive(false);
+        this.gameObject.GetComponent<Button>().enabled = false;
+        this.gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
     }
 
     public void HideAllBattleCards()
@@ -270,7 +271,8 @@ public class BattleCardInfo : MonoBehaviour
 
         for (int i = 0; i < howManyCards; i++)
         {
-            battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.SetActive(false);
+            battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.GetComponent<Button>().enabled = false;
+            battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
         }
     }
 
