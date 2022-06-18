@@ -39,6 +39,7 @@ public class BattleCardHandler : MonoBehaviour
                     BattleCardsInfo.GetComponent<BattleCardInfo>().cardname = player_cards[0];
                     BattleCardsInfo.GetComponent<BattleCardInfo>().type = player_cards[1];
                     BattleCardsInfo.GetComponent<BattleCardInfo>().description = player_cards[2];
+                    BattleCardsInfo.GetComponent<BattleCardInfo>().price = int.Parse(player_cards[3]);
                     BattleCardsInfo.GetComponent<BattleCardInfo>().points = int.Parse(player_cards[4]);
                     BattleCardsInfo.GetComponent<BattleCardInfo>().healthPoints = int.Parse(player_cards[5]);
                     BattleCardsInfo.GetComponent<BattleCardInfo>().id = int.Parse(player_cards[6]);

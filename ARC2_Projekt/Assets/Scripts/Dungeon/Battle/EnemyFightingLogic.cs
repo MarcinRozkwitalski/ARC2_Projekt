@@ -97,30 +97,34 @@ public class EnemyFightingLogic : MonoBehaviour
 
     IEnumerator HandleEnemyMoves()
     {
+        yield return new WaitForSeconds(1.5f);
         battleHandler.informationText.text = "Tura wroga!";
-        yield return new WaitForSeconds(2);
-        for(int i = 2; i > 0; i--){
+        yield return new WaitForSeconds(1.5f);
+        Debug.Log("NOWE RUCHY WROGA -> " + battleHandler.remainingMoves);
+
+        for(int i = battleHandler.remainingMoves; i > 0; i--){
+            Debug.Log(i + " ruch wroga.");
+            Debug.Log("Pozostałe ruchy wroga: " + battleHandler.remainingMoves);
             int randomMove = Random.Range(0, enemyMoves.Count);
             EnemyMoves currentEnemyMove = enemyMoves[randomMove];
 
+            Debug.Log("Wróg użył: " + currentEnemyMove.moveName);
+
             battleHandler.informationText.text = currentEnemyMove.description;
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1.5f);
 
             if(currentEnemyMove.type == "Atak")
             {
                 if(battleHandler.currentPlayerDefence > currentEnemyMove.value)
                 {
                     battleHandler.currentEnemyHealth -= currentEnemyMove.cost;
+                    PreventHealthPointsFallingBelowZero();
                     battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
                     battleHandler.currentPlayerDefence -= currentEnemyMove.value;
-                    battleHandler.playerDefenceText.text = "Shield: " + battleHandler.currentPlayerDefence.ToString();
+                    battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                     battleHandler.remainingMoves--;
-                if(battleHandler.remainingMoves == 0)
-                {
-                    battleHandler.whosTurn = "player";
-                    battleHandler.remainingMoves = 2;
-                    UnHideAllBattleCards();
-                }
+                    DebuggingInfo();
+                    CheckIfRemainingMovesIsZero();
                 }
                 else if (battleHandler.currentPlayerDefence < currentEnemyMove.value)
                 {
@@ -129,61 +133,55 @@ public class EnemyFightingLogic : MonoBehaviour
                     else battleHandler.currentPlayerHealth += remainingPoints;
 
                     battleHandler.currentEnemyHealth -= currentEnemyMove.cost;
+                    PreventHealthPointsFallingBelowZero();
                     battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
                     battleHandler.currentPlayerDefence = 0;
-                    battleHandler.playerDefenceText.text = "Shield: " + battleHandler.currentPlayerDefence.ToString();
+                    battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                     battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                     battleHandler.remainingMoves--;
+                    DebuggingInfo();
                     if(battleHandler.currentPlayerHealth <= 0)
                     {
                         battleHandler.currentPlayerHealth = 0;
                         battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                         ShowGoBackToDungeonButton();
                     }
-                    else if(battleHandler.remainingMoves == 0)
-                    {
-                        battleHandler.whosTurn = "player";
-                        battleHandler.remainingMoves = 2;
-                        UnHideAllBattleCards();
-                    }
+                    else CheckIfRemainingMovesIsZero();
                 }
                 else if (battleHandler.currentPlayerDefence == currentEnemyMove.value)
                 {
                     battleHandler.currentEnemyHealth -= currentEnemyMove.cost;
+                    PreventHealthPointsFallingBelowZero();
                     battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
                     battleHandler.currentPlayerDefence = 0;
-                    battleHandler.playerDefenceText.text = "Shield: " + battleHandler.currentPlayerDefence.ToString();
+                    battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                     battleHandler.remainingMoves--;
-                    if(battleHandler.remainingMoves == 0)
-                    {
-                        battleHandler.whosTurn = "player";
-                        battleHandler.remainingMoves = 2;
-                        UnHideAllBattleCards();
-                    }
+                    DebuggingInfo();
+                    CheckIfRemainingMovesIsZero();
                 }
             }
             else if(currentEnemyMove.type == "Obrona")
             {
                 battleHandler.currentEnemyHealth -= currentEnemyMove.cost;
+                PreventHealthPointsFallingBelowZero();
                 battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
                 battleHandler.currentEnemyDefence += currentEnemyMove.value;
-                battleHandler.enemyDefenceText.text = "Shield: " + battleHandler.currentEnemyDefence.ToString();
+                battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                 battleHandler.remainingMoves--;
-                if(battleHandler.remainingMoves == 0)
-                {
-                    battleHandler.whosTurn = "player";
-                    battleHandler.remainingMoves = 2;
-                    UnHideAllBattleCards();
-                }
+                DebuggingInfo();
+                CheckIfRemainingMovesIsZero();
             }
-            battleHandler.remainingMoves--;
         }
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
         
         if(battleHandler.whoWon != "enemy"){
-            battleHandler.informationText.text = "Wróg zakończył turę!";
-            UnHideAllBattleCards();
-            battleHandler.remainingMoves = 2;
+            battleHandler.informationText.text = "Wróg zakończył turę.";
+            yield return new WaitForSeconds(1.5f);
+            SetDefaultDefenceForPlayer();
+            battleHandler.informationText.text = "Twoja tura!";
+            battleHandler.ResetRemainingMoves();
+            Debug.Log("Nowe ruchy dla gracza: " + battleHandler.remainingMoves);
+            StartCoroutine(UnHideAllBattleCards());
         }
     }
 
@@ -194,7 +192,7 @@ public class EnemyFightingLogic : MonoBehaviour
         battleHandler.backToDungeonButton.gameObject.SetActive(true);
     }
 
-    public void UnHideAllBattleCards()
+    public IEnumerator UnHideAllBattleCards()
     {
         int howManyCards = battleCardHandler.playerCardsPanel.transform.childCount;
 
@@ -202,5 +200,38 @@ public class EnemyFightingLogic : MonoBehaviour
         {
             battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.SetActive(true);
         }
+
+        yield return null;
+    }
+
+    public void CheckIfRemainingMovesIsZero()
+    {
+        if(battleHandler.remainingMoves == 0)
+        {
+            battleHandler.whosTurn = "player";
+            battleHandler.ResetRemainingMoves();
+            Debug.Log("Nowe ruchy dla gracza: " + battleHandler.remainingMoves);
+            UnHideAllBattleCards();
+        }
+    }
+
+    public void PreventHealthPointsFallingBelowZero()
+    {
+        if(battleHandler.currentEnemyHealth < 1) battleHandler.currentEnemyHealth = 1;
+    }
+
+    public void SetDefaultDefenceForPlayer()
+    {
+        if(battleHandler.keepDefenceFlagPlayer == true)     battleHandler.keepDefenceFlagPlayer = false;
+        else if(battleHandler.keepDefenceFlagPlayer == false)
+        {
+            battleHandler.currentPlayerDefence = 0;
+            battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
+        }
+    }
+
+    public void DebuggingInfo()
+    {
+        Debug.Log("Remaining moves enemy:" + battleHandler.remainingMoves);
     }
 }

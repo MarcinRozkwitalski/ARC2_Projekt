@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 public class BattleHandler : MonoBehaviour
 {
@@ -9,21 +10,27 @@ public class BattleHandler : MonoBehaviour
     public NormalEnemiesList normalEnemiesList;
     public PowerfulEnemiesList powerfulEnemiesList;
 
-    public Text informationText;
+    public TMP_Text informationText;
     public GameObject backToDungeonButton;
 
-    public Text playerNameText;
-    public Text playerHealthText;
+    public TMP_Text playerNameText;
+    public TMP_Text playerHealthText;
     public int currentPlayerHealth;
     public int playerMaxHealth = 100;
-    public Text playerDefenceText;
+    public TMP_Text playerDefenceText;
     public int currentPlayerDefence;
-    public Text enemyNameText;
-    public Text enemyHealthText;
-    public Text enemyDefenceText;
+    public TMP_Text enemyNameText;
+    public TMP_Text enemyHealthText;
+    public TMP_Text enemyDefenceText;
     public int currentEnemyMaxHealth;
 
+    public bool keepDefenceFlagPlayer = false;
+    public bool stunFlagPlayer = false;
+    public bool debuffFlagPlayer = false;
+    public bool improvementFlagPlayer = false;
+
     public int remainingMoves;
+    public int basicRemainingMovesAmount = 3;
     public string whosTurn;
     public string whoWon;
     public string enemyType;
@@ -52,13 +59,13 @@ public class BattleHandler : MonoBehaviour
         tempCurrentPlayer = GameObject.Find("DoorHandler").GetComponent<TempCurrentPlayer>();
         normalEnemiesList = GameObject.Find("BattleHandler").GetComponent<NormalEnemiesList>();
         powerfulEnemiesList = GameObject.Find("BattleHandler").GetComponent<PowerfulEnemiesList>();
-        playerNameText = GameObject.Find("PlayerNameText").GetComponent<Text>();
-        playerHealthText = GameObject.Find("PlayerHealthText").GetComponent<Text>();
-        playerDefenceText = GameObject.Find("PlayerDefenceText").GetComponent<Text>();
-        enemyNameText = GameObject.Find("EnemyNameText").GetComponent<Text>();
-        enemyHealthText = GameObject.Find("EnemyHealthText").GetComponent<Text>();
-        enemyDefenceText = GameObject.Find("EnemyDefenceText").GetComponent<Text>();
-        informationText = GameObject.Find("InformationText").GetComponent<Text>();
+        playerNameText = GameObject.Find("PlayerNameText (TMP)").GetComponent<TMP_Text>();
+        playerHealthText = GameObject.Find("PlayerHealthText (TMP)").GetComponent<TMP_Text>();
+        playerDefenceText = GameObject.Find("PlayerDefenceText (TMP)").GetComponent<TMP_Text>();
+        enemyNameText = GameObject.Find("EnemyNameText (TMP)").GetComponent<TMP_Text>();
+        enemyHealthText = GameObject.Find("EnemyHealthText (TMP)").GetComponent<TMP_Text>();
+        enemyDefenceText = GameObject.Find("EnemyDefenceText (TMP)").GetComponent<TMP_Text>();
+        informationText = GameObject.Find("InformationText (TMP)").GetComponent<TMP_Text>();
 
         backToDungeonButton = GameObject.Find("BackToDungeonButton");
         backToDungeonButton.gameObject.SetActive(false);
@@ -70,13 +77,13 @@ public class BattleHandler : MonoBehaviour
         currentPlayerHealth = tempCurrentPlayer.TempPlayerLife;
         playerHealthText.text = currentPlayerHealth.ToString() + "/" + playerMaxHealth;
         currentPlayerDefence = 0;
-        playerDefenceText.text = "Shield: " + currentPlayerDefence.ToString();
+        playerDefenceText.text = "" + currentPlayerDefence.ToString();
         enemyNameText.text = currentEnemyName;
         enemyHealthText.text = currentEnemyHealth.ToString() + "/" + currentEnemyMaxHealth;
         currentEnemyDefence = 0;
-        enemyDefenceText.text = "Shield: " + currentEnemyDefence.ToString();
+        enemyDefenceText.text = "" + currentEnemyDefence.ToString();
 
-        remainingMoves = 2;
+        ResetRemainingMoves();
         whosTurn = "player";
     }
 
@@ -106,6 +113,19 @@ public class BattleHandler : MonoBehaviour
         currentEnemyName = powerfulEnemiesList.powerfulEnemiesList[currentEnemyId - powerfulEnemiesList.startingId].enemyName;
         currentEnemyHealth = powerfulEnemiesList.powerfulEnemiesList[currentEnemyId - powerfulEnemiesList.startingId].health;
         currentEnemyMaxHealth = currentEnemyHealth;
+    }
+
+    public void ResetRemainingMoves()
+    {
+        if(stunFlagPlayer == true){
+            remainingMoves = 2;
+            stunFlagPlayer = false;
+            Debug.Log("Nowe ruchy: " + remainingMoves);
+        }
+        else{
+            remainingMoves = basicRemainingMovesAmount;
+            Debug.Log("Nowe ruchy: " + remainingMoves);
+        }
     }
 
     //każda karta musi mieć takie metody:
