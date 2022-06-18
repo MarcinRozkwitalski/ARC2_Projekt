@@ -26,4 +26,4 @@ public class HealthBars : MonoBehaviour
         playerHealthBar.fillAmount = currentPlayerHealth/currentPlayerMaxHealth;
         enemyHealthBar.fillAmount = currentEnemyHealth/currentEnemyMaxHealth;
     }
-}
+}   
