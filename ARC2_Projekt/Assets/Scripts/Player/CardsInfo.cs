@@ -22,6 +22,8 @@ public class CardsInfo : MonoBehaviour
     public int id;
     public bool is_equipped = false;
 
+    public GameObject PriceInfo,LifeInfo,ActionPointsInfo,CardYpeInfo,CardDescriptionInfo,CardNameInfo;
+
 
     public void AssignInfo()
     {
@@ -61,5 +63,25 @@ public class CardsInfo : MonoBehaviour
      public void BuyCard(){
         FindObjectOfType<Cards>().BuyCardFromInventory(id,price);
         CloseShowCard();
+    }
+
+    public void ShowInfo(){
+        if(LifeInfo.activeSelf){
+            PriceInfo.SetActive(false);
+            LifeInfo.SetActive(false);
+            ActionPointsInfo.SetActive(false);
+            CardYpeInfo.SetActive(false);
+            CardDescriptionInfo.SetActive(false);
+            CardNameInfo.SetActive(false);
+        }
+        else{
+            PriceInfo.SetActive(true);
+            LifeInfo.SetActive(true);
+            ActionPointsInfo.SetActive(true);
+            CardYpeInfo.SetActive(true);
+            CardDescriptionInfo.SetActive(true);
+            CardNameInfo.SetActive(true);
+        }
+
     }
 }
