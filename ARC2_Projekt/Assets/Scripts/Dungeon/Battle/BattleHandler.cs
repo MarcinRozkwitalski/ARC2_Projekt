@@ -13,6 +13,8 @@ public class BattleHandler : MonoBehaviour
     public TMP_Text informationText;
     public GameObject backToDungeonButton;
 
+    public GameObject usedCardsPanel;
+
     public TMP_Text playerNameText;
     public TMP_Text playerHealthText;
     public int currentPlayerHealth;
@@ -66,6 +68,8 @@ public class BattleHandler : MonoBehaviour
         enemyHealthText = GameObject.Find("EnemyHealthText (TMP)").GetComponent<TMP_Text>();
         enemyDefenceText = GameObject.Find("EnemyDefenceText (TMP)").GetComponent<TMP_Text>();
         informationText = GameObject.Find("InformationText (TMP)").GetComponent<TMP_Text>();
+
+        usedCardsPanel = GameObject.Find("UsedCardsPanel");
 
         backToDungeonButton = GameObject.Find("BackToDungeonButton");
         backToDungeonButton.gameObject.SetActive(false);

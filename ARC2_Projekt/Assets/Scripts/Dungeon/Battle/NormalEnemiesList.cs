@@ -49,16 +49,16 @@ public class NormalEnemiesList : MonoBehaviour
     private void Awake() {
         
         normalEnemiesList.Add(new NormalEnemiesList.NormalEnemies(1, "Imp", 25));
-        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(1, "Kly",   "Imp uzywa kiel!",      "Atak",     2, 4));
-        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(1, "Krzyk", "Imp uzywa krzyku!",    "Atak",     1, 4));
-        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(1, "Unik",  "Imp uzywa uniku!",     "Obrona",   1, 3));
+        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(1, "Kly",   "Imp uzywa kiel!",      "Atak",     0, 4));
+        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(1, "Krzyk", "Imp uzywa krzyku!",    "Atak",     0, 4));
+        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(1, "Unik",  "Imp uzywa uniku!",     "Obrona",   0, 3));
 
         normalEnemiesList.Add(new NormalEnemiesList.NormalEnemies(2, "Zombie", 20));
-        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(2, "Ugryzienie", "Zombie uzywa poteznego ugryzienia!", "Atak", 5, 5));
-        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(2, "Ugryzienie", "Zombie uzywa ugryzienia!", "Atak", 3, 3));
+        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(2, "Ugryzienie", "Zombie uzywa poteznego ugryzienia!", "Atak", 0, 5));
+        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(2, "Ugryzienie", "Zombie uzywa ugryzienia!", "Atak", 0, 3));
 
         normalEnemiesList.Add(new NormalEnemiesList.NormalEnemies(3, "Szczur", 15));
-        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(3, "Ugryzienie",    "Szczur uzywa ugryzienia!", "Atak",     2, 4));
+        normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(3, "Ugryzienie",    "Szczur uzywa ugryzienia!", "Atak",     0, 4));
         normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(3, "Unik",          "Szczur uzywa uniku!",      "Obrona",   0, 4));
 
         startingId = normalEnemiesList[0].id;

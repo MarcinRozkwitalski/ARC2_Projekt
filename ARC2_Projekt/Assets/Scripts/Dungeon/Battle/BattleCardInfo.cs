@@ -273,6 +273,11 @@ public class BattleCardInfo : MonoBehaviour
         {
             battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.GetComponent<Button>().enabled = false;
             battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
+
+            // CODE BELOW FOR FURTHER 
+            // battleCardHandler.playerCardsPanel.transform.GetChild(0).gameObject.GetComponent<Button>().enabled = false;
+            // battleCardHandler.playerCardsPanel.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
+            // battleCardHandler.playerCardsPanel.transform.GetChild(0).transform.SetParent(battleHandler.usedCardsPanel.transform, true);
         }
     }
 
