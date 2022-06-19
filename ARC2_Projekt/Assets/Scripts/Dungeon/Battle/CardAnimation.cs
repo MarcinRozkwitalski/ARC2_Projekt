@@ -15,7 +15,8 @@ public class CardAnimation : MonoBehaviour
     public bool lockPos = false;
 
     public GameObject target;
-    public float lerpDuration = 3;
+    public float lerpDurationThree = 3;
+    public float lerpDurationTwo = 2;
 
     private void Start() 
     {
@@ -36,10 +37,41 @@ public class CardAnimation : MonoBehaviour
 
         if(battleHandler.moveCardsToPlayerCardsPanelAnimation == true)
         {
-            endPos = targetPos + new Vector2(960 + 10, 540 + 3);
-            endLocalScale = new Vector2(0.63f, 0.53f);
+            endPos = targetPos + new Vector2(1600, 60);
+            endLocalScale = new Vector2(0.68f, 0.68f);
             StartCoroutine(AnimateMovingCardsToPlayerCardsPanel());
         }
+
+        if(battleHandler.moveCardsSidewaysInPlayerCardsPanelAnimation == true)
+        {
+            endLocalScale = new Vector2(1f, 1f);
+            StartCoroutine(AnimateMovingCardsSidewaysInPlayerCardsPanel());
+        }
+    }
+
+    IEnumerator AnimateMovingCardsToUsedCards()
+    {
+        if (lockPos == false)
+        {
+            startObjectPos = transform.position;
+            lockPos = true;
+        }
+
+        float timeElapsed = 0;
+        while(timeElapsed < lerpDurationThree)
+        {
+            timeElapsed += Time.deltaTime;
+            float percentageComplete = timeElapsed / lerpDurationThree;
+
+            transform.position = Vector2.Lerp(startObjectPos, endPos, percentageComplete);
+            transform.localScale = Vector2.Lerp(startObjectScale, endLocalScale, percentageComplete);
+
+            yield return null;
+        }
+        transform.position = endPos;
+        transform.localScale = endLocalScale;
+        battleHandler.moveCardsToUsedCardsAnimation = false;
+        lockPos = false;
     }
 
     IEnumerator AnimateMovingCardsToPlayerCardsPanel()
@@ -51,10 +83,10 @@ public class CardAnimation : MonoBehaviour
         }
 
         float timeElapsed = 0;
-        while(timeElapsed < lerpDuration)
+        while(timeElapsed < lerpDurationTwo)
         {
             timeElapsed += Time.deltaTime;
-            float percentageComplete = timeElapsed / lerpDuration;
+            float percentageComplete = timeElapsed / lerpDurationTwo;
 
             transform.position = Vector2.Lerp(startObjectPos, endPos, percentageComplete);
             transform.localScale = Vector2.Lerp(startObjectScale, endLocalScale, percentageComplete);
@@ -67,7 +99,7 @@ public class CardAnimation : MonoBehaviour
         lockPos = false;
     }
 
-    IEnumerator AnimateMovingCardsToUsedCards()
+    IEnumerator AnimateMovingCardsSidewaysInPlayerCardsPanel()
     {
         if (lockPos == false)
         {
@@ -76,19 +108,17 @@ public class CardAnimation : MonoBehaviour
         }
 
         float timeElapsed = 0;
-        while(timeElapsed < lerpDuration)
+        while(timeElapsed < lerpDurationTwo)
         {
             timeElapsed += Time.deltaTime;
-            float percentageComplete = timeElapsed / lerpDuration;
+            float percentageComplete = timeElapsed / lerpDurationTwo;
 
-            transform.position = Vector2.Lerp(startObjectPos, endPos, percentageComplete);
             transform.localScale = Vector2.Lerp(startObjectScale, endLocalScale, percentageComplete);
 
             yield return null;
         }
-        transform.position = endPos;
         transform.localScale = endLocalScale;
-        battleHandler.moveCardsToUsedCardsAnimation = false;
+        battleHandler.moveCardsSidewaysInPlayerCardsPanelAnimation = false;
         lockPos = false;
     }
 }

@@ -764,6 +764,12 @@ MonoBehaviour:
   healthPoints: 0
   id: 0
   is_equipped: 0
+  PriceInfo: {fileID: 0}
+  LifeInfo: {fileID: 0}
+  ActionPointsInfo: {fileID: 0}
+  CardYpeInfo: {fileID: 0}
+  CardDescriptionInfo: {fileID: 0}
+  CardNameInfo: {fileID: 0}
 --- !u!1 &2868908695866799691
 GameObject:
   m_ObjectHideFlags: 0

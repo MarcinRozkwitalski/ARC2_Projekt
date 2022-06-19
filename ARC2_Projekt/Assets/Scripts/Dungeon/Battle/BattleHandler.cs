@@ -15,6 +15,7 @@ public class BattleHandler : MonoBehaviour
     public GameObject backToDungeonButton;
 
     public GameObject usedCardsPanel;
+    public GameObject playableCardsPanel;
 
     public TMP_Text playerNameText;
     public TMP_Text playerHealthText;
@@ -45,6 +46,7 @@ public class BattleHandler : MonoBehaviour
 
     public bool moveCardsToUsedCardsAnimation = false;
     public bool moveCardsToPlayerCardsPanelAnimation = false;
+    public bool moveCardsSidewaysInPlayerCardsPanelAnimation = false;
 
     void Start()
     {
@@ -62,6 +64,8 @@ public class BattleHandler : MonoBehaviour
         informationText = GameObject.Find("InformationText (TMP)").GetComponent<TMP_Text>();
 
         usedCardsPanel = GameObject.Find("UsedCardsPanel");
+        playableCardsPanel = GameObject.Find("PlayableCardsPanel");
+
 
         backToDungeonButton = GameObject.Find("BackToDungeonButton");
         backToDungeonButton.gameObject.SetActive(false);
@@ -78,6 +82,11 @@ public class BattleHandler : MonoBehaviour
         enemyHealthText.text = currentEnemyHealth.ToString() + "/" + currentEnemyMaxHealth;
         currentEnemyDefence = 0;
         enemyDefenceText.text = "" + currentEnemyDefence.ToString();
+
+        StartCoroutine(randomizeCardsPositions.RandomizePositions());
+        moveCardsToPlayerCardsPanelAnimation = true;
+
+
 
         ResetRemainingMoves();
         whosTurn = "player";

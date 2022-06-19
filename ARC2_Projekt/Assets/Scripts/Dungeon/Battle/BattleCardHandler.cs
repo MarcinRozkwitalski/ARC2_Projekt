@@ -13,7 +13,7 @@ public class BattleCardHandler : MonoBehaviour
     public GameObject cardsDeckToPick;
     public GameObject CurrentPlayer;
 
-    void Start()
+    void Awake()
     {
         CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
         CurrentPlayerId = CurrentPlayer.GetComponent<CurrentPlayer>().Id;

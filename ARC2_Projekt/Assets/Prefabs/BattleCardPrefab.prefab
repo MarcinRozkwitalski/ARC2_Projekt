@@ -707,6 +707,8 @@ MonoBehaviour:
   battleHandler: {fileID: 0}
   battleCardHandler: {fileID: 0}
   enemyFightingLogic: {fileID: 0}
+  CardSprite: {fileID: 21300000, guid: a182f9d1ca6adb94dba72fbacd5e3b91, type: 3}
+  BackSprite: {fileID: 21300000, guid: 51958d6182e562343ad74e33fa257b5b, type: 3}
   CardName: {fileID: 2727780056509090583}
   Type: {fileID: 3555875055064920418}
   Description: {fileID: 9038212556937143505}

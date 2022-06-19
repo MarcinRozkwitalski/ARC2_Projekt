@@ -500,7 +500,7 @@ GameObject:
   - component: {fileID: 433900381}
   - component: {fileID: 433900382}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: PlayableCardsPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -585,6 +585,7 @@ GameObject:
   - component: {fileID: 436223482}
   - component: {fileID: 436223481}
   - component: {fileID: 436223484}
+  - component: {fileID: 436223485}
   m_Layer: 0
   m_Name: BattleHandler
   m_TagString: Untagged
@@ -621,10 +622,11 @@ MonoBehaviour:
   tempCurrentPlayer: {fileID: 0}
   normalEnemiesList: {fileID: 0}
   powerfulEnemiesList: {fileID: 0}
-  randomizeCardsPositions: {fileID: 0}
+  randomizeCardsPositions: {fileID: 436223485}
   informationText: {fileID: 0}
   backToDungeonButton: {fileID: 0}
   usedCardsPanel: {fileID: 0}
+  playableCardsPanel: {fileID: 0}
   playerNameText: {fileID: 0}
   playerHealthText: {fileID: 0}
   currentPlayerHealth: 0
@@ -649,6 +651,7 @@ MonoBehaviour:
   currentEnemyHealth: 0
   currentEnemyDefence: 0
   moveCardsToUsedCardsAnimation: 0
+  moveCardsToPlayerCardsPanelAnimation: 0
 --- !u!114 &436223481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,6 +717,20 @@ MonoBehaviour:
   currentEnemyHealth: 0
   currentPlayerMaxHealth: 0
   currentEnemyMaxHealth: 0
+--- !u!114 &436223485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436223478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4f956b940ab0504bbcd4969e36fdd40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleHandler: {fileID: 436223480}
+  battleCardHandler: {fileID: 0}
 --- !u!1 &482938429
 GameObject:
   m_ObjectHideFlags: 0

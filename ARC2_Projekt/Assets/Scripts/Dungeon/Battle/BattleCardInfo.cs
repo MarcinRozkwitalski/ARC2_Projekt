@@ -10,6 +10,9 @@ public class BattleCardInfo : MonoBehaviour
     public BattleCardHandler battleCardHandler;
     public EnemyFightingLogic enemyFightingLogic;
 
+    public Sprite CardSprite;
+    public Sprite BackSprite;
+
     public TMP_Text CardName;
     public TMP_Text Type;
     public TMP_Text Description;
@@ -25,13 +28,15 @@ public class BattleCardInfo : MonoBehaviour
     public int healthPoints;
     public int id;
     public bool is_equipped = false;
+    public bool is_back_active = false;
     
     private void Start() {
         battleHandler = GameObject.Find("BattleHandler").GetComponent<BattleHandler>();
         battleCardHandler = GameObject.Find("NetworkManager").GetComponent<BattleCardHandler>();
         enemyFightingLogic = GameObject.Find("BattleHandler").GetComponent<EnemyFightingLogic>();
 
-        transform.localScale = new Vector2(0.63f, 0.53f);
+        AssignNewTransform();
+        AssignBackImage();
     }
 
     public void AssignInfo()
@@ -44,6 +49,54 @@ public class BattleCardInfo : MonoBehaviour
         HealthPoints.text = healthPoints.ToString();
     }
 
+    public void AssignNewTransform()
+    {
+        transform.position += new Vector3(103f, 483f, 0f);
+        transform.position += new Vector3(48f, 230f, 0f);
+        transform.localScale = new Vector2(0.43f, 0.37f);
+    }
+
+    public void AssignBackImage()
+    {
+        gameObject.transform.GetChild(0).GetComponent<Image>().sprite = BackSprite;
+        for (int i = 1; i < 21; i++)
+        {
+            gameObject.transform.GetChild(i).gameObject.SetActive(false);
+        }
+        is_back_active = true;
+    }
+
+    public void AssignCardImage()
+    {
+        int howManyCards = battleCardHandler.cardsDeckToPick.transform.childCount;
+
+        for (int i = 0; i < howManyCards; i++)
+        {
+            battleCardHandler.cardsDeckToPick.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().sprite = CardSprite;
+        }
+
+        for (int i = 0; i < howManyCards; i++)
+        {
+            CheckSubtype(battleCardHandler.cardsDeckToPick.transform.GetChild(i).gameObject, battleCardHandler.cardsDeckToPick.transform.GetChild(i).GetComponent<BattleCardInfo>().type);
+            battleCardHandler.cardsDeckToPick.transform.GetChild(i).GetComponent<BattleCardInfo>().is_back_active = false;
+        }
+        
+        for (int j = 0; j < howManyCards; j++)
+        {
+            for (int i = 14; i < 21; i++)
+            {
+                battleCardHandler.cardsDeckToPick.transform.GetChild(j).gameObject.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+
+        for (int i = 0; i < howManyCards; i++)
+        {
+            battleCardHandler.cardsDeckToPick.transform.GetChild(0).transform.SetParent(battleHandler.playableCardsPanel.transform);
+        }
+
+        battleHandler.moveCardsSidewaysInPlayerCardsPanelAnimation = true;
+    }
+
     public bool IsCardEquipped()
     {
         return is_equipped;
@@ -51,235 +104,240 @@ public class BattleCardInfo : MonoBehaviour
 
     public void HandleCardAction()
     {
-        string cardType = this.type;
-
-        switch (cardType)
+        if(is_back_active == true){
+            AssignCardImage();
+        }
+        else if(is_back_active == false)
         {
-            case "Atak":
-                if(battleHandler.currentEnemyDefence > points)
-                {
-                    battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
-                    battleHandler.currentPlayerHealth -= healthPoints;
-                    PreventHealthPointsFallingBelowZero();
-                    battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                    battleHandler.currentEnemyDefence -= points;
-                    battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
-                    battleHandler.remainingMoves--;
-                    DebuggingInfo();
-                    CheckIfRemainingMovesIsZero();
-                }
-                else if (battleHandler.currentEnemyDefence < points)
-                {
-                    int remainingPoints = battleHandler.currentEnemyDefence - points;
-                    if(battleHandler.currentEnemyDefence == 0) battleHandler.currentEnemyHealth -= points;
-                    else battleHandler.currentEnemyHealth += remainingPoints;
 
-                    battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
-                    
-                    battleHandler.currentPlayerHealth -= healthPoints;
-                    PreventHealthPointsFallingBelowZero();
-                    battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                    battleHandler.currentEnemyDefence = 0;
-                    battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
-                    battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
-                    battleHandler.remainingMoves--;
-                    DebuggingInfo();
-                    if(battleHandler.currentEnemyHealth <= 0)
+            string cardType = this.type;
+
+            switch (cardType)
+            {
+                case "Atak":
+                    if(battleHandler.currentEnemyDefence > points)
                     {
-                        battleHandler.currentEnemyHealth = 0;
-                        battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
-                        HideAllBattleCards();
-                        ShowGoBackToDungeonButton();
-                    }
-                    else CheckIfRemainingMovesIsZero();
-                }
-                else if (battleHandler.currentEnemyDefence == points)
-                {
-                    battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
-                    battleHandler.currentPlayerHealth -= healthPoints;
-                    PreventHealthPointsFallingBelowZero();
-                    battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                    battleHandler.currentEnemyDefence = 0;
-                    battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
-                    battleHandler.remainingMoves--;
-                    DebuggingInfo();
-                    CheckIfRemainingMovesIsZero();
-                }
-                break;
-
-            case "Obrona":
-                battleHandler.informationText.text = "Zyskujesz " + points + " tarczy.";
-                battleHandler.currentPlayerHealth -= healthPoints;
-                PreventHealthPointsFallingBelowZero();
-                battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                battleHandler.currentPlayerDefence += points;
-                battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
-                battleHandler.remainingMoves--;
-                DebuggingInfo();
-                CheckIfRemainingMovesIsZero();
-                break;
-
-            case "Wytrwalosc":
-                battleHandler.informationText.text = "Zyskujesz przedluzenie tarczy.";
-                battleHandler.keepDefenceFlagPlayer = true;
-                battleHandler.remainingMoves--;
-                DebuggingInfo();
-                CheckIfRemainingMovesIsZero();
-                break;
-
-            case "Pospiech":
-                battleHandler.informationText.text = "Zyskujesz dodatkowy ruch.";
-                battleHandler.remainingMoves++;
-                DebuggingInfo();
-                break;
-
-            case "Ogluszenie":
-                battleHandler.informationText.text = "Ogluszyles przeciwnika na ture.";
-                battleHandler.stunFlagPlayer = true;
-                battleHandler.remainingMoves--;
-                DebuggingInfo();
-                CheckIfRemainingMovesIsZero();
-                break;
-
-            case "Oslabienie":
-                battleHandler.informationText.text = "Oslabiles przeciwnika.";
-                battleHandler.debuffFlagPlayer = true;
-                battleHandler.remainingMoves--;
-                DebuggingInfo();
-                CheckIfRemainingMovesIsZero();
-                break;
-
-            case "Leczenie": 
-                battleHandler.informationText.text = "Uleczyles sie " + points + "HP.";
-                battleHandler.currentPlayerHealth += points;
-                if(battleHandler.currentPlayerHealth > 100) battleHandler.currentPlayerHealth = 100;
-                battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                battleHandler.remainingMoves--;
-                DebuggingInfo();
-                CheckIfRemainingMovesIsZero();
-                break;
-
-            case "Wzmocnienie":
-                battleHandler.informationText.text = "Podwoiles tarcze.";
-                battleHandler.currentPlayerDefence *= 2;
-                battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
-                break;
-
-            case "Ulepszenie": //bez remainingMoves--; //co w przypadkach użycia na wszystkich specjalnych kartach?
-                battleHandler.informationText.text = "Ulepszasz nastepna karte.";
-                battleHandler.improvementFlagPlayer = true;
-
-                break;
-
-            case "Tecza":
-                int randomAction = Random.Range(1, 4);
-                switch (randomAction)
-                {
-                    case 1: //atak
-                        if(battleHandler.currentEnemyDefence > points)
-                        {
-                            battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
-                            battleHandler.currentPlayerHealth -= healthPoints;
-                            PreventHealthPointsFallingBelowZero();
-                            battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                            battleHandler.currentEnemyDefence -= points;
-                            battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
-                            battleHandler.remainingMoves--;
-                            DebuggingInfo();
-                            CheckIfRemainingMovesIsZero();
-                        }
-                        else if (battleHandler.currentEnemyDefence < points)
-                        {
-                            int remainingPoints = battleHandler.currentEnemyDefence - points;
-                            if(battleHandler.currentEnemyDefence == 0) battleHandler.currentEnemyHealth -= points;
-                            else battleHandler.currentEnemyHealth += remainingPoints;
-
-                            battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
-                            
-                            battleHandler.currentPlayerHealth -= healthPoints;
-                            PreventHealthPointsFallingBelowZero();
-                            battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                            battleHandler.currentEnemyDefence = 0;
-                            battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
-                            battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
-                            battleHandler.remainingMoves--;
-                            DebuggingInfo();
-                            if(battleHandler.currentEnemyHealth <= 0)
-                            {
-                                battleHandler.currentEnemyHealth = 0;
-                                battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
-                                HideAllBattleCards();
-                                ShowGoBackToDungeonButton();
-                            }
-                            else CheckIfRemainingMovesIsZero();
-                        }
-                        else if (battleHandler.currentEnemyDefence == points)
-                        {
-                            battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
-                            battleHandler.currentPlayerHealth -= healthPoints;
-                            PreventHealthPointsFallingBelowZero();
-                            battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                            battleHandler.currentEnemyDefence = 0;
-                            battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
-                            battleHandler.remainingMoves--;
-                            DebuggingInfo();
-                            CheckIfRemainingMovesIsZero();
-                        }
-                        break;
-                        
-                    case 2: //obrona
-                        battleHandler.informationText.text = "Zyskujesz " + points + " tarczy.";
+                        battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
                         battleHandler.currentPlayerHealth -= healthPoints;
                         PreventHealthPointsFallingBelowZero();
                         battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                        battleHandler.currentPlayerDefence += points;
-                        battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
+                        battleHandler.currentEnemyDefence -= points;
+                        battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                         battleHandler.remainingMoves--;
                         DebuggingInfo();
                         CheckIfRemainingMovesIsZero();
-                        break;
-                        
-                    case 3: //leczenie
-                        battleHandler.informationText.text = "Uleczyles sie " + points + "HP.";
-                        battleHandler.currentPlayerHealth += points;
-                        if(battleHandler.currentPlayerHealth > 100) battleHandler.currentPlayerHealth = 100;
-                        battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                        battleHandler.remainingMoves--;
-                        DebuggingInfo();
-                        CheckIfRemainingMovesIsZero();
-                        break;
-                        
-                    default:
-                        Debug.Log("Number out of range!");
-                        break;
-                }
-                break;
+                    }
+                    else if (battleHandler.currentEnemyDefence < points)
+                    {
+                        int remainingPoints = battleHandler.currentEnemyDefence - points;
+                        if(battleHandler.currentEnemyDefence == 0) battleHandler.currentEnemyHealth -= points;
+                        else battleHandler.currentEnemyHealth += remainingPoints;
 
-            default:
-                Debug.Log("Non-existing card OR failure with naming");
-                break;
+                        battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
+                        
+                        battleHandler.currentPlayerHealth -= healthPoints;
+                        PreventHealthPointsFallingBelowZero();
+                        battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
+                        battleHandler.currentEnemyDefence = 0;
+                        battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
+                        battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
+                        battleHandler.remainingMoves--;
+                        DebuggingInfo();
+                        if(battleHandler.currentEnemyHealth <= 0)
+                        {
+                            battleHandler.currentEnemyHealth = 0;
+                            battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
+                            HideAllBattleCards();
+                            ShowGoBackToDungeonButton();
+                        }
+                        else CheckIfRemainingMovesIsZero();
+                    }
+                    else if (battleHandler.currentEnemyDefence == points)
+                    {
+                        battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
+                        battleHandler.currentPlayerHealth -= healthPoints;
+                        PreventHealthPointsFallingBelowZero();
+                        battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
+                        battleHandler.currentEnemyDefence = 0;
+                        battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
+                        battleHandler.remainingMoves--;
+                        DebuggingInfo();
+                        CheckIfRemainingMovesIsZero();
+                    }
+                    break;
+
+                case "Obrona":
+                    battleHandler.informationText.text = "Zyskujesz " + points + " tarczy.";
+                    battleHandler.currentPlayerHealth -= healthPoints;
+                    PreventHealthPointsFallingBelowZero();
+                    battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
+                    battleHandler.currentPlayerDefence += points;
+                    battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
+                    battleHandler.remainingMoves--;
+                    DebuggingInfo();
+                    CheckIfRemainingMovesIsZero();
+                    break;
+
+                case "Wytrwalosc":
+                    battleHandler.informationText.text = "Zyskujesz przedluzenie tarczy.";
+                    battleHandler.keepDefenceFlagPlayer = true;
+                    battleHandler.remainingMoves--;
+                    DebuggingInfo();
+                    CheckIfRemainingMovesIsZero();
+                    break;
+
+                case "Pospiech":
+                    battleHandler.informationText.text = "Zyskujesz dodatkowy ruch.";
+                    battleHandler.remainingMoves++;
+                    DebuggingInfo();
+                    break;
+
+                case "Ogluszenie":
+                    battleHandler.informationText.text = "Ogluszyles przeciwnika na ture.";
+                    battleHandler.stunFlagPlayer = true;
+                    battleHandler.remainingMoves--;
+                    DebuggingInfo();
+                    CheckIfRemainingMovesIsZero();
+                    break;
+
+                case "Oslabienie":
+                    battleHandler.informationText.text = "Oslabiles przeciwnika.";
+                    battleHandler.debuffFlagPlayer = true;
+                    battleHandler.remainingMoves--;
+                    DebuggingInfo();
+                    CheckIfRemainingMovesIsZero();
+                    break;
+
+                case "Leczenie": 
+                    battleHandler.informationText.text = "Uleczyles sie " + points + "HP.";
+                    battleHandler.currentPlayerHealth += points;
+                    if(battleHandler.currentPlayerHealth > 100) battleHandler.currentPlayerHealth = 100;
+                    battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
+                    battleHandler.remainingMoves--;
+                    DebuggingInfo();
+                    CheckIfRemainingMovesIsZero();
+                    break;
+
+                case "Wzmocnienie":
+                    battleHandler.informationText.text = "Podwoiles tarcze.";
+                    battleHandler.currentPlayerDefence *= 2;
+                    battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
+                    break;
+
+                case "Ulepszenie": //bez remainingMoves--; //co w przypadkach użycia na wszystkich specjalnych kartach?
+                    battleHandler.informationText.text = "Ulepszasz nastepna karte.";
+                    battleHandler.improvementFlagPlayer = true;
+
+                    break;
+
+                case "Tecza":
+                    int randomAction = Random.Range(1, 4);
+                    switch (randomAction)
+                    {
+                        case 1: //atak
+                            if(battleHandler.currentEnemyDefence > points)
+                            {
+                                battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
+                                battleHandler.currentPlayerHealth -= healthPoints;
+                                PreventHealthPointsFallingBelowZero();
+                                battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
+                                battleHandler.currentEnemyDefence -= points;
+                                battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
+                                battleHandler.remainingMoves--;
+                                DebuggingInfo();
+                                CheckIfRemainingMovesIsZero();
+                            }
+                            else if (battleHandler.currentEnemyDefence < points)
+                            {
+                                int remainingPoints = battleHandler.currentEnemyDefence - points;
+                                if(battleHandler.currentEnemyDefence == 0) battleHandler.currentEnemyHealth -= points;
+                                else battleHandler.currentEnemyHealth += remainingPoints;
+
+                                battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
+                                
+                                battleHandler.currentPlayerHealth -= healthPoints;
+                                PreventHealthPointsFallingBelowZero();
+                                battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
+                                battleHandler.currentEnemyDefence = 0;
+                                battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
+                                battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
+                                battleHandler.remainingMoves--;
+                                DebuggingInfo();
+                                if(battleHandler.currentEnemyHealth <= 0)
+                                {
+                                    battleHandler.currentEnemyHealth = 0;
+                                    battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
+                                    HideAllBattleCards();
+                                    ShowGoBackToDungeonButton();
+                                }
+                                else CheckIfRemainingMovesIsZero();
+                            }
+                            else if (battleHandler.currentEnemyDefence == points)
+                            {
+                                battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
+                                battleHandler.currentPlayerHealth -= healthPoints;
+                                PreventHealthPointsFallingBelowZero();
+                                battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
+                                battleHandler.currentEnemyDefence = 0;
+                                battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
+                                battleHandler.remainingMoves--;
+                                DebuggingInfo();
+                                CheckIfRemainingMovesIsZero();
+                            }
+                            break;
+                            
+                        case 2: //obrona
+                            battleHandler.informationText.text = "Zyskujesz " + points + " tarczy.";
+                            battleHandler.currentPlayerHealth -= healthPoints;
+                            PreventHealthPointsFallingBelowZero();
+                            battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
+                            battleHandler.currentPlayerDefence += points;
+                            battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
+                            battleHandler.remainingMoves--;
+                            DebuggingInfo();
+                            CheckIfRemainingMovesIsZero();
+                            break;
+                            
+                        case 3: //leczenie
+                            battleHandler.informationText.text = "Uleczyles sie " + points + "HP.";
+                            battleHandler.currentPlayerHealth += points;
+                            if(battleHandler.currentPlayerHealth > 100) battleHandler.currentPlayerHealth = 100;
+                            battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
+                            battleHandler.remainingMoves--;
+                            DebuggingInfo();
+                            CheckIfRemainingMovesIsZero();
+                            break;
+                            
+                        default:
+                            Debug.Log("Number out of range!");
+                            break;
+                    }
+                    break;
+
+                default:
+                    Debug.Log("Non-existing card OR failure with naming");
+                    break;
+            }
         }
     }
 
     public void HideBattleCard()
     {
-        this.gameObject.GetComponent<Button>().enabled = false;
-        this.gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
+        if(is_back_active == false){
+            this.gameObject.GetComponent<Button>().enabled = false;
+            this.gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
+        }
     }
 
     public void HideAllBattleCards()
     {
-        int howManyCards = battleCardHandler.cardsDeckToPick.transform.childCount;
+        int howManyCards = battleHandler.playableCardsPanel.transform.childCount;
 
         for (int i = 0; i < howManyCards; i++)
         {
-            // battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.GetComponent<Button>().enabled = false;
-            // battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
-
-            // CODE BELOW FOR FURTHER 
-            battleCardHandler.cardsDeckToPick.transform.GetChild(0).gameObject.GetComponent<Button>().enabled = false;
-            battleCardHandler.cardsDeckToPick.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
-            battleCardHandler.cardsDeckToPick.transform.GetChild(0).transform.SetParent(battleHandler.usedCardsPanel.transform, true);
+            battleHandler.playableCardsPanel.transform.GetChild(0).gameObject.GetComponent<Button>().enabled = false;
+            battleHandler.playableCardsPanel.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
+            battleHandler.playableCardsPanel.transform.GetChild(0).transform.SetParent(battleHandler.usedCardsPanel.transform, true);
         }
 
         battleHandler.moveCardsToUsedCardsAnimation = true;
@@ -318,5 +376,151 @@ public class BattleCardInfo : MonoBehaviour
     public void DebuggingInfo()
     {
         Debug.Log("Remaining moves player:" + battleHandler.remainingMoves);
+    }
+
+    public void CheckSubtype(GameObject cardInfo, string subtype)
+    {
+        switch (subtype)
+        {
+            case "Atak":
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("Life").gameObject.SetActive(true);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("SpecialType").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(true);
+                break;
+            case "Obrona":
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("Life").gameObject.SetActive(true);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("SpecialType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(true);
+                break;
+            case "Ogluszenie":
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(true);
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+            cardInfo.transform.Find("SpecialType").gameObject.SetActive(true);
+                break;
+            case "Leczenie":
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(true);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+            cardInfo.transform.Find("SpecialType").gameObject.SetActive(true);
+                break;
+            case "Oslabienie":
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+            cardInfo.transform.Find("SpecialType").gameObject.SetActive(true);
+                break;
+            case "Pospiech":
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("Haste").gameObject.SetActive(true);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+            cardInfo.transform.Find("SpecialType").gameObject.SetActive(true);
+                break;
+            case "Wzmocnienie":
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(true);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+            cardInfo.transform.Find("SpecialType").gameObject.SetActive(true);
+                break;
+            case "Wytrwalosc":
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(true);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+            cardInfo.transform.Find("SpecialType").gameObject.SetActive(true);
+                break;
+            case "Tecza":
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(true);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+            cardInfo.transform.Find("SpecialType").gameObject.SetActive(true);
+                break;
+            case "Ulepszenie":
+            cardInfo.transform.Find("Life").gameObject.SetActive(false);
+            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+            cardInfo.transform.Find("Buff").gameObject.SetActive(true);
+            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+            cardInfo.transform.Find("SpecialType").gameObject.SetActive(true);
+                break;
+        }
     }
 }
