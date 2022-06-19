@@ -82,4 +82,9 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadScene(13);
     }
+
+    public void LoadMapGenerationScene()
+    {
+        SceneManager.LoadScene(14);
+    }
 }
