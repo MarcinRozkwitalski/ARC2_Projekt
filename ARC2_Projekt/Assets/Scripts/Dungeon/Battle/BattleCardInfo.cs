@@ -30,6 +30,8 @@ public class BattleCardInfo : MonoBehaviour
         battleHandler = GameObject.Find("BattleHandler").GetComponent<BattleHandler>();
         battleCardHandler = GameObject.Find("NetworkManager").GetComponent<BattleCardHandler>();
         enemyFightingLogic = GameObject.Find("BattleHandler").GetComponent<EnemyFightingLogic>();
+
+        transform.localScale = new Vector2(0.63f, 0.53f);
     }
 
     public void AssignInfo()
@@ -267,18 +269,20 @@ public class BattleCardInfo : MonoBehaviour
 
     public void HideAllBattleCards()
     {
-        int howManyCards = battleCardHandler.playerCardsPanel.transform.childCount;
+        int howManyCards = battleCardHandler.cardsDeckToPick.transform.childCount;
 
         for (int i = 0; i < howManyCards; i++)
         {
-            battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.GetComponent<Button>().enabled = false;
-            battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
+            // battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.GetComponent<Button>().enabled = false;
+            // battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
 
             // CODE BELOW FOR FURTHER 
-            // battleCardHandler.playerCardsPanel.transform.GetChild(0).gameObject.GetComponent<Button>().enabled = false;
-            // battleCardHandler.playerCardsPanel.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
-            // battleCardHandler.playerCardsPanel.transform.GetChild(0).transform.SetParent(battleHandler.usedCardsPanel.transform, true);
+            battleCardHandler.cardsDeckToPick.transform.GetChild(0).gameObject.GetComponent<Button>().enabled = false;
+            battleCardHandler.cardsDeckToPick.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
+            battleCardHandler.cardsDeckToPick.transform.GetChild(0).transform.SetParent(battleHandler.usedCardsPanel.transform, true);
         }
+
+        battleHandler.moveCardsToUsedCardsAnimation = true;
     }
 
     public void ShowGoBackToDungeonButton()

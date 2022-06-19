@@ -195,12 +195,12 @@ public class EnemyFightingLogic : MonoBehaviour
 
     public IEnumerator UnHideAllBattleCards()
     {
-        int howManyCards = battleCardHandler.playerCardsPanel.transform.childCount;
+        int howManyCards = battleCardHandler.cardsDeckToPick.transform.childCount;
 
         for (int i = 0; i < howManyCards; i++)
         {
-            battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.GetComponent<Button>().enabled = true;
-            battleCardHandler.playerCardsPanel.transform.GetChild(i).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            battleCardHandler.cardsDeckToPick.transform.GetChild(i).gameObject.GetComponent<Button>().enabled = true;
+            battleCardHandler.cardsDeckToPick.transform.GetChild(i).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 255, 255, 255);
 
             //.transform.GetComponent<Button>().enabled = true
         }

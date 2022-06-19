@@ -10,7 +10,7 @@ public class BattleCardHandler : MonoBehaviour
 {
     public int CurrentPlayerId;
     public GameObject BattleCardsInfoPrefab;
-    public GameObject playerCardsPanel;
+    public GameObject cardsDeckToPick;
     public GameObject CurrentPlayer;
 
     void Start()
@@ -34,7 +34,7 @@ public class BattleCardHandler : MonoBehaviour
                 foreach (JSONNode player_cards in allPlayerDeckCards)
                 {
                     var BattleCardsInfo = Instantiate(BattleCardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    BattleCardsInfo.transform.SetParent(playerCardsPanel.transform);
+                    BattleCardsInfo.transform.SetParent(cardsDeckToPick.transform);
                     CheckSubtype(BattleCardsInfo, player_cards[1]);
                     BattleCardsInfo.GetComponent<BattleCardInfo>().cardname = player_cards[0];
                     BattleCardsInfo.GetComponent<BattleCardInfo>().type = player_cards[1];

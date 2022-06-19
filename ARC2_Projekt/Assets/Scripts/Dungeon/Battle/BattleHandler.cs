@@ -9,6 +9,7 @@ public class BattleHandler : MonoBehaviour
     public TempCurrentPlayer tempCurrentPlayer;
     public NormalEnemiesList normalEnemiesList;
     public PowerfulEnemiesList powerfulEnemiesList;
+    public RandomizeCardsPositions randomizeCardsPositions;
 
     public TMP_Text informationText;
     public GameObject backToDungeonButton;
@@ -42,17 +43,8 @@ public class BattleHandler : MonoBehaviour
     public int currentEnemyHealth;
     public int currentEnemyDefence;
 
-    //wsadzić karty wszystkie do obecnej "ręki" stack lub heap, wyświetlać tylko pierwsze pięć
-    //gdy gracz PO swoim ruchu zostanie tylko z jedną kartą niech dobierze cztery karty "na rękę"
-    //zużyte karty będące na odłożonej talii powinny się losowo poustawiać gdy zabraknie kart u gracza
-
-    //gdy gracz pojedzie dwa razy wtedy dwie tury należą do potwora
-    //ruchy potwora nie powinny dziać się dosłownie przez chwilę, niech gracz widzi co potwór robi przez WaitForSeconds
-    //przy każdym ruchu czy to gracza czy potwora powinny być sprawdzane warunki czy któryś z nich ma obecnie życie równe 0 po ataku
-    //niech obrony gracza i potwora istnieją tylko do końca następnej tury przeciwnika, tak aby obrona znikała przy swoim następnym ruchu
-
-    //co do zczytywania danych z karty powinna być jedna uniwersalna metoda, patrzy czy typ karty to atak czy obrona
-    //potem z odpowiednich pól niech zbiera dane o ataku/obronie i koszcie karty z życia
+    public bool moveCardsToUsedCardsAnimation = false;
+    public bool moveCardsToPlayerCardsPanelAnimation = false;
 
     void Start()
     {
@@ -131,13 +123,4 @@ public class BattleHandler : MonoBehaviour
             Debug.Log("Nowe ruchy: " + remainingMoves);
         }
     }
-
-    //każda karta musi mieć takie metody:
-    // - sprawdzenie pól i rozliczenie ich
-    // - sprawdzenie czy przeciwnik umarł (tylko dla gracza kolejne ify)
-    // - jeśli tak to zakończ pojedynek i pokaż przycisk z wyjściem 
-    // - DALEJ jeśli tak to dodaj do nieusuwalnej tablicy nazwę pokonanego przeciwnika
-    // - jeśli nie to odejmij raz "remainingMoves" i zobacz czy równa się 0,
-    // - jeśli "remainingMoves" równa się 0 to zakończ turę obecnej strony i przekaż turę drugiej stronie
-    // - ustawić "remainingMoves" na 2
 }

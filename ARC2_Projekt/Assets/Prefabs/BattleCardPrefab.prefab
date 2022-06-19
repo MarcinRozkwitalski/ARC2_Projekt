@@ -733,6 +733,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2af825c9c80bdda46a6bd8fa7b292b7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleHandler: {fileID: 0}
+  startObjectPos: {x: 0, y: 0}
+  targetPos: {x: 0, y: 0}
+  endPos: {x: 0, y: 0}
+  startObjectScale: {x: 0, y: 0}
+  endLocalScale: {x: 0, y: 0}
+  lockPos: 0
+  target: {fileID: 4104480803169322945, guid: ba32891cb50ad8b4886f0ea0f9cdf066, type: 3}
+  lerpDuration: 3
 --- !u!1 &4104162394648773088
 GameObject:
   m_ObjectHideFlags: 0
