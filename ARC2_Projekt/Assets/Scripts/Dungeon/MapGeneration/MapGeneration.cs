@@ -37,6 +37,9 @@ public class MapGeneration : MonoBehaviour
     public List<string> crosses = new List<string>();
     public List<string> exits = new List<string>();
     public List<string> torches = new List<string>();
+    public List<string> events = new List<string>();
+    public List<string> altars = new List<string>();
+    public List<string> messengers = new List<string>();
 
     public List<string> lvl_1_list = new List<string>();
     public List<string> lvl_2_list = new List<string>();
@@ -97,25 +100,31 @@ public class MapGeneration : MonoBehaviour
         goodIcons = numberOfIcons - badIcons;
         Debug.Log("Icons = " + numberOfIcons + ", badIcons = " + badIcons + ", goodIcons = " + goodIcons);
 
-        int skullsInt, devilsInt, sadnessInt;
+        int skullsInt, devilsInt, sadnessInt, altarInt, messengerInt;
         devilsInt = Mathf.RoundToInt(badIcons * 0.1f);
         sadnessInt = Mathf.RoundToInt(badIcons * 0.3f);
-        skullsInt = badIcons - devilsInt - sadnessInt;
+        altarInt = Mathf.RoundToInt(badIcons * 0.1f);
+        messengerInt = Mathf.RoundToInt(badIcons * 0.1f);
+        skullsInt = badIcons - devilsInt - sadnessInt - altarInt - messengerInt;
         AddSkullsToList(skullsInt);
         AddDevilsToList(devilsInt);
         AddSadnessToList(sadnessInt);
-        Debug.Log("Skulls = " + skulls.Count + ", Devils = " + devils.Count + ", Sadness = " + sadness.Count);
+        AddAltarsToList(altarInt);
+        AddMessengersToList(messengerInt);
+        Debug.Log("Skulls = " + skulls.Count + ", Devils = " + devils.Count + ", Sadness = " + sadness.Count + ", Altars = " + altars.Count + ", Messengers = " + messengers.Count);
 
-        int treasureInt, crossInt, exitInt, torchInt;
+        int treasureInt, crossInt, exitInt, torchInt, eventInt;
+        eventInt = Mathf.RoundToInt(goodIcons * 0.1f);
         crossInt = Mathf.RoundToInt(goodIcons * 0.2f);
         exitInt = Mathf.RoundToInt(goodIcons * 0.1f);
         torchInt = Mathf.RoundToInt(goodIcons * 0.2f);
-        treasureInt = goodIcons - crossInt - exitInt - torchInt;
+        treasureInt = goodIcons - crossInt - exitInt - torchInt - eventInt;
         AddTreasureToList(treasureInt);
         AddCrossToList(crossInt);
         AddExitToList(exitInt);
         AddTorchToList(torchInt);
-        Debug.Log("Treasures = " + treasures.Count + ", Crosses = " + crosses.Count + ", Exits = " + exits.Count + ", Torches = " + torches.Count);
+        AddEventToList(eventInt);
+        Debug.Log("Treasures = " + treasures.Count + ", Crosses = " + crosses.Count + ", Exits = " + exits.Count + ", Torches = " + torches.Count + ", Events = " + events.Count);
     }
 
     public void AddSkullsToList(int j)
@@ -137,6 +146,20 @@ public class MapGeneration : MonoBehaviour
         for (int i = 0; i < j; i++)
         {
             sadness.Add("Sadness");
+        }
+    }
+    public void AddAltarsToList(int j)
+    {
+        for (int i = 0; i < j; i++)
+        {
+            altars.Add("Altar");
+        }
+    }
+    public void AddMessengersToList(int j)
+    {
+        for (int i = 0; i < j; i++)
+        {
+            messengers.Add("Messenger");
         }
     }
     public void AddTreasureToList(int j)
@@ -168,6 +191,14 @@ public class MapGeneration : MonoBehaviour
         }
     }
 
+    public void AddEventToList(int j)
+    {
+        for (int i = 0; i < j; i++)
+        {
+            events.Add("Event");
+        }
+    }
+
     public void ShuffleIconsToLevelLists()
     {
         PutDevils();
@@ -176,6 +207,419 @@ public class MapGeneration : MonoBehaviour
         PutTorches();
         PutSadness();
         PutTreasures();
+        PutEvents();
+        PutAltars();
+        PutMessengers();
+        PutSkulls();
+    }
+
+    public void PutSkulls()
+    {
+        while (skulls.Count > 0)
+        {
+            if (lvl_1_list.Count == 0)
+            {
+                lvl_1_list.Add("Skull");
+                skulls.RemoveAt(skulls.Count - 1);
+            }
+            else if (lvl_2_list.Count == 0)
+            {
+                lvl_2_list.Add("Skull");
+                skulls.RemoveAt(skulls.Count - 1);
+            }
+            else if (lvl_3_list.Count == 0)
+            {
+                lvl_3_list.Add("Skull");
+                skulls.RemoveAt(skulls.Count - 1);
+            }
+            else if (lvl_4_list.Count == 0)
+            {
+                lvl_4_list.Add("Skull");
+                skulls.RemoveAt(skulls.Count - 1);
+            }
+            else if (lvl_5_list.Count == 0)
+            {
+                lvl_5_list.Add("Skull");
+                skulls.RemoveAt(skulls.Count - 1);
+            }
+            else if (lvl_6_list.Count == 0)
+            {
+                lvl_6_list.Add("Skull");
+                skulls.RemoveAt(skulls.Count - 1);
+            }
+            else if (lvl_7_list.Count == 0)
+            {
+                lvl_7_list.Add("Skull");
+                skulls.RemoveAt(skulls.Count - 1);
+            }
+            else if (lvl_8_list.Count == 0)
+            {
+                lvl_8_list.Add("Skull");
+                skulls.RemoveAt(skulls.Count - 1);
+            }
+            else if (lvl_9_list.Count == 0)
+            {
+                lvl_9_list.Add("Skull");
+                skulls.RemoveAt(skulls.Count - 1);
+            }
+            else
+            {
+                int position = Random.Range(1, 10);
+                switch (position)
+                {
+                    case 1:
+                        if (!lvl_1_list.Contains("Skull") && lvl_1_list.Count < 4)
+                        {
+                            lvl_1_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 2:
+                        if (!lvl_2_list.Contains("Skull") && lvl_2_list.Count < 4)
+                        {
+                            lvl_2_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 3:
+                        if (!lvl_3_list.Contains("Skull") && lvl_3_list.Count < 4)
+                        {
+                            lvl_3_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 4:
+                        if (!lvl_4_list.Contains("Skull") && lvl_4_list.Count < 4)
+                        {
+                            lvl_4_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 5:
+                        if (!lvl_5_list.Contains("Skull") && lvl_5_list.Count < 4)
+                        {
+                            lvl_5_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 6:
+                        if (!lvl_6_list.Contains("Skull") && lvl_6_list.Count < 4)
+                        {
+                            lvl_6_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 7:
+                        if (!lvl_7_list.Contains("Skull") && lvl_7_list.Count < 4)
+                        {
+                            lvl_7_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 8:
+                        if (!lvl_8_list.Contains("Skull") && lvl_8_list.Count < 4)
+                        {
+                            lvl_8_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 9:
+                        if (!lvl_9_list.Contains("Skull") && lvl_9_list.Count < 4)
+                        {
+                            lvl_9_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                }
+            }
+
+        }
+    }
+
+    public void PutMessengers()
+    {
+        while (messengers.Count > 0)
+        {
+            int position = Random.Range(1, 10);
+            switch (position)
+            {
+                case 1:
+                    if (!lvl_1_list.Contains("Messenger") && lvl_1_list.Count < 4)
+                    {
+                        lvl_1_list.Add("Messenger");
+                        messengers.RemoveAt(messengers.Count - 1);
+                    }
+                    break;
+                case 2:
+                    if (!lvl_2_list.Contains("Messenger") && lvl_2_list.Count < 4)
+                    {
+                        lvl_2_list.Add("Messenger");
+                        messengers.RemoveAt(messengers.Count - 1);
+                    }
+                    break;
+                case 3:
+                    if (!lvl_3_list.Contains("Messenger") && lvl_3_list.Count < 4)
+                    {
+                        lvl_3_list.Add("Messenger");
+                        messengers.RemoveAt(messengers.Count - 1);
+                    }
+                    break;
+                case 4:
+                    if (!lvl_4_list.Contains("Messenger") && lvl_4_list.Count < 4)
+                    {
+                        lvl_4_list.Add("Messenger");
+                        messengers.RemoveAt(messengers.Count - 1);
+                    }
+                    break;
+                case 5:
+                    if (!lvl_5_list.Contains("Messenger") && lvl_5_list.Count < 4)
+                    {
+                        lvl_5_list.Add("Messenger");
+                        messengers.RemoveAt(messengers.Count - 1);
+                    }
+                    break;
+                case 6:
+                    if (!lvl_6_list.Contains("Messenger") && lvl_6_list.Count < 4)
+                    {
+                        lvl_6_list.Add("Messenger");
+                        messengers.RemoveAt(messengers.Count - 1);
+                    }
+                    break;
+                case 7:
+                    if (!lvl_7_list.Contains("Messenger") && lvl_7_list.Count < 4)
+                    {
+                        lvl_7_list.Add("Messenger");
+                        messengers.RemoveAt(messengers.Count - 1);
+                    }
+                    break;
+                case 8:
+                    if (!lvl_8_list.Contains("Messenger") && lvl_8_list.Count < 4)
+                    {
+                        lvl_8_list.Add("Messenger");
+                        messengers.RemoveAt(messengers.Count - 1);
+                    }
+                    break;
+                case 9:
+                    if (!lvl_9_list.Contains("Messenger") && lvl_9_list.Count < 4)
+                    {
+                        lvl_9_list.Add("Messenger");
+                        messengers.RemoveAt(messengers.Count - 1);
+                    }
+                    break;
+            }
+        }
+    }
+
+    public void PutAltars()
+    {
+        while (altars.Count > 0)
+        {
+            int position = Random.Range(1, 11);
+            switch (position)
+            {
+                case 1:
+                    if (!lvl_1_list.Contains("Altar") && lvl_1_list.Count < 4)
+                    {
+                        lvl_1_list.Add("Altar");
+                        altars.RemoveAt(altars.Count - 1);
+                    }
+                    break;
+                case 2:
+                    if (!lvl_2_list.Contains("Altar") && lvl_2_list.Count < 4)
+                    {
+                        lvl_2_list.Add("Altar");
+                        altars.RemoveAt(altars.Count - 1);
+                    }
+                    break;
+                case 3:
+                    if (!lvl_3_list.Contains("Altar") && lvl_3_list.Count < 4)
+                    {
+                        lvl_3_list.Add("Altar");
+                        altars.RemoveAt(altars.Count - 1);
+                    }
+                    break;
+                case 4:
+                    if (!lvl_4_list.Contains("Altar") && lvl_4_list.Count < 4)
+                    {
+                        lvl_4_list.Add("Altar");
+                        altars.RemoveAt(altars.Count - 1);
+                    }
+                    break;
+                case 5:
+                    if (!lvl_5_list.Contains("Altar") && lvl_5_list.Count < 4)
+                    {
+                        lvl_5_list.Add("Altar");
+                        altars.RemoveAt(altars.Count - 1);
+                    }
+                    break;
+                case 6:
+                    if (!lvl_6_list.Contains("Altar") && lvl_6_list.Count < 4)
+                    {
+                        lvl_6_list.Add("Altar");
+                        altars.RemoveAt(altars.Count - 1);
+                    }
+                    break;
+                case 7:
+                    if (!lvl_7_list.Contains("Altar") && lvl_7_list.Count < 4)
+                    {
+                        lvl_7_list.Add("Altar");
+                        altars.RemoveAt(altars.Count - 1);
+                    }
+                    break;
+                case 8:
+                    if (!lvl_8_list.Contains("Altar") && lvl_8_list.Count < 4)
+                    {
+                        lvl_8_list.Add("Altar");
+                        altars.RemoveAt(altars.Count - 1);
+                    }
+                    break;
+                case 9:
+                    if (!lvl_9_list.Contains("Altar") && lvl_9_list.Count < 4)
+                    {
+                        lvl_9_list.Add("Altar");
+                        altars.RemoveAt(altars.Count - 1);
+                    }
+                    break;
+                case 10:
+                    if (!lvl_10_list.Contains("Altar") && lvl_10_list.Count < 4)
+                    {
+                        lvl_10_list.Add("Altar");
+                        altars.RemoveAt(altars.Count - 1);
+                    }
+                    break;
+            }
+        }
+    }
+
+    public void PutEvents()
+    {
+        while (events.Count > 0)
+        {
+            int position = Random.Range(1, 11);
+            switch (position)
+            {
+                case 1:
+                    if (!lvl_1_list.Contains("Event") && lvl_1_list.Contains("Sadness") || lvl_1_list.Contains("Treasure") && lvl_1_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_1_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    else if (!lvl_1_list.Contains("Event") && lvl_1_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_1_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    break;
+                case 2:
+                    if (!lvl_2_list.Contains("Event") && lvl_2_list.Contains("Sadness") || lvl_2_list.Contains("Treasure") && lvl_2_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_2_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    else if (!lvl_2_list.Contains("Event") && lvl_2_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_2_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    break;
+                case 3:
+                    if (!lvl_3_list.Contains("Event") && lvl_3_list.Contains("Sadness") || lvl_3_list.Contains("Treasure") && lvl_3_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_3_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    else if (!lvl_3_list.Contains("Event") && lvl_3_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_3_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    break;
+                case 4:
+                    if (!lvl_4_list.Contains("Event") && lvl_4_list.Contains("Sadness") || lvl_4_list.Contains("Treasure") && lvl_4_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_4_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    else if (!lvl_4_list.Contains("Event") && lvl_4_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_4_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    break;
+                case 5:
+                    if (!lvl_5_list.Contains("Event") && lvl_5_list.Contains("Sadness") || lvl_5_list.Contains("Treasure") && lvl_5_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_5_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    else if (!lvl_5_list.Contains("Event") && lvl_5_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_5_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    break;
+                case 6:
+                    if (!lvl_6_list.Contains("Event") && lvl_6_list.Contains("Sadness") || lvl_6_list.Contains("Treasure") && lvl_6_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_6_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    else if (!lvl_6_list.Contains("Event") && lvl_6_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_6_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    break;
+                case 7:
+                    if (!lvl_7_list.Contains("Event") && lvl_7_list.Contains("Sadness") || lvl_7_list.Contains("Treasure") && lvl_7_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_7_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    else if (!lvl_7_list.Contains("Event") && lvl_7_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_7_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    break;
+                case 8:
+                    if (!lvl_8_list.Contains("Event") && lvl_8_list.Contains("Sadness") || lvl_8_list.Contains("Treasure") && lvl_8_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_8_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    else if (!lvl_8_list.Contains("Event") && lvl_8_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_8_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    break;
+                case 9:
+                    if (!lvl_9_list.Contains("Event") && lvl_9_list.Contains("Sadness") || lvl_9_list.Contains("Treasure") && lvl_9_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_9_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    else if (!lvl_9_list.Contains("Event") && lvl_9_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_9_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    break;
+                case 10:
+                    if (!lvl_10_list.Contains("Event") && lvl_10_list.Contains("Sadness") || lvl_10_list.Contains("Treasure") && lvl_10_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_10_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    else if (!lvl_10_list.Contains("Event") && lvl_10_list.Count < 4 && Random.Range(1, 11) < 4)
+                    {
+                        lvl_10_list.Add("Event");
+                        events.RemoveAt(events.Count - 1);
+                    }
+                    break;
+            }
+        }
     }
 
     public void PutTreasures()
@@ -790,6 +1234,9 @@ public class MapGeneration : MonoBehaviour
                 icon.transform.Find("Torch").gameObject.SetActive(false);
                 icon.transform.Find("Exit").gameObject.SetActive(false);
                 icon.transform.Find("Sadness").gameObject.SetActive(false);
+                icon.transform.Find("Event").gameObject.SetActive(false);
+                icon.transform.Find("Altar").gameObject.SetActive(false);
+                icon.transform.Find("Messenger").gameObject.SetActive(false);
                 break;
             case "Devil":
                 icon.transform.Find("GrayDirt").gameObject.SetActive(false);
@@ -799,6 +1246,9 @@ public class MapGeneration : MonoBehaviour
                 icon.transform.Find("Torch").gameObject.SetActive(false);
                 icon.transform.Find("Exit").gameObject.SetActive(false);
                 icon.transform.Find("Sadness").gameObject.SetActive(false);
+                icon.transform.Find("Event").gameObject.SetActive(false);
+                icon.transform.Find("Altar").gameObject.SetActive(false);
+                icon.transform.Find("Messenger").gameObject.SetActive(false);
                 break;
             case "Treasure":
                 icon.transform.Find("GrayDirt").gameObject.SetActive(false);
@@ -808,6 +1258,9 @@ public class MapGeneration : MonoBehaviour
                 icon.transform.Find("Torch").gameObject.SetActive(false);
                 icon.transform.Find("Exit").gameObject.SetActive(false);
                 icon.transform.Find("Sadness").gameObject.SetActive(false);
+                icon.transform.Find("Event").gameObject.SetActive(false);
+                icon.transform.Find("Altar").gameObject.SetActive(false);
+                icon.transform.Find("Messenger").gameObject.SetActive(false);
                 break;
             case "Cross":
                 icon.transform.Find("GrayDirt").gameObject.SetActive(false);
@@ -817,6 +1270,9 @@ public class MapGeneration : MonoBehaviour
                 icon.transform.Find("Torch").gameObject.SetActive(false);
                 icon.transform.Find("Exit").gameObject.SetActive(false);
                 icon.transform.Find("Sadness").gameObject.SetActive(false);
+                icon.transform.Find("Event").gameObject.SetActive(false);
+                icon.transform.Find("Altar").gameObject.SetActive(false);
+                icon.transform.Find("Messenger").gameObject.SetActive(false);
                 break;
             case "Torch":
                 icon.transform.Find("GrayDirt").gameObject.SetActive(false);
@@ -826,6 +1282,9 @@ public class MapGeneration : MonoBehaviour
                 icon.transform.Find("Skull").gameObject.SetActive(false);
                 icon.transform.Find("Exit").gameObject.SetActive(false);
                 icon.transform.Find("Sadness").gameObject.SetActive(false);
+                icon.transform.Find("Event").gameObject.SetActive(false);
+                icon.transform.Find("Altar").gameObject.SetActive(false);
+                icon.transform.Find("Messenger").gameObject.SetActive(false);
                 break;
             case "Exit":
                 icon.transform.Find("GrayDirt").gameObject.SetActive(false);
@@ -835,6 +1294,9 @@ public class MapGeneration : MonoBehaviour
                 icon.transform.Find("Torch").gameObject.SetActive(false);
                 icon.transform.Find("Skull").gameObject.SetActive(false);
                 icon.transform.Find("Sadness").gameObject.SetActive(false);
+                icon.transform.Find("Event").gameObject.SetActive(false);
+                icon.transform.Find("Altar").gameObject.SetActive(false);
+                icon.transform.Find("Messenger").gameObject.SetActive(false);
                 break;
             case "Sadness":
                 icon.transform.Find("GrayDirt").gameObject.SetActive(false);
@@ -844,6 +1306,45 @@ public class MapGeneration : MonoBehaviour
                 icon.transform.Find("Torch").gameObject.SetActive(false);
                 icon.transform.Find("Skull").gameObject.SetActive(false);
                 icon.transform.Find("Exit").gameObject.SetActive(false);
+                icon.transform.Find("Event").gameObject.SetActive(false);
+                icon.transform.Find("Altar").gameObject.SetActive(false);
+                icon.transform.Find("Messenger").gameObject.SetActive(false);
+                break;
+            case "Event":
+                icon.transform.Find("GrayDirt").gameObject.SetActive(false);
+                icon.transform.Find("Devil").gameObject.SetActive(false);
+                icon.transform.Find("Treasure").gameObject.SetActive(false);
+                icon.transform.Find("Cross").gameObject.SetActive(false);
+                icon.transform.Find("Torch").gameObject.SetActive(false);
+                icon.transform.Find("Skull").gameObject.SetActive(false);
+                icon.transform.Find("Exit").gameObject.SetActive(false);
+                icon.transform.Find("Sadness").gameObject.SetActive(false);
+                icon.transform.Find("Altar").gameObject.SetActive(false);
+                icon.transform.Find("Messenger").gameObject.SetActive(false);
+                break;
+            case "Altar":
+                icon.transform.Find("GrayDirt").gameObject.SetActive(false);
+                icon.transform.Find("Devil").gameObject.SetActive(false);
+                icon.transform.Find("Treasure").gameObject.SetActive(false);
+                icon.transform.Find("Cross").gameObject.SetActive(false);
+                icon.transform.Find("Torch").gameObject.SetActive(false);
+                icon.transform.Find("Skull").gameObject.SetActive(false);
+                icon.transform.Find("Exit").gameObject.SetActive(false);
+                icon.transform.Find("Sadness").gameObject.SetActive(false);
+                icon.transform.Find("Event").gameObject.SetActive(false);
+                icon.transform.Find("Messenger").gameObject.SetActive(false);
+                break;
+            case "Messenger":
+                icon.transform.Find("GrayDirt").gameObject.SetActive(false);
+                icon.transform.Find("Devil").gameObject.SetActive(false);
+                icon.transform.Find("Treasure").gameObject.SetActive(false);
+                icon.transform.Find("Cross").gameObject.SetActive(false);
+                icon.transform.Find("Torch").gameObject.SetActive(false);
+                icon.transform.Find("Skull").gameObject.SetActive(false);
+                icon.transform.Find("Exit").gameObject.SetActive(false);
+                icon.transform.Find("Sadness").gameObject.SetActive(false);
+                icon.transform.Find("Altar").gameObject.SetActive(false);
+                icon.transform.Find("Event").gameObject.SetActive(false);
                 break;
         }
     }
