@@ -30,7 +30,6 @@ public class BattleCardInfo : MonoBehaviour
     public bool is_equipped = false;
     public bool is_back_active = false;
     public bool allow_to_animate = false;
-    public bool has_been_activated = false;
     
     private void Start() {
         battleHandler = GameObject.Find("BattleHandler").GetComponent<BattleHandler>();
@@ -122,24 +121,6 @@ public class BattleCardInfo : MonoBehaviour
     {
         battleHandler.moveCardsSidewaysInPlayerCardsPanelAnimation = true;
     }
-
-    // nie gotowe
-    public void AssignCardsToCardsDeckToPick(int howManyCards)
-    {
-        for (int i = 0; i < howManyCards; i++)
-        {
-            battleCardHandler.cardsDeckToPick.transform.GetChild(0).transform.SetParent(battleHandler.playableCardsPanel.transform);
-        }
-    }
-
-    public void AssignCardsToPlayableCardsPanel(int howManyCards)
-    {
-        for (int i = 0; i < howManyCards; i++)
-        {
-            battleCardHandler.cardsDeckToPick.transform.GetChild(0).transform.SetParent(battleHandler.playableCardsPanel.transform);
-        }
-    }
-    // nie gotowe
 
     public bool IsCardEquipped()
     {
@@ -441,8 +422,8 @@ public class BattleCardInfo : MonoBehaviour
 
     public void DebuggingInfo()
     {
-        Debug.Log("Remaining moves player: " + battleHandler.remainingMoves);
-        Debug.Log("Current ammount of moves: " + battleHandler.currentAmmountOfMoves);
+        // Debug.Log("Remaining moves player: " + battleHandler.remainingMoves);
+        // Debug.Log("Current ammount of moves: " + battleHandler.currentAmmountOfMoves);
     }
 
     public void CheckSubtype(GameObject cardInfo, string subtype)

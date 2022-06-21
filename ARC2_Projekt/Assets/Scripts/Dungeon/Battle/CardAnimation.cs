@@ -17,8 +17,8 @@ public class CardAnimation : MonoBehaviour
     public bool lockPos = false;
 
     public GameObject target;
-    public float lerpDurationThree = 3;
     public float lerpDurationOne = 1;
+    public float lerpDurationHalf = 0.5f;
 
     private void Start() 
     {
@@ -41,8 +41,8 @@ public class CardAnimation : MonoBehaviour
 
         if(battleHandler.moveCardsToPlayerCardsPanelAnimation == true && battleCardInfo.allow_to_animate == true)
         {
-            endPos = targetPos + new Vector2(1561, 60);
-            endLocalScale = new Vector2(1f, 1f);
+            endPos = targetPos + new Vector2(1561, 118);
+            endLocalScale = new Vector2(1f, 0.88f);
             StartCoroutine(AnimateMovingCardsToPlayerCardsPanel());
         }
 
@@ -54,14 +54,14 @@ public class CardAnimation : MonoBehaviour
 
         if(battleHandler.moveCardsSidewaysInPlayerCardsPanelAnimation2 == true && battleCardInfo.allow_to_animate == true)
         {
-            endLocalScale = new Vector2(1f, 1f);
+            endLocalScale = new Vector2(1f, 0.88f);
             StartCoroutine(AnimateMovingCardsSidewaysInPlayerCardsPanel2());
         }
 
         if(battleHandler.moveCardsFromUsedCardsToDeckCardsAnimation == true && battleCardInfo.allow_to_animate == true)
         {
             endPos = new Vector2(152, 710);
-            endLocalScale = new Vector2(0.4272f, 0.380f);
+            endLocalScale = new Vector2(0.4272f, 0.370f);
             StartCoroutine(AnimateMovingCardsFromUsedCardsToDeckCardsToPick());
         }
     }
@@ -132,10 +132,10 @@ public class CardAnimation : MonoBehaviour
             lockPos = true;
         }
         float timeElapsed = 0;
-        while(timeElapsed < lerpDurationOne)
+        while(timeElapsed < lerpDurationHalf)
         {
             timeElapsed += Time.deltaTime;
-            float percentageComplete = timeElapsed / lerpDurationOne;
+            float percentageComplete = timeElapsed / lerpDurationHalf;
 
             transform.localScale = Vector2.Lerp(startObjectScale, endLocalScale, percentageComplete);
 
@@ -159,10 +159,10 @@ public class CardAnimation : MonoBehaviour
             lockPos = true;
         }
         float timeElapsed = 0;
-        while(timeElapsed < lerpDurationOne)
+        while(timeElapsed < lerpDurationHalf)
         {
             timeElapsed += Time.deltaTime;
-            float percentageComplete = timeElapsed / lerpDurationOne;
+            float percentageComplete = timeElapsed / lerpDurationHalf;
 
             transform.localScale = Vector2.Lerp(startObjectScale, endLocalScale, percentageComplete);
 

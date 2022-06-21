@@ -103,12 +103,12 @@ public class BattleHandler : MonoBehaviour
     public void SetMaxAmmountOfMoves()
     {
         int valueToCheck = deckCardsToPick.transform.childCount;
-        Debug.Log("valueToCheck: " + valueToCheck);
+        // Debug.Log("valueToCheck: " + valueToCheck);
         if (valueToCheck == 3) maxAmmountOfMoves = 3;
         else if (valueToCheck == 4) maxAmmountOfMoves = 4;
         else if (valueToCheck >= 5) maxAmmountOfMoves = 5;
 
-        Debug.Log("maxAmmountOfMoves: " + maxAmmountOfMoves);
+        // Debug.Log("maxAmmountOfMoves: " + maxAmmountOfMoves);
     }
 
     public void GetEnemyTypeByLastDoorValue()
@@ -145,12 +145,12 @@ public class BattleHandler : MonoBehaviour
             remainingMoves = 2;
             currentAmmountOfMoves = 0;
             stunFlagPlayer = false;
-            Debug.Log("Nowe ruchy: " + remainingMoves);
+            // Debug.Log("Nowe ruchy: " + remainingMoves);
         }
         else{
             remainingMoves = basicRemainingMovesAmount;
             currentAmmountOfMoves = 0;
-            Debug.Log("Nowe ruchy: " + remainingMoves);
+            // Debug.Log("Nowe ruchy: " + remainingMoves);
         }
     }
 

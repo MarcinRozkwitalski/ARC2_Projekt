@@ -725,6 +725,7 @@ MonoBehaviour:
   is_equipped: 0
   is_back_active: 0
   allow_to_animate: 0
+  has_been_activated: 0
 --- !u!114 &667015969226382257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,6 +740,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleHandler: {fileID: 0}
   battleCardInfo: {fileID: 0}
+  battleCardHandler: {fileID: 0}
   startObjectPos: {x: 0, y: 0}
   targetPos: {x: 0, y: 0}
   endPos: {x: 0, y: 0}

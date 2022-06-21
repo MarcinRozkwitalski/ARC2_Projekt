@@ -41,7 +41,7 @@ public class EnemyFightingLogic : MonoBehaviour
         GetEnemyMoves();
 
         foreach(var x in enemyMoves) {
-            Debug.Log(x.enemyId + "/" + x.moveName + "/" + x.description + "/" + x.type + "/" + x.cost + "/" + x.value);
+            // Debug.Log(x.enemyId + "/" + x.moveName + "/" + x.description + "/" + x.type + "/" + x.cost + "/" + x.value);
         }
     }
 
@@ -101,15 +101,10 @@ public class EnemyFightingLogic : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         battleHandler.informationText.text = "Tura wroga!";
         yield return new WaitForSeconds(1.5f);
-        Debug.Log("NOWE RUCHY WROGA -> " + battleHandler.remainingMoves);
 
         for(int i = battleHandler.remainingMoves; i > 0; i--){
-            Debug.Log(i + " ruch wroga.");
-            Debug.Log("Pozostałe ruchy wroga: " + battleHandler.remainingMoves);
             int randomMove = Random.Range(0, enemyMoves.Count);
             EnemyMoves currentEnemyMove = enemyMoves[randomMove];
-
-            Debug.Log("Wróg użył: " + currentEnemyMove.moveName);
 
             battleHandler.informationText.text = currentEnemyMove.description;
             yield return new WaitForSeconds(1.5f);
@@ -182,8 +177,7 @@ public class EnemyFightingLogic : MonoBehaviour
             SetDefaultDefenceForPlayer();
             battleHandler.informationText.text = "Twoja tura!";
             battleHandler.ResetRemainingMoves();
-            Debug.Log("Nowe ruchy dla gracza: " + battleHandler.remainingMoves);
-            // StartCoroutine(UnHideAllBattleCards());
+            // Debug.Log("Nowe ruchy dla gracza: " + battleHandler.remainingMoves);
         }
     }
 
@@ -194,7 +188,6 @@ public class EnemyFightingLogic : MonoBehaviour
         battleHandler.backToDungeonButton.gameObject.SetActive(true);
     }
 
-    //raczej do zmiany
     public IEnumerator UnHideAllBattleCards()
     {
         int howManyCards = battleCardHandler.cardsDeckToPick.transform.childCount;
@@ -203,13 +196,10 @@ public class EnemyFightingLogic : MonoBehaviour
         {
             battleCardHandler.cardsDeckToPick.transform.GetChild(i).gameObject.GetComponent<Button>().enabled = true;
             battleCardHandler.cardsDeckToPick.transform.GetChild(i).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 255, 255, 255);
-
-            //.transform.GetComponent<Button>().enabled = true
         }
 
         yield return null;
     }
-    //raczej do zmiany
 
     public void CheckIfRemainingMovesIsZero()
     {
@@ -217,7 +207,6 @@ public class EnemyFightingLogic : MonoBehaviour
         {
             battleHandler.whosTurn = "player";
             battleHandler.ResetRemainingMoves();
-            Debug.Log("Nowe ruchy dla gracza: " + battleHandler.remainingMoves);
             UnHideAllBattleCards();
         }
     }
@@ -239,6 +228,6 @@ public class EnemyFightingLogic : MonoBehaviour
 
     public void DebuggingInfo()
     {
-        Debug.Log("Remaining moves enemy:" + battleHandler.remainingMoves);
+        // Debug.Log("Remaining moves enemy:" + battleHandler.remainingMoves);
     }
 }
