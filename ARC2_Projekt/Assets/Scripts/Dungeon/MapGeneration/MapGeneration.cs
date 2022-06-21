@@ -29,7 +29,7 @@ public class MapGeneration : MonoBehaviour
             buff_lvl_10_panel,
             lvl_1_cover, lvl_2_cover, lvl_3_cover, lvl_4_cover, lvl_5_cover, lvl_6_cover, lvl_7_cover, lvl_8_cover, lvl_9_cover, lvl_10_cover;
 
-    public GameObject IconPrefab;
+    public GameObject IconPrefab, BuffIconPrefab;
     public List<GameObject> lvl_panels = new List<GameObject>();
     public List<string> devils = new List<string>();
     public List<string> skulls = new List<string>();
@@ -53,6 +53,9 @@ public class MapGeneration : MonoBehaviour
     public List<string> lvl_9_list = new List<string>();
     public List<string> lvl_10_list = new List<string>();
 
+    public int player_lvl = 1;
+    public bool player_can_uncover = true;
+
 
     void Awake()
     {
@@ -61,64 +64,46 @@ public class MapGeneration : MonoBehaviour
 
     void Start()
     {
+        ShowLevel();
         GenerateLevels();
     }
 
-    public void destroy()
+    public void ShowLevel()
     {
+        switch (player_lvl)
+        {
+            case 1:
+                lvl_1_cover.SetActive(false);
+                break;
+            case 2:
+                lvl_2_cover.SetActive(false);
+                break;
+            case 3:
+                lvl_3_cover.SetActive(false);
+                break;
+            case 4:
+                lvl_4_cover.SetActive(false);
+                break;
+            case 5:
+                lvl_5_cover.SetActive(false);
+                break;
+            case 6:
+                lvl_6_cover.SetActive(false);
+                break;
+            case 7:
+                lvl_7_cover.SetActive(false);
+                break;
+            case 8:
+                lvl_8_cover.SetActive(false);
+                break;
+            case 9:
+                lvl_9_cover.SetActive(false);
+                break;
+            case 10:
+                lvl_10_cover.SetActive(false);
+                break;
 
-    }
-    public void Refresh()
-    {
-        GenerateLevels();
-    }
-
-    public void Lvl_1_Cover_Trun_Off()
-    {
-        lvl_1_cover.SetActive(false);
-    }
-    public void Lvl_2_Cover_Trun_Off()
-    {
-        lvl_2_cover.SetActive(false);
-    }
-    public void Lvl_3_Cover_Trun_Off()
-    {
-        lvl_3_cover.SetActive(false);
-    }
-    public void Lvl_4_Cover_Trun_Off()
-    {
-        lvl_4_cover.SetActive(false);
-    }
-    public void Lvl_5_Cover_Trun_Off()
-    {
-        lvl_5_cover.SetActive(false);
-    }
-    public void Lvl_6_Cover_Trun_Off()
-    {
-        lvl_6_cover.SetActive(false);
-    }
-    public void Lvl_7_Cover_Trun_Off()
-    {
-        lvl_7_cover.SetActive(false);
-    }
-    public void Lvl_8_Cover_Trun_Off()
-    {
-        lvl_8_cover.SetActive(false);
-    }
-    public void Lvl_9_Cover_Trun_Off()
-    {
-        lvl_9_cover.SetActive(false);
-    }
-    public void Lvl_10_Cover_Trun_Off()
-    {
-        lvl_10_cover.SetActive(false);
-    }
-
-    public void GenerateLevels()
-    {
-        GenerateTypeOfIcons();
-        ShuffleIconsToLevelLists();
-        PutIconsToPanels();
+        }
     }
 
     public void SetPanelList()
@@ -139,6 +124,351 @@ public class MapGeneration : MonoBehaviour
     {
         GameObject panel = lvl_panels[i];
         return panel;
+    }
+    public void Lvl_1_Cover_Trun_Off()
+    {
+        if (player_can_uncover) lvl_1_cover.SetActive(false);
+    }
+    public void Lvl_2_Cover_Trun_Off()
+    {
+        if (player_can_uncover) lvl_2_cover.SetActive(false);
+    }
+    public void Lvl_3_Cover_Trun_Off()
+    {
+        if (player_can_uncover) lvl_3_cover.SetActive(false);
+    }
+    public void Lvl_4_Cover_Trun_Off()
+    {
+        if (player_can_uncover) lvl_4_cover.SetActive(false);
+    }
+    public void Lvl_5_Cover_Trun_Off()
+    {
+        if (player_can_uncover) lvl_5_cover.SetActive(false);
+    }
+    public void Lvl_6_Cover_Trun_Off()
+    {
+        if (player_can_uncover) lvl_6_cover.SetActive(false);
+    }
+    public void Lvl_7_Cover_Trun_Off()
+    {
+        if (player_can_uncover) lvl_7_cover.SetActive(false);
+    }
+    public void Lvl_8_Cover_Trun_Off()
+    {
+        if (player_can_uncover) lvl_8_cover.SetActive(false);
+    }
+    public void Lvl_9_Cover_Trun_Off()
+    {
+        if (player_can_uncover) lvl_9_cover.SetActive(false);
+    }
+    public void Lvl_10_Cover_Trun_Off()
+    {
+        if (player_can_uncover) lvl_10_cover.SetActive(false);
+    }
+
+    public void GenerateLevels()
+    {
+        GenerateTypeOfIcons();
+        ShuffleIconsToLevelLists();
+        PutIconsToPanels();
+        GenerateBuffIcons();
+    }
+
+    public void GenerateBuffIcons()
+    {
+        int lvl = 1;
+        while (lvl != 11)
+        {
+            switch (lvl)
+            {
+                case 1:
+                    BuffPanel(buff_lvl_1_panel, lvl_1_list);
+                    break;
+                case 2:
+                    BuffPanel(buff_lvl_2_panel, lvl_2_list);
+                    break;
+                case 3:
+                    BuffPanel(buff_lvl_3_panel, lvl_3_list);
+                    break;
+                case 4:
+                    BuffPanel(buff_lvl_4_panel, lvl_4_list);
+                    break;
+                case 5:
+                    BuffPanel(buff_lvl_5_panel, lvl_5_list);
+                    break;
+                case 6:
+                    BuffPanel(buff_lvl_6_panel, lvl_6_list);
+                    break;
+                case 7:
+                    BuffPanel(buff_lvl_7_panel, lvl_7_list);
+                    break;
+                case 8:
+                    BuffPanel(buff_lvl_8_panel, lvl_8_list);
+                    break;
+                case 9:
+                    BuffPanel(buff_lvl_9_panel, lvl_9_list);
+                    break;
+                case 10:
+                    BuffPanel(buff_lvl_10_panel, lvl_10_list);
+                    break;
+            }
+            lvl++;
+        }
+    }
+
+    public void BuffPanel(GameObject buffPanel, List<string> lvl_list)
+    {
+        bool putIcon = true;
+        while (putIcon)
+        {
+            int position = Random.Range(1, 12);
+            switch (position)
+            {
+                case 1:
+                    if (lvl_list.Contains("Skull") || lvl_list.Contains("Devil"))
+                    {
+                        if (Random.Range(1, 11) < 3)
+                        {
+                            PutBuffIcon(buffPanel, "DoubleMonsterDamage");
+                            putIcon = false;
+                        }
+                    }
+                    break;
+                case 2:
+                    if (lvl_list.Contains("Skull") || lvl_list.Contains("Devil"))
+                    {
+                        if (Random.Range(1, 11) < 3)
+                        {
+                            PutBuffIcon(buffPanel, "DoubleDamage");
+                            putIcon = false;
+                        }
+                    }
+                    break;
+                case 3:
+                    if (lvl_list.Contains("Skull") || lvl_list.Contains("Devil"))
+                    {
+                        if (Random.Range(1, 11) < 3)
+                        {
+                            PutBuffIcon(buffPanel, "IncreaseMonsterDamage");
+                            putIcon = false;
+                        }
+                    }
+                    break;
+                case 4:
+                    if (lvl_list.Contains("Skull") || lvl_list.Contains("Devil"))
+                    {
+                        if (Random.Range(1, 11) < 3)
+                        {
+                            PutBuffIcon(buffPanel, "IncreaseDamage");
+                            putIcon = false;
+                        }
+                    }
+                    break;
+                case 5:
+                    if (lvl_list.Contains("Skull") || lvl_list.Contains("Devil"))
+                    {
+                        if (Random.Range(1, 11) < 3)
+                        {
+                            PutBuffIcon(buffPanel, "IncreaseMonsterMoney");
+                            putIcon = false;
+                        }
+                    }
+                    break;
+                case 6:
+                    if (lvl_list.Contains("Skull") || lvl_list.Contains("Devil") || lvl_list.Contains("Treasure") || lvl_list.Contains("Altar") || lvl_list.Contains("Event"))
+                    {
+                        if (Random.Range(1, 11) < 3)
+                        {
+                            PutBuffIcon(buffPanel, "IncreaseMoney");
+                            putIcon = false;
+                        }
+                    }
+                    break;
+                case 7:
+                    if (lvl_list.Contains("Treasure") || lvl_list.Contains("Cross"))
+                    {
+                        if (Random.Range(1, 11) < 3)
+                        {
+                            PutBuffIcon(buffPanel, "GoodChoice");
+                            putIcon = false;
+                        }
+                    }
+                    break;
+                case 8:
+                    if (lvl_list.Contains("Skull") || lvl_list.Contains("Devil") || lvl_list.Contains("Sadness"))
+                    {
+                        if (Random.Range(1, 11) < 3)
+                        {
+                            PutBuffIcon(buffPanel, "BadChoice");
+                            putIcon = false;
+                        }
+                    }
+                    break;
+                case 9:
+                    if (lvl_list.Contains("Altar") || lvl_list.Contains("Exit") || lvl_list.Contains("Event") || lvl_list.Contains("Messenger"))
+                    {
+                        if (Random.Range(1, 11) < 3)
+                        {
+                            PutBuffIcon(buffPanel, "NeutralChoice");
+                            putIcon = false;
+                        }
+                    }
+                    break;
+                case 10:
+                    if (lvl_list.Contains("Torch") && lvl_list.Count > 2 || !lvl_list.Contains("Torch") && lvl_list.Count > 1)
+                    {
+                        if (Random.Range(1, 11) < 3 && !lvl_list.Contains("Exit"))
+                        {
+                            PutBuffIcon(buffPanel, "MoreOptions");
+                            putIcon = false;
+                        }
+                    }
+                    break;
+                case 11:
+                    if (Random.Range(1, 11) < 3)
+                    {
+                        PutBuffIcon(buffPanel, "Nothing");
+                        putIcon = false;
+                    }
+                    break;
+            }
+        }
+    }
+
+    public void PutBuffIcon(GameObject buffPanel, string buffIconName)
+    {
+        var icon = Instantiate(BuffIconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        icon.transform.SetParent(buffPanel.transform);
+        GetBuffIconSymbol(buffIconName, icon);
+    }
+
+    public void GetBuffIconSymbol(string buffIconName, GameObject icon)
+    {
+        switch (buffIconName)
+        {
+            case "Nothing":
+                icon.transform.Find("MoreOptions").gameObject.SetActive(false);
+                icon.transform.Find("NeutralChoice").gameObject.SetActive(false);
+                icon.transform.Find("BadChoice").gameObject.SetActive(false);
+                icon.transform.Find("GoodChoice").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseDamage").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleMonsterDamage").gameObject.SetActive(false);
+                break;
+            case "MoreOptions":
+                icon.transform.Find("NeutralChoice").gameObject.SetActive(false);
+                icon.transform.Find("BadChoice").gameObject.SetActive(false);
+                icon.transform.Find("GoodChoice").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseDamage").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleMonsterDamage").gameObject.SetActive(false);
+                break;
+            case "NeutralChoice":
+                icon.transform.Find("MoreOptions").gameObject.SetActive(false);
+                icon.transform.Find("BadChoice").gameObject.SetActive(false);
+                icon.transform.Find("GoodChoice").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseDamage").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleMonsterDamage").gameObject.SetActive(false);
+                break;
+            case "BadChoice":
+                icon.transform.Find("MoreOptions").gameObject.SetActive(false);
+                icon.transform.Find("NeutralChoice").gameObject.SetActive(false);
+                icon.transform.Find("GoodChoice").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseDamage").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleMonsterDamage").gameObject.SetActive(false);
+                break;
+            case "GoodChoice":
+                icon.transform.Find("MoreOptions").gameObject.SetActive(false);
+                icon.transform.Find("NeutralChoice").gameObject.SetActive(false);
+                icon.transform.Find("BadChoice").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseDamage").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleMonsterDamage").gameObject.SetActive(false);
+                break;
+            case "IncreaseMoney":
+                icon.transform.Find("MoreOptions").gameObject.SetActive(false);
+                icon.transform.Find("NeutralChoice").gameObject.SetActive(false);
+                icon.transform.Find("BadChoice").gameObject.SetActive(false);
+                icon.transform.Find("GoodChoice").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseDamage").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleMonsterDamage").gameObject.SetActive(false);
+                break;
+            case "IncreaseMonsterMoney":
+                icon.transform.Find("MoreOptions").gameObject.SetActive(false);
+                icon.transform.Find("NeutralChoice").gameObject.SetActive(false);
+                icon.transform.Find("BadChoice").gameObject.SetActive(false);
+                icon.transform.Find("GoodChoice").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseDamage").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleMonsterDamage").gameObject.SetActive(false);
+                break;
+            case "IncreaseDamage":
+                icon.transform.Find("MoreOptions").gameObject.SetActive(false);
+                icon.transform.Find("NeutralChoice").gameObject.SetActive(false);
+                icon.transform.Find("BadChoice").gameObject.SetActive(false);
+                icon.transform.Find("GoodChoice").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleMonsterDamage").gameObject.SetActive(false);
+                break;
+            case "IncreaseMonsterDamage":
+                icon.transform.Find("MoreOptions").gameObject.SetActive(false);
+                icon.transform.Find("NeutralChoice").gameObject.SetActive(false);
+                icon.transform.Find("BadChoice").gameObject.SetActive(false);
+                icon.transform.Find("GoodChoice").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleMonsterDamage").gameObject.SetActive(false);
+                break;
+            case "DoubleDamage":
+                icon.transform.Find("MoreOptions").gameObject.SetActive(false);
+                icon.transform.Find("NeutralChoice").gameObject.SetActive(false);
+                icon.transform.Find("BadChoice").gameObject.SetActive(false);
+                icon.transform.Find("GoodChoice").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseDamage").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleMonsterDamage").gameObject.SetActive(false);
+                break;
+            case "DoubleMonsterDamage":
+                icon.transform.Find("MoreOptions").gameObject.SetActive(false);
+                icon.transform.Find("NeutralChoice").gameObject.SetActive(false);
+                icon.transform.Find("BadChoice").gameObject.SetActive(false);
+                icon.transform.Find("GoodChoice").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterMoney").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseDamage").gameObject.SetActive(false);
+                icon.transform.Find("IncreaseMonsterDamage").gameObject.SetActive(false);
+                icon.transform.Find("DoubleDamage").gameObject.SetActive(false);
+                break;
+        }
     }
 
     public void GenerateTypeOfIcons()
@@ -1336,6 +1666,7 @@ public class MapGeneration : MonoBehaviour
 
     public void GetIconSymbol(string symbol, GameObject icon)
     {
+        icon.GetComponent<DungeonIcon>().SetIconName(symbol);
         switch (symbol)
         {
             case "Skull":
@@ -1349,7 +1680,6 @@ public class MapGeneration : MonoBehaviour
                 icon.transform.Find("Event").gameObject.SetActive(false);
                 icon.transform.Find("Altar").gameObject.SetActive(false);
                 icon.transform.Find("Messenger").gameObject.SetActive(false);
-                // zapisanie wartości do skrytpu obiektu
                 break;
             case "Devil":
                 icon.transform.Find("GrayDirt").gameObject.SetActive(false);
