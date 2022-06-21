@@ -144,7 +144,7 @@ public class MapGeneration : MonoBehaviour
     public void GenerateTypeOfIcons()
     {
         int numberOfIcons, badIcons, goodIcons;
-        numberOfIcons = 40;//Random.Range(20, 41);
+        numberOfIcons = Random.Range(20, 41);
         badIcons = Mathf.RoundToInt(numberOfIcons * 0.6f);
         goodIcons = numberOfIcons - badIcons;
         Debug.Log("Icons = " + numberOfIcons + ", badIcons = " + badIcons + ", goodIcons = " + goodIcons);
@@ -363,11 +363,6 @@ public class MapGeneration : MonoBehaviour
                         lvl_1_list.Add("Skull");
                         skulls.RemoveAt(skulls.Count - 1);
                     }
-                    // else if (!lvl_1_list.Contains("Skull") && lvl_1_list.Count < 4 && Random.Range(1, 11) < 3)
-                    // {
-                    //     lvl_1_list.Add("Skull");
-                    //     skulls.RemoveAt(skulls.Count - 1);
-                    // }
                     break;
                 case 2:
                     if (!lvl_2_list.Contains("Skull") && lvl_2_list.Count < 4)
