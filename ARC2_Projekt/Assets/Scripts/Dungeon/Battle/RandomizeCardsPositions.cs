@@ -14,9 +14,8 @@ public class RandomizeCardsPositions : MonoBehaviour
         battleCardHandler = GameObject.Find("NetworkManager").GetComponent<BattleCardHandler>();
     }
 
-    public IEnumerator RandomizePositions()
+    public void RandomizePositionsInCardsDeck()
     {
-        yield return new WaitForSeconds(1f);
         int howManyCards = battleCardHandler.cardsDeckToPick.transform.childCount;
 
         for (int i = 0; i < 3; i++)
@@ -24,7 +23,19 @@ public class RandomizeCardsPositions : MonoBehaviour
             for (int j = 0; j < howManyCards; j++)
             {
                 battleCardHandler.cardsDeckToPick.transform.GetChild(0).gameObject.transform.SetSiblingIndex(Random.Range(0, howManyCards));
-                yield return null;
+            }
+        }
+    }
+
+    public void RandomizePositionsInUsedCards()
+    {
+        int howManyCards = battleCardHandler.usedCardsPanel.transform.childCount;
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < howManyCards; j++)
+            {
+                battleCardHandler.usedCardsPanel.transform.GetChild(0).gameObject.transform.SetSiblingIndex(Random.Range(0, howManyCards));
             }
         }
     }

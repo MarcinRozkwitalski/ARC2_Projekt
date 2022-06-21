@@ -178,12 +178,12 @@ public class EnemyFightingLogic : MonoBehaviour
         if(battleHandler.whoWon != "enemy"){
             battleHandler.informationText.text = "Wróg zakończył turę.";
             yield return new WaitForSeconds(1.5f);
-            battleHandler.CheckRemainingPlayerCards();
+            StartCoroutine(battleHandler.CheckRemainingPlayerCards());
             SetDefaultDefenceForPlayer();
             battleHandler.informationText.text = "Twoja tura!";
             battleHandler.ResetRemainingMoves();
             Debug.Log("Nowe ruchy dla gracza: " + battleHandler.remainingMoves);
-            StartCoroutine(UnHideAllBattleCards());
+            // StartCoroutine(UnHideAllBattleCards());
         }
     }
 

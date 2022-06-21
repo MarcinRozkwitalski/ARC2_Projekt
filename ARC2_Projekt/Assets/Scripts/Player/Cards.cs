@@ -333,7 +333,7 @@ public class Cards : MonoBehaviour
                     CardsInfo.GetComponent<CardsInfo>().AssignInfo();
                 }
 
-            CardsNumber.text = cardsNumber + "/10 cards ";
+            CardsNumber.text = cardsNumber + "/20 cards ";
         }
         else
         {
@@ -584,18 +584,18 @@ public class Cards : MonoBehaviour
         updateDeckForm.AddField("apppassword", "thisisfromtheapp!");
         updateDeckForm.AddField("Id", CurrentPlayerId);
         updateDeckForm.AddField("Card_Id", id);
-        if (is_equipped == false && cardsNumber < 10)
+        if (is_equipped == false && cardsNumber < 20)
         {
             UnityWebRequest updateDeckRequest = UnityWebRequest.Post("http://localhost/CardsInfos/addtodeck.php", updateDeckForm);
             cardsNumber++;
-            CardsNumber.text = cardsNumber + "/10 cards ";
+            CardsNumber.text = cardsNumber + "/20 cards ";
             yield return updateDeckRequest.SendWebRequest();
         }
         else if (is_equipped == true)
         {
             UnityWebRequest updateDeckRequest = UnityWebRequest.Post("http://localhost/CardsInfos/removefromdeck.php", updateDeckForm);
             cardsNumber--;
-            CardsNumber.text = cardsNumber + "/10 cards ";
+            CardsNumber.text = cardsNumber + "/20 cards ";
             yield return updateDeckRequest.SendWebRequest();
         }
         UpdateCards (type);
@@ -686,7 +686,7 @@ public class Cards : MonoBehaviour
             if (is_equipped == true)
             {
                 cardsNumber--;
-                CardsNumber.text = cardsNumber + "/10 cards ";
+                CardsNumber.text = cardsNumber + "/20 cards ";
             }
             yield return sellCardRequest.SendWebRequest();
 

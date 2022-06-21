@@ -11,6 +11,7 @@ public class BattleCardHandler : MonoBehaviour
     public int CurrentPlayerId;
     public GameObject BattleCardsInfoPrefab;
     public GameObject cardsDeckToPick;
+    public GameObject usedCardsPanel;
     public GameObject cardsOnHandRevealPanel;
     public GameObject CurrentPlayer;
 

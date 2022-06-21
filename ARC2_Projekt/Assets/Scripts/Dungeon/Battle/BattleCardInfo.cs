@@ -53,12 +53,17 @@ public class BattleCardInfo : MonoBehaviour
 
     public void TurnOnButton()
     {
-        int howManyCards = battleCardHandler.cardsDeckToPick.transform.childCount;
+        int howManyCards = battleCardHandler.cardsOnHandRevealPanel.transform.childCount;
 
         for (int i = 0; i < howManyCards; i++)
         {
-            battleCardHandler.cardsDeckToPick.transform.GetChild(i).GetComponent<Button>().enabled = true;
+            battleCardHandler.cardsOnHandRevealPanel.transform.GetChild(i).GetComponent<Button>().enabled = true;
         }
+    }
+
+    public void SetParentToUsedCardsPanel()
+    {
+
     }
 
     public void AssignInfo()
@@ -187,7 +192,7 @@ public class BattleCardInfo : MonoBehaviour
                         {
                             battleHandler.currentEnemyHealth = 0;
                             battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
-                            HideAllBattleCards();
+                            StartCoroutine(HideAllBattleCards());
                             ShowGoBackToDungeonButton();
                         }
                         else CheckIfRemainingMovesIsZero();
@@ -307,7 +312,7 @@ public class BattleCardInfo : MonoBehaviour
                                 {
                                     battleHandler.currentEnemyHealth = 0;
                                     battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
-                                    HideAllBattleCards();
+                                    StartCoroutine(HideAllBattleCards());
                                     ShowGoBackToDungeonButton();
                                 }
                                 else CheckIfRemainingMovesIsZero();
@@ -369,7 +374,7 @@ public class BattleCardInfo : MonoBehaviour
         }
     }
 
-    public void HideAllBattleCards()
+    public IEnumerator HideAllBattleCards()
     {
         int howManyCards = battleHandler.playableCardsPanel.transform.childCount;
 
@@ -380,7 +385,9 @@ public class BattleCardInfo : MonoBehaviour
             battleHandler.playableCardsPanel.transform.GetChild(0).transform.SetParent(battleHandler.usedCardsPanel.transform, true);
         }
 
+        yield return new WaitForSeconds(1);
         battleHandler.moveCardsToUsedCardsAnimation = true;
+        StopCoroutine(HideAllBattleCards());
     }
 
     public void ShowGoBackToDungeonButton()
@@ -395,7 +402,7 @@ public class BattleCardInfo : MonoBehaviour
         if(battleHandler.remainingMoves == 0)
         {
             SetDefaultDefenceForEnemy();
-            HideAllBattleCards();
+            StartCoroutine(HideAllBattleCards());
             battleHandler.whosTurn = "enemy";
             battleHandler.ResetRemainingMoves();
             enemyFightingLogic.StartEnemyTurn();

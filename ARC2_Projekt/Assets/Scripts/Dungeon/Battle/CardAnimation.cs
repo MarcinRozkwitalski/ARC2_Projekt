@@ -49,6 +49,13 @@ public class CardAnimation : MonoBehaviour
             endLocalScale = new Vector2(1f, 1f);
             StartCoroutine(AnimateMovingCardsSidewaysInPlayerCardsPanel());
         }
+
+        if(battleHandler.moveCardsFromUsedCardsToDeckCardsAnimation == true && battleCardInfo.allow_to_animate == true)
+        {
+            endPos = new Vector2(152, 710);
+            endLocalScale = new Vector2(0.4272f, 0.380f);
+            StartCoroutine(AnimateMovingCardsFromUsedCardsToDeckCardsToPick());
+        }
     }
 
     IEnumerator AnimateMovingCardsToUsedCards()
@@ -73,6 +80,7 @@ public class CardAnimation : MonoBehaviour
         }
         transform.position = endPos;
         transform.localScale = endLocalScale;
+        battleCardInfo.allow_to_animate = false;
         battleHandler.moveCardsToUsedCardsAnimation = false;
         lockPos = false;
 
@@ -99,6 +107,7 @@ public class CardAnimation : MonoBehaviour
 
             yield return null;
         }
+        battleCardInfo.TurnOnButton();
         transform.position = endPos;
         transform.localScale = endLocalScale;
         battleHandler.moveCardsToPlayerCardsPanelAnimation = false;
@@ -111,7 +120,7 @@ public class CardAnimation : MonoBehaviour
     {
         if (lockPos == false)
         {
-            startObjectPos = transform.position;
+            //startObjectPos = transform.position; może do usunięcia
             startObjectScale = new Vector2(0.0f, 0.0f);
             lockPos = true;
         }
@@ -128,6 +137,34 @@ public class CardAnimation : MonoBehaviour
         }
         transform.localScale = endLocalScale;
         battleHandler.moveCardsSidewaysInPlayerCardsPanelAnimation = false;
+        lockPos = false;
+
+        StopAllCoroutines();
+    }
+
+    IEnumerator AnimateMovingCardsFromUsedCardsToDeckCardsToPick()
+    {
+        if (lockPos == false)
+        {
+            startObjectPos = transform.position;
+            startObjectScale = transform.localScale;
+            lockPos = true;
+        }
+
+        float timeElapsed = 0;
+        while(timeElapsed < lerpDurationOne)
+        {
+            timeElapsed += Time.deltaTime;
+            float percentageComplete = timeElapsed / lerpDurationOne;
+
+            transform.position = Vector2.Lerp(startObjectPos, endPos, percentageComplete);
+            transform.localScale = Vector2.Lerp(startObjectScale, endLocalScale, percentageComplete);
+
+            yield return null;
+        }
+        transform.position = endPos;
+        transform.localScale = endLocalScale;
+        battleHandler.moveCardsFromUsedCardsToDeckCardsAnimation = false;
         lockPos = false;
 
         StopAllCoroutines();

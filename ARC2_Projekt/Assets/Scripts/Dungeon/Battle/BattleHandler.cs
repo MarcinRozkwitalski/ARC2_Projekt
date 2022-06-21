@@ -18,7 +18,7 @@ public class BattleHandler : MonoBehaviour
     public GameObject playableCardsPanel;
     public GameObject cardsOnHandRevealPanel;
 
-    public GameObject cardsDeckToPick;
+    public GameObject deckCardsToPick;
 
     public TMP_Text playerNameText;
     public TMP_Text playerHealthText;
@@ -50,6 +50,7 @@ public class BattleHandler : MonoBehaviour
     public bool moveCardsToUsedCardsAnimation = false;
     public bool moveCardsToPlayerCardsPanelAnimation = false;
     public bool moveCardsSidewaysInPlayerCardsPanelAnimation = false;
+    public bool moveCardsFromUsedCardsToDeckCardsAnimation = false;
 
     void Start()
     {
@@ -70,7 +71,7 @@ public class BattleHandler : MonoBehaviour
         playableCardsPanel = GameObject.Find("PlayableCardsPanel");
         cardsOnHandRevealPanel = GameObject.Find("CardsOnHandRevealPanel");
 
-        cardsDeckToPick = GameObject.Find("CardsDeckToPick");
+        deckCardsToPick = GameObject.Find("CardsDeckToPick");
 
         backToDungeonButton = GameObject.Find("BackToDungeonButton");
         backToDungeonButton.gameObject.SetActive(false);
@@ -88,11 +89,8 @@ public class BattleHandler : MonoBehaviour
         currentEnemyDefence = 0;
         enemyDefenceText.text = "" + currentEnemyDefence.ToString();
 
-        StartCoroutine(randomizeCardsPositions.RandomizePositions());
-        GiveFirstFiveCards();
-        moveCardsToPlayerCardsPanelAnimation = true;
-
-
+        randomizeCardsPositions.RandomizePositionsInCardsDeck();
+        StartCoroutine(GiveFirstFiveCards());
 
         ResetRemainingMoves();
         whosTurn = "player";
@@ -139,27 +137,42 @@ public class BattleHandler : MonoBehaviour
         }
     }
 
-    public void GiveFirstFiveCards()
+    public IEnumerator GiveFirstFiveCards()
     {
+        yield return new WaitForSeconds(1);
         for (int i = 0; i < 5; i++)
         {
-            cardsDeckToPick.transform.GetChild(0).GetComponent<BattleCardInfo>().allow_to_animate = true;
-            cardsDeckToPick.transform.GetChild(0).SetParent(cardsOnHandRevealPanel.transform, true);
+            deckCardsToPick.transform.GetChild(0).GetComponent<BattleCardInfo>().allow_to_animate = true;
+            deckCardsToPick.transform.GetChild(0).SetParent(cardsOnHandRevealPanel.transform, true);
         }
+        moveCardsToPlayerCardsPanelAnimation = true;
+        StopCoroutine(GiveFirstFiveCards());
     }
 
-    public void CheckRemainingPlayerCards()
+    public IEnumerator CheckRemainingPlayerCards()
     {
-        if(cardsDeckToPick.transform.childCount < 5)
+        if(deckCardsToPick.transform.childCount < 5)
         {
-            //scramble cards in "usedCardsPanel"
-            //move them to cardsDeckToPick
-            //do GiveFirstFiveCards
+            int howManyCards = usedCardsPanel.transform.childCount;
+            randomizeCardsPositions.RandomizePositionsInUsedCards();
+
+            for (int i = 0; i < howManyCards; i++)
+            {
+                usedCardsPanel.transform.GetChild(0).GetComponent<BattleCardInfo>().AssignBackImage();
+                usedCardsPanel.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                usedCardsPanel.transform.GetChild(0).GetComponent<BattleCardInfo>().allow_to_animate = true;
+                usedCardsPanel.transform.GetChild(0).SetParent(deckCardsToPick.transform, true);
+            }
+
+            moveCardsFromUsedCardsToDeckCardsAnimation = true;
+            yield return new WaitForSeconds(1.1f);
+            moveCardsFromUsedCardsToDeckCardsAnimation = false;
+
+            StartCoroutine(GiveFirstFiveCards());
         }
         else 
         {
-            GiveFirstFiveCards();
-            moveCardsToPlayerCardsPanelAnimation = true;
+            StartCoroutine(GiveFirstFiveCards());
         }
     }
 }

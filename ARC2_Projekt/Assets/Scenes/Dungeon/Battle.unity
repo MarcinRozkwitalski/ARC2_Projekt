@@ -727,7 +727,7 @@ MonoBehaviour:
   usedCardsPanel: {fileID: 0}
   playableCardsPanel: {fileID: 0}
   cardsOnHandRevealPanel: {fileID: 0}
-  cardsDeckToPick: {fileID: 0}
+  deckCardsToPick: {fileID: 0}
   playerNameText: {fileID: 0}
   playerHealthText: {fileID: 0}
   currentPlayerHealth: 0
@@ -754,6 +754,7 @@ MonoBehaviour:
   moveCardsToUsedCardsAnimation: 0
   moveCardsToPlayerCardsPanelAnimation: 0
   moveCardsSidewaysInPlayerCardsPanelAnimation: 0
+  moveCardsToDeckCardsAnimation: 0
 --- !u!114 &436223481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1648,6 +1649,7 @@ MonoBehaviour:
   BattleCardsInfoPrefab: {fileID: 3582678540757971230, guid: 95120dd0c0eecd949a7f3644e59facfa,
     type: 3}
   cardsDeckToPick: {fileID: 6591215232784738180}
+  usedCardsPanel: {fileID: 838006444}
   cardsOnHandRevealPanel: {fileID: 1520542331}
   CurrentPlayer: {fileID: 0}
 --- !u!1 &838006444
@@ -3009,8 +3011,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000029564, y: 320}
-  m_SizeDelta: {x: 802.769, y: 317}
+  m_AnchoredPosition: {x: -0.000029564, y: 303.1573}
+  m_SizeDelta: {x: 802.769, y: 283.3146}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1460123882
 MonoBehaviour:
