@@ -11,7 +11,7 @@ public class NewBehaviourScript : Editor
         DrawDefaultInspector();
 
         MapGeneration mapGeneration = (MapGeneration)target;
-        if(GUILayout.Button("Generate Levels"))
+        if (GUILayout.Button("Generate Levels"))
         {
             mapGeneration.GenerateLevels();
         }

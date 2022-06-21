@@ -29,7 +29,7 @@ public class MapGeneration : MonoBehaviour
             buff_lvl_10_panel,
             lvl_1_cover, lvl_2_cover, lvl_3_cover, lvl_4_cover, lvl_5_cover, lvl_6_cover, lvl_7_cover, lvl_8_cover, lvl_9_cover, lvl_10_cover;
 
-    public GameObject IconPrefab, BuffIconPrefab;
+    public GameObject IconPrefab, BuffIconPrefab, MapStatus;
     public List<GameObject> lvl_panels = new List<GameObject>();
     public List<string> devils = new List<string>();
     public List<string> skulls = new List<string>();
@@ -53,20 +53,45 @@ public class MapGeneration : MonoBehaviour
     public List<string> lvl_9_list = new List<string>();
     public List<string> lvl_10_list = new List<string>();
 
+    public List<string> lvl_1_buff_list = new List<string>();
+    public List<string> lvl_2_buff_list = new List<string>();
+    public List<string> lvl_3_buff_list = new List<string>();
+    public List<string> lvl_4_buff_list = new List<string>();
+    public List<string> lvl_5_buff_list = new List<string>();
+    public List<string> lvl_6_buff_list = new List<string>();
+    public List<string> lvl_7_buff_list = new List<string>();
+    public List<string> lvl_8_buff_list = new List<string>();
+    public List<string> lvl_9_buff_list = new List<string>();
+    public List<string> lvl_10_buff_list = new List<string>();
+
     public int player_lvl = 1;
-    public bool player_can_uncover = true;
+    private bool player_can_uncover = true;
 
 
     void Awake()
     {
         SetPanelList();
+        MapStatus = GameObject.Find("MapStatus");
     }
 
     void Start()
     {
-        ShowLevel();
-        GenerateLevels();
+        
+        if (MapStatus.GetComponent<MapStatus>().lvl_1_list.Count == 0)
+        {
+            ShowLevel();
+            GenerateLevels();
+        }
+        else
+        {
+            UpdateMapGeneration();
+            ShowLevel();
+            PutIconsToPanels();
+            PutBuffIconsToPanels();
+        }
     }
+
+
 
     public void ShowLevel()
     {
@@ -174,6 +199,48 @@ public class MapGeneration : MonoBehaviour
         GenerateBuffIcons();
     }
 
+     public void PutBuffIconsToPanels()
+    {
+        int lvl = 1;
+        while (lvl != 11)
+        {
+            switch (lvl)
+            {
+                case 1:
+                    PutBuffIcon(buff_lvl_1_panel, lvl_1_buff_list);
+                    break;
+                case 2:
+                    PutBuffIcon(buff_lvl_2_panel,lvl_2_buff_list);
+                    break;
+                case 3:
+                    PutBuffIcon(buff_lvl_3_panel,lvl_3_buff_list);
+                    break;
+                case 4:
+                    PutBuffIcon(buff_lvl_4_panel,lvl_4_buff_list);
+                    break;
+                case 5:
+                    PutBuffIcon(buff_lvl_5_panel,lvl_5_buff_list);
+                    break;
+                case 6:
+                    PutBuffIcon(buff_lvl_6_panel,lvl_6_buff_list);
+                    break;
+                case 7:
+                    PutBuffIcon(buff_lvl_7_panel,lvl_7_buff_list);
+                    break;
+                case 8:
+                    PutBuffIcon(buff_lvl_8_panel,lvl_8_buff_list);
+                    break;
+                case 9:
+                    PutBuffIcon(buff_lvl_9_panel,lvl_9_buff_list);
+                    break;
+                case 10:
+                    PutBuffIcon(buff_lvl_10_panel,lvl_10_buff_list);
+                    break;
+            }
+            lvl++;
+        }
+    }
+
     public void GenerateBuffIcons()
     {
         int lvl = 1;
@@ -182,41 +249,41 @@ public class MapGeneration : MonoBehaviour
             switch (lvl)
             {
                 case 1:
-                    BuffPanel(buff_lvl_1_panel, lvl_1_list);
+                    BuffPanel(buff_lvl_1_panel, lvl_1_list, lvl_1_buff_list);
                     break;
                 case 2:
-                    BuffPanel(buff_lvl_2_panel, lvl_2_list);
+                    BuffPanel(buff_lvl_2_panel, lvl_2_list, lvl_2_buff_list);
                     break;
                 case 3:
-                    BuffPanel(buff_lvl_3_panel, lvl_3_list);
+                    BuffPanel(buff_lvl_3_panel, lvl_3_list, lvl_3_buff_list);
                     break;
                 case 4:
-                    BuffPanel(buff_lvl_4_panel, lvl_4_list);
+                    BuffPanel(buff_lvl_4_panel, lvl_4_list, lvl_4_buff_list);
                     break;
                 case 5:
-                    BuffPanel(buff_lvl_5_panel, lvl_5_list);
+                    BuffPanel(buff_lvl_5_panel, lvl_5_list, lvl_5_buff_list);
                     break;
                 case 6:
-                    BuffPanel(buff_lvl_6_panel, lvl_6_list);
+                    BuffPanel(buff_lvl_6_panel, lvl_6_list, lvl_6_buff_list);
                     break;
                 case 7:
-                    BuffPanel(buff_lvl_7_panel, lvl_7_list);
+                    BuffPanel(buff_lvl_7_panel, lvl_7_list, lvl_7_buff_list);
                     break;
                 case 8:
-                    BuffPanel(buff_lvl_8_panel, lvl_8_list);
+                    BuffPanel(buff_lvl_8_panel, lvl_8_list, lvl_8_buff_list);
                     break;
                 case 9:
-                    BuffPanel(buff_lvl_9_panel, lvl_9_list);
+                    BuffPanel(buff_lvl_9_panel, lvl_9_list, lvl_9_buff_list);
                     break;
                 case 10:
-                    BuffPanel(buff_lvl_10_panel, lvl_10_list);
+                    BuffPanel(buff_lvl_10_panel, lvl_10_list, lvl_10_buff_list);
                     break;
             }
             lvl++;
         }
     }
 
-    public void BuffPanel(GameObject buffPanel, List<string> lvl_list)
+    public void BuffPanel(GameObject buffPanel, List<string> lvl_list, List<string> lvl_buff_list)
     {
         bool putIcon = true;
         while (putIcon)
@@ -229,7 +296,8 @@ public class MapGeneration : MonoBehaviour
                     {
                         if (Random.Range(1, 11) < 3)
                         {
-                            PutBuffIcon(buffPanel, "DoubleMonsterDamage");
+                            lvl_buff_list.Add("DoubleMonsterDamage");
+                            PutBuffIcon(buffPanel, lvl_buff_list);
                             putIcon = false;
                         }
                     }
@@ -239,7 +307,8 @@ public class MapGeneration : MonoBehaviour
                     {
                         if (Random.Range(1, 11) < 3)
                         {
-                            PutBuffIcon(buffPanel, "DoubleDamage");
+                            lvl_buff_list.Add("DoubleDamage");
+                            PutBuffIcon(buffPanel, lvl_buff_list);
                             putIcon = false;
                         }
                     }
@@ -249,7 +318,8 @@ public class MapGeneration : MonoBehaviour
                     {
                         if (Random.Range(1, 11) < 3)
                         {
-                            PutBuffIcon(buffPanel, "IncreaseMonsterDamage");
+                            lvl_buff_list.Add("IncreaseMonsterDamage");
+                            PutBuffIcon(buffPanel, lvl_buff_list);
                             putIcon = false;
                         }
                     }
@@ -259,7 +329,8 @@ public class MapGeneration : MonoBehaviour
                     {
                         if (Random.Range(1, 11) < 3)
                         {
-                            PutBuffIcon(buffPanel, "IncreaseDamage");
+                            lvl_buff_list.Add("IncreaseDamage");
+                            PutBuffIcon(buffPanel, lvl_buff_list);
                             putIcon = false;
                         }
                     }
@@ -269,7 +340,8 @@ public class MapGeneration : MonoBehaviour
                     {
                         if (Random.Range(1, 11) < 3)
                         {
-                            PutBuffIcon(buffPanel, "IncreaseMonsterMoney");
+                            lvl_buff_list.Add("IncreaseMonsterMoney");
+                            PutBuffIcon(buffPanel, lvl_buff_list);
                             putIcon = false;
                         }
                     }
@@ -279,7 +351,8 @@ public class MapGeneration : MonoBehaviour
                     {
                         if (Random.Range(1, 11) < 3)
                         {
-                            PutBuffIcon(buffPanel, "IncreaseMoney");
+                            lvl_buff_list.Add("IncreaseMoney");
+                            PutBuffIcon(buffPanel, lvl_buff_list);
                             putIcon = false;
                         }
                     }
@@ -289,7 +362,8 @@ public class MapGeneration : MonoBehaviour
                     {
                         if (Random.Range(1, 11) < 3)
                         {
-                            PutBuffIcon(buffPanel, "GoodChoice");
+                            lvl_buff_list.Add("GoodChoice");
+                            PutBuffIcon(buffPanel, lvl_buff_list);
                             putIcon = false;
                         }
                     }
@@ -299,7 +373,8 @@ public class MapGeneration : MonoBehaviour
                     {
                         if (Random.Range(1, 11) < 3)
                         {
-                            PutBuffIcon(buffPanel, "BadChoice");
+                            lvl_buff_list.Add("BadChoice");
+                            PutBuffIcon(buffPanel, lvl_buff_list);
                             putIcon = false;
                         }
                     }
@@ -309,7 +384,8 @@ public class MapGeneration : MonoBehaviour
                     {
                         if (Random.Range(1, 11) < 3)
                         {
-                            PutBuffIcon(buffPanel, "NeutralChoice");
+                            lvl_buff_list.Add("NeutralChoice");
+                            PutBuffIcon(buffPanel, lvl_buff_list);
                             putIcon = false;
                         }
                     }
@@ -319,7 +395,8 @@ public class MapGeneration : MonoBehaviour
                     {
                         if (Random.Range(1, 11) < 3 && !lvl_list.Contains("Exit"))
                         {
-                            PutBuffIcon(buffPanel, "MoreOptions");
+                            lvl_buff_list.Add("MoreOptions");
+                            PutBuffIcon(buffPanel, lvl_buff_list);
                             putIcon = false;
                         }
                     }
@@ -327,7 +404,8 @@ public class MapGeneration : MonoBehaviour
                 case 11:
                     if (Random.Range(1, 11) < 3)
                     {
-                        PutBuffIcon(buffPanel, "Nothing");
+                        lvl_buff_list.Add("Nothing");
+                        PutBuffIcon(buffPanel, lvl_buff_list);
                         putIcon = false;
                     }
                     break;
@@ -335,11 +413,11 @@ public class MapGeneration : MonoBehaviour
         }
     }
 
-    public void PutBuffIcon(GameObject buffPanel, string buffIconName)
+    public void PutBuffIcon(GameObject buffPanel, List<string> buffIconName)
     {
         var icon = Instantiate(BuffIconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         icon.transform.SetParent(buffPanel.transform);
-        GetBuffIconSymbol(buffIconName, icon);
+        GetBuffIconSymbol(buffIconName[0], icon);
     }
 
     public void GetBuffIconSymbol(string buffIconName, GameObject icon)
@@ -591,6 +669,61 @@ public class MapGeneration : MonoBehaviour
         PutAltars();
         PutMessengers();
         PutSkulls();
+        UpdateMapStatus();
+    }
+
+    public void UpdateMapGeneration()
+    {
+        lvl_1_list = MapStatus.GetComponent<MapStatus>().lvl_1_list;
+        lvl_2_list = MapStatus.GetComponent<MapStatus>().lvl_2_list;
+        lvl_3_list = MapStatus.GetComponent<MapStatus>().lvl_3_list;
+        lvl_4_list = MapStatus.GetComponent<MapStatus>().lvl_4_list;
+        lvl_5_list = MapStatus.GetComponent<MapStatus>().lvl_5_list;
+        lvl_6_list = MapStatus.GetComponent<MapStatus>().lvl_6_list;
+        lvl_7_list = MapStatus.GetComponent<MapStatus>().lvl_7_list;
+        lvl_8_list = MapStatus.GetComponent<MapStatus>().lvl_8_list;
+        lvl_9_list = MapStatus.GetComponent<MapStatus>().lvl_9_list;
+        lvl_10_list = MapStatus.GetComponent<MapStatus>().lvl_10_list;
+
+        lvl_1_buff_list = MapStatus.GetComponent<MapStatus>().lvl_1_buff_list;
+        lvl_2_buff_list = MapStatus.GetComponent<MapStatus>().lvl_2_buff_list;
+        lvl_3_buff_list = MapStatus.GetComponent<MapStatus>().lvl_3_buff_list;
+        lvl_4_buff_list = MapStatus.GetComponent<MapStatus>().lvl_4_buff_list;
+        lvl_5_buff_list = MapStatus.GetComponent<MapStatus>().lvl_5_buff_list;
+        lvl_6_buff_list = MapStatus.GetComponent<MapStatus>().lvl_6_buff_list;
+        lvl_7_buff_list = MapStatus.GetComponent<MapStatus>().lvl_7_buff_list;
+        lvl_8_buff_list = MapStatus.GetComponent<MapStatus>().lvl_8_buff_list;
+        lvl_9_buff_list = MapStatus.GetComponent<MapStatus>().lvl_9_buff_list;
+        lvl_10_buff_list = MapStatus.GetComponent<MapStatus>().lvl_10_buff_list;
+        
+        player_lvl = MapStatus.GetComponent<MapStatus>().player_lvl;
+        player_can_uncover = MapStatus.GetComponent<MapStatus>().player_can_uncover;
+
+    }
+
+    public void UpdateMapStatus()
+    {
+        MapStatus.GetComponent<MapStatus>().lvl_1_list = lvl_1_list;
+        MapStatus.GetComponent<MapStatus>().lvl_2_list = lvl_2_list;
+        MapStatus.GetComponent<MapStatus>().lvl_3_list = lvl_3_list;
+        MapStatus.GetComponent<MapStatus>().lvl_4_list = lvl_4_list;
+        MapStatus.GetComponent<MapStatus>().lvl_5_list = lvl_5_list;
+        MapStatus.GetComponent<MapStatus>().lvl_6_list = lvl_6_list;
+        MapStatus.GetComponent<MapStatus>().lvl_7_list = lvl_7_list;
+        MapStatus.GetComponent<MapStatus>().lvl_8_list = lvl_8_list;
+        MapStatus.GetComponent<MapStatus>().lvl_9_list = lvl_9_list;
+        MapStatus.GetComponent<MapStatus>().lvl_10_list = lvl_10_list;
+
+        MapStatus.GetComponent<MapStatus>().lvl_1_buff_list = lvl_1_buff_list;
+        MapStatus.GetComponent<MapStatus>().lvl_2_buff_list = lvl_2_buff_list;
+        MapStatus.GetComponent<MapStatus>().lvl_3_buff_list = lvl_3_buff_list;
+        MapStatus.GetComponent<MapStatus>().lvl_4_buff_list = lvl_4_buff_list;
+        MapStatus.GetComponent<MapStatus>().lvl_5_buff_list = lvl_5_buff_list;
+        MapStatus.GetComponent<MapStatus>().lvl_6_buff_list = lvl_6_buff_list;
+        MapStatus.GetComponent<MapStatus>().lvl_7_buff_list = lvl_7_buff_list;
+        MapStatus.GetComponent<MapStatus>().lvl_8_buff_list = lvl_8_buff_list;
+        MapStatus.GetComponent<MapStatus>().lvl_9_buff_list = lvl_9_buff_list;
+        MapStatus.GetComponent<MapStatus>().lvl_10_buff_list = lvl_10_buff_list;
     }
 
     public void PutSkulls()
