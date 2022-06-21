@@ -52,6 +52,7 @@ public class BattleHandler : MonoBehaviour
     public bool moveCardsToUsedCardsAnimation = false;
     public bool moveCardsToPlayerCardsPanelAnimation = false;
     public bool moveCardsSidewaysInPlayerCardsPanelAnimation = false;
+    public bool moveCardsSidewaysInPlayerCardsPanelAnimation2 = false;
     public bool moveCardsFromUsedCardsToDeckCardsAnimation = false;
 
     void Start()

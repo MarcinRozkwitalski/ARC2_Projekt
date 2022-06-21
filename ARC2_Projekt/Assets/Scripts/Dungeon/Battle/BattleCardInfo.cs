@@ -115,8 +115,11 @@ public class BattleCardInfo : MonoBehaviour
         for (int i = 0; i < howManyCards; i++)
         {
             battleCardHandler.cardsOnHandRevealPanel.transform.GetChild(0).transform.SetParent(battleHandler.playableCardsPanel.transform);
-        }
+        }   
+    }
 
+    public void DoAnimationMovingCardsSidewaysInPlayerCardsPanel()
+    {
         battleHandler.moveCardsSidewaysInPlayerCardsPanelAnimation = true;
     }
 
@@ -146,7 +149,7 @@ public class BattleCardInfo : MonoBehaviour
     public void HandleCardAction()
     {
         if(is_back_active == true){
-            AssignCardImage();
+            DoAnimationMovingCardsSidewaysInPlayerCardsPanel();
         }
         else if(is_back_active == false)
         {
@@ -237,6 +240,7 @@ public class BattleCardInfo : MonoBehaviour
                     battleHandler.remainingMoves++;
                     battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
+                    CheckIfRemainingMovesIsZero();
                     break;
 
                 case "Ogluszenie":

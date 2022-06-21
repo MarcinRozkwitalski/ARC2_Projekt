@@ -411,7 +411,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 71, y: 483.9}
+  m_AnchoredPosition: {x: 62.9, y: 477}
   m_SizeDelta: {x: 669.13, y: 96.206}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &311443875
@@ -743,6 +743,8 @@ MonoBehaviour:
   debuffFlagPlayer: 0
   improvementFlagPlayer: 0
   remainingMoves: 0
+  maxAmmountOfMoves: 0
+  currentAmmountOfMoves: 0
   basicRemainingMovesAmount: 3
   whosTurn: 
   whoWon: 
@@ -754,7 +756,8 @@ MonoBehaviour:
   moveCardsToUsedCardsAnimation: 0
   moveCardsToPlayerCardsPanelAnimation: 0
   moveCardsSidewaysInPlayerCardsPanelAnimation: 0
-  moveCardsToDeckCardsAnimation: 0
+  moveCardsSidewaysInPlayerCardsPanelAnimation2: 0
+  moveCardsFromUsedCardsToDeckCardsAnimation: 0
 --- !u!114 &436223481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2392,7 +2395,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -89, y: 483.9}
+  m_AnchoredPosition: {x: -80, y: 477}
   m_SizeDelta: {x: 669.13, y: 96.206}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1155881809
