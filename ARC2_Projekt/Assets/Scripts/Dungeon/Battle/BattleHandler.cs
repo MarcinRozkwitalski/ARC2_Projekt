@@ -37,6 +37,8 @@ public class BattleHandler : MonoBehaviour
     public bool improvementFlagPlayer = false;
 
     public int remainingMoves;
+    public int maxAmmountOfMoves;
+    public int currentAmmountOfMoves = 0;
     public int basicRemainingMovesAmount = 3;
     public string whosTurn;
     public string whoWon;
@@ -89,11 +91,23 @@ public class BattleHandler : MonoBehaviour
         currentEnemyDefence = 0;
         enemyDefenceText.text = "" + currentEnemyDefence.ToString();
 
+        SetMaxAmmountOfMoves();
         randomizeCardsPositions.RandomizePositionsInCardsDeck();
-        StartCoroutine(GiveFirstFiveCards());
+        StartCoroutine(GiveFirstCards());
 
         ResetRemainingMoves();
         whosTurn = "player";
+    }
+
+    public void SetMaxAmmountOfMoves()
+    {
+        int valueToCheck = deckCardsToPick.transform.childCount;
+        Debug.Log("valueToCheck: " + valueToCheck);
+        if (valueToCheck == 3) maxAmmountOfMoves = 3;
+        else if (valueToCheck == 4) maxAmmountOfMoves = 4;
+        else if (valueToCheck >= 5) maxAmmountOfMoves = 5;
+
+        Debug.Log("maxAmmountOfMoves: " + maxAmmountOfMoves);
     }
 
     public void GetEnemyTypeByLastDoorValue()
@@ -128,25 +142,32 @@ public class BattleHandler : MonoBehaviour
     {
         if(stunFlagPlayer == true){
             remainingMoves = 2;
+            currentAmmountOfMoves = 0;
             stunFlagPlayer = false;
             Debug.Log("Nowe ruchy: " + remainingMoves);
         }
         else{
             remainingMoves = basicRemainingMovesAmount;
+            currentAmmountOfMoves = 0;
             Debug.Log("Nowe ruchy: " + remainingMoves);
         }
     }
 
-    public IEnumerator GiveFirstFiveCards()
+    public IEnumerator GiveFirstCards()
     {
+        int howMany;
+        if(deckCardsToPick.transform.childCount == 3) howMany = 3;
+        else if(deckCardsToPick.transform.childCount == 4) howMany = 4;
+        else {howMany = 5;}
+
         yield return new WaitForSeconds(1);
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < howMany; i++)
         {
             deckCardsToPick.transform.GetChild(0).GetComponent<BattleCardInfo>().allow_to_animate = true;
             deckCardsToPick.transform.GetChild(0).SetParent(cardsOnHandRevealPanel.transform, true);
         }
         moveCardsToPlayerCardsPanelAnimation = true;
-        StopCoroutine(GiveFirstFiveCards());
+        StopCoroutine(GiveFirstCards());
     }
 
     public IEnumerator CheckRemainingPlayerCards()
@@ -168,11 +189,11 @@ public class BattleHandler : MonoBehaviour
             yield return new WaitForSeconds(1.1f);
             moveCardsFromUsedCardsToDeckCardsAnimation = false;
 
-            StartCoroutine(GiveFirstFiveCards());
+            StartCoroutine(GiveFirstCards());
         }
         else 
         {
-            StartCoroutine(GiveFirstFiveCards());
+            StartCoroutine(GiveFirstCards());
         }
     }
 }

@@ -30,6 +30,7 @@ public class BattleCardInfo : MonoBehaviour
     public bool is_equipped = false;
     public bool is_back_active = false;
     public bool allow_to_animate = false;
+    public bool has_been_activated = false;
     
     private void Start() {
         battleHandler = GameObject.Find("BattleHandler").GetComponent<BattleHandler>();
@@ -59,11 +60,6 @@ public class BattleCardInfo : MonoBehaviour
         {
             battleCardHandler.cardsOnHandRevealPanel.transform.GetChild(i).GetComponent<Button>().enabled = true;
         }
-    }
-
-    public void SetParentToUsedCardsPanel()
-    {
-
     }
 
     public void AssignInfo()
@@ -169,6 +165,7 @@ public class BattleCardInfo : MonoBehaviour
                         battleHandler.currentEnemyDefence -= points;
                         battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                         battleHandler.remainingMoves--;
+                        battleHandler.currentAmmountOfMoves++;
                         DebuggingInfo();
                         CheckIfRemainingMovesIsZero();
                     }
@@ -187,6 +184,7 @@ public class BattleCardInfo : MonoBehaviour
                         battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                         battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
                         battleHandler.remainingMoves--;
+                        battleHandler.currentAmmountOfMoves++;
                         DebuggingInfo();
                         if(battleHandler.currentEnemyHealth <= 0)
                         {
@@ -206,6 +204,7 @@ public class BattleCardInfo : MonoBehaviour
                         battleHandler.currentEnemyDefence = 0;
                         battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                         battleHandler.remainingMoves--;
+                        battleHandler.currentAmmountOfMoves++;
                         DebuggingInfo();
                         CheckIfRemainingMovesIsZero();
                     }
@@ -219,6 +218,7 @@ public class BattleCardInfo : MonoBehaviour
                     battleHandler.currentPlayerDefence += points;
                     battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                     battleHandler.remainingMoves--;
+                    battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
                     break;
@@ -227,6 +227,7 @@ public class BattleCardInfo : MonoBehaviour
                     battleHandler.informationText.text = "Zyskujesz przedluzenie tarczy.";
                     battleHandler.keepDefenceFlagPlayer = true;
                     battleHandler.remainingMoves--;
+                    battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
                     break;
@@ -234,6 +235,7 @@ public class BattleCardInfo : MonoBehaviour
                 case "Pospiech":
                     battleHandler.informationText.text = "Zyskujesz dodatkowy ruch.";
                     battleHandler.remainingMoves++;
+                    battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
                     break;
 
@@ -241,6 +243,7 @@ public class BattleCardInfo : MonoBehaviour
                     battleHandler.informationText.text = "Ogluszyles przeciwnika na ture.";
                     battleHandler.stunFlagPlayer = true;
                     battleHandler.remainingMoves--;
+                    battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
                     break;
@@ -249,6 +252,7 @@ public class BattleCardInfo : MonoBehaviour
                     battleHandler.informationText.text = "Oslabiles przeciwnika.";
                     battleHandler.debuffFlagPlayer = true;
                     battleHandler.remainingMoves--;
+                    battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
                     break;
@@ -259,6 +263,7 @@ public class BattleCardInfo : MonoBehaviour
                     if(battleHandler.currentPlayerHealth > 100) battleHandler.currentPlayerHealth = 100;
                     battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                     battleHandler.remainingMoves--;
+                    battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
                     break;
@@ -266,13 +271,18 @@ public class BattleCardInfo : MonoBehaviour
                 case "Wzmocnienie":
                     battleHandler.informationText.text = "Podwoiles tarcze.";
                     battleHandler.currentPlayerDefence *= 2;
+                    battleHandler.currentAmmountOfMoves++;
                     battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
+                    DebuggingInfo();
+                    CheckIfRemainingMovesIsZero();
                     break;
 
                 case "Ulepszenie": //bez remainingMoves--; //co w przypadkach użycia na wszystkich specjalnych kartach?
                     battleHandler.informationText.text = "Ulepszasz nastepna karte.";
                     battleHandler.improvementFlagPlayer = true;
-
+                    battleHandler.currentAmmountOfMoves++;
+                    DebuggingInfo();
+                    CheckIfRemainingMovesIsZero();
                     break;
 
                 case "Tecza":
@@ -289,6 +299,7 @@ public class BattleCardInfo : MonoBehaviour
                                 battleHandler.currentEnemyDefence -= points;
                                 battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                                 battleHandler.remainingMoves--;
+                                battleHandler.currentAmmountOfMoves++;
                                 DebuggingInfo();
                                 CheckIfRemainingMovesIsZero();
                             }
@@ -307,6 +318,7 @@ public class BattleCardInfo : MonoBehaviour
                                 battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                                 battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
                                 battleHandler.remainingMoves--;
+                                battleHandler.currentAmmountOfMoves++;
                                 DebuggingInfo();
                                 if(battleHandler.currentEnemyHealth <= 0)
                                 {
@@ -326,6 +338,7 @@ public class BattleCardInfo : MonoBehaviour
                                 battleHandler.currentEnemyDefence = 0;
                                 battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                                 battleHandler.remainingMoves--;
+                                battleHandler.currentAmmountOfMoves++;
                                 DebuggingInfo();
                                 CheckIfRemainingMovesIsZero();
                             }
@@ -339,6 +352,7 @@ public class BattleCardInfo : MonoBehaviour
                             battleHandler.currentPlayerDefence += points;
                             battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                             battleHandler.remainingMoves--;
+                            battleHandler.currentAmmountOfMoves++;
                             DebuggingInfo();
                             CheckIfRemainingMovesIsZero();
                             break;
@@ -349,6 +363,7 @@ public class BattleCardInfo : MonoBehaviour
                             if(battleHandler.currentPlayerHealth > 100) battleHandler.currentPlayerHealth = 100;
                             battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                             battleHandler.remainingMoves--;
+                            battleHandler.currentAmmountOfMoves++;
                             DebuggingInfo();
                             CheckIfRemainingMovesIsZero();
                             break;
@@ -399,7 +414,7 @@ public class BattleCardInfo : MonoBehaviour
 
     public void CheckIfRemainingMovesIsZero()
     {
-        if(battleHandler.remainingMoves == 0)
+        if(battleHandler.remainingMoves == 0 || battleHandler.maxAmmountOfMoves == battleHandler.currentAmmountOfMoves)
         {
             SetDefaultDefenceForEnemy();
             StartCoroutine(HideAllBattleCards());
@@ -422,7 +437,8 @@ public class BattleCardInfo : MonoBehaviour
 
     public void DebuggingInfo()
     {
-        Debug.Log("Remaining moves player:" + battleHandler.remainingMoves);
+        Debug.Log("Remaining moves player: " + battleHandler.remainingMoves);
+        Debug.Log("Current ammount of moves: " + battleHandler.currentAmmountOfMoves);
     }
 
     public void CheckSubtype(GameObject cardInfo, string subtype)

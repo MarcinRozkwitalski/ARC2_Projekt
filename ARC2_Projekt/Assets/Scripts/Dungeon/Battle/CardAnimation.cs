@@ -39,7 +39,7 @@ public class CardAnimation : MonoBehaviour
 
         if(battleHandler.moveCardsToPlayerCardsPanelAnimation == true && battleCardInfo.allow_to_animate == true)
         {
-            endPos = targetPos + new Vector2(1600, 60);
+            endPos = targetPos + new Vector2(1561, 60);
             endLocalScale = new Vector2(1f, 1f);
             StartCoroutine(AnimateMovingCardsToPlayerCardsPanel());
         }
