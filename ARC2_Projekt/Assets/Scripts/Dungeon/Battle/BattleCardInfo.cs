@@ -29,6 +29,7 @@ public class BattleCardInfo : MonoBehaviour
     public int id;
     public bool is_equipped = false;
     public bool is_back_active = false;
+    public bool allow_to_animate = false;
     
     private void Start() {
         battleHandler = GameObject.Find("BattleHandler").GetComponent<BattleHandler>();
@@ -37,6 +38,27 @@ public class BattleCardInfo : MonoBehaviour
 
         AssignNewTransform();
         AssignBackImage();
+        TurnOffButton();
+    }
+
+    public void TurnOffButton()
+    {
+        int howManyCards = battleCardHandler.cardsDeckToPick.transform.childCount;
+
+        for (int i = 0; i < howManyCards; i++)
+        {
+            battleCardHandler.cardsDeckToPick.transform.GetChild(i).GetComponent<Button>().enabled = false;
+        }
+    }
+
+    public void TurnOnButton()
+    {
+        int howManyCards = battleCardHandler.cardsDeckToPick.transform.childCount;
+
+        for (int i = 0; i < howManyCards; i++)
+        {
+            battleCardHandler.cardsDeckToPick.transform.GetChild(i).GetComponent<Button>().enabled = true;
+        }
     }
 
     public void AssignInfo()
@@ -68,34 +90,52 @@ public class BattleCardInfo : MonoBehaviour
 
     public void AssignCardImage()
     {
-        int howManyCards = battleCardHandler.cardsDeckToPick.transform.childCount;
+        int howManyCards = battleCardHandler.cardsOnHandRevealPanel.transform.childCount;
 
         for (int i = 0; i < howManyCards; i++)
         {
-            battleCardHandler.cardsDeckToPick.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().sprite = CardSprite;
+            battleCardHandler.cardsOnHandRevealPanel.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().sprite = CardSprite;
         }
 
         for (int i = 0; i < howManyCards; i++)
         {
-            CheckSubtype(battleCardHandler.cardsDeckToPick.transform.GetChild(i).gameObject, battleCardHandler.cardsDeckToPick.transform.GetChild(i).GetComponent<BattleCardInfo>().type);
-            battleCardHandler.cardsDeckToPick.transform.GetChild(i).GetComponent<BattleCardInfo>().is_back_active = false;
+            CheckSubtype(battleCardHandler.cardsOnHandRevealPanel.transform.GetChild(i).gameObject, battleCardHandler.cardsOnHandRevealPanel.transform.GetChild(i).GetComponent<BattleCardInfo>().type);
+            battleCardHandler.cardsOnHandRevealPanel.transform.GetChild(i).GetComponent<BattleCardInfo>().is_back_active = false;
         }
         
         for (int j = 0; j < howManyCards; j++)
         {
             for (int i = 14; i < 21; i++)
             {
-                battleCardHandler.cardsDeckToPick.transform.GetChild(j).gameObject.transform.GetChild(i).gameObject.SetActive(true);
+                battleCardHandler.cardsOnHandRevealPanel.transform.GetChild(j).gameObject.transform.GetChild(i).gameObject.SetActive(true);
             }
         }
 
         for (int i = 0; i < howManyCards; i++)
         {
-            battleCardHandler.cardsDeckToPick.transform.GetChild(0).transform.SetParent(battleHandler.playableCardsPanel.transform);
+            battleCardHandler.cardsOnHandRevealPanel.transform.GetChild(0).transform.SetParent(battleHandler.playableCardsPanel.transform);
         }
 
         battleHandler.moveCardsSidewaysInPlayerCardsPanelAnimation = true;
     }
+
+    // nie gotowe
+    public void AssignCardsToCardsDeckToPick(int howManyCards)
+    {
+        for (int i = 0; i < howManyCards; i++)
+        {
+            battleCardHandler.cardsDeckToPick.transform.GetChild(0).transform.SetParent(battleHandler.playableCardsPanel.transform);
+        }
+    }
+
+    public void AssignCardsToPlayableCardsPanel(int howManyCards)
+    {
+        for (int i = 0; i < howManyCards; i++)
+        {
+            battleCardHandler.cardsDeckToPick.transform.GetChild(0).transform.SetParent(battleHandler.playableCardsPanel.transform);
+        }
+    }
+    // nie gotowe
 
     public bool IsCardEquipped()
     {

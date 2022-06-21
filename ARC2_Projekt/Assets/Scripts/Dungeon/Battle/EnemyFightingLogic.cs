@@ -178,6 +178,7 @@ public class EnemyFightingLogic : MonoBehaviour
         if(battleHandler.whoWon != "enemy"){
             battleHandler.informationText.text = "Wróg zakończył turę.";
             yield return new WaitForSeconds(1.5f);
+            battleHandler.CheckRemainingPlayerCards();
             SetDefaultDefenceForPlayer();
             battleHandler.informationText.text = "Twoja tura!";
             battleHandler.ResetRemainingMoves();
@@ -193,6 +194,7 @@ public class EnemyFightingLogic : MonoBehaviour
         battleHandler.backToDungeonButton.gameObject.SetActive(true);
     }
 
+    //raczej do zmiany
     public IEnumerator UnHideAllBattleCards()
     {
         int howManyCards = battleCardHandler.cardsDeckToPick.transform.childCount;
@@ -207,6 +209,7 @@ public class EnemyFightingLogic : MonoBehaviour
 
         yield return null;
     }
+    //raczej do zmiany
 
     public void CheckIfRemainingMovesIsZero()
     {

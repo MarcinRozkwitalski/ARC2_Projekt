@@ -16,6 +16,9 @@ public class BattleHandler : MonoBehaviour
 
     public GameObject usedCardsPanel;
     public GameObject playableCardsPanel;
+    public GameObject cardsOnHandRevealPanel;
+
+    public GameObject cardsDeckToPick;
 
     public TMP_Text playerNameText;
     public TMP_Text playerHealthText;
@@ -65,7 +68,9 @@ public class BattleHandler : MonoBehaviour
 
         usedCardsPanel = GameObject.Find("UsedCardsPanel");
         playableCardsPanel = GameObject.Find("PlayableCardsPanel");
+        cardsOnHandRevealPanel = GameObject.Find("CardsOnHandRevealPanel");
 
+        cardsDeckToPick = GameObject.Find("CardsDeckToPick");
 
         backToDungeonButton = GameObject.Find("BackToDungeonButton");
         backToDungeonButton.gameObject.SetActive(false);
@@ -84,6 +89,7 @@ public class BattleHandler : MonoBehaviour
         enemyDefenceText.text = "" + currentEnemyDefence.ToString();
 
         StartCoroutine(randomizeCardsPositions.RandomizePositions());
+        GiveFirstFiveCards();
         moveCardsToPlayerCardsPanelAnimation = true;
 
 
@@ -130,6 +136,30 @@ public class BattleHandler : MonoBehaviour
         else{
             remainingMoves = basicRemainingMovesAmount;
             Debug.Log("Nowe ruchy: " + remainingMoves);
+        }
+    }
+
+    public void GiveFirstFiveCards()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            cardsDeckToPick.transform.GetChild(0).GetComponent<BattleCardInfo>().allow_to_animate = true;
+            cardsDeckToPick.transform.GetChild(0).SetParent(cardsOnHandRevealPanel.transform, true);
+        }
+    }
+
+    public void CheckRemainingPlayerCards()
+    {
+        if(cardsDeckToPick.transform.childCount < 5)
+        {
+            //scramble cards in "usedCardsPanel"
+            //move them to cardsDeckToPick
+            //do GiveFirstFiveCards
+        }
+        else 
+        {
+            GiveFirstFiveCards();
+            moveCardsToPlayerCardsPanelAnimation = true;
         }
     }
 }
