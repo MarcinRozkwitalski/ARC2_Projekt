@@ -26,7 +26,8 @@ public class MapGeneration : MonoBehaviour
             buff_lvl_7_panel,
             buff_lvl_8_panel,
             buff_lvl_9_panel,
-            buff_lvl_10_panel;
+            buff_lvl_10_panel,
+            lvl_1_cover, lvl_2_cover, lvl_3_cover, lvl_4_cover, lvl_5_cover, lvl_6_cover, lvl_7_cover, lvl_8_cover, lvl_9_cover, lvl_10_cover;
 
     public GameObject IconPrefab;
     public List<GameObject> lvl_panels = new List<GameObject>();
@@ -63,13 +64,61 @@ public class MapGeneration : MonoBehaviour
         GenerateLevels();
     }
 
+    public void destroy()
+    {
+
+    }
+    public void Refresh()
+    {
+        GenerateLevels();
+    }
+
+    public void Lvl_1_Cover_Trun_Off()
+    {
+        lvl_1_cover.SetActive(false);
+    }
+    public void Lvl_2_Cover_Trun_Off()
+    {
+        lvl_2_cover.SetActive(false);
+    }
+    public void Lvl_3_Cover_Trun_Off()
+    {
+        lvl_3_cover.SetActive(false);
+    }
+    public void Lvl_4_Cover_Trun_Off()
+    {
+        lvl_4_cover.SetActive(false);
+    }
+    public void Lvl_5_Cover_Trun_Off()
+    {
+        lvl_5_cover.SetActive(false);
+    }
+    public void Lvl_6_Cover_Trun_Off()
+    {
+        lvl_6_cover.SetActive(false);
+    }
+    public void Lvl_7_Cover_Trun_Off()
+    {
+        lvl_7_cover.SetActive(false);
+    }
+    public void Lvl_8_Cover_Trun_Off()
+    {
+        lvl_8_cover.SetActive(false);
+    }
+    public void Lvl_9_Cover_Trun_Off()
+    {
+        lvl_9_cover.SetActive(false);
+    }
+    public void Lvl_10_Cover_Trun_Off()
+    {
+        lvl_10_cover.SetActive(false);
+    }
+
     public void GenerateLevels()
     {
         GenerateTypeOfIcons();
         ShuffleIconsToLevelLists();
         PutIconsToPanels();
-
-
     }
 
     public void SetPanelList()
@@ -95,7 +144,7 @@ public class MapGeneration : MonoBehaviour
     public void GenerateTypeOfIcons()
     {
         int numberOfIcons, badIcons, goodIcons;
-        numberOfIcons = 20;//Random.Range(20, 41);
+        numberOfIcons = 40;//Random.Range(20, 41);
         badIcons = Mathf.RoundToInt(numberOfIcons * 0.6f);
         goodIcons = numberOfIcons - badIcons;
         Debug.Log("Icons = " + numberOfIcons + ", badIcons = " + badIcons + ", goodIcons = " + goodIcons);
@@ -129,6 +178,7 @@ public class MapGeneration : MonoBehaviour
 
     public void AddSkullsToList(int j)
     {
+        if (j > 10) j = 10;
         for (int i = 0; i < j; i++)
         {
             skulls.Add("Skull");
@@ -215,6 +265,47 @@ public class MapGeneration : MonoBehaviour
 
     public void PutSkulls()
     {
+        if (lvl_1_list.Count == 4)
+        {
+            skulls.RemoveAt(skulls.Count - 1);
+        }
+        if (lvl_2_list.Count == 4)
+        {
+            skulls.RemoveAt(skulls.Count - 1);
+        }
+        if (lvl_3_list.Count == 4)
+        {
+            skulls.RemoveAt(skulls.Count - 1);
+        }
+        if (lvl_4_list.Count == 4)
+        {
+            skulls.RemoveAt(skulls.Count - 1);
+        }
+        if (lvl_5_list.Count == 4)
+        {
+            skulls.RemoveAt(skulls.Count - 1);
+        }
+        if (lvl_6_list.Count == 4)
+        {
+            skulls.RemoveAt(skulls.Count - 1);
+        }
+        if (lvl_7_list.Count == 4)
+        {
+            skulls.RemoveAt(skulls.Count - 1);
+        }
+        if (lvl_8_list.Count == 4)
+        {
+            skulls.RemoveAt(skulls.Count - 1);
+        }
+        if (lvl_9_list.Count == 4)
+        {
+            skulls.RemoveAt(skulls.Count - 1);
+        }
+        if (lvl_10_list.Count == 4)
+        {
+            skulls.RemoveAt(skulls.Count - 1);
+        }
+        Debug.Log(skulls.Count);
         while (skulls.Count > 0)
         {
             if (lvl_1_list.Count == 0)
@@ -222,115 +313,126 @@ public class MapGeneration : MonoBehaviour
                 lvl_1_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            else if (lvl_2_list.Count == 0)
+            if (lvl_2_list.Count == 0)
             {
                 lvl_2_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            else if (lvl_3_list.Count == 0)
+            if (lvl_3_list.Count == 0)
             {
                 lvl_3_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            else if (lvl_4_list.Count == 0)
+            if (lvl_4_list.Count == 0)
             {
                 lvl_4_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            else if (lvl_5_list.Count == 0)
+            if (lvl_5_list.Count == 0)
             {
                 lvl_5_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            else if (lvl_6_list.Count == 0)
+            if (lvl_6_list.Count == 0)
             {
                 lvl_6_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            else if (lvl_7_list.Count == 0)
+            if (lvl_7_list.Count == 0)
             {
                 lvl_7_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            else if (lvl_8_list.Count == 0)
+            if (lvl_8_list.Count == 0)
             {
                 lvl_8_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            else if (lvl_9_list.Count == 0)
+            if (lvl_9_list.Count == 0)
             {
                 lvl_9_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            else
+
+            int position = Random.Range(1, 11);
+            switch (position)
             {
-                int position = Random.Range(1, 10);
-                switch (position)
-                {
-                    case 1:
-                        if (!lvl_1_list.Contains("Skull") && lvl_1_list.Count < 4)
-                        {
-                            lvl_1_list.Add("Skull");
-                            skulls.RemoveAt(skulls.Count - 1);
-                        }
-                        break;
-                    case 2:
-                        if (!lvl_2_list.Contains("Skull") && lvl_2_list.Count < 4)
-                        {
-                            lvl_2_list.Add("Skull");
-                            skulls.RemoveAt(skulls.Count - 1);
-                        }
-                        break;
-                    case 3:
-                        if (!lvl_3_list.Contains("Skull") && lvl_3_list.Count < 4)
-                        {
-                            lvl_3_list.Add("Skull");
-                            skulls.RemoveAt(skulls.Count - 1);
-                        }
-                        break;
-                    case 4:
-                        if (!lvl_4_list.Contains("Skull") && lvl_4_list.Count < 4)
-                        {
-                            lvl_4_list.Add("Skull");
-                            skulls.RemoveAt(skulls.Count - 1);
-                        }
-                        break;
-                    case 5:
-                        if (!lvl_5_list.Contains("Skull") && lvl_5_list.Count < 4)
-                        {
-                            lvl_5_list.Add("Skull");
-                            skulls.RemoveAt(skulls.Count - 1);
-                        }
-                        break;
-                    case 6:
-                        if (!lvl_6_list.Contains("Skull") && lvl_6_list.Count < 4)
-                        {
-                            lvl_6_list.Add("Skull");
-                            skulls.RemoveAt(skulls.Count - 1);
-                        }
-                        break;
-                    case 7:
-                        if (!lvl_7_list.Contains("Skull") && lvl_7_list.Count < 4)
-                        {
-                            lvl_7_list.Add("Skull");
-                            skulls.RemoveAt(skulls.Count - 1);
-                        }
-                        break;
-                    case 8:
-                        if (!lvl_8_list.Contains("Skull") && lvl_8_list.Count < 4)
-                        {
-                            lvl_8_list.Add("Skull");
-                            skulls.RemoveAt(skulls.Count - 1);
-                        }
-                        break;
-                    case 9:
-                        if (!lvl_9_list.Contains("Skull") && lvl_9_list.Count < 4)
-                        {
-                            lvl_9_list.Add("Skull");
-                            skulls.RemoveAt(skulls.Count - 1);
-                        }
-                        break;
-                }
+                case 1:
+                    if (!lvl_1_list.Contains("Skull") && lvl_1_list.Count < 4)
+                    {
+                        lvl_1_list.Add("Skull");
+                        skulls.RemoveAt(skulls.Count - 1);
+                    }
+                    // else if (!lvl_1_list.Contains("Skull") && lvl_1_list.Count < 4 && Random.Range(1, 11) < 3)
+                    // {
+                    //     lvl_1_list.Add("Skull");
+                    //     skulls.RemoveAt(skulls.Count - 1);
+                    // }
+                    break;
+                case 2:
+                    if (!lvl_2_list.Contains("Skull") && lvl_2_list.Count < 4)
+                    {
+                        lvl_2_list.Add("Skull");
+                        skulls.RemoveAt(skulls.Count - 1);
+                    }
+                    break;
+                case 3:
+                    if (!lvl_3_list.Contains("Skull") && lvl_3_list.Count < 4)
+                    {
+                        lvl_3_list.Add("Skull");
+                        skulls.RemoveAt(skulls.Count - 1);
+                    }
+                    break;
+                case 4:
+                    if (!lvl_4_list.Contains("Skull") && lvl_4_list.Count < 4)
+                    {
+                        lvl_4_list.Add("Skull");
+                        skulls.RemoveAt(skulls.Count - 1);
+                    }
+                    break;
+                case 5:
+                    if (!lvl_5_list.Contains("Skull") && lvl_5_list.Count < 4)
+                    {
+                        lvl_5_list.Add("Skull");
+                        skulls.RemoveAt(skulls.Count - 1);
+                    }
+                    break;
+                case 6:
+                    if (!lvl_6_list.Contains("Skull") && lvl_6_list.Count < 4)
+                    {
+                        lvl_6_list.Add("Skull");
+                        skulls.RemoveAt(skulls.Count - 1);
+                    }
+                    break;
+                case 7:
+                    if (!lvl_7_list.Contains("Skull") && lvl_7_list.Count < 4)
+                    {
+                        lvl_7_list.Add("Skull");
+                        skulls.RemoveAt(skulls.Count - 1);
+                    }
+                    break;
+                case 8:
+                    if (!lvl_8_list.Contains("Skull") && lvl_8_list.Count < 4)
+                    {
+                        lvl_8_list.Add("Skull");
+                        skulls.RemoveAt(skulls.Count - 1);
+                    }
+                    break;
+                case 9:
+                    if (!lvl_9_list.Contains("Skull") && lvl_9_list.Count < 4)
+                    {
+                        lvl_9_list.Add("Skull");
+                        skulls.RemoveAt(skulls.Count - 1);
+                    }
+                    break;
+                case 10:
+                    if (!lvl_10_list.Contains("Skull") && lvl_10_list.Count < 4)
+                    {
+                        lvl_10_list.Add("Skull");
+                        skulls.RemoveAt(skulls.Count - 1);
+                    }
+                    break;
+
             }
 
         }
@@ -499,7 +601,7 @@ public class MapGeneration : MonoBehaviour
             switch (position)
             {
                 case 1:
-                    if (!lvl_1_list.Contains("Event") && lvl_1_list.Contains("Sadness") || lvl_1_list.Contains("Treasure") && lvl_1_list.Count < 4 && Random.Range(1, 11) < 4)
+                    if (!lvl_1_list.Contains("Event") && lvl_1_list.Contains("Sadness") && lvl_1_list.Count < 4 && Random.Range(1, 11) < 4 || !lvl_1_list.Contains("Event") && lvl_1_list.Contains("Treasure") && lvl_1_list.Count < 4 && Random.Range(1, 11) < 4)
                     {
                         lvl_1_list.Add("Event");
                         events.RemoveAt(events.Count - 1);
@@ -511,7 +613,7 @@ public class MapGeneration : MonoBehaviour
                     }
                     break;
                 case 2:
-                    if (!lvl_2_list.Contains("Event") && lvl_2_list.Contains("Sadness") || lvl_2_list.Contains("Treasure") && lvl_2_list.Count < 4 && Random.Range(1, 11) < 4)
+                    if (!lvl_2_list.Contains("Event") && lvl_2_list.Contains("Sadness") && lvl_2_list.Count < 4 && Random.Range(1, 11) < 4 || !lvl_2_list.Contains("Event") && lvl_2_list.Contains("Treasure") && lvl_2_list.Count < 4 && Random.Range(1, 11) < 4)
                     {
                         lvl_2_list.Add("Event");
                         events.RemoveAt(events.Count - 1);
@@ -523,7 +625,7 @@ public class MapGeneration : MonoBehaviour
                     }
                     break;
                 case 3:
-                    if (!lvl_3_list.Contains("Event") && lvl_3_list.Contains("Sadness") || lvl_3_list.Contains("Treasure") && lvl_3_list.Count < 4 && Random.Range(1, 11) < 4)
+                    if (!lvl_3_list.Contains("Event") && lvl_3_list.Contains("Sadness") && lvl_3_list.Count < 4 && Random.Range(1, 11) < 4 || !lvl_3_list.Contains("Event") && lvl_3_list.Contains("Treasure") && lvl_3_list.Count < 4 && Random.Range(1, 11) < 4)
                     {
                         lvl_3_list.Add("Event");
                         events.RemoveAt(events.Count - 1);
@@ -535,7 +637,7 @@ public class MapGeneration : MonoBehaviour
                     }
                     break;
                 case 4:
-                    if (!lvl_4_list.Contains("Event") && lvl_4_list.Contains("Sadness") || lvl_4_list.Contains("Treasure") && lvl_4_list.Count < 4 && Random.Range(1, 11) < 4)
+                    if (!lvl_4_list.Contains("Event") && lvl_4_list.Contains("Sadness") && lvl_4_list.Count < 4 && Random.Range(1, 11) < 4 || !lvl_4_list.Contains("Event") && lvl_4_list.Contains("Treasure") && lvl_4_list.Count < 4 && Random.Range(1, 11) < 4)
                     {
                         lvl_4_list.Add("Event");
                         events.RemoveAt(events.Count - 1);
@@ -547,7 +649,7 @@ public class MapGeneration : MonoBehaviour
                     }
                     break;
                 case 5:
-                    if (!lvl_5_list.Contains("Event") && lvl_5_list.Contains("Sadness") || lvl_5_list.Contains("Treasure") && lvl_5_list.Count < 4 && Random.Range(1, 11) < 4)
+                    if (!lvl_5_list.Contains("Event") && lvl_5_list.Contains("Sadness") && lvl_5_list.Count < 4 && Random.Range(1, 11) < 4 || !lvl_5_list.Contains("Event") && lvl_5_list.Contains("Treasure") && lvl_5_list.Count < 4 && Random.Range(1, 11) < 4)
                     {
                         lvl_5_list.Add("Event");
                         events.RemoveAt(events.Count - 1);
@@ -559,7 +661,7 @@ public class MapGeneration : MonoBehaviour
                     }
                     break;
                 case 6:
-                    if (!lvl_6_list.Contains("Event") && lvl_6_list.Contains("Sadness") || lvl_6_list.Contains("Treasure") && lvl_6_list.Count < 4 && Random.Range(1, 11) < 4)
+                    if (!lvl_6_list.Contains("Event") && lvl_6_list.Contains("Sadness") && lvl_6_list.Count < 4 && Random.Range(1, 11) < 4 || !lvl_6_list.Contains("Event") && lvl_6_list.Contains("Treasure") && lvl_6_list.Count < 4 && Random.Range(1, 11) < 4)
                     {
                         lvl_6_list.Add("Event");
                         events.RemoveAt(events.Count - 1);
@@ -571,7 +673,7 @@ public class MapGeneration : MonoBehaviour
                     }
                     break;
                 case 7:
-                    if (!lvl_7_list.Contains("Event") && lvl_7_list.Contains("Sadness") || lvl_7_list.Contains("Treasure") && lvl_7_list.Count < 4 && Random.Range(1, 11) < 4)
+                    if (!lvl_7_list.Contains("Event") && lvl_7_list.Contains("Sadness") && lvl_7_list.Count < 4 && Random.Range(1, 11) < 4 || !lvl_7_list.Contains("Event") && lvl_7_list.Contains("treasure") && lvl_7_list.Count < 4 && Random.Range(1, 11) < 4)
                     {
                         lvl_7_list.Add("Event");
                         events.RemoveAt(events.Count - 1);
@@ -583,7 +685,7 @@ public class MapGeneration : MonoBehaviour
                     }
                     break;
                 case 8:
-                    if (!lvl_8_list.Contains("Event") && lvl_8_list.Contains("Sadness") || lvl_8_list.Contains("Treasure") && lvl_8_list.Count < 4 && Random.Range(1, 11) < 4)
+                    if (!lvl_8_list.Contains("Event") && lvl_8_list.Contains("Sadness") && lvl_8_list.Count < 4 && Random.Range(1, 11) < 4 || !lvl_8_list.Contains("Event") && lvl_8_list.Contains("Treasure") && lvl_8_list.Count < 4 && Random.Range(1, 11) < 4)
                     {
                         lvl_8_list.Add("Event");
                         events.RemoveAt(events.Count - 1);
@@ -595,7 +697,7 @@ public class MapGeneration : MonoBehaviour
                     }
                     break;
                 case 9:
-                    if (!lvl_9_list.Contains("Event") && lvl_9_list.Contains("Sadness") || lvl_9_list.Contains("Treasure") && lvl_9_list.Count < 4 && Random.Range(1, 11) < 4)
+                    if (!lvl_9_list.Contains("Event") && lvl_9_list.Contains("Sadness") && lvl_9_list.Count < 4 && Random.Range(1, 11) < 4 || !lvl_9_list.Contains("Event") && lvl_9_list.Contains("Treasure") && lvl_9_list.Count < 4 && Random.Range(1, 11) < 4)
                     {
                         lvl_9_list.Add("Event");
                         events.RemoveAt(events.Count - 1);
@@ -607,7 +709,7 @@ public class MapGeneration : MonoBehaviour
                     }
                     break;
                 case 10:
-                    if (!lvl_10_list.Contains("Event") && lvl_10_list.Contains("Sadness") || lvl_10_list.Contains("Treasure") && lvl_10_list.Count < 4 && Random.Range(1, 11) < 4)
+                    if (!lvl_10_list.Contains("Event") && lvl_10_list.Contains("Sadness") && lvl_10_list.Count < 4 && Random.Range(1, 11) < 4 || !lvl_10_list.Contains("Event") && lvl_10_list.Contains("Treasure") && lvl_10_list.Count < 4 && Random.Range(1, 11) < 4)
                     {
                         lvl_10_list.Add("Event");
                         events.RemoveAt(events.Count - 1);
@@ -630,48 +732,43 @@ public class MapGeneration : MonoBehaviour
             switch (position)
             {
                 case 1:
-                    if (!lvl_1_list.Contains("Treasure") && !lvl_1_list.Contains("Devil") && lvl_1_list.Count < 4 && Random.Range(1, 11) < 4)
-                    {
-                        lvl_1_list.Add("Treasure");
-                        treasures.RemoveAt(treasures.Count - 1);
-                    }
-                    if (!lvl_1_list.Contains("Treasure") && !lvl_1_list.Contains("Devil") && lvl_1_list.Contains("Cross") && lvl_1_list.Count < 4 && Random.Range(1, 11) > 4)
+                    if (!lvl_1_list.Contains("Treasure") && lvl_1_list.Count < 4 && Random.Range(1, 11) < 4)
                     {
                         lvl_1_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
                     }
                     break;
                 case 2:
-                    if (!lvl_2_list.Contains("Treasure") && !lvl_2_list.Contains("Devil") && lvl_2_list.Count < 4 && Random.Range(1, 11) < 4)
+                    if (!lvl_2_list.Contains("Treasure") && lvl_2_list.Count < 4 && Random.Range(1, 11) < 4)
                     {
                         lvl_2_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
                     }
-                    if (!lvl_2_list.Contains("Treasure") && !lvl_2_list.Contains("Devil") && lvl_2_list.Contains("Cross") && lvl_2_list.Count < 4 && Random.Range(1, 11) > 4)
+                    else if (!lvl_2_list.Contains("Treasure") && lvl_2_list.Contains("Cross") && lvl_2_list.Count < 4 && Random.Range(1, 11) > 4)
                     {
                         lvl_2_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
                     }
                     break;
                 case 3:
-                    if (!lvl_3_list.Contains("Treasure") && !lvl_3_list.Contains("Devil") && lvl_3_list.Count < 4 && Random.Range(1, 11) < 4)
+                    if (!lvl_3_list.Contains("Treasure") && lvl_3_list.Count < 4 && Random.Range(1, 11) < 4)
                     {
                         lvl_3_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
                     }
-                    if (!lvl_3_list.Contains("Treasure") && !lvl_3_list.Contains("Devil") && lvl_3_list.Contains("Cross") && lvl_3_list.Count < 4 && Random.Range(1, 11) > 4)
+                    else if (!lvl_3_list.Contains("Treasure") && lvl_3_list.Contains("Cross") && lvl_3_list.Count < 4 && Random.Range(1, 11) > 4)
                     {
                         lvl_3_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
                     }
                     break;
                 case 4:
-                    if (!lvl_4_list.Contains("Treasure") && !lvl_4_list.Contains("Devil") && lvl_4_list.Count < 4 && Random.Range(1, 11) < 4)
+                    if (!lvl_4_list.Contains("Treasure") && !lvl_4_list.Contains("Devil") && lvl_4_list.Count < 4 && Random.Range(1, 11) > 4)
                     {
                         lvl_4_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
                     }
-                    if (!lvl_4_list.Contains("Treasure") && !lvl_4_list.Contains("Devil") && lvl_4_list.Contains("Cross") && lvl_4_list.Count < 4 && Random.Range(1, 11) > 4)
+                    else if (!lvl_4_list.Contains("Treasure") && !lvl_4_list.Contains("Devil") && lvl_4_list.Contains("Cross") && lvl_4_list.Count < 4 && Random.Range(1, 11) > 4)
                     {
                         lvl_4_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
@@ -683,7 +780,7 @@ public class MapGeneration : MonoBehaviour
                         lvl_5_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
                     }
-                    if (!lvl_5_list.Contains("Treasure") && !lvl_5_list.Contains("Devil") && lvl_5_list.Contains("Cross") && lvl_5_list.Count < 4 && Random.Range(1, 11) > 4)
+                    else if (!lvl_5_list.Contains("Treasure") && !lvl_5_list.Contains("Devil") && lvl_5_list.Contains("Cross") && lvl_5_list.Count < 4 && Random.Range(1, 11) > 4)
                     {
                         lvl_5_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
@@ -695,7 +792,7 @@ public class MapGeneration : MonoBehaviour
                         lvl_6_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
                     }
-                    if (!lvl_6_list.Contains("Treasure") && !lvl_6_list.Contains("Devil") && lvl_6_list.Contains("Cross") && lvl_6_list.Count < 4 && Random.Range(1, 11) > 4)
+                    else if (!lvl_6_list.Contains("Treasure") && !lvl_6_list.Contains("Devil") && lvl_6_list.Contains("Cross") && lvl_6_list.Count < 4 && Random.Range(1, 11) > 4)
                     {
                         lvl_6_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
@@ -707,7 +804,7 @@ public class MapGeneration : MonoBehaviour
                         lvl_7_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
                     }
-                    if (!lvl_7_list.Contains("Treasure") && !lvl_7_list.Contains("Devil") && lvl_7_list.Contains("Cross") && lvl_7_list.Count < 4 && Random.Range(1, 11) > 4)
+                    else if (!lvl_7_list.Contains("Treasure") && !lvl_7_list.Contains("Devil") && lvl_7_list.Contains("Cross") && lvl_7_list.Count < 4 && Random.Range(1, 11) > 4)
                     {
                         lvl_7_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
@@ -719,7 +816,7 @@ public class MapGeneration : MonoBehaviour
                         lvl_8_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
                     }
-                    if (!lvl_8_list.Contains("Treasure") && !lvl_8_list.Contains("Devil") && lvl_8_list.Contains("Cross") && lvl_8_list.Count < 4 && Random.Range(1, 11) > 4)
+                    else if (!lvl_8_list.Contains("Treasure") && !lvl_8_list.Contains("Devil") && lvl_8_list.Contains("Cross") && lvl_8_list.Count < 4 && Random.Range(1, 11) > 4)
                     {
                         lvl_8_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
@@ -731,7 +828,7 @@ public class MapGeneration : MonoBehaviour
                         lvl_9_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
                     }
-                    if (!lvl_9_list.Contains("Treasure") && !lvl_9_list.Contains("Devil") && lvl_9_list.Contains("Cross") && lvl_9_list.Count < 4 && Random.Range(1, 11) > 4)
+                    else if (!lvl_9_list.Contains("Treasure") && !lvl_9_list.Contains("Devil") && lvl_9_list.Contains("Cross") && lvl_9_list.Count < 4 && Random.Range(1, 11) > 4)
                     {
                         lvl_9_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
@@ -743,7 +840,7 @@ public class MapGeneration : MonoBehaviour
                         lvl_10_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
                     }
-                    if (!lvl_10_list.Contains("Treasure") && !lvl_10_list.Contains("Devil") && lvl_10_list.Contains("Cross") && lvl_10_list.Count < 4 && Random.Range(1, 11) > 4)
+                    else if (!lvl_10_list.Contains("Treasure") && !lvl_10_list.Contains("Devil") && lvl_10_list.Contains("Cross") && lvl_10_list.Count < 4 && Random.Range(1, 11) > 4)
                     {
                         lvl_10_list.Add("Treasure");
                         treasures.RemoveAt(treasures.Count - 1);
@@ -1009,11 +1106,21 @@ public class MapGeneration : MonoBehaviour
                             lvl_5_list.Add("Exit");
                             exits.RemoveAt(exits.Count - 1);
                         }
+                        else if (!lvl_5_list.Contains("Exit") && lvl_5_list.Contains("Devil") && !lvl_6_list.Contains("Exit") && lvl_5_list.Count < 4 && Random.Range(1, 10) < 4)
+                        {
+                            lvl_5_list.Add("Exit");
+                            exits.RemoveAt(exits.Count - 1);
+                        }
                         break;
                     case 2:
                         if (!lvl_5_list.Contains("Exit") && !lvl_6_list.Contains("Exit") && !lvl_6_list.Contains("Devil") && !lvl_7_list.Contains("Exit") && lvl_6_list.Count < 4)
                         {
                             lvl_6_list.Add("Exit");
+                            exits.RemoveAt(exits.Count - 1);
+                        }
+                        else if (!lvl_5_list.Contains("Exit") && lvl_6_list.Contains("Devil") && !lvl_6_list.Contains("Exit") && !lvl_7_list.Contains("Exit") && lvl_6_list.Count < 4 && Random.Range(1, 10) < 4)
+                        {
+                            lvl_5_list.Add("Exit");
                             exits.RemoveAt(exits.Count - 1);
                         }
                         break;
@@ -1023,9 +1130,19 @@ public class MapGeneration : MonoBehaviour
                             lvl_7_list.Add("Exit");
                             exits.RemoveAt(exits.Count - 1);
                         }
+                        else if (!lvl_6_list.Contains("Exit") && lvl_7_list.Contains("Devil") && !lvl_7_list.Contains("Exit") && !lvl_8_list.Contains("Exit") && lvl_7_list.Count < 4 && Random.Range(1, 10) < 4)
+                        {
+                            lvl_5_list.Add("Exit");
+                            exits.RemoveAt(exits.Count - 1);
+                        }
                         break;
                     case 4:
                         if (!lvl_7_list.Contains("Exit") && !lvl_8_list.Contains("Exit") && !lvl_8_list.Contains("Devil") && !lvl_9_list.Contains("Exit") && lvl_8_list.Count < 4)
+                        {
+                            lvl_8_list.Add("Exit");
+                            exits.RemoveAt(exits.Count - 1);
+                        }
+                        else if (!lvl_7_list.Contains("Exit") && !lvl_8_list.Contains("Exit") && lvl_8_list.Contains("Devil") && !lvl_9_list.Contains("Exit") && lvl_8_list.Count < 4 && lvl_8_list.Count < 4 && Random.Range(1, 10) < 4)
                         {
                             lvl_8_list.Add("Exit");
                             exits.RemoveAt(exits.Count - 1);
@@ -1237,6 +1354,7 @@ public class MapGeneration : MonoBehaviour
                 icon.transform.Find("Event").gameObject.SetActive(false);
                 icon.transform.Find("Altar").gameObject.SetActive(false);
                 icon.transform.Find("Messenger").gameObject.SetActive(false);
+                // zapisanie wartości do skrytpu obiektu
                 break;
             case "Devil":
                 icon.transform.Find("GrayDirt").gameObject.SetActive(false);
