@@ -119,6 +119,7 @@ public class MapGeneration : MonoBehaviour
 
     public void NextLevel()
     {
+        DisableUnusedButtons();
         UpdateDungeonLevel();
         ResetLevelProgress();
         CheckLevelRequirements();
@@ -135,6 +136,18 @@ public class MapGeneration : MonoBehaviour
     {
         lvl_progress = 0;
         MapStatus.GetComponent<MapStatus>().lvl_progress = lvl_progress;
+    }
+
+    public void DisableUnusedButtons()
+    {
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("DungeonIcon"))
+        {
+            if (gameObj.GetComponent<DungeonIcon>().icon_lvl == dungeon_lvl)
+            {
+                gameObj.GetComponent<DungeonIcon>().Disable();
+            }
+        }
+
     }
     public void SetLevelBuff()
     {
@@ -1941,68 +1954,68 @@ public class MapGeneration : MonoBehaviour
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             icon.transform.SetParent(GetPanel(0).transform);
-            GetIconSymbol(lvl_1_list[i], icon);
+            GetIconSymbol(lvl_1_list[i], icon, dungeon_lvl);
         }
         for (int i = 0; i < lvl_2_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             icon.transform.SetParent(GetPanel(1).transform);
-            GetIconSymbol(lvl_2_list[i], icon);
+            GetIconSymbol(lvl_2_list[i], icon, dungeon_lvl + 1);
         }
         for (int i = 0; i < lvl_3_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             icon.transform.SetParent(GetPanel(2).transform);
-            GetIconSymbol(lvl_3_list[i], icon);
+            GetIconSymbol(lvl_3_list[i], icon, dungeon_lvl + 2);
         }
         for (int i = 0; i < lvl_4_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             icon.transform.SetParent(GetPanel(3).transform);
-            GetIconSymbol(lvl_4_list[i], icon);
+            GetIconSymbol(lvl_4_list[i], icon, dungeon_lvl + 3);
         }
         for (int i = 0; i < lvl_5_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             icon.transform.SetParent(GetPanel(4).transform);
-            GetIconSymbol(lvl_5_list[i], icon);
+            GetIconSymbol(lvl_5_list[i], icon, dungeon_lvl + 4);
         }
         for (int i = 0; i < lvl_6_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             icon.transform.SetParent(GetPanel(5).transform);
-            GetIconSymbol(lvl_6_list[i], icon);
+            GetIconSymbol(lvl_6_list[i], icon, dungeon_lvl + 5);
         }
         for (int i = 0; i < lvl_7_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             icon.transform.SetParent(GetPanel(6).transform);
-            GetIconSymbol(lvl_7_list[i], icon);
+            GetIconSymbol(lvl_7_list[i], icon, dungeon_lvl + 6);
         }
         for (int i = 0; i < lvl_8_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             icon.transform.SetParent(GetPanel(7).transform);
-            GetIconSymbol(lvl_8_list[i], icon);
+            GetIconSymbol(lvl_8_list[i], icon, dungeon_lvl + 7);
         }
         for (int i = 0; i < lvl_9_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             icon.transform.SetParent(GetPanel(8).transform);
-            GetIconSymbol(lvl_9_list[i], icon);
+            GetIconSymbol(lvl_9_list[i], icon, dungeon_lvl + 8);
         }
         for (int i = 0; i < lvl_10_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             icon.transform.SetParent(GetPanel(9).transform);
-            GetIconSymbol(lvl_10_list[i], icon);
+            GetIconSymbol(lvl_10_list[i], icon, dungeon_lvl + 9);
         }
 
     }
 
-    public void GetIconSymbol(string symbol, GameObject icon)
+    public void GetIconSymbol(string symbol, GameObject icon, int icon_lvl)
     {
-        icon.GetComponent<DungeonIcon>().SetIconName(symbol);
+        icon.GetComponent<DungeonIcon>().SetIconName(symbol, icon_lvl);
         switch (symbol)
         {
             case "Skull":

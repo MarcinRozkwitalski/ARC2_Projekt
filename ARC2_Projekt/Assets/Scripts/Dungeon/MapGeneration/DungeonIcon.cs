@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DungeonIcon : MonoBehaviour
 {
     public string iconName, iconType;
+    public int icon_lvl = 0;
 
-    public void SetIconName(string name)
+    public void SetIconName(string name, int icon_lvl)
     {
         iconName = name;
+        this.icon_lvl = icon_lvl;
         SetIconType(iconName);
     }
 
@@ -53,6 +56,16 @@ public class DungeonIcon : MonoBehaviour
     public void Action()
     {
         GameObject.Find("MapManager").GetComponent<MapGeneration>().AfterAction();
+        gameObject.GetComponent<Button>().enabled = false;
+        gameObject.transform.Find("GrayDirt").gameObject.SetActive(true);
+        gameObject.transform.Find("Dirt").gameObject.SetActive(false);
+    }
+
+    public void Disable()
+    {
+        gameObject.GetComponent<Button>().enabled = false;
+        gameObject.transform.Find("GrayDirt").gameObject.SetActive(true);
+        gameObject.transform.Find("Dirt").gameObject.SetActive(false);
     }
 
 }

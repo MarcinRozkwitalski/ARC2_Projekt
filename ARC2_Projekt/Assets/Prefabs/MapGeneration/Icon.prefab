@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 6246458775296832560}
   m_Layer: 5
   m_Name: Icon
-  m_TagString: Untagged
+  m_TagString: DungeonIcon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -459,6 +459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iconName: 
   iconType: 
+  icon_lvl: 0
 --- !u!1 &4458271823568114769
 GameObject:
   m_ObjectHideFlags: 0
