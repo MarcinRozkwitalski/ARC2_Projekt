@@ -24,8 +24,22 @@ public class MapStatus : MonoBehaviour
     public List<string> lvl_8_buff_list = new List<string>();
     public List<string> lvl_9_buff_list = new List<string>();
     public List<string> lvl_10_buff_list = new List<string>();
-    public int player_lvl = 1;
+    public List<int> lvl_1_requirements_list = new List<int>();
+    public List<int> lvl_2_requirements_list = new List<int>();
+    public List<int> lvl_3_requirements_list = new List<int>();
+    public List<int> lvl_4_requirements_list = new List<int>();
+    public List<int> lvl_5_requirements_list = new List<int>();
+    public List<int> lvl_6_requirements_list = new List<int>();
+    public List<int> lvl_7_requirements_list = new List<int>();
+    public List<int> lvl_8_requirements_list = new List<int>();
+    public List<int> lvl_9_requirements_list = new List<int>();
+    public List<int> lvl_10_requirements_list = new List<int>();
+    public int dungeon_lvl = 1;
     public bool player_can_uncover = true;
+    public int lvl_requirements = 0;
+    public int lvl_progress = 0;
+    public string lvl_buff = "Nothing";
+
     void Awake()
     {
         var mapStatus = FindObjectsOfType<MapStatus>();

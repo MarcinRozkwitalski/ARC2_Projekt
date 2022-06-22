@@ -50,4 +50,9 @@ public class DungeonIcon : MonoBehaviour
         }
     }
 
+    public void Action()
+    {
+        GameObject.Find("MapManager").GetComponent<MapGeneration>().AfterAction();
+    }
+
 }

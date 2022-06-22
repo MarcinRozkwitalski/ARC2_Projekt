@@ -64,8 +64,23 @@ public class MapGeneration : MonoBehaviour
     public List<string> lvl_9_buff_list = new List<string>();
     public List<string> lvl_10_buff_list = new List<string>();
 
-    public int player_lvl = 1;
-    private bool player_can_uncover = true;
+    public List<int> lvl_1_requirements_list = new List<int>();
+    public List<int> lvl_2_requirements_list = new List<int>();
+    public List<int> lvl_3_requirements_list = new List<int>();
+    public List<int> lvl_4_requirements_list = new List<int>();
+    public List<int> lvl_5_requirements_list = new List<int>();
+    public List<int> lvl_6_requirements_list = new List<int>();
+    public List<int> lvl_7_requirements_list = new List<int>();
+    public List<int> lvl_8_requirements_list = new List<int>();
+    public List<int> lvl_9_requirements_list = new List<int>();
+    public List<int> lvl_10_requirements_list = new List<int>();
+
+
+    public int dungeon_lvl = 1;
+    private bool player_can_uncover = false;
+    public int lvl_requirements = 0;
+    public int lvl_progress = 0;
+    public string lvl_buff = "Nothing";
 
 
     void Awake()
@@ -76,7 +91,7 @@ public class MapGeneration : MonoBehaviour
 
     void Start()
     {
-        
+
         if (MapStatus.GetComponent<MapStatus>().lvl_1_list.Count == 0)
         {
             ShowLevel();
@@ -91,44 +106,159 @@ public class MapGeneration : MonoBehaviour
         }
     }
 
-
-
-    public void ShowLevel()
+    public void AfterAction()
     {
-        switch (player_lvl)
+        UpdateLevelProgress();
+        if (lvl_progress == lvl_requirements) NextLevel();
+    }
+
+    public void UpdateLevelProgress()
+    {
+        lvl_progress++;
+    }
+
+    public void NextLevel()
+    {
+        UpdateDungeonLevel();
+        ResetLevelProgress();
+        CheckLevelRequirements();
+        SetLevelBuff();
+    }
+
+    public void UpdateDungeonLevel()
+    {
+        if (dungeon_lvl < 10) dungeon_lvl++;
+        MapStatus.GetComponent<MapStatus>().dungeon_lvl = dungeon_lvl;
+        ShowLevel();
+    }
+    public void ResetLevelProgress()
+    {
+        lvl_progress = 0;
+        MapStatus.GetComponent<MapStatus>().lvl_progress = lvl_progress;
+    }
+    public void SetLevelBuff()
+    {
+        switch (dungeon_lvl)
         {
-            case 1:
-                lvl_1_cover.SetActive(false);
+            case 1: lvl_buff = lvl_1_buff_list[0]; break;
+            case 2: lvl_buff = lvl_2_buff_list[0]; break;
+            case 3: lvl_buff = lvl_3_buff_list[0]; break;
+            case 4: lvl_buff = lvl_4_buff_list[0]; break;
+            case 5: lvl_buff = lvl_5_buff_list[0]; break;
+            case 6: lvl_buff = lvl_6_buff_list[0]; break;
+            case 7: lvl_buff = lvl_7_buff_list[0]; break;
+            case 8: lvl_buff = lvl_8_buff_list[0]; break;
+            case 9: lvl_buff = lvl_9_buff_list[0]; break;
+            case 10: lvl_buff = lvl_10_buff_list[0]; break;
+        }
+        MapStatus.GetComponent<MapStatus>().lvl_buff = lvl_buff;
+    }
+
+    public void CheckLevelRequirements()
+    {
+        switch (dungeon_lvl)
+        {
+            case 1: lvl_requirements = lvl_1_requirements_list[0]; break;
+            case 2: lvl_requirements = lvl_2_requirements_list[0]; break;
+            case 3: lvl_requirements = lvl_3_requirements_list[0]; break;
+            case 4: lvl_requirements = lvl_4_requirements_list[0]; break;
+            case 5: lvl_requirements = lvl_5_requirements_list[0]; break;
+            case 6: lvl_requirements = lvl_6_requirements_list[0]; break;
+            case 7: lvl_requirements = lvl_7_requirements_list[0]; break;
+            case 8: lvl_requirements = lvl_8_requirements_list[0]; break;
+            case 9: lvl_requirements = lvl_9_requirements_list[0]; break;
+            case 10: lvl_requirements = lvl_10_requirements_list[0]; break;
+        }
+        MapStatus.GetComponent<MapStatus>().lvl_requirements = lvl_requirements;
+    }
+
+    public void SetLevelsRequirements(List<string> buff, List<int> requirements)
+    {
+        switch (buff[0])
+        {
+            case "Nothing":
+            case "DoubleMonsterDamage":
+            case "DoubleDamage":
+            case "IncreaseMonsterDamage":
+            case "IncreaseDamage":
+            case "IncreaseMonsterMoney":
+            case "IncreaseMoney":
+            case "NeutralChoice":
+            case "BadChoice":
+            case "GoodChoice":
+                requirements.Add(1);
                 break;
-            case 2:
-                lvl_2_cover.SetActive(false);
-                break;
-            case 3:
-                lvl_3_cover.SetActive(false);
-                break;
-            case 4:
-                lvl_4_cover.SetActive(false);
-                break;
-            case 5:
-                lvl_5_cover.SetActive(false);
-                break;
-            case 6:
-                lvl_6_cover.SetActive(false);
-                break;
-            case 7:
-                lvl_7_cover.SetActive(false);
-                break;
-            case 8:
-                lvl_8_cover.SetActive(false);
-                break;
-            case 9:
-                lvl_9_cover.SetActive(false);
-                break;
-            case 10:
-                lvl_10_cover.SetActive(false);
+            case "MoreOptions":
+                requirements.Add(2);
                 break;
 
         }
+    }
+
+    public void SetLevelsBuffsAndRequirements()
+    {
+        SetLevelsRequirements(lvl_1_buff_list, lvl_1_requirements_list);
+        SetLevelsRequirements(lvl_2_buff_list, lvl_2_requirements_list);
+        SetLevelsRequirements(lvl_3_buff_list, lvl_3_requirements_list);
+        SetLevelsRequirements(lvl_4_buff_list, lvl_4_requirements_list);
+        SetLevelsRequirements(lvl_5_buff_list, lvl_5_requirements_list);
+        SetLevelsRequirements(lvl_6_buff_list, lvl_6_requirements_list);
+        SetLevelsRequirements(lvl_7_buff_list, lvl_7_requirements_list);
+        SetLevelsRequirements(lvl_8_buff_list, lvl_8_requirements_list);
+        SetLevelsRequirements(lvl_9_buff_list, lvl_9_requirements_list);
+        SetLevelsRequirements(lvl_10_buff_list, lvl_10_requirements_list);
+        CheckLevelRequirements();
+        SetLevelBuff();
+    }
+
+    public void ShowLevel()
+    {
+        int load = 1;
+        while (load <= dungeon_lvl)
+            switch (load)
+            {
+                case 1:
+                    lvl_1_cover.SetActive(false);
+                    load++;
+                    break;
+                case 2:
+                    lvl_2_cover.SetActive(false);
+                    load++;
+                    break;
+                case 3:
+                    lvl_3_cover.SetActive(false);
+                    load++;
+                    break;
+                case 4:
+                    lvl_4_cover.SetActive(false);
+                    load++;
+                    break;
+                case 5:
+                    lvl_5_cover.SetActive(false);
+                    load++;
+                    break;
+                case 6:
+                    lvl_6_cover.SetActive(false);
+                    load++;
+                    break;
+                case 7:
+                    lvl_7_cover.SetActive(false);
+                    load++;
+                    break;
+                case 8:
+                    lvl_8_cover.SetActive(false);
+                    load++;
+                    break;
+                case 9:
+                    lvl_9_cover.SetActive(false);
+                    load++;
+                    break;
+                case 10:
+                    lvl_10_cover.SetActive(false);
+                    load++;
+                    break;
+
+            }
     }
 
     public void SetPanelList()
@@ -152,43 +282,83 @@ public class MapGeneration : MonoBehaviour
     }
     public void Lvl_1_Cover_Trun_Off()
     {
-        if (player_can_uncover) lvl_1_cover.SetActive(false);
+        if (player_can_uncover)
+        {
+            lvl_1_cover.SetActive(false);
+            player_can_uncover = false;
+        }
     }
     public void Lvl_2_Cover_Trun_Off()
     {
-        if (player_can_uncover) lvl_2_cover.SetActive(false);
+        if (player_can_uncover)
+        {
+            lvl_2_cover.SetActive(false);
+            player_can_uncover = false;
+        }
     }
     public void Lvl_3_Cover_Trun_Off()
     {
-        if (player_can_uncover) lvl_3_cover.SetActive(false);
+        if (player_can_uncover)
+        {
+            lvl_3_cover.SetActive(false);
+            player_can_uncover = false;
+        }
     }
     public void Lvl_4_Cover_Trun_Off()
     {
-        if (player_can_uncover) lvl_4_cover.SetActive(false);
+        if (player_can_uncover)
+        {
+            lvl_4_cover.SetActive(false);
+            player_can_uncover = false;
+        }
     }
     public void Lvl_5_Cover_Trun_Off()
     {
-        if (player_can_uncover) lvl_5_cover.SetActive(false);
+        if (player_can_uncover)
+        {
+            lvl_5_cover.SetActive(false);
+            player_can_uncover = false;
+        }
     }
     public void Lvl_6_Cover_Trun_Off()
     {
-        if (player_can_uncover) lvl_6_cover.SetActive(false);
+        if (player_can_uncover)
+        {
+            lvl_6_cover.SetActive(false);
+            player_can_uncover = false;
+        }
     }
     public void Lvl_7_Cover_Trun_Off()
     {
-        if (player_can_uncover) lvl_7_cover.SetActive(false);
+        if (player_can_uncover)
+        {
+            lvl_7_cover.SetActive(false);
+            player_can_uncover = false;
+        }
     }
     public void Lvl_8_Cover_Trun_Off()
     {
-        if (player_can_uncover) lvl_8_cover.SetActive(false);
+        if (player_can_uncover)
+        {
+            lvl_8_cover.SetActive(false);
+            player_can_uncover = false;
+        }
     }
     public void Lvl_9_Cover_Trun_Off()
     {
-        if (player_can_uncover) lvl_9_cover.SetActive(false);
+        if (player_can_uncover)
+        {
+            lvl_9_cover.SetActive(false);
+            player_can_uncover = false;
+        }
     }
     public void Lvl_10_Cover_Trun_Off()
     {
-        if (player_can_uncover) lvl_10_cover.SetActive(false);
+        if (player_can_uncover)
+        {
+            lvl_10_cover.SetActive(false);
+            player_can_uncover = false;
+        }
     }
 
     public void GenerateLevels()
@@ -197,9 +367,11 @@ public class MapGeneration : MonoBehaviour
         ShuffleIconsToLevelLists();
         PutIconsToPanels();
         GenerateBuffIcons();
+        SetLevelsBuffsAndRequirements();
+        UpdateMapStatus();
     }
 
-     public void PutBuffIconsToPanels()
+    public void PutBuffIconsToPanels()
     {
         int lvl = 1;
         while (lvl != 11)
@@ -210,31 +382,31 @@ public class MapGeneration : MonoBehaviour
                     PutBuffIcon(buff_lvl_1_panel, lvl_1_buff_list);
                     break;
                 case 2:
-                    PutBuffIcon(buff_lvl_2_panel,lvl_2_buff_list);
+                    PutBuffIcon(buff_lvl_2_panel, lvl_2_buff_list);
                     break;
                 case 3:
-                    PutBuffIcon(buff_lvl_3_panel,lvl_3_buff_list);
+                    PutBuffIcon(buff_lvl_3_panel, lvl_3_buff_list);
                     break;
                 case 4:
-                    PutBuffIcon(buff_lvl_4_panel,lvl_4_buff_list);
+                    PutBuffIcon(buff_lvl_4_panel, lvl_4_buff_list);
                     break;
                 case 5:
-                    PutBuffIcon(buff_lvl_5_panel,lvl_5_buff_list);
+                    PutBuffIcon(buff_lvl_5_panel, lvl_5_buff_list);
                     break;
                 case 6:
-                    PutBuffIcon(buff_lvl_6_panel,lvl_6_buff_list);
+                    PutBuffIcon(buff_lvl_6_panel, lvl_6_buff_list);
                     break;
                 case 7:
-                    PutBuffIcon(buff_lvl_7_panel,lvl_7_buff_list);
+                    PutBuffIcon(buff_lvl_7_panel, lvl_7_buff_list);
                     break;
                 case 8:
-                    PutBuffIcon(buff_lvl_8_panel,lvl_8_buff_list);
+                    PutBuffIcon(buff_lvl_8_panel, lvl_8_buff_list);
                     break;
                 case 9:
-                    PutBuffIcon(buff_lvl_9_panel,lvl_9_buff_list);
+                    PutBuffIcon(buff_lvl_9_panel, lvl_9_buff_list);
                     break;
                 case 10:
-                    PutBuffIcon(buff_lvl_10_panel,lvl_10_buff_list);
+                    PutBuffIcon(buff_lvl_10_panel, lvl_10_buff_list);
                     break;
             }
             lvl++;
@@ -669,7 +841,6 @@ public class MapGeneration : MonoBehaviour
         PutAltars();
         PutMessengers();
         PutSkulls();
-        UpdateMapStatus();
     }
 
     public void UpdateMapGeneration()
@@ -695,9 +866,23 @@ public class MapGeneration : MonoBehaviour
         lvl_8_buff_list = MapStatus.GetComponent<MapStatus>().lvl_8_buff_list;
         lvl_9_buff_list = MapStatus.GetComponent<MapStatus>().lvl_9_buff_list;
         lvl_10_buff_list = MapStatus.GetComponent<MapStatus>().lvl_10_buff_list;
-        
-        player_lvl = MapStatus.GetComponent<MapStatus>().player_lvl;
+
+        lvl_1_requirements_list = MapStatus.GetComponent<MapStatus>().lvl_1_requirements_list;
+        lvl_2_requirements_list = MapStatus.GetComponent<MapStatus>().lvl_2_requirements_list;
+        lvl_3_requirements_list = MapStatus.GetComponent<MapStatus>().lvl_3_requirements_list;
+        lvl_4_requirements_list = MapStatus.GetComponent<MapStatus>().lvl_4_requirements_list;
+        lvl_5_requirements_list = MapStatus.GetComponent<MapStatus>().lvl_5_requirements_list;
+        lvl_6_requirements_list = MapStatus.GetComponent<MapStatus>().lvl_6_requirements_list;
+        lvl_7_requirements_list = MapStatus.GetComponent<MapStatus>().lvl_7_requirements_list;
+        lvl_8_requirements_list = MapStatus.GetComponent<MapStatus>().lvl_8_requirements_list;
+        lvl_9_requirements_list = MapStatus.GetComponent<MapStatus>().lvl_9_requirements_list;
+        lvl_10_requirements_list = MapStatus.GetComponent<MapStatus>().lvl_10_requirements_list;
+
+        dungeon_lvl = MapStatus.GetComponent<MapStatus>().dungeon_lvl;
         player_can_uncover = MapStatus.GetComponent<MapStatus>().player_can_uncover;
+        lvl_requirements = MapStatus.GetComponent<MapStatus>().lvl_requirements;
+        lvl_progress = MapStatus.GetComponent<MapStatus>().lvl_progress;
+        lvl_buff = MapStatus.GetComponent<MapStatus>().lvl_buff;
 
     }
 
@@ -724,6 +909,24 @@ public class MapGeneration : MonoBehaviour
         MapStatus.GetComponent<MapStatus>().lvl_8_buff_list = lvl_8_buff_list;
         MapStatus.GetComponent<MapStatus>().lvl_9_buff_list = lvl_9_buff_list;
         MapStatus.GetComponent<MapStatus>().lvl_10_buff_list = lvl_10_buff_list;
+
+        MapStatus.GetComponent<MapStatus>().lvl_1_requirements_list = lvl_1_requirements_list;
+        MapStatus.GetComponent<MapStatus>().lvl_2_requirements_list = lvl_2_requirements_list;
+        MapStatus.GetComponent<MapStatus>().lvl_3_requirements_list = lvl_3_requirements_list;
+        MapStatus.GetComponent<MapStatus>().lvl_4_requirements_list = lvl_4_requirements_list;
+        MapStatus.GetComponent<MapStatus>().lvl_5_requirements_list = lvl_5_requirements_list;
+        MapStatus.GetComponent<MapStatus>().lvl_6_requirements_list = lvl_6_requirements_list;
+        MapStatus.GetComponent<MapStatus>().lvl_7_requirements_list = lvl_7_requirements_list;
+        MapStatus.GetComponent<MapStatus>().lvl_8_requirements_list = lvl_8_requirements_list;
+        MapStatus.GetComponent<MapStatus>().lvl_9_requirements_list = lvl_9_requirements_list;
+        MapStatus.GetComponent<MapStatus>().lvl_10_requirements_list = lvl_10_requirements_list;
+
+        // po akcji
+        MapStatus.GetComponent<MapStatus>().dungeon_lvl = dungeon_lvl;
+        MapStatus.GetComponent<MapStatus>().player_can_uncover = player_can_uncover;
+        MapStatus.GetComponent<MapStatus>().lvl_requirements = lvl_requirements;
+        MapStatus.GetComponent<MapStatus>().lvl_progress = lvl_progress;
+        MapStatus.GetComponent<MapStatus>().lvl_buff = lvl_buff;
     }
 
     public void PutSkulls()
