@@ -987,127 +987,128 @@ public class MapGeneration : MonoBehaviour
         Debug.Log(skulls.Count);
         while (skulls.Count > 0)
         {
-            if (lvl_1_list.Count == 0)
+            if (lvl_1_list.Count == 0 && skulls.Count > 0)
             {
                 lvl_1_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            if (lvl_2_list.Count == 0)
+            if (lvl_2_list.Count == 0 && skulls.Count > 0)
             {
                 lvl_2_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            if (lvl_3_list.Count == 0)
+            if (lvl_3_list.Count == 0 && skulls.Count > 0)
             {
                 lvl_3_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            if (lvl_4_list.Count == 0)
+            if (lvl_4_list.Count == 0 && skulls.Count > 0)
             {
                 lvl_4_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            if (lvl_5_list.Count == 0)
+            if (lvl_5_list.Count == 0 && skulls.Count > 0)
             {
                 lvl_5_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            if (lvl_6_list.Count == 0)
+            if (lvl_6_list.Count == 0 && skulls.Count > 0)
             {
                 lvl_6_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            if (lvl_7_list.Count == 0)
+            if (lvl_7_list.Count == 0 && skulls.Count > 0)
             {
                 lvl_7_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            if (lvl_8_list.Count == 0)
+            if (lvl_8_list.Count == 0 && skulls.Count > 0)
             {
                 lvl_8_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
-            if (lvl_9_list.Count == 0)
+            if (lvl_9_list.Count == 0 && skulls.Count > 0)
             {
                 lvl_9_list.Add("Skull");
                 skulls.RemoveAt(skulls.Count - 1);
             }
 
             int position = Random.Range(1, 11);
-            switch (position)
-            {
-                case 1:
-                    if (!lvl_1_list.Contains("Skull") && lvl_1_list.Count < 4)
-                    {
-                        lvl_1_list.Add("Skull");
-                        skulls.RemoveAt(skulls.Count - 1);
-                    }
-                    break;
-                case 2:
-                    if (!lvl_2_list.Contains("Skull") && lvl_2_list.Count < 4)
-                    {
-                        lvl_2_list.Add("Skull");
-                        skulls.RemoveAt(skulls.Count - 1);
-                    }
-                    break;
-                case 3:
-                    if (!lvl_3_list.Contains("Skull") && lvl_3_list.Count < 4)
-                    {
-                        lvl_3_list.Add("Skull");
-                        skulls.RemoveAt(skulls.Count - 1);
-                    }
-                    break;
-                case 4:
-                    if (!lvl_4_list.Contains("Skull") && lvl_4_list.Count < 4)
-                    {
-                        lvl_4_list.Add("Skull");
-                        skulls.RemoveAt(skulls.Count - 1);
-                    }
-                    break;
-                case 5:
-                    if (!lvl_5_list.Contains("Skull") && lvl_5_list.Count < 4)
-                    {
-                        lvl_5_list.Add("Skull");
-                        skulls.RemoveAt(skulls.Count - 1);
-                    }
-                    break;
-                case 6:
-                    if (!lvl_6_list.Contains("Skull") && lvl_6_list.Count < 4)
-                    {
-                        lvl_6_list.Add("Skull");
-                        skulls.RemoveAt(skulls.Count - 1);
-                    }
-                    break;
-                case 7:
-                    if (!lvl_7_list.Contains("Skull") && lvl_7_list.Count < 4)
-                    {
-                        lvl_7_list.Add("Skull");
-                        skulls.RemoveAt(skulls.Count - 1);
-                    }
-                    break;
-                case 8:
-                    if (!lvl_8_list.Contains("Skull") && lvl_8_list.Count < 4)
-                    {
-                        lvl_8_list.Add("Skull");
-                        skulls.RemoveAt(skulls.Count - 1);
-                    }
-                    break;
-                case 9:
-                    if (!lvl_9_list.Contains("Skull") && lvl_9_list.Count < 4)
-                    {
-                        lvl_9_list.Add("Skull");
-                        skulls.RemoveAt(skulls.Count - 1);
-                    }
-                    break;
-                case 10:
-                    if (!lvl_10_list.Contains("Skull") && lvl_10_list.Count < 4)
-                    {
-                        lvl_10_list.Add("Skull");
-                        skulls.RemoveAt(skulls.Count - 1);
-                    }
-                    break;
+            if (skulls.Count > 0)
+                switch (position)
+                {
+                    case 1:
+                        if (!lvl_1_list.Contains("Skull") && lvl_1_list.Count < 4)
+                        {
+                            lvl_1_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 2:
+                        if (!lvl_2_list.Contains("Skull") && lvl_2_list.Count < 4)
+                        {
+                            lvl_2_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 3:
+                        if (!lvl_3_list.Contains("Skull") && lvl_3_list.Count < 4)
+                        {
+                            lvl_3_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 4:
+                        if (!lvl_4_list.Contains("Skull") && lvl_4_list.Count < 4)
+                        {
+                            lvl_4_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 5:
+                        if (!lvl_5_list.Contains("Skull") && lvl_5_list.Count < 4)
+                        {
+                            lvl_5_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 6:
+                        if (!lvl_6_list.Contains("Skull") && lvl_6_list.Count < 4)
+                        {
+                            lvl_6_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 7:
+                        if (!lvl_7_list.Contains("Skull") && lvl_7_list.Count < 4)
+                        {
+                            lvl_7_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 8:
+                        if (!lvl_8_list.Contains("Skull") && lvl_8_list.Count < 4)
+                        {
+                            lvl_8_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 9:
+                        if (!lvl_9_list.Contains("Skull") && lvl_9_list.Count < 4)
+                        {
+                            lvl_9_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
+                    case 10:
+                        if (!lvl_10_list.Contains("Skull") && lvl_10_list.Count < 4)
+                        {
+                            lvl_10_list.Add("Skull");
+                            skulls.RemoveAt(skulls.Count - 1);
+                        }
+                        break;
 
-            }
+                }
 
         }
     }
