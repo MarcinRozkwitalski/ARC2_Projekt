@@ -195,6 +195,7 @@ public class CardAnimation : MonoBehaviour
 
             yield return null;
         }
+        this.GetComponent<BattleCardInfo>().allow_to_animate = false;
         transform.position = endPos;
         transform.localScale = endLocalScale;
         battleHandler.moveCardsFromUsedCardsToDeckCardsAnimation = false;
