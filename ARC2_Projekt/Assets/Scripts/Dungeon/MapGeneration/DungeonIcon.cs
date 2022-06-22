@@ -41,7 +41,7 @@ public class DungeonIcon : MonoBehaviour
             case "Messenger":
                 iconType = "Neutral";
                 break;
-            case "Treasuer":
+            case "Treasure":
                 iconType = "Good";
                 break;
             case "Cross":
