@@ -77,8 +77,8 @@ public class MapGeneration : MonoBehaviour
 
     public List<string> this_lvl_list = new List<string>();
     public List<string> this_lvl_list_clicked = new List<string>();
- 
-    public bool battle_ended = false;
+
+    public bool battle_started = false;
     public int dungeon_lvl = 1;
     public int dungeon_zone = 0;
     private bool player_can_uncover = false;
@@ -105,10 +105,11 @@ public class MapGeneration : MonoBehaviour
         }
         else
         {
-            if(battle_ended){
-                battle_ended = false;
-                AfterAction();
-            }
+            // if (battle_started)
+            // {
+            //     battle_started = false;
+            //     AfterAction();
+            // }
             GetThisLevelListFromMapStatus();
             UpdateMapGeneration();
             PutIconsToPanels();
@@ -122,8 +123,9 @@ public class MapGeneration : MonoBehaviour
             if (TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife <= 0) UseExit();
         }
     }
-    public void UseBattle(){
-         SceneSwitcher.GetComponent<SceneSwitcher>().LoadDungeonBattleScene();
+    public void UseBattle()
+    {
+        SceneSwitcher.GetComponent<SceneSwitcher>().LoadDungeonBattleScene();
     }
 
     public void GetThisLevelListFromMapStatus()
@@ -131,18 +133,27 @@ public class MapGeneration : MonoBehaviour
         this_lvl_list_clicked = MapStatus.GetComponent<MapStatus>().this_lvl_list_clicked;
     }
 
+    public void GetIconForBattle(string iconName)
+    {
+        TempPlayer.GetComponent<TempCurrentPlayer>().LastDoorValue = iconName;
+    }
+
+    public void GetBattleStarted()
+    {
+        battle_started = true;
+    }
+
     public void GetThisLevelListClicked(string iconName)
     {
         this_lvl_list_clicked.Add(iconName);
         MapStatus.GetComponent<MapStatus>().this_lvl_list_clicked = this_lvl_list_clicked;
-        Debug.Log("dodanie");
     }
+
 
     public void ResetThisLevelListClicked()
     {
         this_lvl_list_clicked.Clear();
         MapStatus.GetComponent<MapStatus>().this_lvl_list_clicked.Clear();
-        Debug.Log("czyszczenie");
     }
 
     public void AfterAction()
@@ -167,6 +178,11 @@ public class MapGeneration : MonoBehaviour
         SetLevelBuff();
         DisableForbidenButtons();
         ResetThisLevelListClicked();
+        if (battle_started)
+        {
+            battle_started = false;
+            UseBattle();
+        }
     }
 
     public void UpdateDungeonLevel()
