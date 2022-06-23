@@ -10,6 +10,7 @@ public class BattleHandler : MonoBehaviour
     public NormalEnemiesList normalEnemiesList;
     public PowerfulEnemiesList powerfulEnemiesList;
     public RandomizeCardsPositions randomizeCardsPositions;
+    public MapStatus mapStatus;
 
     public TMP_Text informationText;
     public GameObject backToDungeonButton;
@@ -43,6 +44,7 @@ public class BattleHandler : MonoBehaviour
     public string whosTurn;
     public string whoWon;
     public string enemyType;
+    public float moneyPercentage;
     
     public int currentEnemyId;
     public string currentEnemyName;
@@ -62,6 +64,8 @@ public class BattleHandler : MonoBehaviour
         tempCurrentPlayer = GameObject.Find("DoorHandler").GetComponent<TempCurrentPlayer>();
         normalEnemiesList = GameObject.Find("BattleHandler").GetComponent<NormalEnemiesList>();
         powerfulEnemiesList = GameObject.Find("BattleHandler").GetComponent<PowerfulEnemiesList>();
+        mapStatus = GameObject.Find("MapStatus").GetComponent<MapStatus>();
+
         playerNameText = GameObject.Find("PlayerNameText (TMP)").GetComponent<TMP_Text>();
         playerHealthText = GameObject.Find("PlayerHealthText (TMP)").GetComponent<TMP_Text>();
         playerDefenceText = GameObject.Find("PlayerDefenceText (TMP)").GetComponent<TMP_Text>();
@@ -81,6 +85,8 @@ public class BattleHandler : MonoBehaviour
 
         GetEnemyTypeByLastDoorValue();
         GetRandomEnemy();
+
+        CheckMoneyPercentage();
 
         playerNameText.text = CurrentPlayerUsername;
         currentPlayerHealth = tempCurrentPlayer.TempPlayerLife;
@@ -137,6 +143,42 @@ public class BattleHandler : MonoBehaviour
         currentEnemyName = powerfulEnemiesList.powerfulEnemiesList[currentEnemyId - powerfulEnemiesList.startingId].enemyName;
         currentEnemyHealth = powerfulEnemiesList.powerfulEnemiesList[currentEnemyId - powerfulEnemiesList.startingId].health;
         currentEnemyMaxHealth = currentEnemyHealth;
+    }
+
+    public void CheckMoneyPercentage()
+    {
+        string current_level_buff = mapStatus.lvl_buff;
+        float howManyTimes5 = mapStatus.dungeon_lvl;
+        float howManyTimes50 = mapStatus.dungeon_zone;
+
+        if(current_level_buff == "IncreaseMonsterMoney")
+        {
+            int randomPercentage = Random.Range(1, 4);
+            switch (randomPercentage)
+            {
+                case 1:
+                    moneyPercentage = 25 + (howManyTimes5 * 5) + (howManyTimes50 * 50);
+                    break;
+
+                case 2:
+                    moneyPercentage = 35 + (howManyTimes5 * 5) + (howManyTimes50 * 50);
+                    break;
+
+                case 3:
+                    moneyPercentage = 45 + (howManyTimes5 * 5) + (howManyTimes50 * 50);
+                    break;
+
+                default:
+                    moneyPercentage = (howManyTimes5 * 5) + (howManyTimes50 * 50);
+                    break;
+            }
+            tempCurrentPlayer.TempPlayerMoneyToWinPercentage = (float)moneyPercentage/100;
+        }
+        else
+        {
+            moneyPercentage = (howManyTimes5 * 5) + (howManyTimes50 * 50);
+            tempCurrentPlayer.TempPlayerMoneyToWinPercentage = (float)moneyPercentage/100;
+        }
     }
 
     public void ResetRemainingMoves()

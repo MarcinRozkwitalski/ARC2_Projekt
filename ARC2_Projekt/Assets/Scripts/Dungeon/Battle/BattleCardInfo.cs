@@ -134,32 +134,51 @@ public class BattleCardInfo : MonoBehaviour
         }
         else if(is_back_active == false)
         {
+            string cardType = this.type;           
 
-            string cardType = this.type;
+            string current_level_buff = battleHandler.mapStatus.lvl_buff;
+            int currentAttackPoints = points;
+
+            switch (current_level_buff)
+            {
+                case "DoubleDamage":
+                    currentAttackPoints *= 2;
+                    break;
+
+                case "IncreaseDamage":
+                    int randomPercentage = Random.Range(1, 4);
+                    if      (randomPercentage == 1) currentAttackPoints += 2;
+                    else if (randomPercentage == 2) currentAttackPoints += 3;
+                    else if (randomPercentage == 3) currentAttackPoints += 4;                           
+                    break;
+
+                default:
+                    break;
+            }
 
             switch (cardType)
             {
                 case "Atak":
-                    if(battleHandler.currentEnemyDefence > points)
+                    if(battleHandler.currentEnemyDefence > currentAttackPoints)
                     {
-                        battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
+                        battleHandler.informationText.text = "Zadajesz " + currentAttackPoints + " obrazen.";
                         battleHandler.currentPlayerHealth -= healthPoints;
                         PreventHealthPointsFallingBelowZero();
                         battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                        battleHandler.currentEnemyDefence -= points;
+                        battleHandler.currentEnemyDefence -= currentAttackPoints;
                         battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                         battleHandler.remainingMoves--;
                         battleHandler.currentAmmountOfMoves++;
                         DebuggingInfo();
                         CheckIfRemainingMovesIsZero();
                     }
-                    else if (battleHandler.currentEnemyDefence < points)
+                    else if (battleHandler.currentEnemyDefence < currentAttackPoints)
                     {
-                        int remainingPoints = battleHandler.currentEnemyDefence - points;
-                        if(battleHandler.currentEnemyDefence == 0) battleHandler.currentEnemyHealth -= points;
+                        int remainingPoints = battleHandler.currentEnemyDefence - currentAttackPoints;
+                        if(battleHandler.currentEnemyDefence == 0) battleHandler.currentEnemyHealth -= currentAttackPoints;
                         else battleHandler.currentEnemyHealth += remainingPoints;
 
-                        battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
+                        battleHandler.informationText.text = "Zadajesz " + currentAttackPoints + " obrazen.";
                         
                         battleHandler.currentPlayerHealth -= healthPoints;
                         PreventHealthPointsFallingBelowZero();
@@ -179,9 +198,9 @@ public class BattleCardInfo : MonoBehaviour
                         }
                         else CheckIfRemainingMovesIsZero();
                     }
-                    else if (battleHandler.currentEnemyDefence == points)
+                    else if (battleHandler.currentEnemyDefence == currentAttackPoints)
                     {
-                        battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
+                        battleHandler.informationText.text = "Zadajesz " + currentAttackPoints + " obrazen.";
                         battleHandler.currentPlayerHealth -= healthPoints;
                         PreventHealthPointsFallingBelowZero();
                         battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
@@ -275,26 +294,26 @@ public class BattleCardInfo : MonoBehaviour
                     switch (randomAction)
                     {
                         case 1: //atak
-                            if(battleHandler.currentEnemyDefence > points)
+                            if(battleHandler.currentEnemyDefence > currentAttackPoints)
                             {
-                                battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
+                                battleHandler.informationText.text = "Zadajesz " + currentAttackPoints + " obrazen.";
                                 battleHandler.currentPlayerHealth -= healthPoints;
                                 PreventHealthPointsFallingBelowZero();
                                 battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                                battleHandler.currentEnemyDefence -= points;
+                                battleHandler.currentEnemyDefence -= currentAttackPoints;
                                 battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                                 battleHandler.remainingMoves--;
                                 battleHandler.currentAmmountOfMoves++;
                                 DebuggingInfo();
                                 CheckIfRemainingMovesIsZero();
                             }
-                            else if (battleHandler.currentEnemyDefence < points)
+                            else if (battleHandler.currentEnemyDefence < currentAttackPoints)
                             {
-                                int remainingPoints = battleHandler.currentEnemyDefence - points;
-                                if(battleHandler.currentEnemyDefence == 0) battleHandler.currentEnemyHealth -= points;
+                                int remainingPoints = battleHandler.currentEnemyDefence - currentAttackPoints;
+                                if(battleHandler.currentEnemyDefence == 0) battleHandler.currentEnemyHealth -= currentAttackPoints;
                                 else battleHandler.currentEnemyHealth += remainingPoints;
 
-                                battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
+                                battleHandler.informationText.text = "Zadajesz " + currentAttackPoints + " obrazen.";
                                 
                                 battleHandler.currentPlayerHealth -= healthPoints;
                                 PreventHealthPointsFallingBelowZero();
@@ -314,9 +333,9 @@ public class BattleCardInfo : MonoBehaviour
                                 }
                                 else CheckIfRemainingMovesIsZero();
                             }
-                            else if (battleHandler.currentEnemyDefence == points)
+                            else if (battleHandler.currentEnemyDefence == currentAttackPoints)
                             {
-                                battleHandler.informationText.text = "Zadajesz " + points + " obrazen.";
+                                battleHandler.informationText.text = "Zadajesz " + currentAttackPoints + " obrazen.";
                                 battleHandler.currentPlayerHealth -= healthPoints;
                                 PreventHealthPointsFallingBelowZero();
                                 battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;

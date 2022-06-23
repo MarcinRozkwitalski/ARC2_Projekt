@@ -22,10 +22,12 @@ public class AddEnemyToTCP : MonoBehaviour
     public void AddNormalEnemy()
     {
         tempCurrentPlayer.BeatenNormalEnemies += 1;
+        tempCurrentPlayer.TempPlayerMoney += Mathf.RoundToInt(100 * tempCurrentPlayer.TempPlayerMoneyToWinPercentage);
     }
 
     public void AddPowerfulEnemy()
     {
         tempCurrentPlayer.BeatenPowerfulEnemies += 1;
+        tempCurrentPlayer.TempPlayerMoney += Mathf.RoundToInt(200 * tempCurrentPlayer.TempPlayerMoneyToWinPercentage);
     }
 }

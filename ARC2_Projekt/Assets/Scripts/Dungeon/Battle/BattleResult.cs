@@ -26,10 +26,8 @@ public class BattleResult : MonoBehaviour
     public void EnemyWon()
     {
         tempCurrentPlayer.whoWon = "enemy";
-        tempCurrentPlayer.TempPlayerLife = 25;
+        tempCurrentPlayer.TempPlayerLife = 50;
         tempCurrentPlayer.TempPlayerMoneyResults = 0;
-        tempCurrentPlayer.BeatenNormalEnemies = 0;
-        tempCurrentPlayer.BeatenPowerfulEnemies = 0;
         tempCurrentPlayer.TempPlayerMoney = (int)Mathf.Ceil(tempCurrentPlayer.TempPlayerMoney/2);
     }
 }
