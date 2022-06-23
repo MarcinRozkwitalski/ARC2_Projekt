@@ -107,30 +107,44 @@ public class EnemyFightingLogic : MonoBehaviour
             EnemyMoves currentEnemyMove = enemyMoves[randomMove];
 
             battleHandler.informationText.text = currentEnemyMove.description;
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1.5f);          
+
+            string current_level_buff = battleHandler.mapStatus.lvl_buff;
+            int currentAttackValue = currentEnemyMove.value;
+
+            switch (current_level_buff)
+            {
+                case "DoubleMonterDamage":
+                    currentAttackValue *= 2;
+                    break;
+
+                case "IncreaseMonsterDamage":
+                    int randomPercentage = Random.Range(1, 4);
+                    if      (randomPercentage == 1) currentAttackValue += 2;
+                    else if (randomPercentage == 2) currentAttackValue += 3;
+                    else if (randomPercentage == 3) currentAttackValue += 4;                           
+                    break;
+
+                default:
+                    break;
+            }
 
             if(currentEnemyMove.type == "Atak")
             {
-                if(battleHandler.currentPlayerDefence > currentEnemyMove.value)
+                if(battleHandler.currentPlayerDefence > currentAttackValue)
                 {
-                    battleHandler.currentEnemyHealth -= currentEnemyMove.cost;
-                    PreventHealthPointsFallingBelowZero();
-                    battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
-                    battleHandler.currentPlayerDefence -= currentEnemyMove.value;
+                    battleHandler.currentPlayerDefence -= currentAttackValue;
                     battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                     battleHandler.remainingMoves--;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
                 }
-                else if (battleHandler.currentPlayerDefence < currentEnemyMove.value)
+                else if (battleHandler.currentPlayerDefence < currentAttackValue)
                 {
-                    int remainingPoints = battleHandler.currentPlayerDefence - currentEnemyMove.value;
-                    if(battleHandler.currentPlayerDefence == 0) battleHandler.currentPlayerHealth -= currentEnemyMove.value;
+                    int remainingPoints = battleHandler.currentPlayerDefence - currentAttackValue;
+                    if(battleHandler.currentPlayerDefence == 0) battleHandler.currentPlayerHealth -= currentAttackValue;
                     else battleHandler.currentPlayerHealth += remainingPoints;
 
-                    battleHandler.currentEnemyHealth -= currentEnemyMove.cost;
-                    PreventHealthPointsFallingBelowZero();
-                    battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
                     battleHandler.currentPlayerDefence = 0;
                     battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                     battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
@@ -144,11 +158,8 @@ public class EnemyFightingLogic : MonoBehaviour
                     }
                     else CheckIfRemainingMovesIsZero();
                 }
-                else if (battleHandler.currentPlayerDefence == currentEnemyMove.value)
+                else if (battleHandler.currentPlayerDefence == currentAttackValue)
                 {
-                    battleHandler.currentEnemyHealth -= currentEnemyMove.cost;
-                    PreventHealthPointsFallingBelowZero();
-                    battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
                     battleHandler.currentPlayerDefence = 0;
                     battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                     battleHandler.remainingMoves--;
@@ -158,9 +169,6 @@ public class EnemyFightingLogic : MonoBehaviour
             }
             else if(currentEnemyMove.type == "Obrona")
             {
-                battleHandler.currentEnemyHealth -= currentEnemyMove.cost;
-                PreventHealthPointsFallingBelowZero();
-                battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
                 battleHandler.currentEnemyDefence += currentEnemyMove.value;
                 battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                 battleHandler.remainingMoves--;

@@ -13,12 +13,14 @@ public class PowerfulEnemiesList : MonoBehaviour
         public int id;
         public string enemyName;
         public int health;
+        public int money;
 
-        public PowerfulEnemies(int newId, string newEnemyName, int newHealth)
+        public PowerfulEnemies(int newId, string newEnemyName, int newHealth, int newMoney)
         {
             id = newId;
             enemyName = newEnemyName;
             health = newHealth;
+            money = newMoney;
         }
     }
 
@@ -47,17 +49,17 @@ public class PowerfulEnemiesList : MonoBehaviour
     public List<PowerfulEnemiesMoves> powerfulEnemiesMovesList = new List<PowerfulEnemiesMoves>();
 
     private void Awake() {
-        powerfulEnemiesList.Add(new PowerfulEnemiesList.PowerfulEnemies(10, "Minotaur", 80));
+        powerfulEnemiesList.Add(new PowerfulEnemiesList.PowerfulEnemies(10, "Minotaur", 80, 200));
         powerfulEnemiesMovesList.Add(new PowerfulEnemiesList.PowerfulEnemiesMoves(10, "Szarza",         "Minotaur uzywa szarzy!",           "Atak",     0, 10));
         powerfulEnemiesMovesList.Add(new PowerfulEnemiesList.PowerfulEnemiesMoves(10, "Ciecie toporem", "Minotaur uzywa ciecie toporem!",   "Atak",     0, 8));
         powerfulEnemiesMovesList.Add(new PowerfulEnemiesList.PowerfulEnemiesMoves(10, "Garda",          "Minotaur uzywa gardy!",            "Obrona",   0, 7));
 
-        powerfulEnemiesList.Add(new PowerfulEnemiesList.PowerfulEnemies(11, "Cerber", 100));
+        powerfulEnemiesList.Add(new PowerfulEnemiesList.PowerfulEnemies(11, "Cerber", 100, 200));
         powerfulEnemiesMovesList.Add(new PowerfulEnemiesList.PowerfulEnemiesMoves(11, "Potrojne ugryzienie",    "Cerber uzywa potrojnego ugryzienia!",  "Atak",     0, 12));
         powerfulEnemiesMovesList.Add(new PowerfulEnemiesList.PowerfulEnemiesMoves(11, "Szarza",                 "Cerber uzywa szarzy!",                 "Atak",     0, 8));
         powerfulEnemiesMovesList.Add(new PowerfulEnemiesList.PowerfulEnemiesMoves(11, "Unik",                   "Cerber uzywa uniku!",                  "Obrona",   0, 5));
 
-        powerfulEnemiesList.Add(new PowerfulEnemiesList.PowerfulEnemies(12, "Anubis", 90));
+        powerfulEnemiesList.Add(new PowerfulEnemiesList.PowerfulEnemies(12, "Anubis", 90, 200));
         powerfulEnemiesMovesList.Add(new PowerfulEnemiesList.PowerfulEnemiesMoves(12, "Magia rozkladania",  "Anubis uzywa magii rozkladania!",  "Atak",     0, 9));
         powerfulEnemiesMovesList.Add(new PowerfulEnemiesList.PowerfulEnemiesMoves(12, "Uderzenie laska",    "Anubis uzywa uderzenie laska!",    "Atak",     0, 7));
         powerfulEnemiesMovesList.Add(new PowerfulEnemiesList.PowerfulEnemiesMoves(12, "Ochronny krag",      "Anubis uzywa ochronnego kregu!",   "Obrona",   0, 10));

@@ -13,12 +13,14 @@ public class NormalEnemiesList : MonoBehaviour
         public int id;
         public string enemyName;
         public int health;
+        public int money;
 
-        public NormalEnemies(int newId, string newEnemyName, int newHealth)
+        public NormalEnemies(int newId, string newEnemyName, int newHealth, int newMoney)
         {
             id = newId;
             enemyName = newEnemyName;
             health = newHealth;
+            money = newMoney;
         }
     }
 
@@ -48,16 +50,16 @@ public class NormalEnemiesList : MonoBehaviour
 
     private void Awake() {
         
-        normalEnemiesList.Add(new NormalEnemiesList.NormalEnemies(1, "Imp", 25));
+        normalEnemiesList.Add(new NormalEnemiesList.NormalEnemies(1, "Imp", 25, 100));
         normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(1, "Kly",   "Imp uzywa kiel!",      "Atak",     0, 4));
         normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(1, "Krzyk", "Imp uzywa krzyku!",    "Atak",     0, 4));
         normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(1, "Unik",  "Imp uzywa uniku!",     "Obrona",   0, 3));
 
-        normalEnemiesList.Add(new NormalEnemiesList.NormalEnemies(2, "Zombie", 20));
+        normalEnemiesList.Add(new NormalEnemiesList.NormalEnemies(2, "Zombie", 20, 100));
         normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(2, "Ugryzienie", "Zombie uzywa poteznego ugryzienia!", "Atak", 0, 5));
         normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(2, "Ugryzienie", "Zombie uzywa ugryzienia!", "Atak", 0, 3));
 
-        normalEnemiesList.Add(new NormalEnemiesList.NormalEnemies(3, "Szczur", 15));
+        normalEnemiesList.Add(new NormalEnemiesList.NormalEnemies(3, "Szczur", 15, 100));
         normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(3, "Ugryzienie",    "Szczur uzywa ugryzienia!", "Atak",     0, 4));
         normalEnemiesMovesList.Add(new NormalEnemiesList.NormalEnemiesMoves(3, "Unik",          "Szczur uzywa uniku!",      "Obrona",   0, 4));
 
