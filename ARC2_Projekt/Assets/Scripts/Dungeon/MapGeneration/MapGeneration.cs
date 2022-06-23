@@ -160,6 +160,11 @@ public class MapGeneration : MonoBehaviour
     {
         if (TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife <= 0) UseExit();
         UpdateLevelProgress();
+         if (battle_started)
+        {
+            battle_started = false;
+            UseBattle();
+        }
         if (lvl_progress == lvl_requirements) NextLevel();
     }
 
@@ -178,11 +183,7 @@ public class MapGeneration : MonoBehaviour
         SetLevelBuff();
         DisableForbidenButtons();
         ResetThisLevelListClicked();
-        if (battle_started)
-        {
-            battle_started = false;
-            UseBattle();
-        }
+       
     }
 
     public void UpdateDungeonLevel()
