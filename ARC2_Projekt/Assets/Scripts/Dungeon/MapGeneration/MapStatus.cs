@@ -42,6 +42,7 @@ public class MapStatus : MonoBehaviour
     public int lvl_requirements = 0;
     public int lvl_progress = 0;
     public string lvl_buff = "Nothing";
+    public string battle_buff = "Nothing";
     public bool action_done = false;
 
     void Awake()

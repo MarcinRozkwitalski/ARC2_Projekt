@@ -74,6 +74,7 @@ public class DungeonIcon : MonoBehaviour
             {
                 GameObject.Find("MapManager").GetComponent<MapGeneration>().GetBattleStarted();
                 GameObject.Find("MapManager").GetComponent<MapGeneration>().AfterAction();
+                // GameObject.Find("MapManager").GetComponent<MapGeneration>().UseBattle();
             }
 
         }

@@ -140,6 +140,7 @@ public class MapGeneration : MonoBehaviour
 
     public void GetBattleStarted()
     {
+        MapStatus.GetComponent<MapStatus>().battle_buff = lvl_buff;
         battle_started = true;
     }
 
@@ -160,7 +161,7 @@ public class MapGeneration : MonoBehaviour
     {
         if (TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife <= 0) UseExit();
         UpdateLevelProgress();
-         if (battle_started)
+        if (battle_started)
         {
             battle_started = false;
             UseBattle();
@@ -183,7 +184,7 @@ public class MapGeneration : MonoBehaviour
         SetLevelBuff();
         DisableForbidenButtons();
         ResetThisLevelListClicked();
-       
+
     }
 
     public void UpdateDungeonLevel()
@@ -516,6 +517,7 @@ public class MapGeneration : MonoBehaviour
     }
     public void SetLevelBuff()
     {
+        Debug.Log("Update Buff");
         switch (dungeon_lvl)
         {
             case 1: lvl_buff = lvl_1_buff_list[0]; break;
