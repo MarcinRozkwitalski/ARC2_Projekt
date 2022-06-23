@@ -240,7 +240,7 @@ public class BattleHandler : MonoBehaviour
         else if(deckCardsToPick.transform.childCount == 4) howMany = 4;
         else {howMany = 5;}
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         for (int i = 0; i < howMany; i++)
         {
             deckCardsToPick.transform.GetChild(0).GetComponent<BattleCardInfo>().allow_to_animate = true;
@@ -266,7 +266,7 @@ public class BattleHandler : MonoBehaviour
             }
 
             moveCardsFromUsedCardsToDeckCardsAnimation = true;
-            yield return new WaitForSeconds(1.1f);
+            yield return new WaitForSeconds(0.3f);
             moveCardsFromUsedCardsToDeckCardsAnimation = false;
 
             StartCoroutine(GiveFirstCards());

@@ -98,16 +98,16 @@ public class EnemyFightingLogic : MonoBehaviour
 
     IEnumerator HandleEnemyMoves()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         battleHandler.informationText.text = "Tura wroga!";
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
 
         for(int i = battleHandler.remainingMoves; i > 0; i--){
             int randomMove = Random.Range(0, enemyMoves.Count);
             EnemyMoves currentEnemyMove = enemyMoves[randomMove];
 
             battleHandler.informationText.text = currentEnemyMove.description;
-            yield return new WaitForSeconds(1.5f);          
+            yield return new WaitForSeconds(1f);          
 
             string current_level_buff = battleHandler.mapStatus.lvl_buff;
             int currentAttackValue = currentEnemyMove.value;
@@ -176,11 +176,11 @@ public class EnemyFightingLogic : MonoBehaviour
                 CheckIfRemainingMovesIsZero();
             }
         }
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         
         if(battleHandler.whoWon != "enemy"){
             battleHandler.informationText.text = "Wróg zakończył turę.";
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1f);
             StartCoroutine(battleHandler.CheckRemainingPlayerCards());
             SetDefaultDefenceForPlayer();
             battleHandler.informationText.text = "Twoja tura!";

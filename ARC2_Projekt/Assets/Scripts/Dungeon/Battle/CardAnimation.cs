@@ -17,8 +17,9 @@ public class CardAnimation : MonoBehaviour
     public bool lockPos = false;
 
     public GameObject target;
-    public float lerpDurationOne = 1;
+    public float lerpDurationOne = 1f;
     public float lerpDurationHalf = 0.5f;
+    public float lerpDurationQuarter = 0.25f;
 
     private void Start() 
     {
@@ -76,10 +77,10 @@ public class CardAnimation : MonoBehaviour
         }
 
         float timeElapsed = 0;
-        while(timeElapsed < lerpDurationOne)
+        while(timeElapsed < lerpDurationHalf)
         {
             timeElapsed += Time.deltaTime;
-            float percentageComplete = timeElapsed / lerpDurationOne;
+            float percentageComplete = timeElapsed / lerpDurationHalf;
 
             transform.position = Vector2.Lerp(startObjectPos, endPos, percentageComplete);
             transform.localScale = Vector2.Lerp(startObjectScale, endLocalScale, percentageComplete);
@@ -105,10 +106,10 @@ public class CardAnimation : MonoBehaviour
         }
 
         float timeElapsed = 0;
-        while(timeElapsed < lerpDurationOne)
+        while(timeElapsed < lerpDurationHalf)
         {
             timeElapsed += Time.deltaTime;
-            float percentageComplete = timeElapsed / lerpDurationOne;
+            float percentageComplete = timeElapsed / lerpDurationHalf;
 
             transform.position = Vector2.Lerp(startObjectPos, endPos, percentageComplete);
             transform.localScale = Vector2.Lerp(startObjectScale, endLocalScale, percentageComplete);
@@ -185,10 +186,10 @@ public class CardAnimation : MonoBehaviour
         }
 
         float timeElapsed = 0;
-        while(timeElapsed < lerpDurationOne)
+        while(timeElapsed < lerpDurationQuarter)
         {
             timeElapsed += Time.deltaTime;
-            float percentageComplete = timeElapsed / lerpDurationOne;
+            float percentageComplete = timeElapsed / lerpDurationQuarter;
 
             transform.position = Vector2.Lerp(startObjectPos, endPos, percentageComplete);
             transform.localScale = Vector2.Lerp(startObjectScale, endLocalScale, percentageComplete);
