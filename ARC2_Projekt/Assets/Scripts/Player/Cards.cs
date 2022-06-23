@@ -9,47 +9,38 @@ using UnityEngine.UI;
 
 public class Cards : MonoBehaviour
 {
+    public CardList cardList;
+    
     public TMP_Text CardsNumber;
-
     public TMP_Text PlayerMoney;
 
-    public int CurrentPlayerId;
-
     public GameObject CardsInfoPrefab;
-
     public GameObject showCardPrefab;
-
     public GameObject mainpanel;
-
     public GameObject panel;
-
     public GameObject shoppanel;
-
     public GameObject deckPanel;
-
     public GameObject CurrentPlayer;
 
     public int cardsNumber;
-
     public string sceneName;
 
     void Start()
     {
+        cardList = GameObject.Find("CardManager").GetComponent<CardList>();
         CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
-        CurrentPlayerId = CurrentPlayer.GetComponent<CurrentPlayer>().Id;
         Scene currentScene = SceneManager.GetActiveScene();
         sceneName = currentScene.name;
         if (sceneName == "Cards")
         {
-            StartCoroutine(GetAllCardsInfos());
-            StartCoroutine(GetAllPlayerDeckCards());
+            GetAllCardsInfos();
+            GetAllPlayerDeckCards();
         }
         if (sceneName == "Shop")
         {
             PlayerMoney.text = "Money: " + CurrentPlayer.GetComponent<CurrentPlayer>().Money;
-            StartCoroutine(GetAllShopCards());
+            GetAllShopCard();
         }
-        // Screem.width do skalowania na inne ekrany
     }
 
     public void LoadPlayerWelcomeScene()
@@ -60,209 +51,156 @@ public class Cards : MonoBehaviour
     public void AllCards()
     {
         DestroyAllCardsInfos();
-        StartCoroutine(GetAllCardsInfos());
+        GetAllCardsInfos();
     }
 
     public void AttackCards()
     {
         DestroyAllCardsInfos();
-        StartCoroutine(GetAllAttackCards());
+        GetAllAttackCards();
     }
 
     public void DefenceCards()
     {
         DestroyAllCardsInfos();
-        StartCoroutine(GetAllDefenceCards());
+        GetAllDefenceCards();
     }
 
     public void SpecialCards()
     {
         DestroyAllCardsInfos();
-        StartCoroutine(GetAllSpecialCards());
+        GetAllSpecialCards();
     }
 
     public void AllDeckCards()
     {
         DestroyAllPlayerDeckCards();
-        StartCoroutine(GetAllPlayerDeckCards());
+        GetAllPlayerDeckCards();
     }
 
     public void AttackDeckCards()
     {
         DestroyAllPlayerDeckCards();
-        StartCoroutine(GetAllAttackPlayerDeckCards());
+        GetAllAttackPlayerDeckCards();
     }
 
     public void DefenceDeckCards()
     {
         DestroyAllPlayerDeckCards();
-        StartCoroutine(GetAllDefencePlayerDeckCards());
+        GetAllDefencePlayerDeckCards();
     }
 
     public void SpecialDeckCards()
     {
         DestroyAllPlayerDeckCards();
-        StartCoroutine(GetAllSpecialPlayerDeckCards());
+        GetAllSpecialPlayerDeckCards();
     }
 
     public void AllShopCards()
     {
         DestroyAllShopCards();
         PlayerMoney.text = "Money: " + CurrentPlayer.GetComponent<CurrentPlayer>().Money;
-        StartCoroutine(GetAllShopCards());
+        GetAllShopCard();
     }
 
     public void AllShopAttackCards()
     {
         DestroyAllShopCards();
-        StartCoroutine(GetAllShopAttackCards());
+        GetAllShopAttackCards();
     }
 
     public void AllShopDefenceCards()
     {
         DestroyAllShopCards();
-        StartCoroutine(GetAllShopDefenceCards());
+        GetAllShopDefenceCards();
     }
 
      public void AllShopSpecialCards()
     {
         DestroyAllShopCards();
-        StartCoroutine(GetAllShopSpecialCards());
+        GetAllShopSpecialCards();
     }
 
-    IEnumerator GetAllCardsInfos()
+    public void GetAllCardsInfos()
     {
-        WWWForm getAllCardsInfosForm = new WWWForm();
-        getAllCardsInfosForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllCardsInfosForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllCardsInfosRequest = UnityWebRequest.Post("http://localhost/CardsInfos/getall.php", getAllCardsInfosForm);
-        yield return getAllCardsInfosRequest.SendWebRequest();
-        if (getAllCardsInfosRequest.error == null)
+        foreach(var card in cardList.cardsList)
         {
-            JSONNode allCardsInfos = JSON.Parse(getAllCardsInfosRequest.downloadHandler.text);
-            if (allCardsInfos != null)
-                foreach (JSONNode player_cards in allCardsInfos)
-                {
-                    var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    CardsInfo.transform.SetParent(panel.transform);
-                    CheckSubtype(CardsInfo, player_cards[1]);
-                    CardsInfo.GetComponent<CardsInfo>().cardname = player_cards[0];
-                    CardsInfo.GetComponent<CardsInfo>().type = player_cards[1];
-                    CardsInfo.GetComponent<CardsInfo>().description = player_cards[2];
-                    CardsInfo.GetComponent<CardsInfo>().price = int.Parse(player_cards[3]);
-                    CardsInfo.GetComponent<CardsInfo>().points = int.Parse(player_cards[4]);
-                    CardsInfo.GetComponent<CardsInfo>().healthPoints = int.Parse(player_cards[5]);
-                    CardsInfo.GetComponent<CardsInfo>().id = int.Parse(player_cards[6]);
-                    if (player_cards[7] == "0") CardsInfo.GetComponent<CardsInfo>().is_equipped = false;
-                    else                        CardsInfo.GetComponent<CardsInfo>().is_equipped = true;
-                    CardsInfo.GetComponent<CardsInfo>().AssignInfo();
-                }
-        }
-        else
-        {
-            Debug.Log(getAllCardsInfosRequest.error);
+            if(card.is_equipped == false && card.bought == true)
+            {
+                var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                CardsInfo.transform.SetParent(panel.transform);
+                CheckSubtype(CardsInfo, card.card_subtype);
+                CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
+                CardsInfo.GetComponent<CardsInfo>().price = card.price;
+                CardsInfo.GetComponent<CardsInfo>().points = card.points;
+                CardsInfo.GetComponent<CardsInfo>().healthPoints = card.health_points;
+                CardsInfo.GetComponent<CardsInfo>().id = card.id;
+                CardsInfo.GetComponent<CardsInfo>().AssignInfo();
+            }
         }
     }
 
-    IEnumerator GetAllAttackCards()
+    public void GetAllAttackCards()
     {
-        WWWForm getAllAttackCardsForm = new WWWForm();
-        getAllAttackCardsForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllAttackCardsForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllAttackCardsRequest = UnityWebRequest.Post("http://localhost/CardsInfos/getallattack.php", getAllAttackCardsForm);
-        yield return getAllAttackCardsRequest.SendWebRequest();
-        if (getAllAttackCardsRequest.error == null)
+        foreach(var card in cardList.cardsList)
         {
-            JSONNode allCardsInfos = JSON.Parse(getAllAttackCardsRequest.downloadHandler.text);
-            if (allCardsInfos != null)
-                foreach (JSONNode player_cards in allCardsInfos)
-                {
-                    var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    CardsInfo.transform.SetParent(panel.transform);
-                    CheckSubtype(CardsInfo, player_cards[1]);
-                    CardsInfo.GetComponent<CardsInfo>().cardname = player_cards[0];
-                    CardsInfo.GetComponent<CardsInfo>().type = player_cards[1];
-                    CardsInfo.GetComponent<CardsInfo>().description = player_cards[2];
-                    CardsInfo.GetComponent<CardsInfo>().price = int.Parse(player_cards[3]);
-                    CardsInfo.GetComponent<CardsInfo>().points = int.Parse(player_cards[4]);
-                    CardsInfo.GetComponent<CardsInfo>().healthPoints = int.Parse(player_cards[5]);
-                    CardsInfo.GetComponent<CardsInfo>().id = int.Parse(player_cards[6]);
-                    if (player_cards[7] == "0") CardsInfo.GetComponent<CardsInfo>().is_equipped = false;
-                    else                        CardsInfo.GetComponent<CardsInfo>().is_equipped = true;
-                    CardsInfo.GetComponent<CardsInfo>().AssignInfo();
-                }
-        }
-        else
-        {
-            Debug.Log(getAllAttackCardsRequest.error);
+            if(card.card_type == "Atak" && card.is_equipped == false && card.bought == true){
+                var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                CardsInfo.transform.SetParent(panel.transform);
+                CheckSubtype(CardsInfo, card.card_subtype);
+                CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
+                CardsInfo.GetComponent<CardsInfo>().price = card.price;
+                CardsInfo.GetComponent<CardsInfo>().points = card.points;
+                CardsInfo.GetComponent<CardsInfo>().healthPoints = card.health_points;
+                CardsInfo.GetComponent<CardsInfo>().id = card.id;
+                CardsInfo.GetComponent<CardsInfo>().AssignInfo();
+            }
         }
     }
 
-    IEnumerator GetAllDefenceCards()
+    public void GetAllDefenceCards()
     {
-        WWWForm getAllDefenceCardsForm = new WWWForm();
-        getAllDefenceCardsForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllDefenceCardsForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllDefenceCardsRequest = UnityWebRequest.Post("http://localhost/CardsInfos/getalldefence.php", getAllDefenceCardsForm);
-        yield return getAllDefenceCardsRequest.SendWebRequest();
-        if (getAllDefenceCardsRequest.error == null)
+        foreach(var card in cardList.cardsList)
         {
-            JSONNode allCardsInfos = JSON.Parse(getAllDefenceCardsRequest.downloadHandler.text);
-            if (allCardsInfos != null)
-                foreach (JSONNode player_cards in allCardsInfos)
-                {
-                    var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    CardsInfo.transform.SetParent(panel.transform);
-                    CheckSubtype(CardsInfo, player_cards[1]);
-                    CardsInfo.GetComponent<CardsInfo>().cardname = player_cards[0];
-                    CardsInfo.GetComponent<CardsInfo>().type = player_cards[1];
-                    CardsInfo.GetComponent<CardsInfo>().description = player_cards[2];
-                    CardsInfo.GetComponent<CardsInfo>().price = int.Parse(player_cards[3]);
-                    CardsInfo.GetComponent<CardsInfo>().points = int.Parse(player_cards[4]);
-                    CardsInfo.GetComponent<CardsInfo>().healthPoints = int.Parse(player_cards[5]);
-                    CardsInfo.GetComponent<CardsInfo>().id = int.Parse(player_cards[6]);
-                    if (player_cards[7] == "0") CardsInfo.GetComponent<CardsInfo>().is_equipped = false;
-                    else                        CardsInfo.GetComponent<CardsInfo>().is_equipped = true;
-                    CardsInfo.GetComponent<CardsInfo>().AssignInfo();
-                }
-        }
-        else
-        {
-            Debug.Log(getAllDefenceCardsRequest.error);
+            if(card.card_type == "Obrona" && card.is_equipped == false && card.bought == true){
+                var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                CardsInfo.transform.SetParent(panel.transform);
+                CheckSubtype(CardsInfo, card.card_subtype);
+                CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
+                CardsInfo.GetComponent<CardsInfo>().price = card.price;
+                CardsInfo.GetComponent<CardsInfo>().points = card.points;
+                CardsInfo.GetComponent<CardsInfo>().healthPoints = card.health_points;
+                CardsInfo.GetComponent<CardsInfo>().id = card.id;
+                CardsInfo.GetComponent<CardsInfo>().is_equipped = false;
+                CardsInfo.GetComponent<CardsInfo>().AssignInfo();
+            }
         }
     }
 
-     IEnumerator GetAllSpecialCards()
+    public void GetAllSpecialCards()
     {
-        WWWForm getAllDefenceCardsForm = new WWWForm();
-        getAllDefenceCardsForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllDefenceCardsForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllDefenceCardsRequest = UnityWebRequest.Post("http://localhost/CardsInfos/getallspecial.php", getAllDefenceCardsForm);
-        yield return getAllDefenceCardsRequest.SendWebRequest();
-        if (getAllDefenceCardsRequest.error == null)
+        foreach(var card in cardList.cardsList)
         {
-            JSONNode allCardsInfos = JSON.Parse(getAllDefenceCardsRequest.downloadHandler.text);
-            if (allCardsInfos != null)
-                foreach (JSONNode player_cards in allCardsInfos)
-                {
-                    var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    CardsInfo.transform.SetParent(panel.transform);
-                    CheckSubtype(CardsInfo, player_cards[1]);
-                    CardsInfo.GetComponent<CardsInfo>().cardname = player_cards[0];
-                    CardsInfo.GetComponent<CardsInfo>().type = player_cards[1];
-                    CardsInfo.GetComponent<CardsInfo>().description = player_cards[2];
-                    CardsInfo.GetComponent<CardsInfo>().price = int.Parse(player_cards[3]);
-                    CardsInfo.GetComponent<CardsInfo>().points = int.Parse(player_cards[4]);
-                    CardsInfo.GetComponent<CardsInfo>().healthPoints = int.Parse(player_cards[5]);
-                    CardsInfo.GetComponent<CardsInfo>().id = int.Parse(player_cards[6]);
-                    if (player_cards[7] == "0") CardsInfo.GetComponent<CardsInfo>().is_equipped = false;
-                    else                        CardsInfo.GetComponent<CardsInfo>().is_equipped = true;
-                    CardsInfo.GetComponent<CardsInfo>().AssignInfo();
-                }
-        }
-        else
-        {
-            Debug.Log(getAllDefenceCardsRequest.error);
+            if(card.card_type == "Specjalna" && card.is_equipped == false && card.bought == true){
+                var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                CardsInfo.transform.SetParent(panel.transform);
+                CheckSubtype(CardsInfo, card.card_subtype);
+                CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
+                CardsInfo.GetComponent<CardsInfo>().price = card.price;
+                CardsInfo.GetComponent<CardsInfo>().points = card.points;
+                CardsInfo.GetComponent<CardsInfo>().healthPoints = card.health_points;
+                CardsInfo.GetComponent<CardsInfo>().id = card.id;
+                CardsInfo.GetComponent<CardsInfo>().is_equipped = false;
+                CardsInfo.GetComponent<CardsInfo>().AssignInfo();
+            }
         }
     }
 
@@ -302,147 +240,95 @@ public class Cards : MonoBehaviour
         }
     }
 
-    IEnumerator GetAllPlayerDeckCards()
+    public void GetAllPlayerDeckCards()
     {
-        WWWForm getAllPlayerDeckCardsForm = new WWWForm();
-        getAllPlayerDeckCardsForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllPlayerDeckCardsForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllPlayerDeckCardsRequest = UnityWebRequest.Post("http://localhost/CardsInfos/getalldeckcards.php", getAllPlayerDeckCardsForm);
-        yield return getAllPlayerDeckCardsRequest.SendWebRequest();
-        if (getAllPlayerDeckCardsRequest.error == null)
+        cardsNumber = 0;
+        foreach(var card in cardList.cardsList)
         {
-            JSONNode allPlayerDeckCards =
-                JSON.Parse(getAllPlayerDeckCardsRequest.downloadHandler.text);
-            cardsNumber = 0;
-            if (allPlayerDeckCards != null)
-                foreach (JSONNode player_cards in allPlayerDeckCards)
-                {
-                    cardsNumber++;
-                    var CardsInfo = Instantiate(CardsInfoPrefab,new Vector3(0, 0, 0),Quaternion.identity);
-                    CardsInfo.transform.SetParent(deckPanel.transform);
-                    CheckSubtype(CardsInfo, player_cards[1]);
-                    CardsInfo.GetComponent<CardsInfo>().cardname = player_cards[0];
-                    CardsInfo.GetComponent<CardsInfo>().type = player_cards[1];
-                    CardsInfo.GetComponent<CardsInfo>().description = player_cards[2];
-                    CardsInfo.GetComponent<CardsInfo>().price = int.Parse(player_cards[3]);
-                    CardsInfo.GetComponent<CardsInfo>().points = int.Parse(player_cards[4]);
-                    CardsInfo.GetComponent<CardsInfo>().healthPoints = int.Parse(player_cards[5]);
-                    CardsInfo.GetComponent<CardsInfo>().id = int.Parse(player_cards[6]);
-                    if (player_cards[7] == "0") CardsInfo.GetComponent<CardsInfo>().is_equipped = false;
-                    else                        CardsInfo.GetComponent<CardsInfo>().is_equipped = true;
-                    CardsInfo.GetComponent<CardsInfo>().AssignInfo();
-                }
-
-            CardsNumber.text = cardsNumber + "/20 cards ";
+            if(card.is_equipped == true && card.bought == true)
+            {
+                cardsNumber++;
+                var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                CardsInfo.transform.SetParent(deckPanel.transform);
+                CheckSubtype(CardsInfo, card.card_subtype);
+                CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
+                CardsInfo.GetComponent<CardsInfo>().price = card.price;
+                CardsInfo.GetComponent<CardsInfo>().points = card.points;
+                CardsInfo.GetComponent<CardsInfo>().healthPoints = card.health_points;
+                CardsInfo.GetComponent<CardsInfo>().id = card.id;
+                CardsInfo.GetComponent<CardsInfo>().is_equipped = true;
+                CardsInfo.GetComponent<CardsInfo>().AssignInfo();
+            }
         }
-        else
+
+        CardsNumber.text = cardsNumber + "/20 cards ";
+    }
+
+    public void GetAllAttackPlayerDeckCards()
+    {
+        foreach(var card in cardList.cardsList)
         {
-            Debug.Log(getAllPlayerDeckCardsRequest.error);
+            if(card.card_type == "Atak" && card.is_equipped == true && card.bought == true)
+            {
+                var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                CardsInfo.transform.SetParent(deckPanel.transform);
+                CheckSubtype(CardsInfo, card.card_subtype);
+                CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
+                CardsInfo.GetComponent<CardsInfo>().price = card.price;
+                CardsInfo.GetComponent<CardsInfo>().points = card.points;
+                CardsInfo.GetComponent<CardsInfo>().healthPoints = card.health_points;
+                CardsInfo.GetComponent<CardsInfo>().id = card.id;
+                CardsInfo.GetComponent<CardsInfo>().is_equipped = true;
+                CardsInfo.GetComponent<CardsInfo>().AssignInfo();
+            }
         }
     }
 
-    IEnumerator GetAllAttackPlayerDeckCards()
+    public void GetAllDefencePlayerDeckCards()
     {
-        WWWForm getAllPlayerDeckCardsForm = new WWWForm();
-        getAllPlayerDeckCardsForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllPlayerDeckCardsForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllPlayerDeckCardsRequest = UnityWebRequest.Post("http://localhost/CardsInfos/getallattackdeckcards.php", getAllPlayerDeckCardsForm);
-        yield return getAllPlayerDeckCardsRequest.SendWebRequest();
-        if (getAllPlayerDeckCardsRequest.error == null)
+        foreach(var card in cardList.cardsList)
         {
-            JSONNode allPlayerDeckCards = JSON.Parse(getAllPlayerDeckCardsRequest.downloadHandler.text);
-            if (allPlayerDeckCards != null)
-                foreach (JSONNode player_cards in allPlayerDeckCards)
-                {
-                    var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    CardsInfo.transform.SetParent(deckPanel.transform);
-                    CheckSubtype(CardsInfo, player_cards[1]);
-                    CardsInfo.GetComponent<CardsInfo>().cardname = player_cards[0];
-                    CardsInfo.GetComponent<CardsInfo>().type = player_cards[1];
-                    CardsInfo.GetComponent<CardsInfo>().description = player_cards[2];
-                    CardsInfo.GetComponent<CardsInfo>().price = int.Parse(player_cards[3]);
-                    CardsInfo.GetComponent<CardsInfo>().points = int.Parse(player_cards[4]);
-                    CardsInfo.GetComponent<CardsInfo>().healthPoints = int.Parse(player_cards[5]);
-                    CardsInfo.GetComponent<CardsInfo>().id = int.Parse(player_cards[6]);
-                    if (player_cards[7] == "0") CardsInfo.GetComponent<CardsInfo>().is_equipped = false;
-                    else                        CardsInfo.GetComponent<CardsInfo>().is_equipped = true;
-                    CardsInfo.GetComponent<CardsInfo>().AssignInfo();
-                }
-        }
-        else
-        {
-            Debug.Log(getAllPlayerDeckCardsRequest.error);
+            if(card.card_type == "Obrona" && card.is_equipped == true && card.bought == true)
+            {
+                var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                CardsInfo.transform.SetParent(deckPanel.transform);
+                CheckSubtype(CardsInfo, card.card_subtype);
+                CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
+                CardsInfo.GetComponent<CardsInfo>().price = card.price;
+                CardsInfo.GetComponent<CardsInfo>().points = card.points;
+                CardsInfo.GetComponent<CardsInfo>().healthPoints = card.health_points;
+                CardsInfo.GetComponent<CardsInfo>().id = card.id;
+                CardsInfo.GetComponent<CardsInfo>().is_equipped = true;
+                CardsInfo.GetComponent<CardsInfo>().AssignInfo();
+            }
         }
     }
 
-    IEnumerator GetAllDefencePlayerDeckCards()
+    public void GetAllSpecialPlayerDeckCards()
     {
-        WWWForm getAllPlayerDeckCardsForm = new WWWForm();
-        getAllPlayerDeckCardsForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllPlayerDeckCardsForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllPlayerDeckCardsRequest =
-            UnityWebRequest
-                .Post("http://localhost/CardsInfos/getalldefencedeckcards.php",
-                getAllPlayerDeckCardsForm);
-        yield return getAllPlayerDeckCardsRequest.SendWebRequest();
-        if (getAllPlayerDeckCardsRequest.error == null)
+        foreach(var card in cardList.cardsList)
         {
-            JSONNode allPlayerDeckCards = JSON.Parse(getAllPlayerDeckCardsRequest.downloadHandler.text);
-            if (allPlayerDeckCards != null)
-                foreach (JSONNode player_cards in allPlayerDeckCards)
-                {
-                    var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    CardsInfo.transform.SetParent(deckPanel.transform);
-                    CheckSubtype(CardsInfo, player_cards[1]);
-                    CardsInfo.GetComponent<CardsInfo>().cardname = player_cards[0];
-                    CardsInfo.GetComponent<CardsInfo>().type = player_cards[1];
-                    CardsInfo.GetComponent<CardsInfo>().description = player_cards[2];
-                    CardsInfo.GetComponent<CardsInfo>().price = int.Parse(player_cards[3]);
-                    CardsInfo.GetComponent<CardsInfo>().points = int.Parse(player_cards[4]);
-                    CardsInfo.GetComponent<CardsInfo>().healthPoints = int.Parse(player_cards[5]);
-                    CardsInfo.GetComponent<CardsInfo>().id = int.Parse(player_cards[6]);
-                    if (player_cards[7] == "0") CardsInfo.GetComponent<CardsInfo>().is_equipped = false;
-                    else                        CardsInfo.GetComponent<CardsInfo>().is_equipped = true;
-                    CardsInfo.GetComponent<CardsInfo>().AssignInfo();
-                }
-        }
-        else
-        {
-            Debug.Log(getAllPlayerDeckCardsRequest.error);
-        }
-    }
-
-     IEnumerator GetAllSpecialPlayerDeckCards()
-    {
-        WWWForm getAllPlayerDeckCardsForm = new WWWForm();
-        getAllPlayerDeckCardsForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllPlayerDeckCardsForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllPlayerDeckCardsRequest = UnityWebRequest.Post("http://localhost/CardsInfos/getallspecialdeckcards.php", getAllPlayerDeckCardsForm);
-        yield return getAllPlayerDeckCardsRequest.SendWebRequest();
-        if (getAllPlayerDeckCardsRequest.error == null)
-        {
-            JSONNode allPlayerDeckCards = JSON.Parse(getAllPlayerDeckCardsRequest.downloadHandler.text);
-            if (allPlayerDeckCards != null)
-                foreach (JSONNode player_cards in allPlayerDeckCards)
-                {
-                    var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    CardsInfo.transform.SetParent(deckPanel.transform);
-                    CheckSubtype(CardsInfo, player_cards[1]);
-                    CardsInfo.GetComponent<CardsInfo>().cardname = player_cards[0];
-                    CardsInfo.GetComponent<CardsInfo>().type = player_cards[1];
-                    CardsInfo.GetComponent<CardsInfo>().description = player_cards[2];
-                    CardsInfo.GetComponent<CardsInfo>().price = int.Parse(player_cards[3]);
-                    CardsInfo.GetComponent<CardsInfo>().points = int.Parse(player_cards[4]);
-                    CardsInfo.GetComponent<CardsInfo>().healthPoints = int.Parse(player_cards[5]);
-                    CardsInfo.GetComponent<CardsInfo>().id = int.Parse(player_cards[6]);
-                    if (player_cards[7] == "0") CardsInfo.GetComponent<CardsInfo>().is_equipped = false;
-                    else                        CardsInfo.GetComponent<CardsInfo>().is_equipped = true;
-                    CardsInfo.GetComponent<CardsInfo>().AssignInfo();
-                }
-        }
-        else
-        {
-            Debug.Log(getAllPlayerDeckCardsRequest.error);
+            if(card.card_type == "Specjalna" && card.is_equipped == true && card.bought == true)
+            {
+                var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                CardsInfo.transform.SetParent(deckPanel.transform);
+                CheckSubtype(CardsInfo, card.card_subtype);
+                CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
+                CardsInfo.GetComponent<CardsInfo>().price = card.price;
+                CardsInfo.GetComponent<CardsInfo>().points = card.points;
+                CardsInfo.GetComponent<CardsInfo>().healthPoints = card.health_points;
+                CardsInfo.GetComponent<CardsInfo>().id = card.id;
+                CardsInfo.GetComponent<CardsInfo>().is_equipped = true;
+                CardsInfo.GetComponent<CardsInfo>().AssignInfo();
+            }
         }
     }
 
@@ -575,29 +461,27 @@ public class Cards : MonoBehaviour
 
     public void MoveCard(int id, bool is_equipped, string type)
     {
-        StartCoroutine(AddRemoveCard(id, is_equipped, type));
+        AddRemoveCard(id, is_equipped, type);
     }
 
-    IEnumerator AddRemoveCard(int id, bool is_equipped, string type)
+    public void AddRemoveCard(int id, bool is_equipped, string type)
     {
-        WWWForm updateDeckForm = new WWWForm();
-        updateDeckForm.AddField("apppassword", "thisisfromtheapp!");
-        updateDeckForm.AddField("Id", CurrentPlayerId);
-        updateDeckForm.AddField("Card_Id", id);
-        if (is_equipped == false && cardsNumber < 20)
+        foreach(var card in cardList.cardsList)
         {
-            UnityWebRequest updateDeckRequest = UnityWebRequest.Post("http://localhost/CardsInfos/addtodeck.php", updateDeckForm);
-            cardsNumber++;
-            CardsNumber.text = cardsNumber + "/20 cards ";
-            yield return updateDeckRequest.SendWebRequest();
+            if (card.id == id && card.is_equipped == false && cardsNumber < 20)
+            {
+                card.is_equipped = true;
+                cardsNumber++;
+                CardsNumber.text = cardsNumber + "/20 cards ";
+            }
+            else if (card.id == id && card.is_equipped == true)
+            {
+                card.is_equipped = false;
+                cardsNumber--;
+                CardsNumber.text = cardsNumber + "/20 cards ";
+            }
         }
-        else if (is_equipped == true)
-        {
-            UnityWebRequest updateDeckRequest = UnityWebRequest.Post("http://localhost/CardsInfos/removefromdeck.php", updateDeckForm);
-            cardsNumber--;
-            CardsNumber.text = cardsNumber + "/20 cards ";
-            yield return updateDeckRequest.SendWebRequest();
-        }
+        
         UpdateCards (type);
     }
 
@@ -606,45 +490,33 @@ public class Cards : MonoBehaviour
         if (type == "Atak")
         {
             DestroyAllCardsInfos();
-            StartCoroutine(GetAllAttackCards());
+            GetAllAttackCards();
             DestroyAllPlayerDeckCards();
-            StartCoroutine(GetAllAttackPlayerDeckCards());
+            GetAllAttackPlayerDeckCards();
         }
         else if (type == "Obrona")
         {
             DestroyAllCardsInfos();
-            StartCoroutine(GetAllDefenceCards());
+            GetAllDefenceCards();
             DestroyAllPlayerDeckCards();
-            StartCoroutine(GetAllDefencePlayerDeckCards());
+            GetAllDefencePlayerDeckCards();
         }
         else
         {
             DestroyAllCardsInfos();
-            StartCoroutine(GetAllSpecialCards());
+            GetAllSpecialCards();
             DestroyAllPlayerDeckCards();
-            StartCoroutine(GetAllSpecialPlayerDeckCards());
+            GetAllSpecialPlayerDeckCards();
         }
     }
 
-    public void ShowCard(
-        string Cardname,
-        string Type,
-        string Description,
-        int Price,
-        int Points,
-        int HealthPoints,
-        int Id,
-        bool Is_equipped
-    )
+    public void ShowCard(string Cardname, string Type, string Description, int Price, int Points, int HealthPoints, int Id, bool Is_equipped)
     {
-        var showCard =
-            Instantiate(showCardPrefab,
-            new Vector3(0, 0, 0),
-            Quaternion.identity);
+        var showCard = Instantiate(showCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         showCard.transform.SetParent(mainpanel.transform);
         showCard.transform.position = new Vector3(960, 540, 0);
         CheckAddRemoveButton (Is_equipped, showCard);
-        StartCoroutine(CheckBuySellButton(Id, showCard));
+        CheckBuySellButton(Id, showCard);
         CheckSubtype(showCard, Type);
         showCard.GetComponent<CardsInfo>().cardname = Cardname;
         showCard.GetComponent<CardsInfo>().type = Type;
@@ -663,32 +535,27 @@ public class Cards : MonoBehaviour
         showCard.GetComponent<CardsInfo>().AssignInfo();
     }
 
-    public void SellCardFromInventory(
-        int id,
-        int price,
-        string type,
-        bool is_equipped
-    )
+    public void SellCardFromInventory(int id, int price, string type,bool is_equipped)
     {
-        StartCoroutine(SellCard(id, price, type, is_equipped));
+        SellCard(id, price, type, is_equipped);
     }
 
-    IEnumerator SellCard(int id, int price, string type, bool is_equipped)
+    public void SellCard(int id, int price, string type, bool is_equipped)
     {
-        WWWForm sellCardForm = new WWWForm();
-        sellCardForm.AddField("apppassword", "thisisfromtheapp!");
-        sellCardForm.AddField("Id", CurrentPlayerId);
-        sellCardForm.AddField("Card_Id", id);
-        sellCardForm.AddField("Price", price + CurrentPlayer.GetComponent<CurrentPlayer>().Money);
-        UnityWebRequest sellCardRequest = UnityWebRequest.Post("http://localhost/CardsInfos/sellcard.php", sellCardForm);
-        if (sellCardRequest.error == null)
+        foreach(var card in cardList.cardsList)
         {
-            if (is_equipped == true)
+            if(card.id == id && card.is_equipped == true)
             {
+                card.is_equipped = false;
+                card.bought = false;
                 cardsNumber--;
                 CardsNumber.text = cardsNumber + "/20 cards ";
             }
-            yield return sellCardRequest.SendWebRequest();
+            else if(card.id == id && card.is_equipped == false)
+            {
+                card.is_equipped = false;
+                card.bought = false;
+            }
 
             CurrentPlayer.GetComponent<CurrentPlayer>().Money += price;
             UpdateCards (type);
@@ -697,22 +564,20 @@ public class Cards : MonoBehaviour
 
     public void BuyCardFromInventory(int id, int price)
     {
-        if (CurrentPlayer.GetComponent<CurrentPlayer>().Money >= price) StartCoroutine(BuyCard(id, price));
+        if (CurrentPlayer.GetComponent<CurrentPlayer>().Money >= price) BuyCard(id, price);
     }
 
-    IEnumerator BuyCard(int id, int price)
+    public void BuyCard(int id, int price)
     {
-        WWWForm buyCardForm = new WWWForm();
-        buyCardForm.AddField("apppassword", "thisisfromtheapp!");
-        buyCardForm.AddField("Id", CurrentPlayerId);
-        buyCardForm.AddField("Card_Id", id);
-        buyCardForm.AddField("Price", CurrentPlayer.GetComponent<CurrentPlayer>().Money - price);
-        CurrentPlayer.GetComponent<CurrentPlayer>().Money -= price;
-        UnityWebRequest buyCardRequest = UnityWebRequest.Post("http://localhost/CardsInfos/buycard.php", buyCardForm);
-        if (buyCardRequest.error == null)
+        foreach(var card in cardList.cardsList)
         {
-            yield return buyCardRequest.SendWebRequest();
-            AllShopCards();
+            if(card.id == id)
+            {
+                CurrentPlayer.GetComponent<CurrentPlayer>().Money -= card.price;
+                card.bought = true;
+                card.is_equipped = false;
+                AllShopCards();
+            }
         }
     }
 
@@ -722,157 +587,98 @@ public class Cards : MonoBehaviour
         else                        showCard.transform.Find("RemoveFromDeck").gameObject.SetActive(false);
     }
 
-    IEnumerator CheckBuySellButton(int card_id, GameObject showCard)
+    public void CheckBuySellButton(int card_id, GameObject showCard)
     {
-        WWWForm sellCardForm = new WWWForm();
-        sellCardForm.AddField("apppassword", "thisisfromtheapp!");
-        sellCardForm.AddField("Id", CurrentPlayerId);
-        sellCardForm.AddField("Card_Id", card_id);
-        UnityWebRequest sellCardRequest = UnityWebRequest.Post("http://localhost/CardsInfos/ownercard.php", sellCardForm);
-        yield return sellCardRequest.SendWebRequest();
-        if (sellCardRequest.error == null)
+        foreach(var card in cardList.cardsList)
         {
-            JSONNode allShopCards = JSON.Parse(sellCardRequest.downloadHandler.text);
-            if (allShopCards != null)
+            if(card_id == card.id && card.bought == true)
             {
                 showCard.transform.Find("Buy").gameObject.SetActive(false);
             }
-            else
+            else if(card_id == card.id && card.bought == false)
             {
                 showCard.transform.Find("Sell").gameObject.SetActive(false);
             }
         }
-        else
+    }
+
+    public void GetAllShopCard()
+    {
+        foreach(var card in cardList.cardsList)
         {
-            Debug.Log(sellCardRequest.error);
+            if(card.bought == false){
+                var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                CardsInfo.transform.SetParent(shoppanel.transform);
+                CheckSubtype(CardsInfo, card.card_subtype);
+                CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
+                CardsInfo.GetComponent<CardsInfo>().price = card.price;
+                CardsInfo.GetComponent<CardsInfo>().points = card.points;
+                CardsInfo.GetComponent<CardsInfo>().healthPoints = card.health_points;
+                CardsInfo.GetComponent<CardsInfo>().id = card.id;
+                CardsInfo.GetComponent<CardsInfo>().AssignInfo();
+            }
         }
     }
 
-    IEnumerator GetAllShopCards()
+    public void GetAllShopAttackCards()
     {
-        WWWForm getAllShopCardsForm = new WWWForm();
-        getAllShopCardsForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllShopCardsForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllShopCardsRequest = UnityWebRequest.Post("http://localhost/CardsInfos/allshopcards.php", getAllShopCardsForm);
-        yield return getAllShopCardsRequest.SendWebRequest();
-        if (getAllShopCardsRequest.error == null)
+        foreach(var card in cardList.cardsList)
         {
-            JSONNode allShopCards = JSON.Parse(getAllShopCardsRequest.downloadHandler.text);
-            if (allShopCards != null)
-                foreach (JSONNode player_cards in allShopCards)
-                {
-                    var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    CardsInfo.transform.SetParent(shoppanel.transform);
-                    CheckSubtype(CardsInfo, player_cards[1]);
-                    CardsInfo.GetComponent<CardsInfo>().cardname = player_cards[0];
-                    CardsInfo.GetComponent<CardsInfo>().type = player_cards[1];
-                    CardsInfo.GetComponent<CardsInfo>().description = player_cards[2];
-                    CardsInfo.GetComponent<CardsInfo>().price = int.Parse(player_cards[3]);
-                    CardsInfo.GetComponent<CardsInfo>().points = int.Parse(player_cards[4]);
-                    CardsInfo.GetComponent<CardsInfo>().healthPoints = int.Parse(player_cards[5]);
-                    CardsInfo.GetComponent<CardsInfo>().id = int.Parse(player_cards[6]);
-                    CardsInfo.GetComponent<CardsInfo>().AssignInfo();
-                }
-        }
-        else
-        {
-            Debug.Log(getAllShopCardsRequest.error);
+            if(card.card_type == "Atak" && card.bought == false){
+                var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                CardsInfo.transform.SetParent(shoppanel.transform);
+                CheckSubtype(CardsInfo, card.card_subtype);
+                CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
+                CardsInfo.GetComponent<CardsInfo>().price = card.price;
+                CardsInfo.GetComponent<CardsInfo>().points = card.points;
+                CardsInfo.GetComponent<CardsInfo>().healthPoints = card.health_points;
+                CardsInfo.GetComponent<CardsInfo>().id = card.id;
+                CardsInfo.GetComponent<CardsInfo>().AssignInfo();
+            }
         }
     }
 
-    IEnumerator GetAllShopAttackCards()
+    public void GetAllShopDefenceCards()
     {
-        WWWForm getAllShopCardsForm = new WWWForm();
-        getAllShopCardsForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllShopCardsForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllShopCardsRequest = UnityWebRequest.Post("http://localhost/CardsInfos/getallshopattack.php", getAllShopCardsForm);
-        yield return getAllShopCardsRequest.SendWebRequest();
-        if (getAllShopCardsRequest.error == null)
+        foreach(var card in cardList.cardsList)
         {
-            JSONNode allShopCards = JSON.Parse(getAllShopCardsRequest.downloadHandler.text);
-            if (allShopCards != null)
-                foreach (JSONNode player_cards in allShopCards)
-                {
-                    var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    CardsInfo.transform.SetParent(shoppanel.transform);
-                    CheckSubtype(CardsInfo, player_cards[1]);
-                    CardsInfo.GetComponent<CardsInfo>().cardname = player_cards[0];
-                    CardsInfo.GetComponent<CardsInfo>().type = player_cards[1];
-                    CardsInfo.GetComponent<CardsInfo>().description = player_cards[2];
-                    CardsInfo.GetComponent<CardsInfo>().price = int.Parse(player_cards[3]);
-                    CardsInfo.GetComponent<CardsInfo>().points = int.Parse(player_cards[4]);
-                    CardsInfo.GetComponent<CardsInfo>().healthPoints = int.Parse(player_cards[5]);
-                    CardsInfo.GetComponent<CardsInfo>().id = int.Parse(player_cards[6]);
-                    CardsInfo.GetComponent<CardsInfo>().AssignInfo();
-                }
-        }
-        else
-        {
-            Debug.Log(getAllShopCardsRequest.error);
+            if(card.card_type == "Obrona" && card.bought == false){
+                var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                CardsInfo.transform.SetParent(shoppanel.transform);
+                CheckSubtype(CardsInfo, card.card_subtype);
+                CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
+                CardsInfo.GetComponent<CardsInfo>().price = card.price;
+                CardsInfo.GetComponent<CardsInfo>().points = card.points;
+                CardsInfo.GetComponent<CardsInfo>().healthPoints = card.health_points;
+                CardsInfo.GetComponent<CardsInfo>().id = card.id;
+                CardsInfo.GetComponent<CardsInfo>().AssignInfo();
+            }
         }
     }
 
-    IEnumerator GetAllShopDefenceCards()
+    public void GetAllShopSpecialCards()
     {
-        WWWForm getAllShopCardsForm = new WWWForm();
-        getAllShopCardsForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllShopCardsForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllShopCardsRequest = UnityWebRequest.Post("http://localhost/CardsInfos/getallshopdefence.php", getAllShopCardsForm);
-        yield return getAllShopCardsRequest.SendWebRequest();
-        if (getAllShopCardsRequest.error == null)
+        foreach(var card in cardList.cardsList)
         {
-            JSONNode allShopCards = JSON.Parse(getAllShopCardsRequest.downloadHandler.text);
-            if (allShopCards != null)
-                foreach (JSONNode player_cards in allShopCards)
-                {
-                    var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    CardsInfo.transform.SetParent(shoppanel.transform);
-                    CheckSubtype(CardsInfo, player_cards[1]);
-                    CardsInfo.GetComponent<CardsInfo>().cardname = player_cards[0];
-                    CardsInfo.GetComponent<CardsInfo>().type = player_cards[1];
-                    CardsInfo.GetComponent<CardsInfo>().description = player_cards[2];
-                    CardsInfo.GetComponent<CardsInfo>().price = int.Parse(player_cards[3]);
-                    CardsInfo.GetComponent<CardsInfo>().points = int.Parse(player_cards[4]);
-                    CardsInfo.GetComponent<CardsInfo>().healthPoints = int.Parse(player_cards[5]);
-                    CardsInfo.GetComponent<CardsInfo>().id = int.Parse(player_cards[6]);
-                    CardsInfo.GetComponent<CardsInfo>().AssignInfo();
-                }
-        }
-        else
-        {
-            Debug.Log(getAllShopCardsRequest.error);
-        }
-    }
-
-     IEnumerator GetAllShopSpecialCards()
-    {
-        WWWForm getAllShopCardsForm = new WWWForm();
-        getAllShopCardsForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllShopCardsForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllShopCardsRequest = UnityWebRequest.Post("http://localhost/CardsInfos/getallshopspecial.php", getAllShopCardsForm);
-        yield return getAllShopCardsRequest.SendWebRequest();
-        if (getAllShopCardsRequest.error == null)
-        {
-            JSONNode allShopCards = JSON.Parse(getAllShopCardsRequest.downloadHandler.text);
-            if (allShopCards != null)
-                foreach (JSONNode player_cards in allShopCards)
-                {
-                    var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    CardsInfo.transform.SetParent(shoppanel.transform);
-                    CheckSubtype(CardsInfo, player_cards[1]);
-                    CardsInfo.GetComponent<CardsInfo>().cardname = player_cards[0];
-                    CardsInfo.GetComponent<CardsInfo>().type = player_cards[1];
-                    CardsInfo.GetComponent<CardsInfo>().description = player_cards[2];
-                    CardsInfo.GetComponent<CardsInfo>().price = int.Parse(player_cards[3]);
-                    CardsInfo.GetComponent<CardsInfo>().points = int.Parse(player_cards[4]);
-                    CardsInfo.GetComponent<CardsInfo>().healthPoints = int.Parse(player_cards[5]);
-                    CardsInfo.GetComponent<CardsInfo>().id = int.Parse(player_cards[6]);
-                    CardsInfo.GetComponent<CardsInfo>().AssignInfo();
-                }
-        }
-        else
-        {
-            Debug.Log(getAllShopCardsRequest.error);
+            if(card.card_type == "Specjalna" && card.bought == false){
+                var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                CardsInfo.transform.SetParent(shoppanel.transform);
+                CheckSubtype(CardsInfo, card.card_subtype);
+                CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
+                CardsInfo.GetComponent<CardsInfo>().price = card.price;
+                CardsInfo.GetComponent<CardsInfo>().points = card.points;
+                CardsInfo.GetComponent<CardsInfo>().healthPoints = card.health_points;
+                CardsInfo.GetComponent<CardsInfo>().id = card.id;
+                CardsInfo.GetComponent<CardsInfo>().AssignInfo();
+            }
         }
     }
 }

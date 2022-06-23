@@ -8,7 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class BattleCardHandler : MonoBehaviour
 {
-    public int CurrentPlayerId;
+    public CardList cardList;
+
     public GameObject BattleCardsInfoPrefab;
     public GameObject cardsDeckToPick;
     public GameObject usedCardsPanel;
@@ -17,43 +18,29 @@ public class BattleCardHandler : MonoBehaviour
 
     void Awake()
     {
-        CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
-        CurrentPlayerId = CurrentPlayer.GetComponent<CurrentPlayer>().Id;
-        StartCoroutine(GetAllPlayerDeckCards());
+        cardList = GameObject.Find("CardManager").GetComponent<CardList>();
+        GetAllPlayerDeckCards();
     }
 
-    IEnumerator GetAllPlayerDeckCards()
+    public void GetAllPlayerDeckCards()
     {
-        WWWForm getAllPlayerDeckCardsForm = new WWWForm();
-        getAllPlayerDeckCardsForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllPlayerDeckCardsForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllPlayerDeckCardsRequest = UnityWebRequest.Post("http://localhost/CardsInfos/getalldeckcards.php", getAllPlayerDeckCardsForm);
-        yield return getAllPlayerDeckCardsRequest.SendWebRequest();
-        if (getAllPlayerDeckCardsRequest.error == null)
+        foreach(var card in cardList.cardsList)
         {
-            JSONNode allPlayerDeckCards = JSON.Parse(getAllPlayerDeckCardsRequest.downloadHandler.text);
-            if (allPlayerDeckCards != null)
-                foreach (JSONNode player_cards in allPlayerDeckCards)
-                {
-                    var BattleCardsInfo = Instantiate(BattleCardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                    BattleCardsInfo.transform.SetParent(cardsDeckToPick.transform);
-                    CheckSubtype(BattleCardsInfo, player_cards[1]);
-                    BattleCardsInfo.GetComponent<BattleCardInfo>().cardname = player_cards[0];
-                    BattleCardsInfo.GetComponent<BattleCardInfo>().type = player_cards[1];
-                    BattleCardsInfo.GetComponent<BattleCardInfo>().description = player_cards[2];
-                    BattleCardsInfo.GetComponent<BattleCardInfo>().price = int.Parse(player_cards[3]);
-                    BattleCardsInfo.GetComponent<BattleCardInfo>().points = int.Parse(player_cards[4]);
-                    BattleCardsInfo.GetComponent<BattleCardInfo>().healthPoints = int.Parse(player_cards[5]);
-                    BattleCardsInfo.GetComponent<BattleCardInfo>().id = int.Parse(player_cards[6]);
-                    if (player_cards[7] == "0") BattleCardsInfo.GetComponent<BattleCardInfo>().is_equipped = false;
-                    else BattleCardsInfo.GetComponent<BattleCardInfo>().is_equipped = true;
-                    BattleCardsInfo.GetComponent<BattleCardInfo>().AssignInfo();
-                }
-            ;
-        }
-        else
-        {
-            Debug.Log(getAllPlayerDeckCardsRequest.error);
+            if(card.is_equipped == true && card.bought == true)
+            {
+                var BattleCardsInfo = Instantiate(BattleCardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                BattleCardsInfo.transform.SetParent(cardsDeckToPick.transform);
+                CheckSubtype(BattleCardsInfo, card.card_subtype);
+                BattleCardsInfo.GetComponent<BattleCardInfo>().cardname = card.card_name;
+                BattleCardsInfo.GetComponent<BattleCardInfo>().type = card.card_subtype;
+                BattleCardsInfo.GetComponent<BattleCardInfo>().description = card.card_description;
+                BattleCardsInfo.GetComponent<BattleCardInfo>().price = card.price;
+                BattleCardsInfo.GetComponent<BattleCardInfo>().points = card.points;
+                BattleCardsInfo.GetComponent<BattleCardInfo>().healthPoints = card.health_points;
+                BattleCardsInfo.GetComponent<BattleCardInfo>().id = card.id;
+                BattleCardsInfo.GetComponent<BattleCardInfo>().is_equipped = true;
+                BattleCardsInfo.GetComponent<BattleCardInfo>().AssignInfo();
+            }
         }
     }
 

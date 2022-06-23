@@ -9,10 +9,11 @@ using UnityEngine.Networking;
 public class PlayerGameScript : MonoBehaviour
 {
     public TMP_Text UserInfoText;
+    public GameObject CurrentPlayer;
 
     private void Start()
     {
-        var CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
+        CurrentPlayer = GameObject.Find("CurrentPlayerManager");
         string CurrentPlayerUsername = CurrentPlayer.GetComponent<CurrentPlayer>().Username;
         int CurrentPlayerMoney = CurrentPlayer.GetComponent<CurrentPlayer>().Money;
         int CurrentPlayerLife = CurrentPlayer.GetComponent<CurrentPlayer>().Life;

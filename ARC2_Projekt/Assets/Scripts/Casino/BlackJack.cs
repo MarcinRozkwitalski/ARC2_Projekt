@@ -326,8 +326,7 @@ public class BlackJack : MonoBehaviour
     {
         WWWForm betMoneyForm = new WWWForm();
         betMoneyForm.AddField("apppassword", "thisisfromtheapp!");
-        betMoneyForm
-            .AddField("Id", CurrentPlayer.GetComponent<CurrentPlayer>().Id);
+        // betMoneyForm.AddField("Id", CurrentPlayer.GetComponent<CurrentPlayer>().Id);
         betMoneyForm
             .AddField("Price",
             CurrentPlayer.GetComponent<CurrentPlayer>().Money -
@@ -353,8 +352,7 @@ public class BlackJack : MonoBehaviour
     {
         WWWForm betMoneyForm = new WWWForm();
         betMoneyForm.AddField("apppassword", "thisisfromtheapp!");
-        betMoneyForm
-            .AddField("Id", CurrentPlayer.GetComponent<CurrentPlayer>().Id);
+        // betMoneyForm.AddField("Id", CurrentPlayer.GetComponent<CurrentPlayer>().Id);
         betMoneyForm
             .AddField("Price",
             CurrentPlayer.GetComponent<CurrentPlayer>().Money -
@@ -384,8 +382,7 @@ public class BlackJack : MonoBehaviour
         yield return new WaitForSeconds(1F);
         WWWForm betMoneyForm = new WWWForm();
         betMoneyForm.AddField("apppassword", "thisisfromtheapp!");
-        betMoneyForm
-            .AddField("Id", CurrentPlayer.GetComponent<CurrentPlayer>().Id);
+        // betMoneyForm.AddField("Id", CurrentPlayer.GetComponent<CurrentPlayer>().Id);
         int money = 0;
         if (win)
             money =

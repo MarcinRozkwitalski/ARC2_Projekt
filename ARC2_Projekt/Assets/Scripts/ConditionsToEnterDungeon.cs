@@ -7,10 +7,11 @@ using SimpleJSON;
 
 public class ConditionsToEnterDungeon : MonoBehaviour
 {
-    public GameObject CurrentPlayer;
-    public int CurrentPlayerId;
-    public GameObject InformationPanel;
     public SceneSwitcher sceneSwitcher;
+    public CardList cardList;
+
+    public GameObject CurrentPlayer;
+    public GameObject InformationPanel;
 
     public int errorNumber;
     public int cardsNumber;
@@ -18,13 +19,13 @@ public class ConditionsToEnterDungeon : MonoBehaviour
 
     void Awake()
     {
+        cardList = GameObject.Find("CardManager").GetComponent<CardList>();
         CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
-        CurrentPlayerId = CurrentPlayer.GetComponent<CurrentPlayer>().Id;
         InformationPanel = GameObject.Find("InformationPanel");
         sceneSwitcher = GameObject.Find("SceneManager").GetComponent<SceneSwitcher>();
 
         TurnInformationPanelOff();
-        StartCoroutine(GetAllPlayerDeckCards());
+        GetAllPlayerDeckCards();
     }
 
     void Start()
@@ -75,27 +76,17 @@ public class ConditionsToEnterDungeon : MonoBehaviour
         }
     }
 
-    IEnumerator GetAllPlayerDeckCards()
-    {
-        WWWForm getAllPlayerDeckCardsForm = new WWWForm();
-        getAllPlayerDeckCardsForm.AddField("apppassword", "thisisfromtheapp!");
-        getAllPlayerDeckCardsForm.AddField("Id", CurrentPlayerId);
-        UnityWebRequest getAllPlayerDeckCardsRequest = UnityWebRequest.Post("http://localhost/CardsInfos/getalldeckcards.php", getAllPlayerDeckCardsForm);
-        yield return getAllPlayerDeckCardsRequest.SendWebRequest();
-        if (getAllPlayerDeckCardsRequest.error == null)
+    public void GetAllPlayerDeckCards()
+    {   
+        cardsNumber = 0;
+
+        foreach(var card in cardList.cardsList)
         {
-            JSONNode allPlayerDeckCards = JSON.Parse(getAllPlayerDeckCardsRequest.downloadHandler.text);
-            cardsNumber = 0;
-            if (allPlayerDeckCards != null)
-                foreach (JSONNode player_cards in allPlayerDeckCards)
-                {
-                    cardsNumber++;
-                    if(player_cards[1] == "Atak") isAttackCardPresent = true;
-                }
-        }
-        else
-        {
-            Debug.Log(getAllPlayerDeckCardsRequest.error);
+            if(card.is_equipped == true && card.bought == true)
+            {
+                cardsNumber++;
+                if(card.card_type == "Atak") isAttackCardPresent = true;
+            }
         }
     }
 }

@@ -24,7 +24,6 @@ public class DoorHandler : MonoBehaviour
     void Start()
     {
         CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
-        CurrentPlayerId = CurrentPlayer.GetComponent<CurrentPlayer>().Id;
 
         Door_01 = GameObject.Find("Door_01");
         Door_02 = GameObject.Find("Door_02");
