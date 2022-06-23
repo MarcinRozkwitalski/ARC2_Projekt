@@ -105,7 +105,7 @@ public class MapGeneration : MonoBehaviour
         }
         else
         {
-            if (MapStatus.GetComponent<MapStatus>().action_done == true) AfterAction();
+
             GetThisLevelListFromMapStatus();
             UpdateMapGeneration();
             PutIconsToPanels();
@@ -116,7 +116,7 @@ public class MapGeneration : MonoBehaviour
             DisableForbidenButtons();
             DisableThisLevelIcons();
             // ShowUncoveredLevels();
-            // lvl status
+            if (TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife <= 0) UseExit();
         }
     }
 
