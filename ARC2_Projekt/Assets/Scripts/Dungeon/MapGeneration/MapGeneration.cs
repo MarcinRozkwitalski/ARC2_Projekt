@@ -77,8 +77,8 @@ public class MapGeneration : MonoBehaviour
 
     public List<string> this_lvl_list = new List<string>();
     public List<string> this_lvl_list_clicked = new List<string>();
-
-
+ 
+    public bool battle_ended = false;
     public int dungeon_lvl = 1;
     public int dungeon_zone = 0;
     private bool player_can_uncover = false;
@@ -105,7 +105,10 @@ public class MapGeneration : MonoBehaviour
         }
         else
         {
-
+            if(battle_ended){
+                battle_ended = false;
+                AfterAction();
+            }
             GetThisLevelListFromMapStatus();
             UpdateMapGeneration();
             PutIconsToPanels();
@@ -118,6 +121,9 @@ public class MapGeneration : MonoBehaviour
             // ShowUncoveredLevels();
             if (TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife <= 0) UseExit();
         }
+    }
+    public void UseBattle(){
+         SceneSwitcher.GetComponent<SceneSwitcher>().LoadDungeonBattleScene();
     }
 
     public void GetThisLevelListFromMapStatus()

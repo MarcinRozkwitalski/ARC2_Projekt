@@ -69,7 +69,7 @@ public class DungeonIcon : MonoBehaviour
             if (iconName == "Cross") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseCross();
             if (iconName == "Event") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseEvent();
             if (iconName == "Messenger") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseMessenger();
-            if (iconName == "Devil" || iconName == "Skull") GameObject.Find("MapManager").GetComponent<MapGeneration>().AfterAction();
+            if (iconName == "Devil" || iconName == "Skull") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseBattle();
 
         }
     }
