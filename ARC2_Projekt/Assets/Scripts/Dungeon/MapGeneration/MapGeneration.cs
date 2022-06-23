@@ -75,6 +75,9 @@ public class MapGeneration : MonoBehaviour
     public List<int> lvl_9_requirements_list = new List<int>();
     public List<int> lvl_10_requirements_list = new List<int>();
 
+    public List<string> this_lvl_list = new List<string>();
+    public List<string> this_lvl_list_clicked = new List<string>();
+
 
     public int dungeon_lvl = 1;
     public int dungeon_zone = 0;
@@ -103,11 +106,88 @@ public class MapGeneration : MonoBehaviour
         else
         {
             if (MapStatus.GetComponent<MapStatus>().action_done == true) AfterAction();
+            GetThisLevelListFromMapStatus();
             UpdateMapGeneration();
-            ShowLevel();
             PutIconsToPanels();
             PutBuffIconsToPanels();
+            dungeon_lvl = MapStatus.GetComponent<MapStatus>().dungeon_lvl;
+            ShowLevel();
+            DisablePreviousIcons();
+            DisableForbidenButtons();
+            DisableThisLevelIcons();
+            // ShowUncoveredLevels();
+            // lvl status
         }
+    }
+
+    public void GetThisLevelListFromMapStatus()
+    {
+        this_lvl_list_clicked = MapStatus.GetComponent<MapStatus>().this_lvl_list_clicked;
+    }
+
+    public void GetThisLevelListClicked(string iconName)
+    {
+        this_lvl_list_clicked.Add(iconName);
+        MapStatus.GetComponent<MapStatus>().this_lvl_list_clicked = this_lvl_list_clicked;
+        Debug.Log("dodanie");
+    }
+
+    public void ResetThisLevelListClicked()
+    {
+        this_lvl_list_clicked.Clear();
+        MapStatus.GetComponent<MapStatus>().this_lvl_list_clicked.Clear();
+        Debug.Log("czyszczenie");
+    }
+
+    public void AfterAction()
+    {
+        if (TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife <= 0) UseExit();
+        UpdateLevelProgress();
+        if (lvl_progress == lvl_requirements) NextLevel();
+    }
+
+    public void UpdateLevelProgress()
+    {
+        lvl_progress++;
+        MapStatus.GetComponent<MapStatus>().lvl_progress = lvl_progress;
+    }
+
+    public void NextLevel()
+    {
+        DisableUnusedButtons();
+        UpdateDungeonLevel();
+        ResetLevelProgress();
+        CheckLevelRequirements();
+        SetLevelBuff();
+        DisableForbidenButtons();
+        ResetThisLevelListClicked();
+    }
+
+    public void UpdateDungeonLevel()
+    {
+        dungeon_lvl++;
+        if (dungeon_lvl > 10)
+        {
+            dungeon_lvl = 1;
+            dungeon_zone++;
+            MapStatus.GetComponent<MapStatus>().dungeon_zone = dungeon_zone;
+            MapStatus.GetComponent<MapStatus>().dungeon_lvl = dungeon_lvl;
+            GenerateNewZone();
+        }
+        else
+        {
+            MapStatus.GetComponent<MapStatus>().dungeon_lvl = dungeon_lvl;
+            ShowLevel();
+        }
+    }
+
+    public void GenerateNewZone()
+    {
+        DestroyIcons();
+        Coverlevels();
+        ShowLevel();
+        ClearAllLists();
+        GenerateLevels();
     }
 
     public int GetDungeonLevelStatus()
@@ -281,54 +361,6 @@ public class MapGeneration : MonoBehaviour
         // zapis postępu w lochach i wyjście
     }
 
-    public void AfterAction()
-    {
-        if (TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife <= 0) UseExit();
-        UpdateLevelProgress();
-        if (lvl_progress == lvl_requirements) NextLevel();
-    }
-
-    public void UpdateLevelProgress()
-    {
-        lvl_progress++;
-    }
-
-    public void NextLevel()
-    {
-        DisableUnusedButtons();
-        UpdateDungeonLevel();
-        ResetLevelProgress();
-        CheckLevelRequirements();
-        SetLevelBuff();
-        DisableForbidenButtons();
-    }
-
-    public void UpdateDungeonLevel()
-    {
-        dungeon_lvl++;
-        if (dungeon_lvl > 10)
-        {
-            dungeon_lvl = 1;
-            dungeon_zone++;
-            MapStatus.GetComponent<MapStatus>().dungeon_zone = dungeon_zone;
-            MapStatus.GetComponent<MapStatus>().dungeon_lvl = dungeon_lvl;
-            GenerateNewZone();
-        }
-        else
-        {
-            MapStatus.GetComponent<MapStatus>().dungeon_lvl = dungeon_lvl;
-            ShowLevel();
-        }
-    }
-
-    public void GenerateNewZone()
-    {
-        DestroyIcons();
-        Coverlevels();
-        ShowLevel();
-        ClearAllLists();
-        GenerateLevels();
-    }
 
     public void ClearAllLists()
     {
@@ -418,6 +450,29 @@ public class MapGeneration : MonoBehaviour
             }
         }
 
+    }
+
+    public void DisableThisLevelIcons()
+    {
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("DungeonIcon"))
+        {
+            if (gameObj.GetComponent<DungeonIcon>().icon_lvl == dungeon_lvl && this_lvl_list_clicked.Contains(gameObj.GetComponent<DungeonIcon>().iconName))
+            {
+                gameObj.GetComponent<DungeonIcon>().Disable();
+            }
+        }
+
+    }
+
+    public void DisablePreviousIcons()
+    {
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("DungeonIcon"))
+        {
+            if (gameObj.GetComponent<DungeonIcon>().icon_lvl < dungeon_lvl)
+            {
+                gameObj.GetComponent<DungeonIcon>().Disable();
+            }
+        }
     }
 
     public void DisableForbidenButtons()
@@ -1194,7 +1249,7 @@ public class MapGeneration : MonoBehaviour
         lvl_9_requirements_list = MapStatus.GetComponent<MapStatus>().lvl_9_requirements_list;
         lvl_10_requirements_list = MapStatus.GetComponent<MapStatus>().lvl_10_requirements_list;
 
-        dungeon_lvl = MapStatus.GetComponent<MapStatus>().dungeon_lvl;
+        dungeon_lvl = 1; // MapStatus.GetComponent<MapStatus>().dungeon_lvl;
         player_can_uncover = MapStatus.GetComponent<MapStatus>().player_can_uncover;
         lvl_requirements = MapStatus.GetComponent<MapStatus>().lvl_requirements;
         lvl_progress = MapStatus.GetComponent<MapStatus>().lvl_progress;

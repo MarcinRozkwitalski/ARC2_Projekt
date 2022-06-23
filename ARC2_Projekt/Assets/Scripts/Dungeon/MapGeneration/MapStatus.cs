@@ -34,6 +34,8 @@ public class MapStatus : MonoBehaviour
     public List<int> lvl_8_requirements_list = new List<int>();
     public List<int> lvl_9_requirements_list = new List<int>();
     public List<int> lvl_10_requirements_list = new List<int>();
+    public List<string> this_lvl_list = new List<string>();
+    public List<string> this_lvl_list_clicked = new List<string>();
     public int dungeon_lvl = 1;
     public int dungeon_zone = 0;
     public bool player_can_uncover = true;

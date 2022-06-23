@@ -57,6 +57,10 @@ public class DungeonIcon : MonoBehaviour
     {
         if (GameObject.Find("MapManager").GetComponent<MapGeneration>().GetDungeonLevelStatus() == icon_lvl)
         {
+            GameObject.Find("MapManager").GetComponent<MapGeneration>().GetThisLevelListClicked(this.iconName);
+            gameObject.GetComponent<Button>().enabled = false;
+            gameObject.transform.Find("GrayDirt").gameObject.SetActive(true);
+            gameObject.transform.Find("Dirt").gameObject.SetActive(false);
             if (iconName == "Torch") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseTorch();
             if (iconName == "Exit") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseExit();
             if (iconName == "Treasure") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseTreasuer();
@@ -66,9 +70,7 @@ public class DungeonIcon : MonoBehaviour
             if (iconName == "Event") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseEvent();
             if (iconName == "Messenger") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseMessenger();
             if (iconName == "Devil" || iconName == "Skull") GameObject.Find("MapManager").GetComponent<MapGeneration>().AfterAction();
-            gameObject.GetComponent<Button>().enabled = false;
-            gameObject.transform.Find("GrayDirt").gameObject.SetActive(true);
-            gameObject.transform.Find("Dirt").gameObject.SetActive(false);
+
         }
     }
 
