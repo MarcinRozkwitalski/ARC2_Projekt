@@ -55,10 +55,16 @@ public class DungeonIcon : MonoBehaviour
 
     public void Action()
     {
-        GameObject.Find("MapManager").GetComponent<MapGeneration>().AfterAction();
-        gameObject.GetComponent<Button>().enabled = false;
-        gameObject.transform.Find("GrayDirt").gameObject.SetActive(true);
-        gameObject.transform.Find("Dirt").gameObject.SetActive(false);
+        if (GameObject.Find("MapManager").GetComponent<MapGeneration>().GetDungeonLevelStatus() == icon_lvl)
+        {
+            if (iconName == "Sadness" || iconName == "Altar" || iconName == "Event" || iconName == "Messenger" || iconName == "Treasure" || iconName == "Cross") GameObject.Find("MapManager").GetComponent<MapGeneration>().AfterAction();
+            if (iconName == "Torch") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseTorch();
+            if (iconName == "Exit") GameObject.Find("MapManager").GetComponent<MapGeneration>().Exit();
+            if (iconName == "Devil" || iconName == "Skull") GameObject.Find("MapManager").GetComponent<MapGeneration>().AfterAction();
+            gameObject.GetComponent<Button>().enabled = false;
+            gameObject.transform.Find("GrayDirt").gameObject.SetActive(true);
+            gameObject.transform.Find("Dirt").gameObject.SetActive(false);
+        }
     }
 
     public void Disable()

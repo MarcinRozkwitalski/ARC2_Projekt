@@ -29,7 +29,7 @@ public class MapGeneration : MonoBehaviour
             buff_lvl_10_panel,
             lvl_1_cover, lvl_2_cover, lvl_3_cover, lvl_4_cover, lvl_5_cover, lvl_6_cover, lvl_7_cover, lvl_8_cover, lvl_9_cover, lvl_10_cover;
 
-    public GameObject IconPrefab, BuffIconPrefab, MapStatus;
+    public GameObject IconPrefab, BuffIconPrefab, MapStatus, SceneSwitcher;
     public List<GameObject> lvl_panels = new List<GameObject>();
     public List<string> devils = new List<string>();
     public List<string> skulls = new List<string>();
@@ -77,6 +77,7 @@ public class MapGeneration : MonoBehaviour
 
 
     public int dungeon_lvl = 1;
+    public int dungeon_zone = 0;
     private bool player_can_uncover = false;
     public int lvl_requirements = 0;
     public int lvl_progress = 0;
@@ -87,6 +88,7 @@ public class MapGeneration : MonoBehaviour
     {
         SetPanelList();
         MapStatus = GameObject.Find("MapStatus");
+        SceneSwitcher = GameObject.Find("SceneManager");
     }
 
     void Start()
@@ -99,11 +101,65 @@ public class MapGeneration : MonoBehaviour
         }
         else
         {
+            if (MapStatus.GetComponent<MapStatus>().action_done == true) AfterAction();
             UpdateMapGeneration();
             ShowLevel();
             PutIconsToPanels();
             PutBuffIconsToPanels();
         }
+    }
+
+    public int GetDungeonLevelStatus()
+    {
+        return dungeon_lvl;
+    }
+    public void UseTorch()
+    {
+        // Pop up?
+        player_can_uncover = true;
+        UpdateMapStatusPlayerCover();
+        CheckIfOnlyTorchOnLevel();
+    }
+    public void CheckIfOnlyTorchOnLevel()
+    {
+        switch (dungeon_lvl)
+        {
+            case 1:
+                if (lvl_1_list.Count == 1) AfterAction();
+                break;
+            case 2:
+                if (lvl_2_list.Count == 1) AfterAction();
+                break;
+            case 3:
+                if (lvl_3_list.Count == 1) AfterAction();
+                break;
+            case 4:
+                if (lvl_4_list.Count == 1) AfterAction();
+                break;
+            case 5:
+                if (lvl_5_list.Count == 1) AfterAction();
+                break;
+            case 6:
+                if (lvl_6_list.Count == 1) AfterAction();
+                break;
+            case 7:
+                if (lvl_7_list.Count == 1) AfterAction();
+                break;
+            case 8:
+                if (lvl_8_list.Count == 1) AfterAction();
+                break;
+            case 9:
+                if (lvl_9_list.Count == 1) AfterAction();
+                break;
+            case 10:
+                if (lvl_10_list.Count == 1) AfterAction();
+                break;
+        }
+    }
+    public void Exit()
+    {
+        SceneSwitcher.GetComponent<SceneSwitcher>().LoadPlayerWelcomeScene();
+        Destroy(GameObject.Find("MapStatus"));
     }
 
     public void AfterAction()
@@ -128,10 +184,103 @@ public class MapGeneration : MonoBehaviour
 
     public void UpdateDungeonLevel()
     {
-        if (dungeon_lvl < 10) dungeon_lvl++;
-        MapStatus.GetComponent<MapStatus>().dungeon_lvl = dungeon_lvl;
-        ShowLevel();
+        dungeon_lvl++;
+        if (dungeon_lvl > 10)
+        {
+            dungeon_lvl = 1;
+            dungeon_zone++;
+            MapStatus.GetComponent<MapStatus>().dungeon_zone = dungeon_zone;
+            MapStatus.GetComponent<MapStatus>().dungeon_lvl = dungeon_lvl;
+            GenerateNewZone();
+        }
+        else
+        {
+            MapStatus.GetComponent<MapStatus>().dungeon_lvl = dungeon_lvl;
+            ShowLevel();
+        }
     }
+
+    public void GenerateNewZone()
+    {
+        DestroyIcons();
+        Coverlevels();
+        ShowLevel();
+        ClearAllLists();
+        GenerateLevels();
+    }
+
+    public void ClearAllLists()
+    {
+        devils.Clear();
+        skulls.Clear();
+        sadness.Clear();
+        treasures.Clear();
+        crosses.Clear();
+        exits.Clear();
+        torches.Clear();
+        events.Clear();
+        altars.Clear();
+        messengers.Clear();
+        lvl_1_list.Clear();
+        lvl_2_list.Clear();
+        lvl_3_list.Clear();
+        lvl_4_list.Clear();
+        lvl_5_list.Clear();
+        lvl_6_list.Clear();
+        lvl_7_list.Clear();
+        lvl_8_list.Clear();
+        lvl_9_list.Clear();
+        lvl_10_list.Clear();
+        lvl_1_buff_list.Clear();
+        lvl_2_buff_list.Clear();
+        lvl_3_buff_list.Clear();
+        lvl_4_buff_list.Clear();
+        lvl_5_buff_list.Clear();
+        lvl_6_buff_list.Clear();
+        lvl_7_buff_list.Clear();
+        lvl_8_buff_list.Clear();
+        lvl_9_buff_list.Clear();
+        lvl_10_buff_list.Clear();
+        lvl_1_requirements_list.Clear();
+        lvl_2_requirements_list.Clear();
+        lvl_3_requirements_list.Clear();
+        lvl_4_requirements_list.Clear();
+        lvl_5_requirements_list.Clear();
+        lvl_6_requirements_list.Clear();
+        lvl_7_requirements_list.Clear();
+        lvl_8_requirements_list.Clear();
+        lvl_9_requirements_list.Clear();
+        lvl_10_requirements_list.Clear();
+    }
+
+    public void Coverlevels()
+    {
+        lvl_1_cover.SetActive(true);
+        lvl_2_cover.SetActive(true);
+        lvl_3_cover.SetActive(true);
+        lvl_4_cover.SetActive(true);
+        lvl_5_cover.SetActive(true);
+        lvl_6_cover.SetActive(true);
+        lvl_7_cover.SetActive(true);
+        lvl_8_cover.SetActive(true);
+        lvl_9_cover.SetActive(true);
+        lvl_10_cover.SetActive(true);
+    }
+
+    public void DestroyIcons()
+    {
+        var DungeonIcons = GameObject.FindGameObjectsWithTag("DungeonIcon");
+        foreach (var icon in DungeonIcons)
+        {
+            Destroy(icon);
+        }
+        var DungeonBuffIcons = GameObject.FindGameObjectsWithTag("BuffDungeonIcon");
+        foreach (var icon in DungeonBuffIcons)
+        {
+            Destroy(icon);
+        }
+    }
+
     public void ResetLevelProgress()
     {
         lvl_progress = 0;
@@ -288,6 +437,11 @@ public class MapGeneration : MonoBehaviour
         lvl_panels.Add(lvl_10_panel);
     }
 
+    public void UpdateMapStatusPlayerCover()
+    {
+        MapStatus.GetComponent<MapStatus>().player_can_uncover = player_can_uncover;
+    }
+
     public GameObject GetPanel(int i)
     {
         GameObject panel = lvl_panels[i];
@@ -299,6 +453,7 @@ public class MapGeneration : MonoBehaviour
         {
             lvl_1_cover.SetActive(false);
             player_can_uncover = false;
+            UpdateMapStatusPlayerCover();
         }
     }
     public void Lvl_2_Cover_Trun_Off()
@@ -307,6 +462,7 @@ public class MapGeneration : MonoBehaviour
         {
             lvl_2_cover.SetActive(false);
             player_can_uncover = false;
+            UpdateMapStatusPlayerCover();
         }
     }
     public void Lvl_3_Cover_Trun_Off()
@@ -315,6 +471,7 @@ public class MapGeneration : MonoBehaviour
         {
             lvl_3_cover.SetActive(false);
             player_can_uncover = false;
+            UpdateMapStatusPlayerCover();
         }
     }
     public void Lvl_4_Cover_Trun_Off()
@@ -323,6 +480,7 @@ public class MapGeneration : MonoBehaviour
         {
             lvl_4_cover.SetActive(false);
             player_can_uncover = false;
+            UpdateMapStatusPlayerCover();
         }
     }
     public void Lvl_5_Cover_Trun_Off()
@@ -331,6 +489,7 @@ public class MapGeneration : MonoBehaviour
         {
             lvl_5_cover.SetActive(false);
             player_can_uncover = false;
+            UpdateMapStatusPlayerCover();
         }
     }
     public void Lvl_6_Cover_Trun_Off()
@@ -339,6 +498,7 @@ public class MapGeneration : MonoBehaviour
         {
             lvl_6_cover.SetActive(false);
             player_can_uncover = false;
+            UpdateMapStatusPlayerCover();
         }
     }
     public void Lvl_7_Cover_Trun_Off()
@@ -347,6 +507,7 @@ public class MapGeneration : MonoBehaviour
         {
             lvl_7_cover.SetActive(false);
             player_can_uncover = false;
+            UpdateMapStatusPlayerCover();
         }
     }
     public void Lvl_8_Cover_Trun_Off()
@@ -355,6 +516,7 @@ public class MapGeneration : MonoBehaviour
         {
             lvl_8_cover.SetActive(false);
             player_can_uncover = false;
+            UpdateMapStatusPlayerCover();
         }
     }
     public void Lvl_9_Cover_Trun_Off()
@@ -363,6 +525,7 @@ public class MapGeneration : MonoBehaviour
         {
             lvl_9_cover.SetActive(false);
             player_can_uncover = false;
+            UpdateMapStatusPlayerCover();
         }
     }
     public void Lvl_10_Cover_Trun_Off()
@@ -371,6 +534,7 @@ public class MapGeneration : MonoBehaviour
         {
             lvl_10_cover.SetActive(false);
             player_can_uncover = false;
+            UpdateMapStatusPlayerCover();
         }
     }
 

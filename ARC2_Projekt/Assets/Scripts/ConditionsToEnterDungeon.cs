@@ -58,7 +58,7 @@ public class ConditionsToEnterDungeon : MonoBehaviour
         switch(errorNumber)
         {
             case 0:
-                sceneSwitcher.LoadDungeonScene();
+                sceneSwitcher.LoadMapGenerationScene();
                 break;
             case 1:
                 InformationPanel.transform.GetChild(1).GetComponent<Text>().text = "You need at least two cards and at least one card of Attack type \nto enter Dungeon.";

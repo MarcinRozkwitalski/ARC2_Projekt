@@ -35,10 +35,12 @@ public class MapStatus : MonoBehaviour
     public List<int> lvl_9_requirements_list = new List<int>();
     public List<int> lvl_10_requirements_list = new List<int>();
     public int dungeon_lvl = 1;
+    public int dungeon_zone = 0;
     public bool player_can_uncover = true;
     public int lvl_requirements = 0;
     public int lvl_progress = 0;
     public string lvl_buff = "Nothing";
+    public bool action_done = false;
 
     void Awake()
     {
