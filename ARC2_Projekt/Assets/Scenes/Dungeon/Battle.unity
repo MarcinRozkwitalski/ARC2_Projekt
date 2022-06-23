@@ -722,6 +722,7 @@ MonoBehaviour:
   normalEnemiesList: {fileID: 0}
   powerfulEnemiesList: {fileID: 0}
   randomizeCardsPositions: {fileID: 436223485}
+  mapStatus: {fileID: 0}
   informationText: {fileID: 0}
   backToDungeonButton: {fileID: 0}
   usedCardsPanel: {fileID: 0}
@@ -749,6 +750,7 @@ MonoBehaviour:
   whosTurn: 
   whoWon: 
   enemyType: 
+  moneyPercentage: 0
   currentEnemyId: 0
   currentEnemyName: 
   currentEnemyHealth: 0
@@ -1417,7 +1419,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 770073664}
         m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
-        m_MethodName: LoadProperDungeonScene
+        m_MethodName: LoadMapGenerationScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

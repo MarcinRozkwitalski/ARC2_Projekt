@@ -8,7 +8,7 @@ public class AddEnemyToTCP : MonoBehaviour
     public DoorHandler doorHandler;
     
     private void Start() {
-        tempCurrentPlayer = GameObject.Find("DoorHandler").GetComponent<TempCurrentPlayer>();
+        tempCurrentPlayer = GameObject.Find("PlayerManager").GetComponent<TempCurrentPlayer>();
     }
 
     public void HandleAddingEnemy()

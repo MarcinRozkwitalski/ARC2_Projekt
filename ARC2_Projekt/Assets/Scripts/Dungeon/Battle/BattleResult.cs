@@ -8,7 +8,7 @@ public class BattleResult : MonoBehaviour
     public TempCurrentPlayer tempCurrentPlayer;
     
     private void Start() {
-        tempCurrentPlayer = GameObject.Find("DoorHandler").GetComponent<TempCurrentPlayer>();
+        tempCurrentPlayer = GameObject.Find("PlayerManager").GetComponent<TempCurrentPlayer>();
     }
 
     public void CheckWhoWon()

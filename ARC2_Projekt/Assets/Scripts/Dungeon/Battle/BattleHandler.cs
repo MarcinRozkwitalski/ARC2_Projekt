@@ -61,7 +61,7 @@ public class BattleHandler : MonoBehaviour
     {
         var CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
         string CurrentPlayerUsername = CurrentPlayer.GetComponent<CurrentPlayer>().Username;
-        tempCurrentPlayer = GameObject.Find("DoorHandler").GetComponent<TempCurrentPlayer>();
+        tempCurrentPlayer = GameObject.Find("PlayerManager").GetComponent<TempCurrentPlayer>();
         normalEnemiesList = GameObject.Find("BattleHandler").GetComponent<NormalEnemiesList>();
         powerfulEnemiesList = GameObject.Find("BattleHandler").GetComponent<PowerfulEnemiesList>();
         mapStatus = GameObject.Find("MapStatus").GetComponent<MapStatus>();
