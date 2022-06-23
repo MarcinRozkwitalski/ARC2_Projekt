@@ -32,6 +32,10 @@ public class BattleHandler : MonoBehaviour
     public TMP_Text enemyDefenceText;
     public int currentEnemyMaxHealth;
     public GameObject playerCurrentBuff;
+    public GameObject playerShield;
+    public GameObject enemyStunIcon;
+    
+    public TMP_Text remainingMovesText;
 
     public bool keepDefenceFlagPlayer = false;
     public bool stunFlagPlayer = false;
@@ -75,6 +79,7 @@ public class BattleHandler : MonoBehaviour
         enemyHealthText = GameObject.Find("EnemyHealthText (TMP)").GetComponent<TMP_Text>();
         enemyDefenceText = GameObject.Find("EnemyDefenceText (TMP)").GetComponent<TMP_Text>();
         informationText = GameObject.Find("InformationText (TMP)").GetComponent<TMP_Text>();
+        remainingMovesText = GameObject.Find("RemainingMovesText (TMP)").GetComponent<TMP_Text>();
 
         playerCurrentBuff = GameObject.Find("PlayerCurrentBuff");
         enemyCurrentBuff = GameObject.Find("EnemyCurrentBuff");
@@ -222,12 +227,14 @@ public class BattleHandler : MonoBehaviour
     {
         if(stunFlagPlayer == true){
             remainingMoves = 2;
+            remainingMovesText.text = "Moves: \n" + remainingMoves.ToString() + "/" + basicRemainingMovesAmount;
             currentAmmountOfMoves = 0;
             stunFlagPlayer = false;
             // Debug.Log("Nowe ruchy: " + remainingMoves);
         }
         else{
             remainingMoves = basicRemainingMovesAmount;
+            remainingMovesText.text = "Moves: \n" + remainingMoves.ToString() + "/" + basicRemainingMovesAmount;
             currentAmmountOfMoves = 0;
             // Debug.Log("Nowe ruchy: " + remainingMoves);
         }

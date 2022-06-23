@@ -85,7 +85,7 @@ public class ConditionsToEnterDungeon : MonoBehaviour
             if(card.is_equipped == true && card.bought == true)
             {
                 cardsNumber++;
-                if(card.card_subtype == "Atak") isAttackCardPresent = true;
+                if(card.card_type == "Atak") isAttackCardPresent = true;
             }
         }
     }

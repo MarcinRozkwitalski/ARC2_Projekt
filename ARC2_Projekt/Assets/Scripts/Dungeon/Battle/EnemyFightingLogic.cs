@@ -100,6 +100,8 @@ public class EnemyFightingLogic : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         battleHandler.informationText.text = "Tura wroga!";
+        battleHandler.ResetRemainingMoves();
+        battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
         yield return new WaitForSeconds(1f);
 
         for(int i = battleHandler.remainingMoves; i > 0; i--){
@@ -136,6 +138,7 @@ public class EnemyFightingLogic : MonoBehaviour
                     battleHandler.currentPlayerDefence -= currentAttackValue;
                     battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                     battleHandler.remainingMoves--;
+                    battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
                 }
@@ -149,6 +152,7 @@ public class EnemyFightingLogic : MonoBehaviour
                     battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                     battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                     battleHandler.remainingMoves--;
+                    battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                     DebuggingInfo();
                     if(battleHandler.currentPlayerHealth <= 0)
                     {
@@ -163,6 +167,7 @@ public class EnemyFightingLogic : MonoBehaviour
                     battleHandler.currentPlayerDefence = 0;
                     battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                     battleHandler.remainingMoves--;
+                    battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
                 }
@@ -172,6 +177,7 @@ public class EnemyFightingLogic : MonoBehaviour
                 battleHandler.currentEnemyDefence += currentEnemyMove.value;
                 battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                 battleHandler.remainingMoves--;
+                battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                 DebuggingInfo();
                 CheckIfRemainingMovesIsZero();
             }
@@ -179,6 +185,7 @@ public class EnemyFightingLogic : MonoBehaviour
         yield return new WaitForSeconds(1f);
         
         if(battleHandler.whoWon != "enemy"){
+            battleHandler.enemyStunIcon.GetComponent<Image>().enabled = false;
             battleHandler.informationText.text = "Wróg zakończył turę.";
             yield return new WaitForSeconds(1f);
             StartCoroutine(battleHandler.CheckRemainingPlayerCards());
@@ -214,7 +221,6 @@ public class EnemyFightingLogic : MonoBehaviour
         if(battleHandler.remainingMoves == 0)
         {
             battleHandler.whosTurn = "player";
-            battleHandler.ResetRemainingMoves();
             UnHideAllBattleCards();
         }
     }
@@ -226,9 +232,14 @@ public class EnemyFightingLogic : MonoBehaviour
 
     public void SetDefaultDefenceForPlayer()
     {
-        if(battleHandler.keepDefenceFlagPlayer == true)     battleHandler.keepDefenceFlagPlayer = false;
+        if(battleHandler.keepDefenceFlagPlayer == true) 
+        {
+            battleHandler.keepDefenceFlagPlayer = false;
+            battleHandler.playerShield.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        }
         else if(battleHandler.keepDefenceFlagPlayer == false)
         {
+            battleHandler.playerShield.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             battleHandler.currentPlayerDefence = 0;
             battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
         }

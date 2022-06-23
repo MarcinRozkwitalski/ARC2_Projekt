@@ -7,6 +7,7 @@ public class CardAnimation : MonoBehaviour
     public BattleHandler battleHandler;
     public BattleCardInfo battleCardInfo;
     public BattleCardHandler battleCardHandler;
+    public EndPlayerTurn endPlayerTurn;
 
     public Vector2 startObjectPos;
     public Vector2 targetPos;
@@ -24,6 +25,7 @@ public class CardAnimation : MonoBehaviour
     private void Start() 
     {
         battleHandler = GameObject.Find("BattleHandler").GetComponent<BattleHandler>();
+        endPlayerTurn = GameObject.Find("EndTurnButton").GetComponent<EndPlayerTurn>();
         battleCardInfo = this.gameObject.GetComponent<BattleCardInfo>();
         battleCardHandler = GameObject.Find("NetworkManager").GetComponent<BattleCardHandler>();
         startObjectPos = transform.position;
@@ -169,6 +171,8 @@ public class CardAnimation : MonoBehaviour
 
             yield return null;
         }
+        endPlayerTurn.MakeButtonVisible();
+
         transform.localScale = endLocalScale;
         battleHandler.moveCardsSidewaysInPlayerCardsPanelAnimation2 = false;
         lockPos = false;

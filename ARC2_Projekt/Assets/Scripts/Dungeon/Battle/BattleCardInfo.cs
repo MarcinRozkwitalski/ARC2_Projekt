@@ -9,6 +9,7 @@ public class BattleCardInfo : MonoBehaviour
     public BattleHandler battleHandler;
     public BattleCardHandler battleCardHandler;
     public EnemyFightingLogic enemyFightingLogic;
+    public EndPlayerTurn endPlayerTurn;
 
     public Sprite CardSprite;
     public Sprite BackSprite;
@@ -35,6 +36,7 @@ public class BattleCardInfo : MonoBehaviour
         battleHandler = GameObject.Find("BattleHandler").GetComponent<BattleHandler>();
         battleCardHandler = GameObject.Find("NetworkManager").GetComponent<BattleCardHandler>();
         enemyFightingLogic = GameObject.Find("BattleHandler").GetComponent<EnemyFightingLogic>();
+        endPlayerTurn = GameObject.Find("EndTurnButton").GetComponent<EndPlayerTurn>();
 
         AssignNewTransform();
         AssignBackImage();
@@ -168,6 +170,7 @@ public class BattleCardInfo : MonoBehaviour
                         battleHandler.currentEnemyDefence -= currentAttackPoints;
                         battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                         battleHandler.remainingMoves--;
+                        battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                         battleHandler.currentAmmountOfMoves++;
                         DebuggingInfo();
                         CheckIfRemainingMovesIsZero();
@@ -187,6 +190,7 @@ public class BattleCardInfo : MonoBehaviour
                         battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                         battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
                         battleHandler.remainingMoves--;
+                        battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                         battleHandler.currentAmmountOfMoves++;
                         DebuggingInfo();
                         if(battleHandler.currentEnemyHealth <= 0)
@@ -207,6 +211,7 @@ public class BattleCardInfo : MonoBehaviour
                         battleHandler.currentEnemyDefence = 0;
                         battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                         battleHandler.remainingMoves--;
+                        battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                         battleHandler.currentAmmountOfMoves++;
                         DebuggingInfo();
                         CheckIfRemainingMovesIsZero();
@@ -221,6 +226,7 @@ public class BattleCardInfo : MonoBehaviour
                     battleHandler.currentPlayerDefence += points;
                     battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                     battleHandler.remainingMoves--;
+                    battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                     battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
@@ -228,8 +234,10 @@ public class BattleCardInfo : MonoBehaviour
 
                 case "Wytrwalosc":
                     battleHandler.informationText.text = "Zyskujesz przedluzenie tarczy.";
+                    battleHandler.playerShield.GetComponent<Image>().color = new Color32(64, 64, 64, 255);
                     battleHandler.keepDefenceFlagPlayer = true;
                     battleHandler.remainingMoves--;
+                    battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                     battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
@@ -238,6 +246,7 @@ public class BattleCardInfo : MonoBehaviour
                 case "Pospiech":
                     battleHandler.informationText.text = "Zyskujesz dodatkowy ruch.";
                     battleHandler.remainingMoves++;
+                    battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                     battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
@@ -246,7 +255,9 @@ public class BattleCardInfo : MonoBehaviour
                 case "Ogluszenie":
                     battleHandler.informationText.text = "Ogluszyles przeciwnika na ture.";
                     battleHandler.stunFlagPlayer = true;
+                    battleHandler.enemyStunIcon.GetComponent<Image>().enabled = true;
                     battleHandler.remainingMoves--;
+                    battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                     battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
@@ -256,6 +267,7 @@ public class BattleCardInfo : MonoBehaviour
                     battleHandler.informationText.text = "Oslabiles przeciwnika.";
                     battleHandler.debuffFlagPlayer = true;
                     battleHandler.remainingMoves--;
+                    battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                     battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
@@ -267,6 +279,7 @@ public class BattleCardInfo : MonoBehaviour
                     if(battleHandler.currentPlayerHealth > 100) battleHandler.currentPlayerHealth = 100;
                     battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                     battleHandler.remainingMoves--;
+                    battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                     battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
@@ -303,6 +316,7 @@ public class BattleCardInfo : MonoBehaviour
                                 battleHandler.currentEnemyDefence -= currentAttackPoints;
                                 battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                                 battleHandler.remainingMoves--;
+                                battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                                 battleHandler.currentAmmountOfMoves++;
                                 DebuggingInfo();
                                 CheckIfRemainingMovesIsZero();
@@ -322,6 +336,7 @@ public class BattleCardInfo : MonoBehaviour
                                 battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                                 battleHandler.enemyHealthText.text = battleHandler.currentEnemyHealth.ToString() + "/" + battleHandler.currentEnemyMaxHealth;
                                 battleHandler.remainingMoves--;
+                                battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                                 battleHandler.currentAmmountOfMoves++;
                                 DebuggingInfo();
                                 if(battleHandler.currentEnemyHealth <= 0)
@@ -342,6 +357,7 @@ public class BattleCardInfo : MonoBehaviour
                                 battleHandler.currentEnemyDefence = 0;
                                 battleHandler.enemyDefenceText.text = battleHandler.currentEnemyDefence.ToString();
                                 battleHandler.remainingMoves--;
+                                battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                                 battleHandler.currentAmmountOfMoves++;
                                 DebuggingInfo();
                                 CheckIfRemainingMovesIsZero();
@@ -356,6 +372,7 @@ public class BattleCardInfo : MonoBehaviour
                             battleHandler.currentPlayerDefence += points;
                             battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                             battleHandler.remainingMoves--;
+                            battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                             battleHandler.currentAmmountOfMoves++;
                             DebuggingInfo();
                             CheckIfRemainingMovesIsZero();
@@ -367,6 +384,7 @@ public class BattleCardInfo : MonoBehaviour
                             if(battleHandler.currentPlayerHealth > 100) battleHandler.currentPlayerHealth = 100;
                             battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                             battleHandler.remainingMoves--;
+                            battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                             battleHandler.currentAmmountOfMoves++;
                             DebuggingInfo();
                             CheckIfRemainingMovesIsZero();
@@ -420,10 +438,10 @@ public class BattleCardInfo : MonoBehaviour
     {
         if(battleHandler.remainingMoves == 0 || battleHandler.maxAmmountOfMoves == battleHandler.currentAmmountOfMoves)
         {
+            endPlayerTurn.MakeButtonInvisible();
             SetDefaultDefenceForEnemy();
             StartCoroutine(HideAllBattleCards());
             battleHandler.whosTurn = "enemy";
-            battleHandler.ResetRemainingMoves();
             enemyFightingLogic.StartEnemyTurn();
         }
     }
