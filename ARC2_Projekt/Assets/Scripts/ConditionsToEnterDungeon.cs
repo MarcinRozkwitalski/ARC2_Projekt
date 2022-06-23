@@ -30,10 +30,10 @@ public class ConditionsToEnterDungeon : MonoBehaviour
 
     void Start()
     {
-        if (cardsNumber > 1 && isAttackCardPresent == true)         errorNumber = 0; //free to go
-        else if (cardsNumber < 2 && isAttackCardPresent == false)   errorNumber = 1; //need more cards and at least one attack card
-        else if (cardsNumber < 2 && isAttackCardPresent == true)    errorNumber = 2; //need at least two cards
-        else if (cardsNumber > 1 && isAttackCardPresent == false)   errorNumber = 3; //need at least one attack card
+        if (cardsNumber > 2 && isAttackCardPresent == true)         errorNumber = 0; //free to go
+        else if (cardsNumber < 3 && isAttackCardPresent == false)   errorNumber = 1; //need more cards and at least one attack card
+        else if (cardsNumber < 3 && isAttackCardPresent == true)    errorNumber = 2; //need at least two cards
+        else if (cardsNumber > 2 && isAttackCardPresent == false)   errorNumber = 3; //need at least one attack card
     }
 
     public void TurnInformationPanelOn()
@@ -62,11 +62,11 @@ public class ConditionsToEnterDungeon : MonoBehaviour
                 sceneSwitcher.LoadMapGenerationScene();
                 break;
             case 1:
-                InformationPanel.transform.GetChild(1).GetComponent<Text>().text = "You need at least two cards and at least one card of Attack type \nto enter Dungeon.";
+                InformationPanel.transform.GetChild(1).GetComponent<Text>().text = "You need at least three cards and at least one card of Attack type \nto enter Dungeon.";
                 TurnInformationPanelOn();
                 break;
             case 2:
-                InformationPanel.transform.GetChild(1).GetComponent<Text>().text = "You need at least \ntwo cards \nto enter Dungeon.";
+                InformationPanel.transform.GetChild(1).GetComponent<Text>().text = "You need at least \three cards \nto enter Dungeon.";
                 TurnInformationPanelOn();
                 break;
             case 3:
