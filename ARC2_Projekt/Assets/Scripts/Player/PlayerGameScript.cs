@@ -23,11 +23,6 @@ public class PlayerGameScript : MonoBehaviour
         UserInfoText.text = CurrentPlayerUsername + ": lvl " + CurrentPlayerLevel + "\nLife: " + CurrentPlayerLife + "\nMoney: " + CurrentPlayerMoney;
     }
 
-    public void StartGame()
-    {
-        FindObjectOfType<SceneSwitcher>().LoadGame();
-    }
-
     public void LoadLeaderboard()
     {
         FindObjectOfType<SceneSwitcher>().LoadLeaderboardScene();
@@ -38,13 +33,4 @@ public class PlayerGameScript : MonoBehaviour
         FindObjectOfType<SceneSwitcher>().LoadPlayer();
     }
 
-    public void SignOut()
-    {
-        var CurrentPlayers = GameObject.FindGameObjectsWithTag("CurrentPlayer");
-        foreach (var item in CurrentPlayers)
-        {
-            Destroy(item);
-        }
-        FindObjectOfType<SceneSwitcher>().LoadWelcomeScene();
-    }
 }

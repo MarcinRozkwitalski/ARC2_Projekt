@@ -15,7 +15,7 @@ public class DungeonResults : MonoBehaviour
 
     private void Start() 
     {
-        tempCurrentPlayer = GameObject.Find("DoorHandler").GetComponent<TempCurrentPlayer>();
+        tempCurrentPlayer = GameObject.Find("PlayerManager").GetComponent<TempCurrentPlayer>();
         var CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
 
         CheckMoney();

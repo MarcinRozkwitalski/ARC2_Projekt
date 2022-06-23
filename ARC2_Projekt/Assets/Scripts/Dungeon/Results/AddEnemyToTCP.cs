@@ -13,9 +13,9 @@ public class AddEnemyToTCP : MonoBehaviour
 
     public void HandleAddingEnemy()
     {
-        if(tempCurrentPlayer.LastDoorValue == "czaszka")
+        if(tempCurrentPlayer.LastDoorValue == "Skull")
         AddNormalEnemy();
-        else if(tempCurrentPlayer.LastDoorValue == "glowaDiabla")
+        else if(tempCurrentPlayer.LastDoorValue == "Devil")
         AddPowerfulEnemy();
     }
 

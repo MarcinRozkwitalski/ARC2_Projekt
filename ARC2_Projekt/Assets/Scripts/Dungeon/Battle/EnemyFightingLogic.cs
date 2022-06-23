@@ -109,7 +109,7 @@ public class EnemyFightingLogic : MonoBehaviour
             battleHandler.informationText.text = currentEnemyMove.description;
             yield return new WaitForSeconds(1f);          
 
-            string current_level_buff = battleHandler.mapStatus.lvl_buff;
+            string current_level_buff = battleHandler.mapStatus.battle_buff;
             int currentAttackValue = currentEnemyMove.value;
 
             switch (current_level_buff)

@@ -153,7 +153,7 @@ public class BattleHandler : MonoBehaviour
 
     public void CheckMoneyPercentage()
     {
-        string current_level_buff = mapStatus.lvl_buff;
+        string current_level_buff = mapStatus.battle_buff;
         float howManyTimes5 = mapStatus.dungeon_lvl;
         float howManyTimes50 = mapStatus.dungeon_zone;
 
@@ -189,7 +189,7 @@ public class BattleHandler : MonoBehaviour
 
     public void CheckCurrentLevelBuff()
     {
-        string current_level_buff = mapStatus.lvl_buff;
+        string current_level_buff = mapStatus.battle_buff;
 
         switch (current_level_buff)
         {

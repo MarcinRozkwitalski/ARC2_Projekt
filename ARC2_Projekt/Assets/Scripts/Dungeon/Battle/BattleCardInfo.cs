@@ -136,7 +136,7 @@ public class BattleCardInfo : MonoBehaviour
         {
             string cardType = this.type;           
 
-            string current_level_buff = battleHandler.mapStatus.lvl_buff;
+            string current_level_buff = battleHandler.mapStatus.battle_buff;
             int currentAttackPoints = points;
 
             switch (current_level_buff)

@@ -131,7 +131,7 @@ public class Cards : MonoBehaviour
                 CardsInfo.transform.SetParent(panel.transform);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
-                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
                 CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
                 CardsInfo.GetComponent<CardsInfo>().price = card.price;
                 CardsInfo.GetComponent<CardsInfo>().points = card.points;
@@ -146,12 +146,12 @@ public class Cards : MonoBehaviour
     {
         foreach(var card in cardList.cardsList)
         {
-            if(card.card_type == "Atak" && card.is_equipped == false && card.bought == true){
+            if(card.card_subtype == "Atak" && card.is_equipped == false && card.bought == true){
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(panel.transform);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
-                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
                 CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
                 CardsInfo.GetComponent<CardsInfo>().price = card.price;
                 CardsInfo.GetComponent<CardsInfo>().points = card.points;
@@ -166,12 +166,12 @@ public class Cards : MonoBehaviour
     {
         foreach(var card in cardList.cardsList)
         {
-            if(card.card_type == "Obrona" && card.is_equipped == false && card.bought == true){
+            if(card.card_subtype == "Obrona" && card.is_equipped == false && card.bought == true){
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(panel.transform);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
-                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
                 CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
                 CardsInfo.GetComponent<CardsInfo>().price = card.price;
                 CardsInfo.GetComponent<CardsInfo>().points = card.points;
@@ -192,7 +192,7 @@ public class Cards : MonoBehaviour
                 CardsInfo.transform.SetParent(panel.transform);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
-                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
                 CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
                 CardsInfo.GetComponent<CardsInfo>().price = card.price;
                 CardsInfo.GetComponent<CardsInfo>().points = card.points;
@@ -252,7 +252,7 @@ public class Cards : MonoBehaviour
                 CardsInfo.transform.SetParent(deckPanel.transform);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
-                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
                 CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
                 CardsInfo.GetComponent<CardsInfo>().price = card.price;
                 CardsInfo.GetComponent<CardsInfo>().points = card.points;
@@ -270,13 +270,13 @@ public class Cards : MonoBehaviour
     {
         foreach(var card in cardList.cardsList)
         {
-            if(card.card_type == "Atak" && card.is_equipped == true && card.bought == true)
+            if(card.card_subtype == "Atak" && card.is_equipped == true && card.bought == true)
             {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(deckPanel.transform);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
-                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
                 CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
                 CardsInfo.GetComponent<CardsInfo>().price = card.price;
                 CardsInfo.GetComponent<CardsInfo>().points = card.points;
@@ -292,13 +292,13 @@ public class Cards : MonoBehaviour
     {
         foreach(var card in cardList.cardsList)
         {
-            if(card.card_type == "Obrona" && card.is_equipped == true && card.bought == true)
+            if(card.card_subtype == "Obrona" && card.is_equipped == true && card.bought == true)
             {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(deckPanel.transform);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
-                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
                 CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
                 CardsInfo.GetComponent<CardsInfo>().price = card.price;
                 CardsInfo.GetComponent<CardsInfo>().points = card.points;
@@ -320,7 +320,7 @@ public class Cards : MonoBehaviour
                 CardsInfo.transform.SetParent(deckPanel.transform);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
-                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
                 CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
                 CardsInfo.GetComponent<CardsInfo>().price = card.price;
                 CardsInfo.GetComponent<CardsInfo>().points = card.points;
@@ -524,7 +524,7 @@ public class Cards : MonoBehaviour
         if (sceneName == "Shop")
         {
             showCard.GetComponent<CardsInfo>().price = Price;
-            showCard.transform.Find("AddToDeck").gameObject.SetActive(false); // nowa metoda na przyciski (zmienić kod?)
+            showCard.transform.Find("AddToDeck").gameObject.SetActive(false);
         }
         else if (sceneName == "Cards")  showCard.GetComponent<CardsInfo>().price = Price / 2;
 
@@ -611,7 +611,7 @@ public class Cards : MonoBehaviour
                 CardsInfo.transform.SetParent(shoppanel.transform);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
-                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
                 CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
                 CardsInfo.GetComponent<CardsInfo>().price = card.price;
                 CardsInfo.GetComponent<CardsInfo>().points = card.points;
@@ -626,12 +626,12 @@ public class Cards : MonoBehaviour
     {
         foreach(var card in cardList.cardsList)
         {
-            if(card.card_type == "Atak" && card.bought == false){
+            if(card.card_subtype == "Atak" && card.bought == false){
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(shoppanel.transform);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
-                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
                 CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
                 CardsInfo.GetComponent<CardsInfo>().price = card.price;
                 CardsInfo.GetComponent<CardsInfo>().points = card.points;
@@ -646,12 +646,12 @@ public class Cards : MonoBehaviour
     {
         foreach(var card in cardList.cardsList)
         {
-            if(card.card_type == "Obrona" && card.bought == false){
+            if(card.card_subtype == "Obrona" && card.bought == false){
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(shoppanel.transform);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
-                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
                 CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
                 CardsInfo.GetComponent<CardsInfo>().price = card.price;
                 CardsInfo.GetComponent<CardsInfo>().points = card.points;
@@ -671,7 +671,7 @@ public class Cards : MonoBehaviour
                 CardsInfo.transform.SetParent(shoppanel.transform);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
-                CardsInfo.GetComponent<CardsInfo>().type = card.card_type;
+                CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
                 CardsInfo.GetComponent<CardsInfo>().description = card.card_description;
                 CardsInfo.GetComponent<CardsInfo>().price = card.price;
                 CardsInfo.GetComponent<CardsInfo>().points = card.points;

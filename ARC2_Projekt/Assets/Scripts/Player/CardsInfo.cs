@@ -41,9 +41,8 @@ public class CardsInfo : MonoBehaviour
     }
     public void ShowCard()
     {
-        Debug.Log("name - " + cardname + "\n id - " + id + "\n is_equipped - " + is_equipped);
+        //Debug.Log("name - " + cardname + "\n id - " + id + "\n is_equipped - " + is_equipped);
         FindObjectOfType<Cards>().ShowCard(cardname, type, description, price, points, healthPoints, id, is_equipped);
-
     }
     public void CloseShowCard()
     {

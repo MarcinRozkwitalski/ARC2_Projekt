@@ -1572,7 +1572,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 770073664}
         m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
-        m_MethodName: LoadMapGenerationScene
+        m_MethodName: LoadProperDungeonScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1803,7 +1803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c344d0adee353c44b26ec4dc39f914b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentPlayerId: 0
+  cardList: {fileID: 0}
   BattleCardsInfoPrefab: {fileID: 3582678540757971230, guid: 95120dd0c0eecd949a7f3644e59facfa,
     type: 3}
   cardsDeckToPick: {fileID: 6591215232784738180}
