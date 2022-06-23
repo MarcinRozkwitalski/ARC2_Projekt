@@ -57,9 +57,14 @@ public class DungeonIcon : MonoBehaviour
     {
         if (GameObject.Find("MapManager").GetComponent<MapGeneration>().GetDungeonLevelStatus() == icon_lvl)
         {
-            if (iconName == "Sadness" || iconName == "Altar" || iconName == "Event" || iconName == "Messenger" || iconName == "Treasure" || iconName == "Cross") GameObject.Find("MapManager").GetComponent<MapGeneration>().AfterAction();
             if (iconName == "Torch") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseTorch();
-            if (iconName == "Exit") GameObject.Find("MapManager").GetComponent<MapGeneration>().Exit();
+            if (iconName == "Exit") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseExit();
+            if (iconName == "Treasure") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseTreasuer();
+            if (iconName == "Sadness") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseSadness();
+            if (iconName == "Altar") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseAltar();
+            if (iconName == "Cross") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseCross();
+            if (iconName == "Event") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseEvent();
+            if (iconName == "Messenger") GameObject.Find("MapManager").GetComponent<MapGeneration>().UseMessenger();
             if (iconName == "Devil" || iconName == "Skull") GameObject.Find("MapManager").GetComponent<MapGeneration>().AfterAction();
             gameObject.GetComponent<Button>().enabled = false;
             gameObject.transform.Find("GrayDirt").gameObject.SetActive(true);

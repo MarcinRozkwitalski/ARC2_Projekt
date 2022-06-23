@@ -8,6 +8,7 @@ public class TempCurrentPlayer : MonoBehaviour
     public Text UserInfoText;
 
     public int TempPlayerMoney = 0;
+    public int TempPlayerSaveMoney = 0;
     public int TempPlayerLife = 0;
     public int TempPlayerMoneyResults = 0;
     public int BeatenNormalEnemies = 0;

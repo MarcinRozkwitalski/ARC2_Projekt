@@ -29,7 +29,7 @@ public class MapGeneration : MonoBehaviour
             buff_lvl_10_panel,
             lvl_1_cover, lvl_2_cover, lvl_3_cover, lvl_4_cover, lvl_5_cover, lvl_6_cover, lvl_7_cover, lvl_8_cover, lvl_9_cover, lvl_10_cover;
 
-    public GameObject IconPrefab, BuffIconPrefab, MapStatus, SceneSwitcher;
+    public GameObject IconPrefab, BuffIconPrefab, MapStatus, SceneSwitcher, TempPlayer;
     public List<GameObject> lvl_panels = new List<GameObject>();
     public List<string> devils = new List<string>();
     public List<string> skulls = new List<string>();
@@ -89,6 +89,7 @@ public class MapGeneration : MonoBehaviour
         SetPanelList();
         MapStatus = GameObject.Find("MapStatus");
         SceneSwitcher = GameObject.Find("SceneManager");
+        TempPlayer = GameObject.Find("PlayerManager");
     }
 
     void Start()
@@ -112,6 +113,122 @@ public class MapGeneration : MonoBehaviour
     public int GetDungeonLevelStatus()
     {
         return dungeon_lvl;
+    }
+
+    public void UseTreasuer()
+    {
+        // pop up? bar?
+        int option = Random.Range(1, 4);
+        switch (option)
+        {
+            case 1:
+                if (lvl_buff == "IncreaseMoney") TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney += Mathf.RoundToInt(50 * ((dungeon_lvl + dungeon_zone * 10) * 5 + 25f) / 100);
+                else TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney += Mathf.RoundToInt(50 * ((dungeon_lvl + dungeon_zone * 10) * 5) / 100);
+                break;
+            case 2:
+                if (lvl_buff == "IncreaseMoney") TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney += Mathf.RoundToInt(50 * ((dungeon_lvl + dungeon_zone * 10) * 5 + 35f) / 100);
+                else TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney += Mathf.RoundToInt(50 * ((dungeon_lvl + dungeon_zone * 10) * 5) / 100);
+                break;
+            case 3:
+                if (lvl_buff == "IncreaseMoney") TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney += Mathf.RoundToInt(50 * ((dungeon_lvl + dungeon_zone * 10) * 5 + 45f) / 100);
+                else TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney += Mathf.RoundToInt(50 * ((dungeon_lvl + dungeon_zone * 10) * 5) / 100);
+                break;
+        }
+        AfterAction();
+    }
+
+    public void UseAltar()
+    {
+        // pop up? bar?
+        TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife -= 20;
+        int option = Random.Range(1, 4);
+        switch (option)
+        {
+            case 1:
+                if (lvl_buff == "IncreaseMoney") TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney += Mathf.RoundToInt(70 * ((dungeon_lvl + dungeon_zone * 10) * 5 + 25f) / 100);
+                else TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney += Mathf.RoundToInt(50 * ((dungeon_lvl + dungeon_zone * 10) * 5) / 100);
+                break;
+            case 2:
+                if (lvl_buff == "IncreaseMoney") TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney += Mathf.RoundToInt(70 * ((dungeon_lvl + dungeon_zone * 10) * 5 + 35f) / 100);
+                else TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney += Mathf.RoundToInt(50 * ((dungeon_lvl + dungeon_zone * 10) * 5) / 100);
+                break;
+            case 3:
+                if (lvl_buff == "IncreaseMoney") TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney += Mathf.RoundToInt(70 * ((dungeon_lvl + dungeon_zone * 10) * 5 + 45f) / 100);
+                else TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney += Mathf.RoundToInt(50 * ((dungeon_lvl + dungeon_zone * 10) * 5) / 100);
+                break;
+
+        }
+        AfterAction();
+    }
+    public void UseSadness()
+    {
+        // pop up? bar?
+        int option = Random.Range(1, 4);
+        switch (option)
+        {
+            case 1:
+                TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney = Mathf.RoundToInt(TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney * 0.75f);
+                break;
+            case 2:
+                TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney = Mathf.RoundToInt(TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney * 0.65f);
+                break;
+            case 3:
+                TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney = Mathf.RoundToInt(TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney * 0.55f);
+                break;
+        }
+        AfterAction();
+    }
+
+    public void UseEvent()
+    {
+        // pop up? bar? MUST !!!!
+        int option = Random.Range(1, 5);
+        switch (option)
+        {
+            case 1:
+                TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerSaveMoney += 20;
+                break;
+            case 2:
+                TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife -= 20;
+                break;
+            case 3:
+                TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife += 20;
+                break;
+            case 4:
+                TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney = Mathf.RoundToInt(TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney * 1.20f);
+                break;
+        }
+        AfterAction();
+    }
+
+    public void UseMessenger()
+    {
+        // pop up? bar?
+        TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerSaveMoney = Mathf.RoundToInt(TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney * 0.5f);
+        TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney = 0;
+        AfterAction();
+    }
+
+    public void UseCross()
+    {
+        // pop up? bar?
+        int option = Random.Range(1, 4);
+        switch (option)
+        {
+            case 1:
+                TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife += 20;
+                if (TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife > 100) TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife = 100;
+                break;
+            case 2:
+                TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife += 30;
+                if (TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife > 100) TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife = 100;
+                break;
+            case 3:
+                TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife += 40;
+                if (TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife > 100) TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife = 100;
+                break;
+        }
+        AfterAction();
     }
     public void UseTorch()
     {
@@ -156,14 +273,17 @@ public class MapGeneration : MonoBehaviour
                 break;
         }
     }
-    public void Exit()
+    public void UseExit()
     {
         SceneSwitcher.GetComponent<SceneSwitcher>().LoadPlayerWelcomeScene();
         Destroy(GameObject.Find("MapStatus"));
+        Destroy(GameObject.Find("PlayerManager"));
+        // zapis postępu w lochach i wyjście
     }
 
     public void AfterAction()
     {
+        if (TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife <= 0) UseExit();
         UpdateLevelProgress();
         if (lvl_progress == lvl_requirements) NextLevel();
     }
@@ -180,6 +300,7 @@ public class MapGeneration : MonoBehaviour
         ResetLevelProgress();
         CheckLevelRequirements();
         SetLevelBuff();
+        DisableForbidenButtons();
     }
 
     public void UpdateDungeonLevel()
@@ -294,6 +415,23 @@ public class MapGeneration : MonoBehaviour
             if (gameObj.GetComponent<DungeonIcon>().icon_lvl == dungeon_lvl)
             {
                 gameObj.GetComponent<DungeonIcon>().Disable();
+            }
+        }
+
+    }
+
+    public void DisableForbidenButtons()
+    {
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("DungeonIcon"))
+        {
+            if (gameObj.GetComponent<DungeonIcon>().icon_lvl == dungeon_lvl)
+            {
+                if (lvl_buff == "BadChoice" && gameObj.GetComponent<DungeonIcon>().iconType == "Good" || lvl_buff == "BadChoice" && gameObj.GetComponent<DungeonIcon>().iconType == "Neutral")
+                    gameObj.GetComponent<DungeonIcon>().Disable();
+                if (lvl_buff == "GoodChoice" && gameObj.GetComponent<DungeonIcon>().iconType == "Bad" || lvl_buff == "GoodChoice" && gameObj.GetComponent<DungeonIcon>().iconType == "Neutral")
+                    gameObj.GetComponent<DungeonIcon>().Disable();
+                if (lvl_buff == "NeutralChoice" && gameObj.GetComponent<DungeonIcon>().iconType == "Bad" || lvl_buff == "NeutralChoice" && gameObj.GetComponent<DungeonIcon>().iconType == "Good")
+                    gameObj.GetComponent<DungeonIcon>().Disable();
             }
         }
 
@@ -546,6 +684,7 @@ public class MapGeneration : MonoBehaviour
         GenerateBuffIcons();
         SetLevelsBuffsAndRequirements();
         UpdateMapStatus();
+        DisableForbidenButtons();
     }
 
     public void PutBuffIconsToPanels()
