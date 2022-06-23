@@ -125,14 +125,14 @@ public class BattleHandler : MonoBehaviour
 
     public void GetEnemyTypeByLastDoorValue()
     {
-        if(tempCurrentPlayer.LastDoorValue == "czaszka")    enemyType = "normal";
-        else                                                enemyType = "powerful";
+        if(tempCurrentPlayer.LastDoorValue == "Skull")      enemyType = "normal";
+        else if(tempCurrentPlayer.LastDoorValue == "Devil") enemyType = "powerful";
     }
 
     public void GetRandomEnemy()
     {
-        if(enemyType == "normal")   GetNormalEnemy();
-        else                        GetPowerfulEnemy();
+        if      (enemyType == "normal")   GetNormalEnemy();
+        else if (enemyType == "powerful") GetPowerfulEnemy();
     }
 
     public void GetNormalEnemy()
