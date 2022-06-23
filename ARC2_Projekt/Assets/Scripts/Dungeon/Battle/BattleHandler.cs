@@ -31,6 +31,7 @@ public class BattleHandler : MonoBehaviour
     public TMP_Text enemyHealthText;
     public TMP_Text enemyDefenceText;
     public int currentEnemyMaxHealth;
+    public GameObject playerCurrentBuff;
 
     public bool keepDefenceFlagPlayer = false;
     public bool stunFlagPlayer = false;
@@ -50,6 +51,7 @@ public class BattleHandler : MonoBehaviour
     public string currentEnemyName;
     public int currentEnemyHealth;
     public int currentEnemyDefence;
+    public GameObject enemyCurrentBuff;
 
     public bool moveCardsToUsedCardsAnimation = false;
     public bool moveCardsToPlayerCardsPanelAnimation = false;
@@ -74,6 +76,9 @@ public class BattleHandler : MonoBehaviour
         enemyDefenceText = GameObject.Find("EnemyDefenceText (TMP)").GetComponent<TMP_Text>();
         informationText = GameObject.Find("InformationText (TMP)").GetComponent<TMP_Text>();
 
+        playerCurrentBuff = GameObject.Find("PlayerCurrentBuff");
+        enemyCurrentBuff = GameObject.Find("EnemyCurrentBuff");
+
         usedCardsPanel = GameObject.Find("UsedCardsPanel");
         playableCardsPanel = GameObject.Find("PlayableCardsPanel");
         cardsOnHandRevealPanel = GameObject.Find("CardsOnHandRevealPanel");
@@ -87,6 +92,7 @@ public class BattleHandler : MonoBehaviour
         GetRandomEnemy();
 
         CheckMoneyPercentage();
+        CheckCurrentLevelBuff();
 
         playerNameText.text = CurrentPlayerUsername;
         currentPlayerHealth = tempCurrentPlayer.TempPlayerLife;
@@ -119,14 +125,14 @@ public class BattleHandler : MonoBehaviour
 
     public void GetEnemyTypeByLastDoorValue()
     {
-        if(tempCurrentPlayer.LastDoorValue == "czaszka")    enemyType = "normal";
-        else                                                enemyType = "powerful";
+        if(tempCurrentPlayer.LastDoorValue == "Skull")      enemyType = "normal";
+        else if(tempCurrentPlayer.LastDoorValue == "Devil") enemyType = "powerful";
     }
 
     public void GetRandomEnemy()
     {
-        if(enemyType == "normal")   GetNormalEnemy();
-        else                        GetPowerfulEnemy();
+        if      (enemyType == "normal")   GetNormalEnemy();
+        else if (enemyType == "powerful") GetPowerfulEnemy();
     }
 
     public void GetNormalEnemy()
@@ -178,6 +184,37 @@ public class BattleHandler : MonoBehaviour
         {
             moneyPercentage = (howManyTimes5 * 5) + (howManyTimes50 * 50);
             tempCurrentPlayer.TempPlayerMoneyToWinPercentage = (float)moneyPercentage/100;
+        }
+    }
+
+    public void CheckCurrentLevelBuff()
+    {
+        string current_level_buff = mapStatus.lvl_buff;
+
+        switch (current_level_buff)
+        {
+            case "DoubleMonsterDamage":
+                enemyCurrentBuff.transform.GetChild(1).GetComponent<Image>().enabled = true;
+                break;      
+
+            case "IncreaseMonsterDamage":
+                enemyCurrentBuff.transform.GetChild(0).GetComponent<Image>().enabled = true;
+                break;
+
+            case "IncreaseDamage":
+                playerCurrentBuff.transform.GetChild(0).GetComponent<Image>().enabled = true;
+                break;
+
+            case "DoubleDamage":
+                playerCurrentBuff.transform.GetChild(1).GetComponent<Image>().enabled = true;
+                break;
+
+            case "IncreaseMonsterMoney":
+                playerCurrentBuff.transform.GetChild(2).GetComponent<Image>().enabled = true;
+                break;
+
+            default:
+                break;
         }
     }
 
