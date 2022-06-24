@@ -60,7 +60,7 @@ public class CardList : MonoBehaviour
         cardsList.Add(new CardList.Cards(13, "Postac depcze swoje okulary i zaklada nowe.", "Nowe okulary", "Obrona", "Obrona", 13, 5, 250, false, false));
         cardsList.Add(new CardList.Cards(14, "Postac oslepia wroga swym spojrzeniem zabierajac mu jeden ruch w jego turze.", "Blyszczace oko", "Specjalna", "Ogluszenie", 0, 4, 70, false, false));
         cardsList.Add(new CardList.Cards(15, "Postac je drugie sniadanie i sie leczy.", "A co ze sniadaniem?", "Specjalna", "Leczenie", 10, 0, 120, false, false));
-        cardsList.Add(new CardList.Cards(16, "Postac oblewa przeciwnika zepsutym budyniem i zmniejsza mu atak.", "Poranny deser", "Specjalna", "Oslabienie", 8, 2, 50, false, false));
+        cardsList.Add(new CardList.Cards(16, "Postac oblewa przeciwnika zepsutym budyniem i zmniejsza mu atak procentowo.", "Poranny deser", "Specjalna", "Oslabienie", 25, 5, 140, false, false));
         cardsList.Add(new CardList.Cards(17, "Postac otrzymuje darmowy ruch w tej turze.", "Robic robic", "Specjalna", "Pospiech", 0, 3, 40, false, false));
         cardsList.Add(new CardList.Cards(18, "Obrona jest przetrzymywana do nastepnej tury.", "Mocny klej", "Specjalna", "Wytrwalosc", 0, 2, 70, false, false));
         cardsList.Add(new CardList.Cards(19, "Dodanie punktow do nastepnej zagranej karty ataku (nie zuzywa ruchu).", "Mocniej sie nie da?", "Specjalna", "Ulepszenie", 5, 2, 150, false, false));

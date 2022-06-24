@@ -131,6 +131,13 @@ public class EnemyFightingLogic : MonoBehaviour
                     break;
             }
 
+            if(battleHandler.debuffFlagPlayer == true)
+            {
+                battleHandler.debuffFlagPlayer = false;
+                currentAttackValue = Mathf.RoundToInt((float)currentAttackValue * (1f - (battleHandler.debuffValue/100)));
+                battleHandler.debuffValue = 0;
+            } 
+
             if(currentEnemyMove.type == "Atak")
             {
                 if(battleHandler.currentPlayerDefence > currentAttackValue)
@@ -186,6 +193,7 @@ public class EnemyFightingLogic : MonoBehaviour
         
         if(battleHandler.whoWon != "enemy"){
             battleHandler.enemyStunIcon.GetComponent<Image>().enabled = false;
+            battleHandler.enemyHealthBarHealth.GetComponent<Image>().color = new Color32(255, 0, 0, 255);
             battleHandler.informationText.text = "Wróg zakończył turę.";
             yield return new WaitForSeconds(1f);
             StartCoroutine(battleHandler.CheckRemainingPlayerCards());
