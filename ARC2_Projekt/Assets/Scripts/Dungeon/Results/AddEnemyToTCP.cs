@@ -5,7 +5,6 @@ using UnityEngine;
 public class AddEnemyToTCP : MonoBehaviour
 {
     public TempCurrentPlayer tempCurrentPlayer;
-    public DoorHandler doorHandler;
     
     private void Start() {
         tempCurrentPlayer = GameObject.Find("PlayerManager").GetComponent<TempCurrentPlayer>();

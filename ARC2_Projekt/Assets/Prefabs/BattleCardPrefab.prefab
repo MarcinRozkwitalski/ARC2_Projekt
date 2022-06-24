@@ -581,8 +581,8 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -707,6 +707,7 @@ MonoBehaviour:
   battleHandler: {fileID: 0}
   battleCardHandler: {fileID: 0}
   enemyFightingLogic: {fileID: 0}
+  endPlayerTurn: {fileID: 0}
   CardSprite: {fileID: 21300000, guid: a182f9d1ca6adb94dba72fbacd5e3b91, type: 3}
   BackSprite: {fileID: 21300000, guid: 51958d6182e562343ad74e33fa257b5b, type: 3}
   CardName: {fileID: 2727780056509090583}
@@ -725,7 +726,6 @@ MonoBehaviour:
   is_equipped: 0
   is_back_active: 0
   allow_to_animate: 0
-  has_been_activated: 0
 --- !u!114 &667015969226382257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,6 +741,7 @@ MonoBehaviour:
   battleHandler: {fileID: 0}
   battleCardInfo: {fileID: 0}
   battleCardHandler: {fileID: 0}
+  endPlayerTurn: {fileID: 0}
   startObjectPos: {x: 0, y: 0}
   targetPos: {x: 0, y: 0}
   endPos: {x: 0, y: 0}
@@ -748,8 +749,9 @@ MonoBehaviour:
   endLocalScale: {x: 0, y: 0}
   lockPos: 0
   target: {fileID: 4104480803169322945, guid: ba32891cb50ad8b4886f0ea0f9cdf066, type: 3}
-  lerpDurationThree: 3
   lerpDurationOne: 1
+  lerpDurationHalf: 0.5
+  lerpDurationQuarter: 0.25
 --- !u!1 &4104162394648773088
 GameObject:
   m_ObjectHideFlags: 0
