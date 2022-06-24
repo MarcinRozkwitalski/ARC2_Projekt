@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MapGeneration : MonoBehaviour
 {
@@ -78,6 +79,10 @@ public class MapGeneration : MonoBehaviour
     public List<string> this_lvl_list = new List<string>();
     public List<string> this_lvl_list_clicked = new List<string>();
 
+    public TMP_Text money;
+    public TMP_Text saveMoney;
+
+
     public bool battle_started = false;
     public int dungeon_lvl = 1;
     public int dungeon_zone = 0;
@@ -100,11 +105,13 @@ public class MapGeneration : MonoBehaviour
 
         if (MapStatus.GetComponent<MapStatus>().lvl_1_list.Count == 0)
         {
+            UpdatePlayerInfoBars();
             ShowLevel();
             GenerateLevels();
         }
         else
         {
+            UpdatePlayerInfoBars();
             GetThisLevelListFromMapStatus();
             UpdateMapGeneration();
             PutIconsToPanels();
@@ -172,6 +179,7 @@ public class MapGeneration : MonoBehaviour
 
     public void NextLevel()
     {
+        UpdatePlayerInfoBars();
         DisableUnusedButtons();
         UpdateDungeonLevel();
         ResetLevelProgress();
@@ -2521,11 +2529,20 @@ public class MapGeneration : MonoBehaviour
     }
     public void ShowLegend()
     {
-        if(Legend.activeSelf){
-           Legend.SetActive(false);
+        if (Legend.activeSelf)
+        {
+            Legend.SetActive(false);
         }
-        else{
+        else
+        {
             Legend.SetActive(true);
         }
+    }
+
+    public void UpdatePlayerInfoBars()
+    {
+        money.text = TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney.ToString();
+        saveMoney.text = TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerSaveMoney.ToString();
+
     }
 }
