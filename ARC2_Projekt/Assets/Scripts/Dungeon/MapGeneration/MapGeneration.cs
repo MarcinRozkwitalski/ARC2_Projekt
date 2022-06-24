@@ -29,7 +29,7 @@ public class MapGeneration : MonoBehaviour
             buff_lvl_10_panel,
             lvl_1_cover, lvl_2_cover, lvl_3_cover, lvl_4_cover, lvl_5_cover, lvl_6_cover, lvl_7_cover, lvl_8_cover, lvl_9_cover, lvl_10_cover;
 
-    public GameObject IconPrefab, BuffIconPrefab, MapStatus, SceneSwitcher, TempPlayer;
+    public GameObject IconPrefab, BuffIconPrefab, MapStatus, SceneSwitcher, TempPlayer, Legend;
     public List<GameObject> lvl_panels = new List<GameObject>();
     public List<string> devils = new List<string>();
     public List<string> skulls = new List<string>();
@@ -2522,6 +2522,15 @@ public class MapGeneration : MonoBehaviour
                 icon.transform.Find("Altar").gameObject.SetActive(false);
                 icon.transform.Find("Event").gameObject.SetActive(false);
                 break;
+        }
+    }
+    public void ShowLegend()
+    {
+        if(Legend.activeSelf){
+           Legend.SetActive(false);
+        }
+        else{
+            Legend.SetActive(true);
         }
     }
 }
