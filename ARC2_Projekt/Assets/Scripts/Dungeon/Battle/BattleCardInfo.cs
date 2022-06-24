@@ -38,6 +38,13 @@ public class BattleCardInfo : MonoBehaviour
         enemyFightingLogic = GameObject.Find("BattleHandler").GetComponent<EnemyFightingLogic>();
         endPlayerTurn = GameObject.Find("EndTurnButton").GetComponent<EndPlayerTurn>();
 
+        // float x = transform.localPosition.x;
+
+        // float y = transform.localPosition.y;
+
+
+        // transform.localPosition = new Vector2(x/100, y/100);
+
         AssignNewTransform();
         AssignBackImage();
         TurnOffButton();
@@ -115,7 +122,7 @@ public class BattleCardInfo : MonoBehaviour
 
         for (int i = 0; i < howManyCards; i++)
         {
-            battleCardHandler.cardsOnHandRevealPanel.transform.GetChild(0).transform.SetParent(battleHandler.playableCardsPanel.transform, false);
+            battleCardHandler.cardsOnHandRevealPanel.transform.GetChild(0).transform.SetParent(battleHandler.playableCardsPanel.transform, true);
         }   
     }
 
@@ -477,7 +484,7 @@ public class BattleCardInfo : MonoBehaviour
         {
             battleHandler.playableCardsPanel.transform.GetChild(0).gameObject.GetComponent<Button>().enabled = false;
             battleHandler.playableCardsPanel.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
-            battleHandler.playableCardsPanel.transform.GetChild(0).transform.SetParent(battleHandler.usedCardsPanel.transform, false);
+            battleHandler.playableCardsPanel.transform.GetChild(0).transform.SetParent(battleHandler.usedCardsPanel.transform, true);
         }
 
         yield return new WaitForSeconds(1);

@@ -10,7 +10,6 @@ public class CardAnimation : MonoBehaviour
     public EndPlayerTurn endPlayerTurn;
 
     public Vector2 startObjectPos;
-    public Vector2 targetPos;
     public Vector2 endPos;
     public Vector2 startObjectScale;
     public Vector2 endLocalScale;
@@ -29,22 +28,22 @@ public class CardAnimation : MonoBehaviour
         battleCardInfo = this.gameObject.GetComponent<BattleCardInfo>();
         battleCardHandler = GameObject.Find("NetworkManager").GetComponent<BattleCardHandler>();
         startObjectPos = transform.position;
-        targetPos = target.transform.position;
+        gameObject.transform.localPosition = new Vector2(0f, 0f);
         startObjectScale = transform.localScale;
     }
 
-    private void Update() 
+    private void FixedUpdate() 
     {
         if(battleHandler.moveCardsToUsedCardsAnimation == true && battleCardInfo.allow_to_animate == true)
         {
-            endPos = targetPos + new Vector2(960 + 10, 540 + 3);
+            endPos = new Vector2(370, 154);
             endLocalScale = new Vector2(0.63f, 0.53f);
             StartCoroutine(AnimateMovingCardsToUsedCards());
         }
 
         if(battleHandler.moveCardsToPlayerCardsPanelAnimation == true && battleCardInfo.allow_to_animate == true)
         {
-            endPos = targetPos + new Vector2(1561, 118);
+            endPos = new Vector2(955, -271);
             endLocalScale = new Vector2(1f, 0.88f);
             StartCoroutine(AnimateMovingCardsToPlayerCardsPanel());
         }
@@ -63,7 +62,7 @@ public class CardAnimation : MonoBehaviour
 
         if(battleHandler.moveCardsFromUsedCardsToDeckCardsAnimation == true && battleCardInfo.allow_to_animate == true)
         {
-            endPos = new Vector2(152, 710);
+            endPos = new Vector2(0, 0);
             endLocalScale = new Vector2(0.4272f, 0.370f);
             StartCoroutine(AnimateMovingCardsFromUsedCardsToDeckCardsToPick());
         }
@@ -73,7 +72,7 @@ public class CardAnimation : MonoBehaviour
     {
         if (lockPos == false)
         {
-            startObjectPos = transform.position;
+            startObjectPos = transform.localPosition;
             startObjectScale = transform.localScale;
             lockPos = true;
         }
@@ -84,12 +83,12 @@ public class CardAnimation : MonoBehaviour
             timeElapsed += Time.deltaTime;
             float percentageComplete = timeElapsed / lerpDurationHalf;
 
-            transform.position = Vector2.Lerp(startObjectPos, endPos, percentageComplete);
+            transform.localPosition = Vector2.Lerp(startObjectPos, endPos, percentageComplete);
             transform.localScale = Vector2.Lerp(startObjectScale, endLocalScale, percentageComplete);
 
             yield return null;
         }
-        transform.position = endPos;
+        transform.localPosition = endPos;
         transform.localScale = endLocalScale;
         battleCardInfo.allow_to_animate = false;
         battleHandler.moveCardsToUsedCardsAnimation = false;
@@ -102,7 +101,7 @@ public class CardAnimation : MonoBehaviour
     {
         if (lockPos == false)
         {
-            startObjectPos = transform.position;
+            startObjectPos = transform.localPosition;
             startObjectScale = transform.localScale;
             lockPos = true;
         }
@@ -113,13 +112,13 @@ public class CardAnimation : MonoBehaviour
             timeElapsed += Time.deltaTime;
             float percentageComplete = timeElapsed / lerpDurationHalf;
 
-            transform.position = Vector2.Lerp(startObjectPos, endPos, percentageComplete);
+            transform.localPosition = Vector2.Lerp(startObjectPos, endPos, percentageComplete);
             transform.localScale = Vector2.Lerp(startObjectScale, endLocalScale, percentageComplete);
 
             yield return null;
         }
         battleCardInfo.TurnOnButton();
-        transform.position = endPos;
+        transform.localPosition = endPos;
         transform.localScale = endLocalScale;
         battleHandler.moveCardsToPlayerCardsPanelAnimation = false;
         lockPos = false;
@@ -184,7 +183,7 @@ public class CardAnimation : MonoBehaviour
     {
         if (lockPos == false)
         {
-            startObjectPos = transform.position;
+            startObjectPos = transform.localPosition;
             startObjectScale = transform.localScale;
             lockPos = true;
         }
@@ -195,13 +194,13 @@ public class CardAnimation : MonoBehaviour
             timeElapsed += Time.deltaTime;
             float percentageComplete = timeElapsed / lerpDurationQuarter;
 
-            transform.position = Vector2.Lerp(startObjectPos, endPos, percentageComplete);
+            transform.localPosition = Vector2.Lerp(startObjectPos, endPos, percentageComplete);
             transform.localScale = Vector2.Lerp(startObjectScale, endLocalScale, percentageComplete);
 
             yield return null;
         }
         this.GetComponent<BattleCardInfo>().allow_to_animate = false;
-        transform.position = endPos;
+        transform.localPosition = endPos;
         transform.localScale = endLocalScale;
         battleHandler.moveCardsFromUsedCardsToDeckCardsAnimation = false;
         lockPos = false;
