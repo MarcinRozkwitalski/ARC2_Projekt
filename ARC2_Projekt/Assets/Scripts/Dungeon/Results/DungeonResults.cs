@@ -21,7 +21,7 @@ public class DungeonResults : MonoBehaviour
     {
         tempCurrentPlayer = GameObject.Find("PlayerManager").GetComponent<TempCurrentPlayer>();
         currentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer").GetComponent<CurrentPlayer>();
-        mapStatus = GameObject.Find("MapManager").GetComponent<MapStatus>();
+        mapStatus = GameObject.Find("MapStatus").GetComponent<MapStatus>();
 
         CheckMoney();
         CheckEnemies();
