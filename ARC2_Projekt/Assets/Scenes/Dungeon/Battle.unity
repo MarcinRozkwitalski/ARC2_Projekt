@@ -817,11 +817,14 @@ MonoBehaviour:
   playerCurrentBuff: {fileID: 0}
   playerShield: {fileID: 100462104}
   enemyStunIcon: {fileID: 1305739880}
+  enemyHealthBarHealth: {fileID: 1888143277}
   remainingMovesText: {fileID: 0}
   keepDefenceFlagPlayer: 0
   stunFlagPlayer: 0
   debuffFlagPlayer: 0
   improvementFlagPlayer: 0
+  debuffValue: 0
+  improvementValue: 0
   remainingMoves: 0
   maxAmmountOfMoves: 0
   currentAmmountOfMoves: 0

@@ -140,6 +140,43 @@ public class BattleCardInfo : MonoBehaviour
 
             string current_level_buff = battleHandler.mapStatus.battle_buff;
             int currentAttackPoints = points;
+            int currentDefencePoints = points;
+            int currentDebuffPoints = points;
+            int currentHealingPoints = points;
+
+            if(battleHandler.improvementFlagPlayer == true)
+            {
+                battleHandler.improvementFlagPlayer = false;
+                switch (cardType)
+                {
+                    case "Atak":
+                        currentAttackPoints += battleHandler.improvementValue;
+                        battleHandler.improvementValue = 0;
+                        break;
+
+                    case "Obrona":
+                        currentDefencePoints += battleHandler.improvementValue;
+                        battleHandler.improvementValue = 0;
+                        break;
+
+                    case "Oslabienie":
+                        currentDebuffPoints += battleHandler.improvementValue;
+                        battleHandler.improvementValue = 0;
+                        break;
+
+                    case "Leczenie":
+                        currentHealingPoints += battleHandler.improvementValue;
+                        battleHandler.improvementValue = 0;
+                        break;
+
+                    case "Tecza":
+                        currentAttackPoints += battleHandler.improvementValue;
+                        currentDefencePoints += battleHandler.improvementValue;
+                        currentHealingPoints += battleHandler.improvementValue;
+                        battleHandler.improvementValue = 0;
+                        break;
+                }                
+            }
 
             switch (current_level_buff)
             {
@@ -219,11 +256,11 @@ public class BattleCardInfo : MonoBehaviour
                     break;
 
                 case "Obrona":
-                    battleHandler.informationText.text = "Zyskujesz " + points + " tarczy.";
+                    battleHandler.informationText.text = "Zyskujesz " + currentDefencePoints + " tarczy.";
                     battleHandler.currentPlayerHealth -= healthPoints;
                     PreventHealthPointsFallingBelowZero();
                     battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                    battleHandler.currentPlayerDefence += points;
+                    battleHandler.currentPlayerDefence += currentDefencePoints;
                     battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                     battleHandler.remainingMoves--;
                     battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
@@ -278,6 +315,8 @@ public class BattleCardInfo : MonoBehaviour
                     PreventHealthPointsFallingBelowZero();
                     battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                     battleHandler.debuffFlagPlayer = true;
+                    battleHandler.enemyHealthBarHealth.GetComponent<Image>().color = new Color32(0, 255, 0, 255);
+                    battleHandler.debuffValue = currentDebuffPoints;
                     battleHandler.remainingMoves--;
                     battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                     battleHandler.currentAmmountOfMoves++;
@@ -286,8 +325,8 @@ public class BattleCardInfo : MonoBehaviour
                     break;
 
                 case "Leczenie": 
-                    battleHandler.informationText.text = "Uleczyles sie " + points + "HP.";
-                    battleHandler.currentPlayerHealth += points;
+                    battleHandler.informationText.text = "Uleczyles sie " + currentHealingPoints + "HP.";
+                    battleHandler.currentPlayerHealth += currentHealingPoints;
                     if(battleHandler.currentPlayerHealth > 100) battleHandler.currentPlayerHealth = 100;
                     battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                     battleHandler.remainingMoves--;
@@ -309,12 +348,13 @@ public class BattleCardInfo : MonoBehaviour
                     CheckIfRemainingMovesIsZero();
                     break;
 
-                case "Ulepszenie": //bez remainingMoves--; //co w przypadkach użycia na wszystkich specjalnych kartach?
+                case "Ulepszenie":
                     battleHandler.informationText.text = "Ulepszasz nastepna karte.";
                     battleHandler.currentPlayerHealth -= healthPoints;
                     PreventHealthPointsFallingBelowZero();
                     battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                     battleHandler.improvementFlagPlayer = true;
+                    battleHandler.improvementValue = points;
                     battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
                     CheckIfRemainingMovesIsZero();
@@ -383,11 +423,11 @@ public class BattleCardInfo : MonoBehaviour
                             break;
                             
                         case 2: //obrona
-                            battleHandler.informationText.text = "Zyskujesz " + points + " tarczy.";
+                            battleHandler.informationText.text = "Zyskujesz " + currentDefencePoints + " tarczy.";
                             battleHandler.currentPlayerHealth -= healthPoints;
                             PreventHealthPointsFallingBelowZero();
                             battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
-                            battleHandler.currentPlayerDefence += points;
+                            battleHandler.currentPlayerDefence += currentDefencePoints;
                             battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
                             battleHandler.remainingMoves--;
                             battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
@@ -397,8 +437,8 @@ public class BattleCardInfo : MonoBehaviour
                             break;
                             
                         case 3: //leczenie
-                            battleHandler.informationText.text = "Uleczyles sie " + points + "HP.";
-                            battleHandler.currentPlayerHealth += points;
+                            battleHandler.informationText.text = "Uleczyles sie " + currentHealingPoints + "HP.";
+                            battleHandler.currentPlayerHealth += currentHealingPoints;
                             if(battleHandler.currentPlayerHealth > 100) battleHandler.currentPlayerHealth = 100;
                             battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                             battleHandler.remainingMoves--;
@@ -547,6 +587,7 @@ public class BattleCardInfo : MonoBehaviour
             cardInfo.transform.Find("Life").gameObject.SetActive(false);
             cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
             cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+            cardInfo.transform.Find("Debuff").gameObject.SetActive(true);
             cardInfo.transform.Find("Buff").gameObject.SetActive(false);
             cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
             cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);

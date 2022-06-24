@@ -34,6 +34,7 @@ public class BattleHandler : MonoBehaviour
     public GameObject playerCurrentBuff;
     public GameObject playerShield;
     public GameObject enemyStunIcon;
+    public GameObject enemyHealthBarHealth;
     
     public TMP_Text remainingMovesText;
 
@@ -41,6 +42,9 @@ public class BattleHandler : MonoBehaviour
     public bool stunFlagPlayer = false;
     public bool debuffFlagPlayer = false;
     public bool improvementFlagPlayer = false;
+
+    public float debuffValue = 0;
+    public int improvementValue = 0;
 
     public int remainingMoves;
     public int maxAmmountOfMoves;
