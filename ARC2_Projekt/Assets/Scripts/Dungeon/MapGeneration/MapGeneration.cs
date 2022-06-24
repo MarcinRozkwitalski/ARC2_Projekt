@@ -254,6 +254,7 @@ public class MapGeneration : MonoBehaviour
     {
         // pop up? bar?
         TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife -= 20;
+        if(TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife <= 0)TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife = 1;
         int option = Random.Range(1, 4);
         switch (option)
         {
