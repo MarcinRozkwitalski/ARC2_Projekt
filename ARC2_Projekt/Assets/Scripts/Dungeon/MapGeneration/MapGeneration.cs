@@ -81,6 +81,7 @@ public class MapGeneration : MonoBehaviour
 
     public TMP_Text money;
     public TMP_Text saveMoney;
+    public TMP_Text lvl_1_text, lvl_2_text, lvl_3_text, lvl_4_text, lvl_5_text, lvl_6_text, lvl_7_text, lvl_8_text, lvl_9_text, lvl_10_text;
 
 
     public bool battle_started = false;
@@ -105,18 +106,22 @@ public class MapGeneration : MonoBehaviour
 
         if (MapStatus.GetComponent<MapStatus>().lvl_1_list.Count == 0)
         {
+            SetLevelsNumberText();
             UpdatePlayerInfoBars();
             ShowLevel();
             GenerateLevels();
         }
         else
         {
+            
             UpdatePlayerInfoBars();
             GetThisLevelListFromMapStatus();
             UpdateMapGeneration();
             PutIconsToPanels();
             PutBuffIconsToPanels();
             dungeon_lvl = MapStatus.GetComponent<MapStatus>().dungeon_lvl;
+            dungeon_zone = MapStatus.GetComponent<MapStatus>().dungeon_zone;
+            SetLevelsNumberText();
             ShowLevel();
             DisablePreviousIcons();
             DisableForbidenButtons();
@@ -200,6 +205,7 @@ public class MapGeneration : MonoBehaviour
             MapStatus.GetComponent<MapStatus>().dungeon_zone = dungeon_zone;
             MapStatus.GetComponent<MapStatus>().dungeon_lvl = dungeon_lvl;
             GenerateNewZone();
+            SetLevelsNumberText();
         }
         else
         {
@@ -2544,5 +2550,19 @@ public class MapGeneration : MonoBehaviour
         money.text = TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerMoney.ToString();
         saveMoney.text = TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerSaveMoney.ToString();
 
+    }
+
+    public void SetLevelsNumberText()
+    {
+        lvl_1_text.text = (1 + dungeon_zone * 10).ToString();
+        lvl_2_text.text = (2 + dungeon_zone * 10).ToString();
+        lvl_3_text.text = (3 + dungeon_zone * 10).ToString();
+        lvl_4_text.text = (4 + dungeon_zone * 10).ToString();
+        lvl_5_text.text = (5 + dungeon_zone * 10).ToString();
+        lvl_6_text.text = (6 + dungeon_zone * 10).ToString();
+        lvl_7_text.text = (7 + dungeon_zone * 10).ToString();
+        lvl_8_text.text = (8 + dungeon_zone * 10).ToString();
+        lvl_9_text.text = (9 + dungeon_zone * 10).ToString();
+        lvl_10_text.text = (10 + dungeon_zone * 10).ToString();
     }
 }
