@@ -235,6 +235,9 @@ public class BattleCardInfo : MonoBehaviour
                 case "Wytrwalosc":
                     battleHandler.informationText.text = "Zyskujesz przedluzenie tarczy.";
                     battleHandler.playerShield.GetComponent<Image>().color = new Color32(64, 64, 64, 255);
+                    battleHandler.currentPlayerHealth -= healthPoints;
+                    PreventHealthPointsFallingBelowZero();
+                    battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                     battleHandler.keepDefenceFlagPlayer = true;
                     battleHandler.remainingMoves--;
                     battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
@@ -245,6 +248,9 @@ public class BattleCardInfo : MonoBehaviour
 
                 case "Pospiech":
                     battleHandler.informationText.text = "Zyskujesz dodatkowy ruch.";
+                    battleHandler.currentPlayerHealth -= healthPoints;
+                    PreventHealthPointsFallingBelowZero();
+                    battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                     battleHandler.remainingMoves++;
                     battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
                     battleHandler.currentAmmountOfMoves++;
@@ -254,6 +260,9 @@ public class BattleCardInfo : MonoBehaviour
 
                 case "Ogluszenie":
                     battleHandler.informationText.text = "Ogluszyles przeciwnika na ture.";
+                    battleHandler.currentPlayerHealth -= healthPoints;
+                    PreventHealthPointsFallingBelowZero();
+                    battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                     battleHandler.stunFlagPlayer = true;
                     battleHandler.enemyStunIcon.GetComponent<Image>().enabled = true;
                     battleHandler.remainingMoves--;
@@ -265,6 +274,9 @@ public class BattleCardInfo : MonoBehaviour
 
                 case "Oslabienie":
                     battleHandler.informationText.text = "Oslabiles przeciwnika.";
+                    battleHandler.currentPlayerHealth -= healthPoints;
+                    PreventHealthPointsFallingBelowZero();
+                    battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                     battleHandler.debuffFlagPlayer = true;
                     battleHandler.remainingMoves--;
                     battleHandler.remainingMovesText.text = "Moves: \n" + battleHandler.remainingMoves.ToString() + "/" + battleHandler.basicRemainingMovesAmount;
@@ -287,6 +299,9 @@ public class BattleCardInfo : MonoBehaviour
 
                 case "Wzmocnienie":
                     battleHandler.informationText.text = "Podwoiles tarcze.";
+                    battleHandler.currentPlayerHealth -= healthPoints;
+                    PreventHealthPointsFallingBelowZero();
+                    battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                     battleHandler.currentPlayerDefence *= 2;
                     battleHandler.currentAmmountOfMoves++;
                     battleHandler.playerDefenceText.text = battleHandler.currentPlayerDefence.ToString();
@@ -296,6 +311,9 @@ public class BattleCardInfo : MonoBehaviour
 
                 case "Ulepszenie": //bez remainingMoves--; //co w przypadkach użycia na wszystkich specjalnych kartach?
                     battleHandler.informationText.text = "Ulepszasz nastepna karte.";
+                    battleHandler.currentPlayerHealth -= healthPoints;
+                    PreventHealthPointsFallingBelowZero();
+                    battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                     battleHandler.improvementFlagPlayer = true;
                     battleHandler.currentAmmountOfMoves++;
                     DebuggingInfo();
