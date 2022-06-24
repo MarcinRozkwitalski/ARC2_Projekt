@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.Networking;
 using SimpleJSON;
 
@@ -62,15 +63,15 @@ public class ConditionsToEnterDungeon : MonoBehaviour
                 sceneSwitcher.LoadMapGenerationScene();
                 break;
             case 1:
-                InformationPanel.transform.GetChild(1).GetComponent<Text>().text = "You need at least three cards and at least one card of Attack type \nto enter Dungeon.";
+                InformationPanel.transform.GetChild(1).GetComponent<TMP_Text>().text = "You need at least three cards and at least one card of Attack type \nto enter Dungeon.";
                 TurnInformationPanelOn();
                 break;
             case 2:
-                InformationPanel.transform.GetChild(1).GetComponent<Text>().text = "You need at least \three cards \nto enter Dungeon.";
+                InformationPanel.transform.GetChild(1).GetComponent<TMP_Text>().text = "You need at least \nthree cards \nto enter Dungeon.";
                 TurnInformationPanelOn();
                 break;
             case 3:
-                InformationPanel.transform.GetChild(1).GetComponent<Text>().text = "You need at least one card of Attack type \nto enter Dungeon.";
+                InformationPanel.transform.GetChild(1).GetComponent<TMP_Text>().text = "You need at least one card of Attack type \nto enter Dungeon.";
                 TurnInformationPanelOn();
                 break;
         }

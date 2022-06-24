@@ -5,9 +5,11 @@ using UnityEngine;
 public class RemoveTempCurrentPlayer : MonoBehaviour
 {
     public TempCurrentPlayer tempCurrentPlayer;
+    public CurrentPlayer currentPlayer;
 
     private void Start() {
         tempCurrentPlayer = GameObject.Find("PlayerManager").GetComponent<TempCurrentPlayer>();
+        currentPlayer = GameObject.Find("CurrentPlayerManager").GetComponent<CurrentPlayer>();
     }
 
     public void LostDungeon()
@@ -17,9 +19,9 @@ public class RemoveTempCurrentPlayer : MonoBehaviour
         }
     }
 
-    //do przycisku EXIT DUNGEON
-    public void DestroyTempCurrentPlayer()
+    public void DestroyTempPlayerManagerAndMapStatus()
     {
-        Destroy(GameObject.Find("DoorHandler"));
+        Destroy(GameObject.Find("PlayerManager"));
+        Destroy(GameObject.Find("MapStatus"));
     }
 }

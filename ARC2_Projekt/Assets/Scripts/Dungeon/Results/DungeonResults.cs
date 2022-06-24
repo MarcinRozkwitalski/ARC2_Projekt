@@ -1,51 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 
 public class DungeonResults : MonoBehaviour
 {
-    public Text ResultsText;
+    public TMP_Text ResultsText;
     public string MoneyText;
     public string BeatenText = "Beaten:\n";
     public string NormalEnemiesText = "";
     public string PowerfulEnemiesText = "";
     public TempCurrentPlayer tempCurrentPlayer;
+    public CurrentPlayer currentPlayer;
 
     private void Start() 
     {
         tempCurrentPlayer = GameObject.Find("PlayerManager").GetComponent<TempCurrentPlayer>();
-        var CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
+        currentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer").GetComponent<CurrentPlayer>();
 
         CheckMoney();
         CheckEnemies();
 
-        if(tempCurrentPlayer.whoWon == "player") 
+        if(tempCurrentPlayer.whoWon == "player")
         {
-            ResultsText.text = "You've passed dungeon, " + CurrentPlayer.GetComponent<CurrentPlayer>().Username + "!\n\n" +
-            "You've " + MoneyText + "Total money: " + tempCurrentPlayer.TempPlayerMoney + "\n\n" + 
+            ResultsText.text = "You've passed dungeon!\n\n" +
+            "You've " + MoneyText + "Total money: " + (tempCurrentPlayer.TempPlayerMoney + tempCurrentPlayer.TempPlayerSaveMoney) + "\n\n" + 
             BeatenText + NormalEnemiesText + PowerfulEnemiesText;
+
+            currentPlayer.Money = tempCurrentPlayer.TempPlayerMoney + tempCurrentPlayer.TempPlayerSaveMoney;
+            currentPlayer.Life = tempCurrentPlayer.TempPlayerLife;
         }
         else if(tempCurrentPlayer.whoWon == "enemy")
         {
-            ResultsText.text = "You didn't pass dungeon, " + CurrentPlayer.GetComponent<CurrentPlayer>().Username + "!\n\n" +
-            "You've " + MoneyText + "Total money: " + tempCurrentPlayer.TempPlayerMoney + "\n\n" + 
+            ResultsText.text = "You didn't pass dungeon!\n\n" +
+            "You've " + MoneyText + "Total money: " + tempCurrentPlayer.TempPlayerSaveMoney + "\n\n" + 
             BeatenText + NormalEnemiesText + PowerfulEnemiesText;
+
+            currentPlayer.Money = tempCurrentPlayer.TempPlayerSaveMoney;
+            currentPlayer.Life = 100;
         }
     }
 
     void CheckMoney()
     {
-        if(tempCurrentPlayer.TempPlayerMoneyResults > 0 && tempCurrentPlayer.whoWon == "player")        GainedMoney();
-        else if(tempCurrentPlayer.TempPlayerMoneyResults < 0 && tempCurrentPlayer.whoWon == "player")   LostMoney();
-        else if(tempCurrentPlayer.TempPlayerMoneyResults == 0 && tempCurrentPlayer.whoWon == "player")  NoMoney();
+        if(tempCurrentPlayer.TempPlayerMoney + tempCurrentPlayer.TempPlayerSaveMoney > 0 && tempCurrentPlayer.whoWon == "player")        GainedMoney();
+        else if(tempCurrentPlayer.TempPlayerMoney + tempCurrentPlayer.TempPlayerSaveMoney < 0 && tempCurrentPlayer.whoWon == "player")   LostMoney();
+        else if(tempCurrentPlayer.TempPlayerMoney + tempCurrentPlayer.TempPlayerSaveMoney == 0 && tempCurrentPlayer.whoWon == "player")  NoMoney();
         else                                                                                            LostGainedMoney();
     }
 
     void GainedMoney()
     {
-        MoneyText = "gained " + tempCurrentPlayer.TempPlayerMoneyResults + " money.\n";
+        MoneyText = "gained " + (tempCurrentPlayer.TempPlayerMoney + tempCurrentPlayer.TempPlayerSaveMoney) + " money.\n";
     }
 
     void NoMoney()
@@ -55,7 +63,7 @@ public class DungeonResults : MonoBehaviour
 
     void LostMoney()
     {
-        MoneyText = "lost " + Math.Abs(tempCurrentPlayer.TempPlayerMoneyResults) + " money.\n";
+        MoneyText = "lost " + Math.Abs(tempCurrentPlayer.TempPlayerMoney + tempCurrentPlayer.TempPlayerSaveMoney) + " money.\n";
     }
 
     void LostGainedMoney()
