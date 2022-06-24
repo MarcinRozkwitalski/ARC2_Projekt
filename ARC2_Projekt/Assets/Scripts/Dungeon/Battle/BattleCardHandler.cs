@@ -29,7 +29,7 @@ public class BattleCardHandler : MonoBehaviour
             if(card.is_equipped == true && card.bought == true)
             {
                 var BattleCardsInfo = Instantiate(BattleCardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                BattleCardsInfo.transform.SetParent(cardsDeckToPick.transform);
+                BattleCardsInfo.transform.SetParent(cardsDeckToPick.transform, false);
                 CheckSubtype(BattleCardsInfo, card.card_subtype);
                 BattleCardsInfo.GetComponent<BattleCardInfo>().cardname = card.card_name;
                 BattleCardsInfo.GetComponent<BattleCardInfo>().type = card.card_subtype;

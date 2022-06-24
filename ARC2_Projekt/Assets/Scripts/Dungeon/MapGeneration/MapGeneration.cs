@@ -993,7 +993,7 @@ public class MapGeneration : MonoBehaviour
     public void PutBuffIcon(GameObject buffPanel, List<string> buffIconName)
     {
         var icon = Instantiate(BuffIconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        icon.transform.SetParent(buffPanel.transform);
+        icon.transform.SetParent(buffPanel.transform, false);
         GetBuffIconSymbol(buffIconName[0], icon);
     }
 
@@ -2346,61 +2346,61 @@ public class MapGeneration : MonoBehaviour
         for (int i = 0; i < lvl_1_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            icon.transform.SetParent(GetPanel(0).transform);
+            icon.transform.SetParent(GetPanel(0).transform, false);
             GetIconSymbol(lvl_1_list[i], icon, dungeon_lvl);
         }
         for (int i = 0; i < lvl_2_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            icon.transform.SetParent(GetPanel(1).transform);
+            icon.transform.SetParent(GetPanel(1).transform, false);
             GetIconSymbol(lvl_2_list[i], icon, dungeon_lvl + 1);
         }
         for (int i = 0; i < lvl_3_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            icon.transform.SetParent(GetPanel(2).transform);
+            icon.transform.SetParent(GetPanel(2).transform, false);
             GetIconSymbol(lvl_3_list[i], icon, dungeon_lvl + 2);
         }
         for (int i = 0; i < lvl_4_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            icon.transform.SetParent(GetPanel(3).transform);
+            icon.transform.SetParent(GetPanel(3).transform, false);
             GetIconSymbol(lvl_4_list[i], icon, dungeon_lvl + 3);
         }
         for (int i = 0; i < lvl_5_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            icon.transform.SetParent(GetPanel(4).transform);
+            icon.transform.SetParent(GetPanel(4).transform, false);
             GetIconSymbol(lvl_5_list[i], icon, dungeon_lvl + 4);
         }
         for (int i = 0; i < lvl_6_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            icon.transform.SetParent(GetPanel(5).transform);
+            icon.transform.SetParent(GetPanel(5).transform, false);
             GetIconSymbol(lvl_6_list[i], icon, dungeon_lvl + 5);
         }
         for (int i = 0; i < lvl_7_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            icon.transform.SetParent(GetPanel(6).transform);
+            icon.transform.SetParent(GetPanel(6).transform, false);
             GetIconSymbol(lvl_7_list[i], icon, dungeon_lvl + 6);
         }
         for (int i = 0; i < lvl_8_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            icon.transform.SetParent(GetPanel(7).transform);
+            icon.transform.SetParent(GetPanel(7).transform, false);
             GetIconSymbol(lvl_8_list[i], icon, dungeon_lvl + 7);
         }
         for (int i = 0; i < lvl_9_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            icon.transform.SetParent(GetPanel(8).transform);
+            icon.transform.SetParent(GetPanel(8).transform, false);
             GetIconSymbol(lvl_9_list[i], icon, dungeon_lvl + 8);
         }
         for (int i = 0; i < lvl_10_list.Count; i++)
         {
             var icon = Instantiate(IconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            icon.transform.SetParent(GetPanel(9).transform);
+            icon.transform.SetParent(GetPanel(9).transform, false);
             GetIconSymbol(lvl_10_list[i], icon, dungeon_lvl + 9);
         }
 

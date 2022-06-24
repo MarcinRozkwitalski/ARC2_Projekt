@@ -45,9 +45,9 @@ public class CardList : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        cardsList.Add(new CardList.Cards(1, "Postac w ogromnym szale zaczyna ryczec na przeciwnika.", "Bestialski ryk", "Atak", "Atak", 2, 1, 70, false, false));
-        cardsList.Add(new CardList.Cards(2, "Postac wymierza sprawiedliwosc przeciwnikowi przez uderzenie otwarta dlonia.", "Spadajacy lisc", "Atak", "Atak", 4, 2, 120, false, false));
-        cardsList.Add(new CardList.Cards(3, "Postac obzera sie kanapkami zwiekszajac swoja mase tluszczowa.", "Grubo skorny", "Obrona", "Obrona", 3, 1, 80, false, false));
+        cardsList.Add(new CardList.Cards(1, "Postac w ogromnym szale zaczyna ryczec na przeciwnika.", "Bestialski ryk", "Atak", "Atak", 2, 1, 70, true, true));
+        cardsList.Add(new CardList.Cards(2, "Postac wymierza sprawiedliwosc przeciwnikowi przez uderzenie otwarta dlonia.", "Spadajacy lisc", "Atak", "Atak", 4, 2, 120, true, true));
+        cardsList.Add(new CardList.Cards(3, "Postac obzera sie kanapkami zwiekszajac swoja mase tluszczowa.", "Grubo skorny", "Obrona", "Obrona", 3, 1, 80, true, true));
         cardsList.Add(new CardList.Cards(4, "Postac wyciaga krolika z kapelusza, ktory zaslania nasza postac przed obrazeniami.", "Znikajacy krolik", "Obrona", "Obrona", 1, 0, 50, false, false));
         cardsList.Add(new CardList.Cards(5, "Postac na slepo zaczyna rzucac kamieniami w przeciwnikow.", "Slepy traf", "Atak", "Atak", 2, 0, 150, false, false));
         cardsList.Add(new CardList.Cards(6, "Postac przylepia do siebie platy miodu. ", "Miodzio zbroja", "Obrona", "Obrona", 8, 3, 130, false, false));

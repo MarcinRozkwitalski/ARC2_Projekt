@@ -115,7 +115,7 @@ public class BattleCardInfo : MonoBehaviour
 
         for (int i = 0; i < howManyCards; i++)
         {
-            battleCardHandler.cardsOnHandRevealPanel.transform.GetChild(0).transform.SetParent(battleHandler.playableCardsPanel.transform);
+            battleCardHandler.cardsOnHandRevealPanel.transform.GetChild(0).transform.SetParent(battleHandler.playableCardsPanel.transform, false);
         }   
     }
 
@@ -477,7 +477,7 @@ public class BattleCardInfo : MonoBehaviour
         {
             battleHandler.playableCardsPanel.transform.GetChild(0).gameObject.GetComponent<Button>().enabled = false;
             battleHandler.playableCardsPanel.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<Image>().color = new Color32(128, 128, 128, 255);
-            battleHandler.playableCardsPanel.transform.GetChild(0).transform.SetParent(battleHandler.usedCardsPanel.transform, true);
+            battleHandler.playableCardsPanel.transform.GetChild(0).transform.SetParent(battleHandler.usedCardsPanel.transform, false);
         }
 
         yield return new WaitForSeconds(1);

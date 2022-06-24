@@ -128,7 +128,7 @@ public class Cards : MonoBehaviour
             if(card.is_equipped == false && card.bought == true)
             {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                CardsInfo.transform.SetParent(panel.transform);
+                CardsInfo.transform.SetParent(panel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
                 CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
@@ -148,7 +148,7 @@ public class Cards : MonoBehaviour
         {
             if(card.card_subtype == "Atak" && card.is_equipped == false && card.bought == true){
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                CardsInfo.transform.SetParent(panel.transform);
+                CardsInfo.transform.SetParent(panel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
                 CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
@@ -168,7 +168,7 @@ public class Cards : MonoBehaviour
         {
             if(card.card_subtype == "Obrona" && card.is_equipped == false && card.bought == true){
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                CardsInfo.transform.SetParent(panel.transform);
+                CardsInfo.transform.SetParent(panel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
                 CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
@@ -189,7 +189,7 @@ public class Cards : MonoBehaviour
         {
             if(card.card_type == "Specjalna" && card.is_equipped == false && card.bought == true){
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                CardsInfo.transform.SetParent(panel.transform);
+                CardsInfo.transform.SetParent(panel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
                 CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
@@ -249,7 +249,7 @@ public class Cards : MonoBehaviour
             {
                 cardsNumber++;
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                CardsInfo.transform.SetParent(deckPanel.transform);
+                CardsInfo.transform.SetParent(deckPanel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
                 CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
@@ -273,7 +273,7 @@ public class Cards : MonoBehaviour
             if(card.card_subtype == "Atak" && card.is_equipped == true && card.bought == true)
             {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                CardsInfo.transform.SetParent(deckPanel.transform);
+                CardsInfo.transform.SetParent(deckPanel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
                 CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
@@ -295,7 +295,7 @@ public class Cards : MonoBehaviour
             if(card.card_subtype == "Obrona" && card.is_equipped == true && card.bought == true)
             {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                CardsInfo.transform.SetParent(deckPanel.transform);
+                CardsInfo.transform.SetParent(deckPanel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
                 CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
@@ -317,7 +317,7 @@ public class Cards : MonoBehaviour
             if(card.card_type == "Specjalna" && card.is_equipped == true && card.bought == true)
             {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                CardsInfo.transform.SetParent(deckPanel.transform);
+                CardsInfo.transform.SetParent(deckPanel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
                 CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
@@ -513,8 +513,7 @@ public class Cards : MonoBehaviour
     public void ShowCard(string Cardname, string Type, string Description, int Price, int Points, int HealthPoints, int Id, bool Is_equipped)
     {
         var showCard = Instantiate(showCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        showCard.transform.SetParent(mainpanel.transform);
-        showCard.transform.position = new Vector3(960, 540, 0);
+        showCard.transform.SetParent(mainpanel.transform, false);
         CheckAddRemoveButton (Is_equipped, showCard);
         CheckBuySellButton(Id, showCard);
         CheckSubtype(showCard, Type);
@@ -607,7 +606,7 @@ public class Cards : MonoBehaviour
         {
             if(card.bought == false){
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                CardsInfo.transform.SetParent(shoppanel.transform);
+                CardsInfo.transform.SetParent(shoppanel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
                 CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
@@ -627,7 +626,7 @@ public class Cards : MonoBehaviour
         {
             if(card.card_subtype == "Atak" && card.bought == false){
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                CardsInfo.transform.SetParent(shoppanel.transform);
+                CardsInfo.transform.SetParent(shoppanel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
                 CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
@@ -647,7 +646,7 @@ public class Cards : MonoBehaviour
         {
             if(card.card_subtype == "Obrona" && card.bought == false){
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                CardsInfo.transform.SetParent(shoppanel.transform);
+                CardsInfo.transform.SetParent(shoppanel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
                 CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
@@ -667,7 +666,7 @@ public class Cards : MonoBehaviour
         {
             if(card.card_type == "Specjalna" && card.bought == false){
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                CardsInfo.transform.SetParent(shoppanel.transform);
+                CardsInfo.transform.SetParent(shoppanel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
                 CardsInfo.GetComponent<CardsInfo>().cardname = card.card_name;
                 CardsInfo.GetComponent<CardsInfo>().type = card.card_subtype;
