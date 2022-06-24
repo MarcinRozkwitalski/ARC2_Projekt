@@ -719,8 +719,8 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 300, y: 600}
-  m_Spacing: {x: 60, y: 10}
+  m_CellSize: {x: 280, y: 600}
+  m_Spacing: {x: 25, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!114 &433900382
@@ -1911,7 +1911,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tempCurrentPlayer: {fileID: 0}
-  doorHandler: {fileID: 0}
 --- !u!114 &770073666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5223,6 +5222,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 217747327}
     m_Modifications:
+    - target: {fileID: 6591215234300001376, guid: 1a723c292739ef74f864837fe3b38df5,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.6320754
+      objectReference: {fileID: 0}
+    - target: {fileID: 6591215234300001376, guid: 1a723c292739ef74f864837fe3b38df5,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.6320754
+      objectReference: {fileID: 0}
+    - target: {fileID: 6591215234300001376, guid: 1a723c292739ef74f864837fe3b38df5,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.6320754
+      objectReference: {fileID: 0}
     - target: {fileID: 6591215234300001377, guid: 1a723c292739ef74f864837fe3b38df5,
         type: 3}
       propertyPath: m_Pivot.x

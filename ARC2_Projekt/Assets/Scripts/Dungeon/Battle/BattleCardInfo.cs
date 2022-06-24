@@ -38,13 +38,6 @@ public class BattleCardInfo : MonoBehaviour
         enemyFightingLogic = GameObject.Find("BattleHandler").GetComponent<EnemyFightingLogic>();
         endPlayerTurn = GameObject.Find("EndTurnButton").GetComponent<EndPlayerTurn>();
 
-        // float x = transform.localPosition.x;
-
-        // float y = transform.localPosition.y;
-
-
-        // transform.localPosition = new Vector2(x/100, y/100);
-
         AssignNewTransform();
         AssignBackImage();
         TurnOffButton();

@@ -7,6 +7,7 @@ public class TempCurrentPlayer : MonoBehaviour
 {
     public Text UserInfoText;
 
+    public int TempPlayerLevel = 0;
     public int TempPlayerMoney = 0;
     public int TempPlayerSaveMoney = 0;
     public int TempPlayerLife = 0;
@@ -31,5 +32,6 @@ public class TempCurrentPlayer : MonoBehaviour
         string CurrentPlayerUsername = CurrentPlayer.GetComponent<CurrentPlayer>().Username;
         TempPlayerMoney = CurrentPlayer.GetComponent<CurrentPlayer>().Money;
         TempPlayerLife = CurrentPlayer.GetComponent<CurrentPlayer>().Life;
+        TempPlayerLevel = CurrentPlayer.GetComponent<CurrentPlayer>().Level;
     }
 }

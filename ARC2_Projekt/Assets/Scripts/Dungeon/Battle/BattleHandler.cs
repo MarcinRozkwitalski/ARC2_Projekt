@@ -124,12 +124,11 @@ public class BattleHandler : MonoBehaviour
     public void SetMaxAmmountOfMoves()
     {
         int valueToCheck = deckCardsToPick.transform.childCount;
-        // Debug.Log("valueToCheck: " + valueToCheck);
+
         if (valueToCheck == 3) maxAmmountOfMoves = 3;
         else if (valueToCheck == 4) maxAmmountOfMoves = 4;
-        else if (valueToCheck >= 5) maxAmmountOfMoves = 5;
-
-        // Debug.Log("maxAmmountOfMoves: " + maxAmmountOfMoves);
+        else if (valueToCheck == 5) maxAmmountOfMoves = 5;
+        else if (valueToCheck >= 6) maxAmmountOfMoves = 6;
     }
 
     public void GetEnemyTypeByLastDoorValue()
@@ -234,13 +233,11 @@ public class BattleHandler : MonoBehaviour
             remainingMovesText.text = "Moves: \n" + remainingMoves.ToString() + "/" + basicRemainingMovesAmount;
             currentAmmountOfMoves = 0;
             stunFlagPlayer = false;
-            // Debug.Log("Nowe ruchy: " + remainingMoves);
         }
         else{
             remainingMoves = basicRemainingMovesAmount;
             remainingMovesText.text = "Moves: \n" + remainingMoves.ToString() + "/" + basicRemainingMovesAmount;
             currentAmmountOfMoves = 0;
-            // Debug.Log("Nowe ruchy: " + remainingMoves);
         }
     }
 
@@ -249,7 +246,8 @@ public class BattleHandler : MonoBehaviour
         int howMany;
         if(deckCardsToPick.transform.childCount == 3) howMany = 3;
         else if(deckCardsToPick.transform.childCount == 4) howMany = 4;
-        else {howMany = 5;}
+        else if(deckCardsToPick.transform.childCount == 5) howMany = 5;
+        else {howMany = 6;}
 
         yield return new WaitForSeconds(0.5f);
         for (int i = 0; i < howMany; i++)
@@ -263,7 +261,7 @@ public class BattleHandler : MonoBehaviour
 
     public IEnumerator CheckRemainingPlayerCards()
     {
-        if(deckCardsToPick.transform.childCount < 5)
+        if(deckCardsToPick.transform.childCount < 6)
         {
             int howManyCards = usedCardsPanel.transform.childCount;
             randomizeCardsPositions.RandomizePositionsInUsedCards();

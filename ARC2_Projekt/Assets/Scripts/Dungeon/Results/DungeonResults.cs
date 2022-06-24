@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class DungeonResults : MonoBehaviour
 {
+    public MapStatus mapStatus;
+
     public TMP_Text ResultsText;
     public string MoneyText;
     public string BeatenText = "Beaten:\n";
@@ -19,6 +21,7 @@ public class DungeonResults : MonoBehaviour
     {
         tempCurrentPlayer = GameObject.Find("PlayerManager").GetComponent<TempCurrentPlayer>();
         currentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer").GetComponent<CurrentPlayer>();
+        mapStatus = GameObject.Find("MapManager").GetComponent<MapStatus>();
 
         CheckMoney();
         CheckEnemies();
@@ -31,6 +34,7 @@ public class DungeonResults : MonoBehaviour
 
             currentPlayer.Money = tempCurrentPlayer.TempPlayerMoney + tempCurrentPlayer.TempPlayerSaveMoney;
             currentPlayer.Life = tempCurrentPlayer.TempPlayerLife;
+            if(tempCurrentPlayer.TempPlayerLevel < mapStatus.dungeon_zone) currentPlayer.Level = mapStatus.dungeon_zone;
         }
         else if(tempCurrentPlayer.whoWon == "enemy")
         {
