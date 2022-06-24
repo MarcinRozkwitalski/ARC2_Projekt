@@ -556,10 +556,9 @@ public class Cards : MonoBehaviour
                 card.is_equipped = false;
                 card.bought = false;
             }
-
+        }
             CurrentPlayer.GetComponent<CurrentPlayer>().Money += price;
             UpdateCards (type);
-        }
     }
 
     public void BuyCardFromInventory(int id, int price)

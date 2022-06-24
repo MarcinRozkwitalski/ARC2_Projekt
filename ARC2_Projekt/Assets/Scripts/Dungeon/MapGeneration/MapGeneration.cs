@@ -188,7 +188,7 @@ public class MapGeneration : MonoBehaviour
         if (dungeon_lvl > 10)
         {
             dungeon_lvl = 1;
-            dungeon_zone++;
+            dungeon_zone++; // działa do 1
             MapStatus.GetComponent<MapStatus>().dungeon_zone = dungeon_zone;
             MapStatus.GetComponent<MapStatus>().dungeon_lvl = dungeon_lvl;
             GenerateNewZone();
