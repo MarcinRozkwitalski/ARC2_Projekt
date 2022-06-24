@@ -89,8 +89,7 @@ public class Deck : MonoBehaviour
         PlayerDeck1Suit.Add(DeckSuit[cardNumber]);
         DeckFace.Remove(DeckFace[cardNumber]);
         DeckSuit.Remove(DeckSuit[cardNumber]);
-        GetComponent<BlackJack>()
-            .PutCardsInPlayerCardsPanel(PlayerDeck1Face.Count - 1);
+        GetComponent<BlackJack>().PutCardsInPlayerCardsPanel(PlayerDeck1Face.Count - 1);
     }
 
     public void GetPlayerCard()
@@ -121,28 +120,25 @@ public class Deck : MonoBehaviour
                 {
                     if (croupierHand > playerHand)
                     {
-                        StartCoroutine(FindObjectOfType<BlackJack>().GameEnded("Lost"));
+                        FindObjectOfType<BlackJack>().GameEnded("Lost");
                     }
 
                     if (croupierHand == playerHand)
                     {
-                        StartCoroutine(FindObjectOfType<BlackJack>().GameEnded("Push"));
-                        StartCoroutine(FindObjectOfType<BlackJack>()
-                            .UpdatePlayerMoney(false));
+                        FindObjectOfType<BlackJack>().GameEnded("Push");
+                        FindObjectOfType<BlackJack>().UpdatePlayerMoney(false);
                     }
 
                     if (croupierHand < playerHand)
                     {
-                        StartCoroutine(FindObjectOfType<BlackJack>().GameEnded("Win"));
-                        StartCoroutine(FindObjectOfType<BlackJack>()
-                            .UpdatePlayerMoney(true));
+                        FindObjectOfType<BlackJack>().GameEnded("Win");
+                        FindObjectOfType<BlackJack>().UpdatePlayerMoney(true);
                     }
                 }
                 else
                 {
-                    StartCoroutine(FindObjectOfType<BlackJack>().GameEnded("Win"));
-                    StartCoroutine(FindObjectOfType<BlackJack>()
-                        .UpdatePlayerMoney(true));
+                    FindObjectOfType<BlackJack>().GameEnded("Win");
+                    FindObjectOfType<BlackJack>().UpdatePlayerMoney(true);
                 }
             }
         }

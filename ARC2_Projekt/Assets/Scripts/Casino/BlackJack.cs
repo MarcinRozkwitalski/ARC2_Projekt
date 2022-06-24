@@ -88,7 +88,7 @@ public class BlackJack : MonoBehaviour
 
     public void DoubleBet()
     {
-        StartCoroutine(GetMoneyFromPlayerDouble());
+        GetMoneyFromPlayerDouble();
     }
 
     public void ResetBet()
@@ -109,9 +109,9 @@ public class BlackJack : MonoBehaviour
                 )
                 {
                     Alert.text = "Correct bet";
-                    StartCoroutine(GetMoneyFromPlayer());
-                    StartCoroutine(StartGame());
-                } // Game start
+                    GetMoneyFromPlayer();
+                    StartGame();
+                }
                 else
                     Alert.text = "Not enough money";
             else
@@ -128,9 +128,9 @@ public class BlackJack : MonoBehaviour
     }
 
     // Game start
-    public IEnumerator StartGame()
+
+    public void StartGame()
     {
-        yield return new WaitForSeconds(1f); // dzięki temu nie pojawia się button double bo program ma czas na update playermoney
         DisableBetButtons();
         GetComponent<Deck>().GetDeck();
         GetComponent<Deck>().AddCardFromDeckToPlayer();
@@ -141,11 +141,8 @@ public class BlackJack : MonoBehaviour
     // Croupier Get Cards
     public void PutCardsInCroupierCardsPanel(int a)
     {
-        var CasinoCard =
-            Instantiate(CasinoCardPrefab,
-            new Vector3(0, 0, 0),
-            Quaternion.identity);
-        CasinoCard.transform.SetParent(CroupierCardsPanel.transform);
+        var CasinoCard = Instantiate(CasinoCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        CasinoCard.transform.SetParent(CroupierCardsPanel.transform, false);
         if (GetComponent<Deck>().GetCroupierDeckFace(a) == 11)
             CasinoCard.GetComponent<CasinoCard>().cardValue = "J";
         else if (GetComponent<Deck>().GetCroupierDeckFace(a) == 12)
@@ -155,13 +152,9 @@ public class BlackJack : MonoBehaviour
         else if (GetComponent<Deck>().GetCroupierDeckFace(a) == 1)
             CasinoCard.GetComponent<CasinoCard>().cardValue = "A";
         else
-            CasinoCard.GetComponent<CasinoCard>().cardValue =
-                GetComponent<Deck>().GetCroupierDeckFace(a).ToString();
-        CasinoCard.GetComponent<CasinoCard>().cardSymbol =
-            GetComponent<Deck>().GetCroupierDeckSuit(a);
-        CasinoCard
-            .GetComponent<CasinoCard>()
-            .SetCardColor(GetComponent<Deck>().GetCroupierDeckSuit(a));
+            CasinoCard.GetComponent<CasinoCard>().cardValue = GetComponent<Deck>().GetCroupierDeckFace(a).ToString();
+        CasinoCard.GetComponent<CasinoCard>().cardSymbol = GetComponent<Deck>().GetCroupierDeckSuit(a);
+        CasinoCard.GetComponent<CasinoCard>().SetCardColor(GetComponent<Deck>().GetCroupierDeckSuit(a));
         CasinoCard.GetComponent<CasinoCard>().AssignInfo();
         ShowValueOnCroupierHand();
     }
@@ -169,11 +162,8 @@ public class BlackJack : MonoBehaviour
     // HIT
     public void PutCardsInPlayerCardsPanel(int a)
     {
-        var CasinoCard =
-            Instantiate(CasinoCardPrefab,
-            new Vector3(0, 0, 0),
-            Quaternion.identity);
-        CasinoCard.transform.SetParent(PlayerCardsPanel.transform);
+        var CasinoCard = Instantiate(CasinoCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        CasinoCard.transform.SetParent(PlayerCardsPanel.transform, false);
         if (GetComponent<Deck>().GetPlayerDeckFace(a) == 11)
             CasinoCard.GetComponent<CasinoCard>().cardValue = "J";
         else if (GetComponent<Deck>().GetPlayerDeckFace(a) == 12)
@@ -183,18 +173,14 @@ public class BlackJack : MonoBehaviour
         else if (GetComponent<Deck>().GetPlayerDeckFace(a) == 1)
             CasinoCard.GetComponent<CasinoCard>().cardValue = "A";
         else
-            CasinoCard.GetComponent<CasinoCard>().cardValue =
-                GetComponent<Deck>().GetPlayerDeckFace(a).ToString();
-        CasinoCard.GetComponent<CasinoCard>().cardSymbol =
-            GetComponent<Deck>().GetPlayerDeckSuit(a);
-        CasinoCard
-            .GetComponent<CasinoCard>()
-            .SetCardColor(GetComponent<Deck>().GetPlayerDeckSuit(a));
+            CasinoCard.GetComponent<CasinoCard>().cardValue = GetComponent<Deck>().GetPlayerDeckFace(a).ToString();
+        CasinoCard.GetComponent<CasinoCard>().cardSymbol = GetComponent<Deck>().GetPlayerDeckSuit(a);
+        CasinoCard.GetComponent<CasinoCard>().SetCardColor(GetComponent<Deck>().GetPlayerDeckSuit(a));
         CasinoCard.GetComponent<CasinoCard>().AssignInfo();
         ShowValueOnHand1();
         if (GetComponent<Deck>().BustedHand1())
         {
-            StartCoroutine(GameEnded("Busted"));
+            GameEnded("Busted");
         }
         else if (GetComponent<Deck>().PlayerHasTwoCards()) ShowButtons();
     }
@@ -203,62 +189,47 @@ public class BlackJack : MonoBehaviour
     public void StandAndGetPLayerValue()
     {
         if (FindObjectOfType<HandValue>().valueAs <= 21)
-            GetComponent<Deck>()
-                .CroupierVsOneHand(FindObjectOfType<HandValue>().valueAs);
+            GetComponent<Deck>().CroupierVsOneHand(FindObjectOfType<HandValue>().valueAs);
         else
-            GetComponent<Deck>()
-                .CroupierVsOneHand(FindObjectOfType<HandValue>().value);
+            GetComponent<Deck>().CroupierVsOneHand(FindObjectOfType<HandValue>().value);
     }
 
     // Cards Value Show in hand 1
     public void ShowValueOnHand1()
     {
         DestroyHand1Text();
-        var HandValue =
-            Instantiate(Hand1Value, new Vector3(0, 0, 0), Quaternion.identity);
-        HandValue.transform.SetParent(HandValue1Panel.transform);
+        var HandValue = Instantiate(Hand1Value, new Vector3(0, 0, 0), Quaternion.identity);
+        HandValue.transform.SetParent(HandValue1Panel.transform, false);
 
-        // HandValue.transform.position = new Vector3(960, 540, 0);
         if (GetComponent<Deck>().GetAs())
         {
-            HandValue.GetComponent<HandValue>().value =
-                GetComponent<Deck>().GetValueA1();
+            HandValue.GetComponent<HandValue>().value = GetComponent<Deck>().GetValueA1();
             HandValue.GetComponent<HandValue>().AssignInfoAs();
         }
         else
         {
-            HandValue.GetComponent<HandValue>().value =
-                GetComponent<Deck>().GetValueA1();
-            HandValue.GetComponent<HandValue>().valueAs =
-                GetComponent<Deck>().GetValueA1();
+            HandValue.GetComponent<HandValue>().value = GetComponent<Deck>().GetValueA1();
+            HandValue.GetComponent<HandValue>().valueAs = GetComponent<Deck>().GetValueA1();
             HandValue.GetComponent<HandValue>().AssignInfo();
         }
-        // GetComponent<Deck>().GetPlayerCard();
     }
 
     // Cards Value Show in croupier hand
     public void ShowValueOnCroupierHand()
     {
         DestroyCroupierHandText();
-        var HandValue =
-            Instantiate(CroupierHandValue,
-            new Vector3(0, 0, 0),
-            Quaternion.identity);
-        HandValue.transform.SetParent(CroupierHandValuePanel.transform);
+        var HandValue = Instantiate(CroupierHandValue, new Vector3(0, 0, 0), Quaternion.identity);
+        HandValue.transform.SetParent(CroupierHandValuePanel.transform, false);
 
-        // HandValue.transform.position = new Vector3(960, 540, 0);
         if (GetComponent<Deck>().GetAsCroupier())
         {
-            HandValue.GetComponent<CroupierHandValue>().value =
-                GetComponent<Deck>().GetCroupierValueA1();
+            HandValue.GetComponent<CroupierHandValue>().value = GetComponent<Deck>().GetCroupierValueA1();
             HandValue.GetComponent<CroupierHandValue>().AssignInfoAs();
         }
         else
         {
-            HandValue.GetComponent<CroupierHandValue>().value =
-                GetComponent<Deck>().GetCroupierValueA1();
-            HandValue.GetComponent<CroupierHandValue>().valueAs =
-                GetComponent<Deck>().GetCroupierValueA1();
+            HandValue.GetComponent<CroupierHandValue>().value = GetComponent<Deck>().GetCroupierValueA1();
+            HandValue.GetComponent<CroupierHandValue>().valueAs = GetComponent<Deck>().GetCroupierValueA1();
             HandValue.GetComponent<CroupierHandValue>().AssignInfo();
         }
     }
@@ -267,43 +238,30 @@ public class BlackJack : MonoBehaviour
     public void ShowButtons()
     {
         DestroyButtons();
-        var HitButton =
-            Instantiate(Hit, new Vector3(0, 0, 0), Quaternion.identity);
-        HitButton.transform.SetParent(ButtonsPanel1.transform);
-        var StandButton =
-            Instantiate(Stand, new Vector3(0, 0, 0), Quaternion.identity);
-        StandButton.transform.SetParent(ButtonsPanel1.transform);
-        if (
-            GetComponent<Deck>().DoubleButton() &&
-            CurrentPlayer.GetComponent<CurrentPlayer>().Money >=
-            int.Parse(PlayerBet.text)
-        )
+        var HitButton = Instantiate(Hit, new Vector3(0, 0, 0), Quaternion.identity);
+        HitButton.transform.SetParent(ButtonsPanel1.transform, false);
+        var StandButton = Instantiate(Stand, new Vector3(0, 0, 0), Quaternion.identity);
+        StandButton.transform.SetParent(ButtonsPanel1.transform, false);
+        if (GetComponent<Deck>().DoubleButton() && CurrentPlayer.GetComponent<CurrentPlayer>().Money >= int.Parse(PlayerBet.text))
         {
-            var DoubleButton =
-                Instantiate(Double, new Vector3(0, 0, 0), Quaternion.identity);
-            DoubleButton.transform.SetParent(ButtonsPanel1.transform);
-            Debug
-                .Log(CurrentPlayer.GetComponent<CurrentPlayer>().Money +
-                ">=" +
-                int.Parse(PlayerBet.text));
+            var DoubleButton = Instantiate(Double, new Vector3(0, 0, 0), Quaternion.identity);
+            DoubleButton.transform.SetParent(ButtonsPanel1.transform, false);
+            Debug.Log(CurrentPlayer.GetComponent<CurrentPlayer>().Money + ">=" + int.Parse(PlayerBet.text));
         }
         if (GetComponent<Deck>().SplitButton())
         {
-            var SplitButton =
-                Instantiate(Split, new Vector3(0, 0, 0), Quaternion.identity);
-            SplitButton.transform.SetParent(ButtonsPanel1.transform);
+            var SplitButton = Instantiate(Split, new Vector3(0, 0, 0), Quaternion.identity);
+            SplitButton.transform.SetParent(ButtonsPanel1.transform, false);
         }
     }
 
     // GameEnded
-    public IEnumerator GameEnded(string title)
+
+    public void GameEnded(string title)
     {
         DestroyButtons();
-        yield return new WaitForSeconds(1F);
-        var EndButton =
-            Instantiate(gameEnded, new Vector3(0, 0, 0), Quaternion.identity);
-        EndButton.transform.SetParent(MainPanel.transform);
-        EndButton.transform.position = new Vector3(960, 640, 0);
+        var EndButton = Instantiate(gameEnded, new Vector3(0, 0, 0), Quaternion.identity);
+        EndButton.transform.SetParent(MainPanel.transform, false);
         if (title == "Lost" || title == "Busted")
         {
             EndButton.GetComponent<Image>().color = Color.red;
@@ -316,94 +274,39 @@ public class BlackJack : MonoBehaviour
             PlayerWonMoneyInt += int.Parse(PlayerBet.text);
             UpdatePlayerWonMoneyText();
         }
-        if (title == "Push")
-            EndButton.GetComponent<Image>().color = Color.yellow;
+        if (title == "Push") EndButton.GetComponent<Image>().color = Color.yellow;
         EndButton.GetComponentInChildren<Text>().text = title;
     }
 
     // Take money from Player bet
-    public IEnumerator GetMoneyFromPlayer()
+
+    public void GetMoneyFromPlayer()
     {
-        WWWForm betMoneyForm = new WWWForm();
-        betMoneyForm.AddField("apppassword", "thisisfromtheapp!");
-        // betMoneyForm.AddField("Id", CurrentPlayer.GetComponent<CurrentPlayer>().Id);
-        betMoneyForm
-            .AddField("Price",
-            CurrentPlayer.GetComponent<CurrentPlayer>().Money -
-            int.Parse(PlayerBet.text));
-        UnityWebRequest betMoneyRequest =
-            UnityWebRequest
-                .Post("http://localhost/BlackJack/betmoney.php", betMoneyForm);
-        Debug.Log("Money halo");
-        if (betMoneyRequest.error == null)
-        {
-            yield return betMoneyRequest.SendWebRequest();
-            CurrentPlayer.GetComponent<CurrentPlayer>().Money -=
-                int.Parse(PlayerBet.text);
-            UpdatePlayerMoneyText();
-            Debug.Log("Money bet = " + int.Parse(PlayerBet.text));
-        }
-        else
-            Debug.Log("oj");
+        CurrentPlayer.GetComponent<CurrentPlayer>().Money -= int.Parse(PlayerBet.text);
+        UpdatePlayerMoneyText();
     }
 
     // Take money from Player double bet
-    public IEnumerator GetMoneyFromPlayerDouble()
+
+    public void GetMoneyFromPlayerDouble()
     {
-        WWWForm betMoneyForm = new WWWForm();
-        betMoneyForm.AddField("apppassword", "thisisfromtheapp!");
-        // betMoneyForm.AddField("Id", CurrentPlayer.GetComponent<CurrentPlayer>().Id);
-        betMoneyForm
-            .AddField("Price",
-            CurrentPlayer.GetComponent<CurrentPlayer>().Money -
-            int.Parse(PlayerBet.text));
-        UnityWebRequest betMoneyRequest =
-            UnityWebRequest
-                .Post("http://localhost/BlackJack/betmoney.php", betMoneyForm);
-        if (betMoneyRequest.error == null)
-        {
-            yield return betMoneyRequest.SendWebRequest();
-            CurrentPlayer.GetComponent<CurrentPlayer>().Money -=
-                int.Parse(PlayerBet.text);
-            PlayerBetInt = int.Parse(PlayerBet.text);
-            PlayerBetInt += PlayerBetInt;
-            PlayerBetInput.text = PlayerBetInt.ToString();
-            PlayerBet.text = PlayerBetInput.text;
-            UpdatePlayerMoneyText();
-            Debug.Log("Money bet = " + int.Parse(PlayerBet.text));
-        }
-        else
-            Debug.Log("oj");
+        CurrentPlayer.GetComponent<CurrentPlayer>().Money -= int.Parse(PlayerBet.text);
+        PlayerBetInt = int.Parse(PlayerBet.text);
+        PlayerBetInt += PlayerBetInt;
+        PlayerBetInput.text = PlayerBetInt.ToString();
+        PlayerBet.text = PlayerBetInput.text;
+        UpdatePlayerMoneyText();
     }
 
     // update moany after game
-    public IEnumerator UpdatePlayerMoney(bool win)
+
+    public void UpdatePlayerMoney(bool win)
     {
-        yield return new WaitForSeconds(1F);
-        WWWForm betMoneyForm = new WWWForm();
-        betMoneyForm.AddField("apppassword", "thisisfromtheapp!");
-        // betMoneyForm.AddField("Id", CurrentPlayer.GetComponent<CurrentPlayer>().Id);
         int money = 0;
-        if (win)
-            money =
-                CurrentPlayer.GetComponent<CurrentPlayer>().Money +
-                2 * int.Parse(PlayerBet.text);
-        else
-            money =
-                CurrentPlayer.GetComponent<CurrentPlayer>().Money +
-                int.Parse(PlayerBet.text);
-        betMoneyForm.AddField("Price", money);
-        UnityWebRequest betMoneyRequest =
-            UnityWebRequest
-                .Post("http://localhost/BlackJack/betmoney.php", betMoneyForm);
-        if (betMoneyRequest.error == null)
-        {
-            yield return betMoneyRequest.SendWebRequest();
-            CurrentPlayer.GetComponent<CurrentPlayer>().Money = money;
-            UpdatePlayerMoneyText();
-        }
-        else
-            Debug.Log("oj");
+        if (win) money = CurrentPlayer.GetComponent<CurrentPlayer>().Money + 2 * int.Parse(PlayerBet.text);
+        else money = CurrentPlayer.GetComponent<CurrentPlayer>().Money + int.Parse(PlayerBet.text);
+        CurrentPlayer.GetComponent<CurrentPlayer>().Money = money;
+        UpdatePlayerMoneyText();
     }
 
     // Destroy all cards at the end of the game
@@ -412,7 +315,7 @@ public class BlackJack : MonoBehaviour
         var CasinoCards = GameObject.FindGameObjectsWithTag("CasinoCard");
         foreach (var card in CasinoCards)
         {
-            Destroy (card);
+            Destroy(card);
         }
     }
 
@@ -422,7 +325,7 @@ public class BlackJack : MonoBehaviour
         var HandValueText = GameObject.FindGameObjectsWithTag("Hand1Value");
         foreach (var value in HandValueText)
         {
-            Destroy (value);
+            Destroy(value);
         }
     }
 
@@ -433,7 +336,7 @@ public class BlackJack : MonoBehaviour
             GameObject.FindGameObjectsWithTag("CroupierHandValue");
         foreach (var value in HandValueText)
         {
-            Destroy (value);
+            Destroy(value);
         }
     }
 
@@ -444,7 +347,7 @@ public class BlackJack : MonoBehaviour
             GameObject.FindGameObjectsWithTag("BlackJackButton");
         foreach (var button in BlackJackButtons)
         {
-            Destroy (button);
+            Destroy(button);
         }
     }
 
@@ -454,7 +357,7 @@ public class BlackJack : MonoBehaviour
         var BlackJackButtons = GameObject.FindGameObjectsWithTag("GameEnded");
         foreach (var button in BlackJackButtons)
         {
-            Destroy (button);
+            Destroy(button);
         }
     }
 
@@ -482,10 +385,7 @@ public class BlackJack : MonoBehaviour
 
     public void UpdatePlayerMoneyText()
     {
-        PlayerMoney.text =
-            "Player Money: " +
-            CurrentPlayer.GetComponent<CurrentPlayer>().Money +
-            "$";
+        PlayerMoney.text = "Player Money: " + CurrentPlayer.GetComponent<CurrentPlayer>().Money + "$";
     }
 
     public void UpdatePlayerWonMoneyText()
