@@ -163,9 +163,11 @@ public class EnemyFightingLogic : MonoBehaviour
                     DebuggingInfo();
                     if(battleHandler.currentPlayerHealth <= 0)
                     {
+                        battleHandler.remainingMoves = 0;
                         battleHandler.currentPlayerHealth = 0;
                         battleHandler.playerHealthText.text = battleHandler.currentPlayerHealth.ToString() + "/" + battleHandler.playerMaxHealth;
                         ShowGoBackToDungeonButton();
+                        CheckIfRemainingMovesIsZero();
                     }
                     else CheckIfRemainingMovesIsZero();
                 }
