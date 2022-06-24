@@ -55,7 +55,7 @@ public class CardList : MonoBehaviour
                                             1, 0, 50, false, false));
         cardsList.Add(new CardList.Cards(5, "Postac na slepo zaczyna rzucac kamieniami w przeciwnikow.", "Slepy traf", "Atak", "Atak", 
                                             2, 0, 150, false, false));
-        cardsList.Add(new CardList.Cards(6, "Postac przylepia do siebie platy miodu. ", "Miodzio zbroja", "Obrona", "Obrona", 
+        cardsList.Add(new CardList.Cards(6, "Postac przylepia do siebie platy miodu.", "Miodzio zbroja", "Obrona", "Obrona", 
                                             8, 3, 130, false, false));
         cardsList.Add(new CardList.Cards(7, "Postac pije ostry sos po czym zaczyna ziac ogniem.", "Palace gardlo", "Atak", "Atak", 
                                             6, 3, 200, false, false));
@@ -63,7 +63,7 @@ public class CardList : MonoBehaviour
                                             4, 3, 80, false, false));
         cardsList.Add(new CardList.Cards(9, "Postac ubiera zolta bluze, ktora dodaje klasy jak i punkty obrony.", "Slynna bluza", "Obrona", "Obrona", 
                                             10, 4, 180, false, false));
-        cardsList.Add(new CardList.Cards(10, "Postac przyczepia do siebie banany za pomoca taśmy klejacej.", "Banan na droge", "Obrona", "Obrona", 
+        cardsList.Add(new CardList.Cards(10, "Postac przyczepia do siebie banany za pomoca tasmy klejacej.", "Banan na droge", "Obrona", "Obrona", 
                                             6, 2, 140, false, false));
         cardsList.Add(new CardList.Cards(11, "Postac powtarza co chwile slowo \"Azaliz\" rzucajac przy tym czar niszczacy psychike przeciwnika.", "Azaliz", "Atak", "Atak", 
                                             8, 4, 250, false, false));
@@ -81,8 +81,8 @@ public class CardList : MonoBehaviour
                                             0, 3, 40, false, false));
         cardsList.Add(new CardList.Cards(18, "Obrona jest przetrzymywana do nastepnej tury.", "Mocny klej", "Specjalna", "Wytrwalosc", 
                                             0, 2, 70, false, false));
-        cardsList.Add(new CardList.Cards(19, "Dodanie punktow do nastepnej zagranej karty ataku (nie zuzywa ruchu).", "Mocniej sie nie da?", "Specjalna", "Ulepszenie", 
-                                            5, 2, 150, false, false));
+        cardsList.Add(new CardList.Cards(19, "Dodanie punktow do nastepnej zagranej karty (nie zuzywa ruchu).", "Mocniej sie nie da?", "Specjalna", "Ulepszenie", 
+                                            6, 2, 150, false, false));
         cardsList.Add(new CardList.Cards(20, "Losowy efekt, gdzie atakujemy lub dodajemy obrone, badz leczymy sie za darmo.", "Czy to wybawienie?", "Specjalna", "Tecza", 
                                             20, 5, 400, false, false));
         cardsList.Add(new CardList.Cards(21, "Podwojenie obecnej ilosci obrony (nie zuzywa ruchu).", "Zelazne boki", "Specjalna", "Wzmocnienie", 
