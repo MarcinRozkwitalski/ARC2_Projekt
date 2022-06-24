@@ -105,11 +105,6 @@ public class MapGeneration : MonoBehaviour
         }
         else
         {
-            // if (battle_started)
-            // {
-            //     battle_started = false;
-            //     AfterAction();
-            // }
             GetThisLevelListFromMapStatus();
             UpdateMapGeneration();
             PutIconsToPanels();
@@ -120,7 +115,7 @@ public class MapGeneration : MonoBehaviour
             DisableForbidenButtons();
             DisableThisLevelIcons();
             // ShowUncoveredLevels();
-            if (TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife <= 0) UseExit();
+            if (TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife <= 0) UseExit(); // dont need
         }
     }
     public void UseBattle()
@@ -379,9 +374,9 @@ public class MapGeneration : MonoBehaviour
     }
     public void UseExit()
     {
-        SceneSwitcher.GetComponent<SceneSwitcher>().LoadPlayerWelcomeScene();
-        Destroy(GameObject.Find("MapStatus"));
-        Destroy(GameObject.Find("PlayerManager"));
+        SceneSwitcher.GetComponent<SceneSwitcher>().LoadDungeonResultsScene();
+        // Destroy(GameObject.Find("MapStatus"));
+        // Destroy(GameObject.Find("PlayerManager"));
         // zapis postępu w lochach i wyjście
     }
 
