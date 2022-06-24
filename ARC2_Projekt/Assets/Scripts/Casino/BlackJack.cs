@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using TMPro;
 
 public class BlackJack : MonoBehaviour
 {
     public GameObject CurrentPlayer;
 
-    public Text PlayerMoney;
+    public TMP_Text PlayerMoney;
 
-    public Text PlayerWonMoney;
+    public TMP_Text PlayerWonMoney;
 
     public InputField PlayerBetInput;
 
@@ -20,7 +21,7 @@ public class BlackJack : MonoBehaviour
 
     public int PlayerBetInt = 0;
 
-    public Text MaxBet;
+    public TMP_Text MaxBet;
 
     public Text Alert;
 
@@ -49,6 +50,7 @@ public class BlackJack : MonoBehaviour
     public GameObject Hand2Value;
 
     public GameObject ButtonsPanel1;
+    public int maxBetValue = 0;
 
     public Button
 
@@ -68,13 +70,15 @@ public class BlackJack : MonoBehaviour
     void Start()
     {
         CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
+        MaxBet.text = "Max bet = " + CurrentPlayer.GetComponent<CurrentPlayer>().Level * 100 + "$";
+        maxBetValue = CurrentPlayer.GetComponent<CurrentPlayer>().Level * 100;
         UpdatePlayerMoneyText();
     }
 
     // Betting
     public void AddBet()
     {
-        if (PlayerBetInt + 10 <= 500) PlayerBetInt += 10;
+        if (PlayerBetInt + 10 <= maxBetValue) PlayerBetInt += 10;
         PlayerBetInput.text = PlayerBetInt.ToString();
         PlayerBet.text = PlayerBetInput.text;
     }
@@ -103,10 +107,7 @@ public class BlackJack : MonoBehaviour
         DestroyAllCasinoCards();
         if (int.TryParse(PlayerBet.text, out int value))
             if (CorrectPrice(int.Parse(PlayerBet.text)))
-                if (
-                    CurrentPlayer.GetComponent<CurrentPlayer>().Money >=
-                    int.Parse(PlayerBet.text)
-                )
+                if (CurrentPlayer.GetComponent<CurrentPlayer>().Money >= int.Parse(PlayerBet.text))
                 {
                     Alert.text = "Correct bet";
                     GetMoneyFromPlayer();
@@ -123,7 +124,7 @@ public class BlackJack : MonoBehaviour
     public bool CorrectPrice(int playerBetInt)
     {
         bool correctPrice = false;
-        if (playerBetInt > 0 && playerBetInt <= 500) correctPrice = true;
+        if (playerBetInt > 0 && playerBetInt <= maxBetValue) correctPrice = true;
         return correctPrice;
     }
 
