@@ -70,7 +70,7 @@ public class BlackJack : MonoBehaviour
     void Start()
     {
         CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
-        MaxBet.text = "Max bet = " + CurrentPlayer.GetComponent<CurrentPlayer>().Level * 100 + "$";
+        MaxBet.text = "Max bet = " + (CurrentPlayer.GetComponent<CurrentPlayer>().Level/10) * 100 + "$";
         maxBetValue = CurrentPlayer.GetComponent<CurrentPlayer>().Level * 100;
         UpdatePlayerMoneyText();
     }
