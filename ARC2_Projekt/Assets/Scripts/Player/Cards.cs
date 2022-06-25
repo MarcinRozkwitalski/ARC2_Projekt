@@ -40,6 +40,7 @@ public class Cards : MonoBehaviour
         {
             PlayerMoney.text = "Money: " + CurrentPlayer.GetComponent<CurrentPlayer>().Money;
             GetAllShopCard();
+            //jesli tutorial true
         }
     }
 
@@ -592,6 +593,7 @@ public class Cards : MonoBehaviour
             if(card_id == card.id && card.bought == true)
             {
                 showCard.transform.Find("Buy").gameObject.SetActive(false);
+                /// jesli liczba kart jest mniejsza niz 4 to nie pokazuj również sell
             }
             else if(card_id == card.id && card.bought == false)
             {
