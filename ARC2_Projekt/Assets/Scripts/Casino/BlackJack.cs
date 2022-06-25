@@ -52,6 +52,8 @@ public class BlackJack : MonoBehaviour
     public GameObject ButtonsPanel1;
     public int maxBetValue = 0;
 
+    public GameObject Tutorial, TutorialPanel;
+
     public Button
 
             bet,
@@ -69,9 +71,11 @@ public class BlackJack : MonoBehaviour
 
     void Start()
     {
+        Tutorial = GameObject.Find("TutorialManager");
+        if (Tutorial.GetComponent<Tutorial>().blackJack) StartTutorial();
         CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
-        MaxBet.text = "Max bet = " + (CurrentPlayer.GetComponent<CurrentPlayer>().Level/3) * 100 + "$";
-        maxBetValue = (CurrentPlayer.GetComponent<CurrentPlayer>().Level/3) * 100;
+        MaxBet.text = "Max bet = " + (CurrentPlayer.GetComponent<CurrentPlayer>().Level / 3) * 100 + "$";
+        maxBetValue = (CurrentPlayer.GetComponent<CurrentPlayer>().Level / 3) * 100;
         UpdatePlayerMoneyText();
     }
 
@@ -392,5 +396,16 @@ public class BlackJack : MonoBehaviour
     public void UpdatePlayerWonMoneyText()
     {
         PlayerWonMoney.text = "Money Won: " + PlayerWonMoneyInt + "$";
+    }
+
+    public void StartTutorial()
+    {
+        TutorialPanel.SetActive(true);
+    }
+
+    public void CloseTutorial()
+    {
+        TutorialPanel.SetActive(false);
+        Tutorial.GetComponent<Tutorial>().blackJack = false;
     }
 }
