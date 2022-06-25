@@ -25,6 +25,7 @@ public class Cards : MonoBehaviour
 
     public GameObject BlockDeckButtons, BlockDeckCards, BlockEquipmentButtons, BlockEquipmentCards, BlockExit;
     public GameObject ObjectEquipmentCards, ObjectAttackCards, ObjectDefenceCards, ObjectSpecialCards, ObjectAllCards, ObjectDeckCards, ObjectCardsNumber_1, ObjectCardsNumber_2, ObjectSellCardsLimit, ObjectAddCardsToDeck, ObjectExit;
+    public GameObject BlockShopSortCards, BlockShopExit, BlockShopCards, ShopInformation_09;
 
     public int cardsNumber;
     public string sceneName;
@@ -590,6 +591,10 @@ public class Cards : MonoBehaviour
                 card.bought = true;
                 card.is_equipped = false;
                 AllShopCards();
+                if (Tutorial.GetComponent<Tutorial>().shop_card)
+                {
+                    Shop_Card_1();
+                }
             }
         }
     }
@@ -789,5 +794,19 @@ public class Cards : MonoBehaviour
         BlockEquipmentButtons.SetActive(false);
         BlockEquipmentCards.SetActive(false);
         BlockExit.SetActive(false);
+    }
+
+    public void Shop_Card_1()
+    {
+        BlockShopSortCards.SetActive(true);
+        BlockShopCards.SetActive(true);
+        BlockShopExit.SetActive(true);
+        ShopInformation_09.SetActive(true);
+    }
+
+    public void Shop_Card_2()
+    {
+        BlockShopExit.SetActive(false);
+        ShopInformation_09.SetActive(false);
     }
 }

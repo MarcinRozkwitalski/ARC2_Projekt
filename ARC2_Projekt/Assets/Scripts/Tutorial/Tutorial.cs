@@ -6,7 +6,7 @@ public class Tutorial : MonoBehaviour
 {
 
     public bool start_part_1 = true, start_part_2 = true, start_town_part_1 = true, start_town_part_2 = true, start_shop = true,
-    cards = true, town = true, shop = true, casino = true, blackJack = true, dungeon = true, battle = true;
+    shop_card = true, cards = true, town = true, shop = true, casino = true, blackJack = true, dungeon = true, battle = true;
 
 
 

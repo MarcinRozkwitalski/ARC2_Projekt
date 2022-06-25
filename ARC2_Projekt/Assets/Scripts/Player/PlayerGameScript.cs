@@ -10,8 +10,9 @@ using UnityEngine.SceneManagement;
 public class PlayerGameScript : MonoBehaviour
 {
     public TMP_Text UserInfoText;
-    public GameObject CurrentPlayer, Tutorial, BlockDungeon, BlockCards, BlockTown, BlockShop, BlockCasino, BlockTownExit;
-    public GameObject Welcome, PlayerInfo, HowToLevelUp_1, HowToLevelUp_2, HowToEnterDungeon, HowToGetCards_1, HowToGetCards_2, ClickOnTown, ClickOnShop, ClickOnTownExit;
+    public GameObject CurrentPlayer, Tutorial, BlockDungeon, BlockCards, BlockTown, BlockShop, BlockCasino, BlockTownExit, BlockShopSortCards, BlockShopExit, BlockShopCards;
+    public GameObject Welcome, PlayerInfo, HowToLevelUp_1, HowToLevelUp_2, HowToEnterDungeon, HowToGetCards_1, HowToGetCards_2, ClickOnTown, ClickOnShop, ClickOnTownExit,
+                        ShopInformation_01, ShopInformation_02, ShopInformation_03, ShopInformation_04, ShopInformation_05, ShopInformation_06, ShopInformation_07, ShopInformation_08;
 
     private void Start()
     {
@@ -87,7 +88,10 @@ public class PlayerGameScript : MonoBehaviour
     }
     public void StartShop()
     {
-        //.SetActive(true);
+        BlockShopCards.SetActive(true);
+        BlockShopExit.SetActive(true);
+        BlockShopSortCards.SetActive(true);
+        ShopInformation_01.SetActive(true);
     }
     public void SkipTutorial()
     {
@@ -97,6 +101,8 @@ public class PlayerGameScript : MonoBehaviour
         BlockTown.SetActive(false);
         Tutorial.GetComponent<Tutorial>().start_part_1 = false;
         Tutorial.GetComponent<Tutorial>().start_town_part_1 = false;
+        Tutorial.GetComponent<Tutorial>().start_town_part_2 = false;
+        Tutorial.GetComponent<Tutorial>().start_shop = false;
     }
 
     public void Step_1()
@@ -149,6 +155,55 @@ public class PlayerGameScript : MonoBehaviour
         ClickOnShop.SetActive(false);
         BlockShop.SetActive(false);
         Tutorial.GetComponent<Tutorial>().start_town_part_1 = false;
+    }
+
+    public void Step_10_Shop()
+    {
+        ShopInformation_01.SetActive(false);
+        ShopInformation_02.SetActive(true);
+    }
+
+    public void Step_11_Shop()
+    {
+        ShopInformation_02.SetActive(false);
+        ShopInformation_03.SetActive(true);
+    }
+
+    public void Step_12_Shop()
+    {
+        ShopInformation_03.SetActive(false);
+        ShopInformation_04.SetActive(true);
+    }
+
+    public void Step_13_Shop()
+    {
+        ShopInformation_04.SetActive(false);
+        ShopInformation_05.SetActive(true);
+    }
+
+    public void Step_14_Shop()
+    {
+        ShopInformation_05.SetActive(false);
+        ShopInformation_06.SetActive(true);
+    }
+
+    public void Step_15_Shop()
+    {
+        ShopInformation_06.SetActive(false);
+        ShopInformation_07.SetActive(true);
+    }
+
+    public void Step_16_Shop()
+    {
+        ShopInformation_07.SetActive(false);
+        ShopInformation_08.SetActive(true);
+    }
+
+    public void Step_17_Shop()
+    {
+        ShopInformation_08.SetActive(false);
+        BlockShopCards.SetActive(false);
+        BlockShopSortCards.SetActive(false);
     }
 
     public void Step_number_ExitTown()
