@@ -11,7 +11,7 @@ public class PlayerGameScript : MonoBehaviour
 {
     public TMP_Text UserInfoText;
     public GameObject CurrentPlayer, Tutorial, BlockDungeon, BlockCards, BlockTown, BlockShop, BlockCasino, BlockTownExit;
-    public GameObject Welcome, PlayerInfo, HowToLevelUp_1, HowToLevelUp_2, HowToEnterDungeon, HowToGetCards_1, HowToGetCards_2, ClickOnTown, ClickOnShop;
+    public GameObject Welcome, PlayerInfo, HowToLevelUp_1, HowToLevelUp_2, HowToEnterDungeon, HowToGetCards_1, HowToGetCards_2, ClickOnTown, ClickOnShop, ClickOnTownExit;
 
     private void Start()
     {
@@ -31,19 +31,21 @@ public class PlayerGameScript : MonoBehaviour
         if(scene.name == "Welcome")
         {
             if (Tutorial.GetComponent<Tutorial>().start_part_1) StartTutorialPart1();
-            else if (Tutorial.GetComponent<Tutorial>().start_part_2) StartTutorialPart2();
+            // else if (Tutorial.GetComponent<Tutorial>().start_part_2) StartTutorialPart2();
             else Unlocked();
         }
         
         if(scene.name == "Town")
         {
-            if (Tutorial.GetComponent<Tutorial>().start_town) StartTown();
+            if (Tutorial.GetComponent<Tutorial>().start_town_part_1) StartTownPart1();
+            else if(Tutorial.GetComponent<Tutorial>().start_town_part_2) StartTownPart2();
             else UnlockedTown();
         }
 
         if(scene.name == "Shop")
         {
-            
+            if (Tutorial.GetComponent<Tutorial>().start_shop) StartShop();
+            else UnlockedShop();
         }
 
         if(scene.name == "Shop")
@@ -66,12 +68,26 @@ public class PlayerGameScript : MonoBehaviour
     {
         Welcome.SetActive(true);
     }
-    public void StartTown()
+    public void StartTownPart1()
     {
         BlockCasino.SetActive(true);
         BlockShop.SetActive(true);
         BlockTownExit.SetActive(true);
         ClickOnShop.SetActive(true);
+        ClickOnTownExit.SetActive(false);
+    }
+
+    public void StartTownPart2()
+    {
+        BlockCasino.SetActive(true);
+        BlockShop.SetActive(true);
+        BlockTownExit.SetActive(true);
+        ClickOnShop.SetActive(false);
+        ClickOnTownExit.SetActive(true);
+    }
+    public void StartShop()
+    {
+        //.SetActive(true);
     }
     public void SkipTutorial()
     {
@@ -80,9 +96,8 @@ public class PlayerGameScript : MonoBehaviour
         BlockCards.SetActive(false);
         BlockTown.SetActive(false);
         Tutorial.GetComponent<Tutorial>().start_part_1 = false;
-        Tutorial.GetComponent<Tutorial>().start_town = false;
+        Tutorial.GetComponent<Tutorial>().start_town_part_1 = false;
     }
-
 
     public void Step_1()
     {
@@ -127,14 +142,20 @@ public class PlayerGameScript : MonoBehaviour
         ClickOnTown.SetActive(false);
         BlockTown.SetActive(false);
         Tutorial.GetComponent<Tutorial>().start_part_1 = false;
-        Tutorial.GetComponent<Tutorial>().start_town = true;
     }
 
     public void Step_9_Shop()
     {
         ClickOnShop.SetActive(false);
         BlockShop.SetActive(false);
-        Tutorial.GetComponent<Tutorial>().start_town = false;
+        Tutorial.GetComponent<Tutorial>().start_town_part_1 = false;
+    }
+
+    public void Step_number_ExitTown()
+    {
+        BlockTownExit.SetActive(false);
+        ClickOnTownExit.SetActive(false);
+        Tutorial.GetComponent<Tutorial>().start_town_part_2 = false;
     }
 
     public void Unlocked()
@@ -145,6 +166,14 @@ public class PlayerGameScript : MonoBehaviour
     }
 
     public void UnlockedTown()
+    {
+        BlockCasino.SetActive(false);
+        BlockShop.SetActive(false);
+        BlockTownExit.SetActive(false);
+        ClickOnShop.SetActive(false);
+    }
+
+    public void UnlockedShop()
     {
 
     }
