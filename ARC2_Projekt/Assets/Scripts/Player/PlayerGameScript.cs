@@ -23,8 +23,9 @@ public class PlayerGameScript : MonoBehaviour
 
         // UserInfoText.text = "User: " + CurrentPlayerUsername + " | Money: " + CurrentPlayerMoney + " | Life: " + CurrentPlayerLife + " | Level: " + CurrentPlayerLevel;
         UserInfoText.text = CurrentPlayerUsername + ": lvl " + CurrentPlayerLevel + "\nLife: " + CurrentPlayerLife + "\nMoney: " + CurrentPlayerMoney;
-        Debug.Log("Start = " + Tutorial.GetComponent<Tutorial>().start);
-        if (Tutorial.GetComponent<Tutorial>().start) StartTutorial();
+        Debug.Log("Start = " + Tutorial.GetComponent<Tutorial>().start_part_1);
+        if (Tutorial.GetComponent<Tutorial>().start_part_1) StartTutorialPart1();
+        else Unlocked();
     }
 
     public void LoadLeaderboard()
@@ -36,7 +37,7 @@ public class PlayerGameScript : MonoBehaviour
     {
         FindObjectOfType<SceneSwitcher>().LoadPlayer();
     }
-    public void StartTutorial()
+    public void StartTutorialPart1()
     {
         Welcome.SetActive(true);
     }
@@ -46,7 +47,7 @@ public class PlayerGameScript : MonoBehaviour
         BlockDungeon.SetActive(false);
         BlockCards.SetActive(false);
         BlockTown.SetActive(false);
-        Tutorial.GetComponent<Tutorial>().start = false;
+        Tutorial.GetComponent<Tutorial>().start_part_1 = false;
     }
 
 
@@ -92,5 +93,13 @@ public class PlayerGameScript : MonoBehaviour
     {
         ClickOnTown.SetActive(false);
         BlockTown.SetActive(false);
+        Tutorial.GetComponent<Tutorial>().start_part_1 = false;
+    }
+
+    public void Unlocked()
+    {
+        BlockCards.SetActive(false);
+        BlockTown.SetActive(false);
+        BlockDungeon.SetActive(false);
     }
 }

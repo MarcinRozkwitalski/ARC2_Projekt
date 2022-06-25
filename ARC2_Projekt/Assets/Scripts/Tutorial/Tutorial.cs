@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tutorial : MonoBehaviour
 {
 
-    public bool start = true, cards = true, town = true, shop = true, casino = true, blackJack = true, dungeon = true, battle = true;
+    public bool start_part_1 = true, start_part_2 = true, cards = true, town = true, shop = true, casino = true, blackJack = true, dungeon = true, battle = true;
 
 
 
@@ -20,8 +20,10 @@ public class Tutorial : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void Default(){
-        start = true;
+    public void Default()
+    {
+        start_part_1 = true;
+        start_part_2 = true;
         cards = true;
         town = true;
         shop = true;
@@ -31,12 +33,8 @@ public class Tutorial : MonoBehaviour
         battle = true;
     }
 
-    public bool ReturnStart(){
-        return this.start;
-    }
-
     public void CheckIfCanDestroy()
     {
-        if (start && cards && town && shop && casino && blackJack && dungeon && battle) Destroy(gameObject);
+        if (start_part_1 && start_part_2 && cards && town && shop && casino && blackJack && dungeon && battle) Destroy(gameObject);
     }
 }
