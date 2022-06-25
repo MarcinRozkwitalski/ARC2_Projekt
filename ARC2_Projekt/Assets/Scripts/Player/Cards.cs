@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class Cards : MonoBehaviour
 {
     public CardList cardList;
-    
+
     public TMP_Text CardsNumber;
     public TMP_Text PlayerMoney;
 
@@ -21,12 +21,17 @@ public class Cards : MonoBehaviour
     public GameObject shoppanel;
     public GameObject deckPanel;
     public GameObject CurrentPlayer;
+    public GameObject Tutorial;
+
+    public GameObject BlockDeckButtons, BlockDeckCards, BlockEquipmentButtons, BlockEquipmentCards, BlockExit;
+    public GameObject ObjectEquipmentCards, ObjectAttackCards, ObjectDefenceCards, ObjectSpecialCards, ObjectAllCards, ObjectDeckCards, ObjectCardsNumber_1, ObjectCardsNumber_2, ObjectSellCardsLimit, ObjectAddCardsToDeck, ObjectExit;
 
     public int cardsNumber;
     public string sceneName;
 
     void Start()
     {
+        Tutorial = GameObject.Find("TutorialManager");
         cardList = GameObject.Find("CardManager").GetComponent<CardList>();
         CurrentPlayer = GameObject.FindGameObjectWithTag("CurrentPlayer");
         Scene currentScene = SceneManager.GetActiveScene();
@@ -35,6 +40,8 @@ public class Cards : MonoBehaviour
         {
             GetAllCardsInfos();
             GetAllPlayerDeckCards();
+            if (Tutorial.GetComponent<Tutorial>().cards) StartCardsTutorial();
+            else Unlocked();
         }
         if (sceneName == "Shop")
         {
@@ -116,7 +123,7 @@ public class Cards : MonoBehaviour
         GetAllShopDefenceCards();
     }
 
-     public void AllShopSpecialCards()
+    public void AllShopSpecialCards()
     {
         DestroyAllShopCards();
         GetAllShopSpecialCards();
@@ -124,9 +131,9 @@ public class Cards : MonoBehaviour
 
     public void GetAllCardsInfos()
     {
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card.is_equipped == false && card.bought == true)
+            if (card.is_equipped == false && card.bought == true)
             {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(panel.transform, false);
@@ -145,9 +152,10 @@ public class Cards : MonoBehaviour
 
     public void GetAllAttackCards()
     {
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card.card_subtype == "Atak" && card.is_equipped == false && card.bought == true){
+            if (card.card_subtype == "Atak" && card.is_equipped == false && card.bought == true)
+            {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(panel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
@@ -165,9 +173,10 @@ public class Cards : MonoBehaviour
 
     public void GetAllDefenceCards()
     {
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card.card_subtype == "Obrona" && card.is_equipped == false && card.bought == true){
+            if (card.card_subtype == "Obrona" && card.is_equipped == false && card.bought == true)
+            {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(panel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
@@ -186,9 +195,10 @@ public class Cards : MonoBehaviour
 
     public void GetAllSpecialCards()
     {
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card.card_type == "Specjalna" && card.is_equipped == false && card.bought == true){
+            if (card.card_type == "Specjalna" && card.is_equipped == false && card.bought == true)
+            {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(panel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
@@ -228,7 +238,7 @@ public class Cards : MonoBehaviour
         var CardsInfos = GameObject.FindGameObjectsWithTag("ShowCard");
         foreach (var card in CardsInfos)
         {
-            Destroy (card);
+            Destroy(card);
         }
     }
 
@@ -237,16 +247,16 @@ public class Cards : MonoBehaviour
         var CardsInfos = GameObject.FindGameObjectsWithTag("PlayerCard");
         foreach (var card in CardsInfos)
         {
-            Destroy (card);
+            Destroy(card);
         }
     }
 
     public void GetAllPlayerDeckCards()
     {
         cardsNumber = 0;
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card.is_equipped == true && card.bought == true)
+            if (card.is_equipped == true && card.bought == true)
             {
                 cardsNumber++;
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
@@ -269,9 +279,9 @@ public class Cards : MonoBehaviour
 
     public void GetAllAttackPlayerDeckCards()
     {
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card.card_subtype == "Atak" && card.is_equipped == true && card.bought == true)
+            if (card.card_subtype == "Atak" && card.is_equipped == true && card.bought == true)
             {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(deckPanel.transform, false);
@@ -291,9 +301,9 @@ public class Cards : MonoBehaviour
 
     public void GetAllDefencePlayerDeckCards()
     {
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card.card_subtype == "Obrona" && card.is_equipped == true && card.bought == true)
+            if (card.card_subtype == "Obrona" && card.is_equipped == true && card.bought == true)
             {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(deckPanel.transform, false);
@@ -313,9 +323,9 @@ public class Cards : MonoBehaviour
 
     public void GetAllSpecialPlayerDeckCards()
     {
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card.card_type == "Specjalna" && card.is_equipped == true && card.bought == true)
+            if (card.card_type == "Specjalna" && card.is_equipped == true && card.bought == true)
             {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(deckPanel.transform, false);
@@ -338,124 +348,124 @@ public class Cards : MonoBehaviour
         switch (subtype)
         {
             case "Atak":
-            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
-            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
-            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
-            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
-            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
-            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
-            cardInfo.transform.Find("SpecialType").gameObject.SetActive(false);
-            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+                cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+                cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+                cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+                cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+                cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+                cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+                cardInfo.transform.Find("SpecialType").gameObject.SetActive(false);
+                cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
                 break;
             case "Obrona":
-            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
-            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
-            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
-            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
-            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
-            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
-            cardInfo.transform.Find("SpecialType").gameObject.SetActive(false);
-            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+                cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+                cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+                cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+                cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+                cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+                cardInfo.transform.Find("SpecialType").gameObject.SetActive(false);
+                cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
                 break;
             case "Ogluszenie":
-            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
-            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
-            cardInfo.transform.Find("Life").gameObject.SetActive(false);
-            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
-            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
-            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
-            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
-            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+                cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+                cardInfo.transform.Find("Life").gameObject.SetActive(false);
+                cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+                cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+                cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+                cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+                cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
                 break;
             case "Leczenie":
-            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
-            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
-            cardInfo.transform.Find("Life").gameObject.SetActive(false);
-            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
-            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
-            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
-            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
-            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+                cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+                cardInfo.transform.Find("Life").gameObject.SetActive(false);
+                cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+                cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+                cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+                cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+                cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
                 break;
             case "Oslabienie":
-            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
-            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
-            cardInfo.transform.Find("Life").gameObject.SetActive(false);
-            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
-            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
-            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
-            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
-            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+                cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+                cardInfo.transform.Find("Life").gameObject.SetActive(false);
+                cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+                cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+                cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+                cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+                cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
                 break;
             case "Pospiech":
-            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
-            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
-            cardInfo.transform.Find("Life").gameObject.SetActive(false);
-            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
-            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
-            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
-            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
-            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+                cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+                cardInfo.transform.Find("Life").gameObject.SetActive(false);
+                cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+                cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+                cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+                cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+                cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
                 break;
             case "Wzmocnienie":
-            cardInfo.transform.Find("Life").gameObject.SetActive(false);
-            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
-            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
-            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
-            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
-            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
-            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
-            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
-            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                cardInfo.transform.Find("Life").gameObject.SetActive(false);
+                cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+                cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+                cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+                cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+                cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+                cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+                cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+                cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
                 break;
             case "Wytrwalosc":
-            cardInfo.transform.Find("Life").gameObject.SetActive(false);
-            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
-            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
-            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
-            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
-            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
-            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
-            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
-            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                cardInfo.transform.Find("Life").gameObject.SetActive(false);
+                cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+                cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+                cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+                cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+                cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+                cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+                cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+                cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
                 break;
             case "Tecza":
-            cardInfo.transform.Find("Life").gameObject.SetActive(false);
-            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
-            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
-            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
-            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
-            cardInfo.transform.Find("Buff").gameObject.SetActive(false);
-            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
-            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                cardInfo.transform.Find("Life").gameObject.SetActive(false);
+                cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+                cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+                cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+                cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+                cardInfo.transform.Find("Buff").gameObject.SetActive(false);
+                cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+                cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
                 break;
             case "Ulepszenie":
-            cardInfo.transform.Find("Life").gameObject.SetActive(false);
-            cardInfo.transform.Find("Haste").gameObject.SetActive(false);
-            cardInfo.transform.Find("Heal").gameObject.SetActive(false);
-            cardInfo.transform.Find("Stun").gameObject.SetActive(false);
-            cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
-            cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
-            cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
-            cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
-            cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
+                cardInfo.transform.Find("Life").gameObject.SetActive(false);
+                cardInfo.transform.Find("Haste").gameObject.SetActive(false);
+                cardInfo.transform.Find("Heal").gameObject.SetActive(false);
+                cardInfo.transform.Find("Stun").gameObject.SetActive(false);
+                cardInfo.transform.Find("HoldDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("DoubleDefence").gameObject.SetActive(false);
+                cardInfo.transform.Find("Debuff").gameObject.SetActive(false);
+                cardInfo.transform.Find("PowerfullRandom").gameObject.SetActive(false);
+                cardInfo.transform.Find("DefenceType").gameObject.SetActive(false);
+                cardInfo.transform.Find("AttackType").gameObject.SetActive(false);
                 break;
         }
     }
@@ -467,13 +477,17 @@ public class Cards : MonoBehaviour
 
     public void AddRemoveCard(int id, bool is_equipped, string type)
     {
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
             if (card.id == id && card.is_equipped == false && cardsNumber < 20)
             {
                 card.is_equipped = true;
                 cardsNumber++;
                 CardsNumber.text = cardsNumber + "/20 cards ";
+                if (Tutorial.GetComponent<Tutorial>().cards && cardsNumber == 3)
+                {
+                    Cards_Step_11();
+                }
             }
             else if (card.id == id && card.is_equipped == true)
             {
@@ -482,8 +496,8 @@ public class Cards : MonoBehaviour
                 CardsNumber.text = cardsNumber + "/20 cards ";
             }
         }
-        
-        UpdateCards (type);
+
+        UpdateCards(type);
     }
 
     public void UpdateCards(string type)
@@ -515,7 +529,7 @@ public class Cards : MonoBehaviour
     {
         var showCard = Instantiate(showCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         showCard.transform.SetParent(mainpanel.transform, false);
-        CheckAddRemoveButton (Is_equipped, showCard);
+        CheckAddRemoveButton(Is_equipped, showCard);
         CheckBuySellButton(Id, showCard);
         CheckSubtype(showCard, Type);
         showCard.GetComponent<CardsInfo>().cardname = Cardname;
@@ -526,7 +540,7 @@ public class Cards : MonoBehaviour
             showCard.GetComponent<CardsInfo>().price = Price;
             showCard.transform.Find("AddToDeck").gameObject.SetActive(false);
         }
-        else if (sceneName == "Cards")  showCard.GetComponent<CardsInfo>().price = Price / 2;
+        else if (sceneName == "Cards") showCard.GetComponent<CardsInfo>().price = Price / 2;
 
         showCard.GetComponent<CardsInfo>().points = Points;
         showCard.GetComponent<CardsInfo>().healthPoints = HealthPoints;
@@ -535,30 +549,30 @@ public class Cards : MonoBehaviour
         showCard.GetComponent<CardsInfo>().AssignInfo();
     }
 
-    public void SellCardFromInventory(int id, int price, string type,bool is_equipped)
+    public void SellCardFromInventory(int id, int price, string type, bool is_equipped)
     {
         SellCard(id, price, type, is_equipped);
     }
 
     public void SellCard(int id, int price, string type, bool is_equipped)
     {
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card.id == id && card.is_equipped == true)
+            if (card.id == id && card.is_equipped == true)
             {
                 card.is_equipped = false;
                 card.bought = false;
                 cardsNumber--;
                 CardsNumber.text = cardsNumber + "/20 cards ";
             }
-            else if(card.id == id && card.is_equipped == false)
+            else if (card.id == id && card.is_equipped == false)
             {
                 card.is_equipped = false;
                 card.bought = false;
             }
         }
-            CurrentPlayer.GetComponent<CurrentPlayer>().Money += price;
-            UpdateCards (type);
+        CurrentPlayer.GetComponent<CurrentPlayer>().Money += price;
+        UpdateCards(type);
     }
 
     public void BuyCardFromInventory(int id, int price)
@@ -568,9 +582,9 @@ public class Cards : MonoBehaviour
 
     public void BuyCard(int id, int price)
     {
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card.id == id)
+            if (card.id == id)
             {
                 CurrentPlayer.GetComponent<CurrentPlayer>().Money -= card.price;
                 card.bought = true;
@@ -582,31 +596,31 @@ public class Cards : MonoBehaviour
 
     public void CheckAddRemoveButton(bool is_equipped, GameObject showCard)
     {
-        if (is_equipped == true)    showCard.transform.Find("AddToDeck").gameObject.SetActive(false);
-        else                        showCard.transform.Find("RemoveFromDeck").gameObject.SetActive(false);
+        if (is_equipped == true) showCard.transform.Find("AddToDeck").gameObject.SetActive(false);
+        else showCard.transform.Find("RemoveFromDeck").gameObject.SetActive(false);
     }
 
     public void CheckBuySellButton(int card_id, GameObject showCard)
     {
         int howMany = 0;
-        foreach(var card in cardList.cardsList)
-        {            
-            if(card.bought == true) howMany++;
+        foreach (var card in cardList.cardsList)
+        {
+            if (card.bought == true) howMany++;
             Debug.Log("howMany: " + howMany);
         }
 
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card_id == card.id && card.bought == true)
+            if (card_id == card.id && card.bought == true)
             {
                 showCard.transform.Find("Buy").gameObject.SetActive(false);
-                if(howMany < 4)
+                if (howMany < 4)
                 {
                     Debug.Log("howMany: " + howMany);
                     showCard.transform.Find("Sell").gameObject.SetActive(false);
                 }
             }
-            else if(card_id == card.id && card.bought == false)
+            else if (card_id == card.id && card.bought == false)
             {
                 showCard.transform.Find("Sell").gameObject.SetActive(false);
             }
@@ -615,9 +629,10 @@ public class Cards : MonoBehaviour
 
     public void GetAllShopCard()
     {
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card.bought == false){
+            if (card.bought == false)
+            {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(shoppanel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
@@ -635,9 +650,10 @@ public class Cards : MonoBehaviour
 
     public void GetAllShopAttackCards()
     {
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card.card_subtype == "Atak" && card.bought == false){
+            if (card.card_subtype == "Atak" && card.bought == false)
+            {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(shoppanel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
@@ -655,9 +671,10 @@ public class Cards : MonoBehaviour
 
     public void GetAllShopDefenceCards()
     {
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card.card_subtype == "Obrona" && card.bought == false){
+            if (card.card_subtype == "Obrona" && card.bought == false)
+            {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(shoppanel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
@@ -675,9 +692,10 @@ public class Cards : MonoBehaviour
 
     public void GetAllShopSpecialCards()
     {
-        foreach(var card in cardList.cardsList)
+        foreach (var card in cardList.cardsList)
         {
-            if(card.card_type == "Specjalna" && card.bought == false){
+            if (card.card_type == "Specjalna" && card.bought == false)
+            {
                 var CardsInfo = Instantiate(CardsInfoPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 CardsInfo.transform.SetParent(shoppanel.transform, false);
                 CheckSubtype(CardsInfo, card.card_subtype);
@@ -691,5 +709,85 @@ public class Cards : MonoBehaviour
                 CardsInfo.GetComponent<CardsInfo>().AssignInfo();
             }
         }
+    }
+
+    public void StartCardsTutorial()
+    {
+        ObjectEquipmentCards.SetActive(true);
+    }
+
+    public void Cards_Step_1()
+    {
+        ObjectEquipmentCards.SetActive(false);
+        ObjectAttackCards.SetActive(true);
+    }
+    public void Cards_Step_2()
+    {
+        ObjectAttackCards.SetActive(false);
+        ObjectDefenceCards.SetActive(true);
+    }
+    public void Cards_Step_3()
+    {
+        ObjectDefenceCards.SetActive(false);
+        ObjectSpecialCards.SetActive(true);
+    }
+    public void Cards_Step_4()
+    {
+        ObjectSpecialCards.SetActive(false);
+        ObjectAllCards.SetActive(true);
+    }
+    public void Cards_Step_5()
+    {
+        ObjectAllCards.SetActive(false);
+        ObjectDeckCards.SetActive(true);
+    }
+    public void Cards_Step_6()
+    {
+        ObjectDeckCards.SetActive(false);
+        ObjectCardsNumber_1.SetActive(true);
+    }
+    public void Cards_Step_7()
+    {
+        ObjectCardsNumber_1.SetActive(false);
+        ObjectCardsNumber_2.SetActive(true);
+    }
+    public void Cards_Step_8()
+    {
+        ObjectCardsNumber_2.SetActive(false);
+        ObjectSellCardsLimit.SetActive(true);
+    }
+    public void Cards_Step_9()
+    {
+        ObjectSellCardsLimit.SetActive(false);
+        ObjectAddCardsToDeck.SetActive(true);
+    }
+
+    public void Cards_Step_10()
+    {
+        ObjectAddCardsToDeck.SetActive(false);
+        BlockEquipmentButtons.SetActive(false);
+        BlockEquipmentCards.SetActive(false);
+    }
+    public void Cards_Step_11()
+    {
+        ObjectExit.SetActive(true);
+        BlockEquipmentButtons.SetActive(true);
+        BlockEquipmentCards.SetActive(true);
+    }
+
+    public void Cards_Step_12()
+    {
+        ObjectExit.SetActive(false);
+        BlockExit.SetActive(false);
+        Tutorial.GetComponent<Tutorial>().cards = false;
+    }
+
+    public void Unlocked()
+    {
+        BlockDeckButtons.SetActive(false);
+        BlockDeckCards.SetActive(false);
+        BlockEquipmentButtons.SetActive(false);
+        BlockEquipmentCards.SetActive(false);
+        BlockExit.SetActive(false);
     }
 }

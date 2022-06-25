@@ -48,15 +48,15 @@ public class CardList : MonoBehaviour
         cardsList.Add(new CardList.Cards(1, "Postac w ogromnym szale zaczyna ryczec na przeciwnika.", "Bestialski ryk", 
                                             "Atak", "Atak", 
                                             2, 1, 70, 
-                                            true, true));
+                                            false, true));
         cardsList.Add(new CardList.Cards(2, "Postac wymierza sprawiedliwosc przeciwnikowi przez uderzenie otwarta dlonia.", "Spadajacy lisc", 
                                             "Atak", "Atak", 
                                             4, 2, 120, 
-                                            true, true));
+                                            false, true));
         cardsList.Add(new CardList.Cards(3, "Postac obzera sie kanapkami zwiekszajac swoja mase tluszczowa.", "Grubo skorny", 
                                             "Obrona", "Obrona", 
                                             3, 1, 80, 
-                                            true, true));
+                                            false, true));
         cardsList.Add(new CardList.Cards(4, "Postac wyciaga krolika z kapelusza, ktory zaslania nasza postac przed obrazeniami.", "Znikajacy krolik",
                                             "Obrona", "Obrona", 
                                             1, 0, 50, 
