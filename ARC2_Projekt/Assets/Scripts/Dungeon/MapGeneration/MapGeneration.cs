@@ -82,6 +82,7 @@ public class MapGeneration : MonoBehaviour
     public TMP_Text money;
     public TMP_Text saveMoney;
     public TMP_Text lvl_1_text, lvl_2_text, lvl_3_text, lvl_4_text, lvl_5_text, lvl_6_text, lvl_7_text, lvl_8_text, lvl_9_text, lvl_10_text;
+    public GameObject Tutorial, ObjectTutorial;
 
 
     public bool battle_started = false;
@@ -99,6 +100,7 @@ public class MapGeneration : MonoBehaviour
         MapStatus = GameObject.Find("MapStatus");
         SceneSwitcher = GameObject.Find("SceneManager");
         TempPlayer = GameObject.Find("PlayerManager");
+        Tutorial = GameObject.Find("TutorialManager");
     }
 
     void Start()
@@ -110,10 +112,11 @@ public class MapGeneration : MonoBehaviour
             UpdatePlayerInfoBars();
             ShowLevel();
             GenerateLevels();
+            if (Tutorial.GetComponent<Tutorial>().dungeon) StartTutorial();
         }
         else
         {
-            
+
             UpdatePlayerInfoBars();
             GetThisLevelListFromMapStatus();
             UpdateMapGeneration();
@@ -254,7 +257,7 @@ public class MapGeneration : MonoBehaviour
     {
         // pop up? bar?
         TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife -= 20;
-        if(TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife <= 0)TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife = 1;
+        if (TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife <= 0) TempPlayer.GetComponent<TempCurrentPlayer>().TempPlayerLife = 1;
         int option = Random.Range(1, 4);
         switch (option)
         {
@@ -2565,5 +2568,16 @@ public class MapGeneration : MonoBehaviour
         lvl_8_text.text = (8 + dungeon_zone * 10).ToString();
         lvl_9_text.text = (9 + dungeon_zone * 10).ToString();
         lvl_10_text.text = (10 + dungeon_zone * 10).ToString();
+    }
+
+    public void StartTutorial()
+    {
+        ObjectTutorial.SetActive(true);
+    }
+
+    public void CloseTutorial()
+    {
+        ObjectTutorial.SetActive(false);
+        Tutorial.GetComponent<Tutorial>().dungeon = false;
     }
 }
