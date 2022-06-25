@@ -26,12 +26,10 @@ public class PlayerGameScript : MonoBehaviour
         int CurrentPlayerLife = CurrentPlayer.GetComponent<CurrentPlayer>().Life;
         int CurrentPlayerLevel = CurrentPlayer.GetComponent<CurrentPlayer>().Level;
 
-        // UserInfoText.text = "User: " + CurrentPlayerUsername + " | Money: " + CurrentPlayerMoney + " | Life: " + CurrentPlayerLife + " | Level: " + CurrentPlayerLevel;
-        //UserInfoText.text = CurrentPlayerUsername + ": lvl " + CurrentPlayerLevel + "\nLife: " + CurrentPlayerLife + "\nMoney: " + CurrentPlayerMoney;
-        Debug.Log("Start = " + Tutorial.GetComponent<Tutorial>().start_part_1);
-
         if(scene.name == "Welcome")
         {
+            UserInfoText.text = CurrentPlayerUsername + ": lvl " + CurrentPlayerLevel + "\nLife: " + CurrentPlayerLife + "\nMoney: " + CurrentPlayerMoney;
+
             if (Tutorial.GetComponent<Tutorial>().start_part_1) StartTutorialPart1();
             else if (Tutorial.GetComponent<Tutorial>().start_part_2) StartTutorialPart2();
             else if (Tutorial.GetComponent<Tutorial>().start_part_3) StartTutorialPart3();
@@ -213,7 +211,7 @@ public class PlayerGameScript : MonoBehaviour
         BlockShopSortCards.SetActive(false);
     }
 
-    public void Step_number_ExitTown()
+    public void Step_18_ExitTown()
     {
         BlockTownExit.SetActive(false);
         ClickOnTownExit.SetActive(false);

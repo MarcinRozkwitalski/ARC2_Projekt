@@ -653,6 +653,7 @@ MonoBehaviour:
   ShopInformation_07: {fileID: 1129366797}
   ShopInformation_08: {fileID: 1396143935}
   ClickOnPlayerCards: {fileID: 0}
+  ClickOnDungeons: {fileID: 0}
 --- !u!1 &112492051
 GameObject:
   m_ObjectHideFlags: 0
@@ -7509,6 +7510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   start_part_1: 1
   start_part_2: 1
+  start_part_3: 1
   start_town_part_1: 1
   start_town_part_2: 1
   start_shop: 1

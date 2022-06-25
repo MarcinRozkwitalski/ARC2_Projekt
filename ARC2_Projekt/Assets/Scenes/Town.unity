@@ -162,6 +162,9 @@ MonoBehaviour:
   BlockShop: {fileID: 1666099871}
   BlockCasino: {fileID: 1353108066}
   BlockTownExit: {fileID: 1470280173}
+  BlockShopSortCards: {fileID: 0}
+  BlockShopExit: {fileID: 0}
+  BlockShopCards: {fileID: 0}
   Welcome: {fileID: 0}
   PlayerInfo: {fileID: 0}
   HowToLevelUp_1: {fileID: 0}
@@ -172,6 +175,16 @@ MonoBehaviour:
   ClickOnTown: {fileID: 0}
   ClickOnShop: {fileID: 1009628262}
   ClickOnTownExit: {fileID: 254696557}
+  ShopInformation_01: {fileID: 0}
+  ShopInformation_02: {fileID: 0}
+  ShopInformation_03: {fileID: 0}
+  ShopInformation_04: {fileID: 0}
+  ShopInformation_05: {fileID: 0}
+  ShopInformation_06: {fileID: 0}
+  ShopInformation_07: {fileID: 0}
+  ShopInformation_08: {fileID: 0}
+  ClickOnPlayerCards: {fileID: 0}
+  ClickOnDungeons: {fileID: 0}
 --- !u!4 &46514602
 Transform:
   m_ObjectHideFlags: 0
@@ -2145,7 +2158,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 46514601}
         m_TargetAssemblyTypeName: PlayerGameScript, Assembly-CSharp
-        m_MethodName: Step_number_ExitTown
+        m_MethodName: Step_18_ExitTown
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

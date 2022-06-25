@@ -809,5 +809,7 @@ public class Cards : MonoBehaviour
     {
         BlockShopExit.SetActive(false);
         ShopInformation_09.SetActive(false);
+        Tutorial.GetComponent<Tutorial>().shop_card = false;
+        Tutorial.GetComponent<Tutorial>().start_shop = false;
     }
 }
