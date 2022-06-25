@@ -103,6 +103,8 @@ public class PlayerGameScript : MonoBehaviour
         Tutorial.GetComponent<Tutorial>().start_town_part_1 = false;
         Tutorial.GetComponent<Tutorial>().start_town_part_2 = false;
         Tutorial.GetComponent<Tutorial>().start_shop = false;
+        Tutorial.GetComponent<Tutorial>().shop_card = false;
+        Tutorial.GetComponent<Tutorial>().cards = false;
     }
 
     public void Step_1()
