@@ -588,12 +588,23 @@ public class Cards : MonoBehaviour
 
     public void CheckBuySellButton(int card_id, GameObject showCard)
     {
+        int howMany = 0;
+        foreach(var card in cardList.cardsList)
+        {            
+            if(card.bought == true) howMany++;
+            Debug.Log("howMany: " + howMany);
+        }
+
         foreach(var card in cardList.cardsList)
         {
             if(card_id == card.id && card.bought == true)
             {
                 showCard.transform.Find("Buy").gameObject.SetActive(false);
-                /// jesli liczba kart jest mniejsza niz 4 to nie pokazuj również sell
+                if(howMany < 4)
+                {
+                    Debug.Log("howMany: " + howMany);
+                    showCard.transform.Find("Sell").gameObject.SetActive(false);
+                }
             }
             else if(card_id == card.id && card.bought == false)
             {

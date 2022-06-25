@@ -5,7 +5,8 @@ using UnityEngine;
 public class Tutorial : MonoBehaviour
 {
 
-    public bool start_part_1 = true, start_part_2 = true, cards = true, town = true, shop = true, casino = true, blackJack = true, dungeon = true, battle = true;
+    public bool start_part_1 = true, start_part_2 = true, start_town = true,
+    cards = true, town = true, shop = true, casino = true, blackJack = true, dungeon = true, battle = true;
 
 
 
@@ -24,6 +25,7 @@ public class Tutorial : MonoBehaviour
     {
         start_part_1 = true;
         start_part_2 = true;
+        start_town = true;
         cards = true;
         town = true;
         shop = true;
