@@ -12,7 +12,8 @@ public class PlayerGameScript : MonoBehaviour
     public TMP_Text UserInfoText;
     public GameObject CurrentPlayer, Tutorial, BlockDungeon, BlockCards, BlockTown, BlockShop, BlockCasino, BlockTownExit, BlockShopSortCards, BlockShopExit, BlockShopCards;
     public GameObject Welcome, PlayerInfo, HowToLevelUp_1, HowToLevelUp_2, HowToEnterDungeon, HowToGetCards_1, HowToGetCards_2, ClickOnTown, ClickOnShop, ClickOnTownExit,
-                        ShopInformation_01, ShopInformation_02, ShopInformation_03, ShopInformation_04, ShopInformation_05, ShopInformation_06, ShopInformation_07, ShopInformation_08;
+                        ShopInformation_01, ShopInformation_02, ShopInformation_03, ShopInformation_04, ShopInformation_05, ShopInformation_06, ShopInformation_07, ShopInformation_08,
+                        ClickOnPlayerCards, ClickOnDungeons;
 
     private void Start()
     {
@@ -32,7 +33,8 @@ public class PlayerGameScript : MonoBehaviour
         if(scene.name == "Welcome")
         {
             if (Tutorial.GetComponent<Tutorial>().start_part_1) StartTutorialPart1();
-            // else if (Tutorial.GetComponent<Tutorial>().start_part_2) StartTutorialPart2();
+            else if (Tutorial.GetComponent<Tutorial>().start_part_2) StartTutorialPart2();
+            else if (Tutorial.GetComponent<Tutorial>().start_part_3) StartTutorialPart3();
             else Unlocked();
         }
         
@@ -100,8 +102,11 @@ public class PlayerGameScript : MonoBehaviour
         BlockCards.SetActive(false);
         BlockTown.SetActive(false);
         Tutorial.GetComponent<Tutorial>().start_part_1 = false;
+        Tutorial.GetComponent<Tutorial>().start_part_2 = false;
+        Tutorial.GetComponent<Tutorial>().start_part_3 = false;
         Tutorial.GetComponent<Tutorial>().start_town_part_1 = false;
         Tutorial.GetComponent<Tutorial>().start_town_part_2 = false;
+        Tutorial.GetComponent<Tutorial>().dungeon = false;
         Tutorial.GetComponent<Tutorial>().start_shop = false;
         Tutorial.GetComponent<Tutorial>().shop_card = false;
         Tutorial.GetComponent<Tutorial>().cards = false;
@@ -237,6 +242,32 @@ public class PlayerGameScript : MonoBehaviour
 
     public void StartTutorialPart2()
     {
-        
+        BlockDungeon.SetActive(true);
+        BlockTown.SetActive(true);
+        BlockCards.SetActive(true);
+        ClickOnPlayerCards.SetActive(true);
+    }
+
+    public void ClickOnPlayerCardsButton()
+    {
+        BlockCards.SetActive(false);
+        ClickOnPlayerCards.SetActive(false);
+        Tutorial.GetComponent<Tutorial>().start_part_2 = false;
+        Tutorial.GetComponent<Tutorial>().start_part_3 = true;
+    }
+
+    public void StartTutorialPart3()
+    {
+        BlockTown.SetActive(true);
+        BlockCards.SetActive(true);
+        BlockDungeon.SetActive(true);
+        ClickOnDungeons.SetActive(true);
+    }
+
+    public void ClickOnDungeonsButton()
+    {
+        ClickOnDungeons.SetActive(false);
+        BlockDungeon.SetActive(false);
+        Tutorial.GetComponent<Tutorial>().start_part_3 = false;
     }
 }

@@ -4470,7 +4470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Also you cannot sell cards if you have less then 4
+  m_text: Also you cannot sell cards if you have less than 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -5803,6 +5803,10 @@ MonoBehaviour:
   ObjectSellCardsLimit: {fileID: 1632883918}
   ObjectAddCardsToDeck: {fileID: 857774532}
   ObjectExit: {fileID: 179952813}
+  BlockShopSortCards: {fileID: 0}
+  BlockShopExit: {fileID: 0}
+  BlockShopCards: {fileID: 0}
+  ShopInformation_09: {fileID: 0}
   cardsNumber: 0
   sceneName: 
 --- !u!1 &1144472701

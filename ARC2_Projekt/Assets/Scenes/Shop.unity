@@ -652,6 +652,7 @@ MonoBehaviour:
   ShopInformation_06: {fileID: 636048596}
   ShopInformation_07: {fileID: 1129366797}
   ShopInformation_08: {fileID: 1396143935}
+  ClickOnPlayerCards: {fileID: 0}
 --- !u!1 &112492051
 GameObject:
   m_ObjectHideFlags: 0
@@ -3393,7 +3394,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Now try to buy any card by clicking on card that you want to buy. You can
     view more cards by clicking and dragging mouse up or down, or by scrolling with
-    scrollwheel.
+    scrollwheel
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}

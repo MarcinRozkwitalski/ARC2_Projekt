@@ -968,6 +968,9 @@ MonoBehaviour:
   BlockShop: {fileID: 0}
   BlockCasino: {fileID: 0}
   BlockTownExit: {fileID: 0}
+  BlockShopSortCards: {fileID: 0}
+  BlockShopExit: {fileID: 0}
+  BlockShopCards: {fileID: 0}
   Welcome: {fileID: 1617913256}
   PlayerInfo: {fileID: 1181375184}
   HowToLevelUp_1: {fileID: 1663910335}
@@ -977,6 +980,17 @@ MonoBehaviour:
   HowToGetCards_2: {fileID: 856086117}
   ClickOnTown: {fileID: 168462010}
   ClickOnShop: {fileID: 0}
+  ClickOnTownExit: {fileID: 0}
+  ShopInformation_01: {fileID: 0}
+  ShopInformation_02: {fileID: 0}
+  ShopInformation_03: {fileID: 0}
+  ShopInformation_04: {fileID: 0}
+  ShopInformation_05: {fileID: 0}
+  ShopInformation_06: {fileID: 0}
+  ShopInformation_07: {fileID: 0}
+  ShopInformation_08: {fileID: 0}
+  ClickOnPlayerCards: {fileID: 84108663}
+  ClickOnDungeons: {fileID: 1270773365}
 --- !u!1 &192020825
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,7 +1290,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   start_part_1: 1
   start_part_2: 1
-  start_town: 1
+  start_part_3: 1
+  start_town_part_1: 1
+  start_town_part_2: 1
+  start_shop: 1
+  shop_card: 1
   cards: 0
   town: 0
   shop: 0
@@ -2240,7 +2258,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 184301092}
         m_TargetAssemblyTypeName: PlayerGameScript, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: ClickOnDungeonsButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3197,7 +3215,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 184301092}
         m_TargetAssemblyTypeName: PlayerGameScript, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: ClickOnPlayerCardsButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3902,14 +3920,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'In dungeon you gain level by entering new zone.
+  m_text: 'In dungeon you gain level by entering new zone
 
 
     Zone Level = Your
     Level
 
 
-    Each zone has 10 steps.
+    Each zone has 10 steps
 
 
     Zones:
@@ -3927,7 +3945,7 @@ MonoBehaviour:
     If you die on
     zone 1 and go back to dungeon
 
-    again. You dont reset your level to 0.
+    again. You dont reset your level to 0
 
 '
   m_isRightToLeft: 0
@@ -7529,8 +7547,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "You need to go to town where is the shop.\n\n In the shop you buy cards.\n\nAfter
-    you buy go to \"Player Cards\".\n\nThere you apply them in your deck."
+  m_text: 'You need to go to town where is the shop
+
+
+    In the shop you buy cards
+
+
+    After
+    you buy go to "Player Cards"
+
+
+    There you apply them in your deck'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
