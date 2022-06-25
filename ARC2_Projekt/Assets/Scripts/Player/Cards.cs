@@ -794,6 +794,7 @@ public class Cards : MonoBehaviour
         BlockEquipmentButtons.SetActive(false);
         BlockEquipmentCards.SetActive(false);
         BlockExit.SetActive(false);
+        ObjectEquipmentCards.SetActive(false);
     }
 
     public void Shop_Card_1()
