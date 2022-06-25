@@ -1015,7 +1015,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d296e772d3b185245855694e9cac9226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: 0
+  start_part_1: 1
+  start_part_2: 1
   cards: 0
   town: 0
   shop: 0
@@ -2841,7 +2842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &856086118
 RectTransform:
   m_ObjectHideFlags: 0
