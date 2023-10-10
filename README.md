@@ -4,3 +4,5 @@
 Player navigates through a randomly generated mazes, defeating opponents and earning gold, which can be used to purchase various cards for their inventory to progress further.
 
 My role involved programming turn-based combat loops, creating an SQL database for cards and enemies, designing the card-drawing and playing logic, and managing views and graphics.
+
+It's worth noting that the majority of the graphics used in this game are attributed to Blizzard Entertainment.
